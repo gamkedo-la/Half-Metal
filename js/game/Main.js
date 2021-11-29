@@ -1,6 +1,7 @@
 var canvas, canvasContext;
 
 var player = new playerClass();
+var gamepad = new GamepadSupport();
 var bullets = new Array();
 var enemies = new Array();
 var entities = new Array();
@@ -80,6 +81,7 @@ function loadLevel(whichLevel) {
 }
 
 function updateAll() {
+  gamepad.update();
   moveAll();
   player.shoot();
   drawAll();
