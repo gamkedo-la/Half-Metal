@@ -11,6 +11,7 @@ async function loadSounds() {
   const soundList = [
     { sndName: "shoot", theFile: "snd_shoot.wav" },
     { sndName: "destroy", theFile: "snd_destroy.wav" },
+    { sndName: "bump", theFile: "snd_bump.wav" },
   ];
 
   soundsToLoad = soundList.length;

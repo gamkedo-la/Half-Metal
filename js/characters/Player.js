@@ -13,6 +13,9 @@ function playerClass() {
   this.shootDelay = this.MAX_DELAY;
   this.didShoot = false;
 
+  this.justBumpedWall = false;
+  this.bumpDelay = 30;
+
   this.keyHeld_North = false;
   this.keyHeld_South = false;
   this.keyHeld_West = false;
@@ -105,6 +108,12 @@ function playerClass() {
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
         break;
       case TILE_WALL:
+        if (this.bumpDelay <= 0) {
+          playSound(sounds.bump);
+          this.bumpDelay = 30;
+        }
+        this.bumpDelay -= 1;
+
       default:
         break;
     }
