@@ -132,6 +132,7 @@ function playerClass() {
         enemy.y + enemy.height > player.y
       ) {
         loadLevel(levels[currentLevel].level_map);
+        playSound(sounds.lose);
       }
     });
   };
