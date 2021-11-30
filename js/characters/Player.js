@@ -3,8 +3,8 @@ const PLAYER_MOVE_SPEED = 4.0;
 function playerClass() {
   this.x = 75;
   this.y = 75;
-  this.width = 32;
-  this.height = 32;
+  this.width = 18;
+  this.height = 26;
   this.image;
   this.name = "Player";
   this.ammo = 0;
@@ -170,7 +170,7 @@ function playerClass() {
   };
 
   this.draw = function () {
-    drawBitmapCenteredWithRotation(this.image, this.x, this.y, 0, 1.3, 1.3);
+    drawBitmapCenteredWithRotation(this.image, this.x, this.y, 0);
     // canvasContext.fillText(this.ammo, this.x - 3, this.y + 3);
   };
 }

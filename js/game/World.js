@@ -1,8 +1,8 @@
-const WORLD_W = 32;
-const WORLD_H = 32;
-const WORLD_GAP = 2;
+const WORLD_W = 16;
+const WORLD_H = 16;
+const WORLD_GAP = 1;
 const WORLD_COLS = 16;
-const WORLD_ROWS = 16;
+const WORLD_ROWS = 15;
 
 var worldGrid = [];
 

@@ -1,12 +1,12 @@
 function enemyClass() {
   this.name = "Enemy";
   this.type = "Enemy";
-  this.speed = 4;
+  this.speed = 3;
   this.health = 1;
   this.damage = 1;
   this.image;
-  this.height = 32;
-  this.width = 32;
+  this.height = 16;
+  this.width = 16;
   this.moveLeft = false;
   this.moveRight = false;
   this.moveUp = false;
@@ -61,7 +61,7 @@ function enemyClass() {
     nextX = this.x;
     nextY = this.y;
 
-    if (this.alerted) this.speed = 8;
+    if (this.alerted) this.speed = 6;
 
     var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
     walkIntoTileType = TILE_GROUND;
