@@ -28,7 +28,7 @@ function bulletClass() {
         self.removeSelf();
         break;
       case TILE_WALL:
-      case TILE_IRON_WALL:
+      case TILE_STURDY_WALL:
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
         this.removeSelf();
         playSound(sounds.destroy);

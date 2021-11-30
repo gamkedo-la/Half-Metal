@@ -26,7 +26,7 @@ function movingWallClass() {
       case TILE_DOOR:
       case TILE_AMMO:
       case TILE_WALL:
-      case TILE_IRON_WALL:
+      case TILE_STURDY_WALL:
         reverseDirection(this);
         moveInOwnDirection(this);
         break;

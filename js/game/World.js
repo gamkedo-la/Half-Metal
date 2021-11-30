@@ -13,7 +13,7 @@ const TILE_GOAL = 3;
 const TILE_AMMO = 4;
 const TILE_DOOR = 5;
 const TILE_ENEMY = 6;
-const TILE_IRON_WALL = 7;
+const TILE_STURDY_WALL = 7;
 const TILE_WARP = 8;
 
 function returnTileTypeAtColRow(col, row) {

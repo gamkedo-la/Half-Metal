@@ -108,6 +108,7 @@ function playerClass() {
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
         break;
       case TILE_WALL:
+      case TILE_STURDY_WALL:
         if (this.bumpDelay <= 0) {
           playSound(sounds.bump);
           this.bumpDelay = 30;

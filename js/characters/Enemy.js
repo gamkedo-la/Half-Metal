@@ -87,7 +87,7 @@ function enemyClass() {
         }
         moveInOwnDirection(this);
         break;
-      case TILE_IRON_WALL:
+      case TILE_STURDY_WALL:
         reverseDirection(this);
         moveInOwnDirection(this);
         break;

@@ -33,7 +33,7 @@ function RayClass(x, y, direction) {
         break;
       case TILE_WALL:
         this.destroyed = true;
-      case TILE_IRON_WALL:
+      case TILE_STURDY_WALL:
         this.destroyed = true;
       default:
         break;

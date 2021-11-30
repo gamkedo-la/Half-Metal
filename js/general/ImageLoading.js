@@ -31,7 +31,7 @@ function loadImages() {
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },
-    { worldType: TILE_IRON_WALL, theFile: "world_iron_wall.png" },
+    { worldType: TILE_STURDY_WALL, theFile: "world_sturdy_wall.png" },
     { worldType: TILE_GOAL, theFile: "world_goal.png" },
     { worldType: TILE_AMMO, theFile: "world_ammo.png" },
     { worldType: TILE_DOOR, theFile: "world_door.png" },
