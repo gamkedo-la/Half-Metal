@@ -55,6 +55,10 @@ function keySet(keyEvent, setTo) {
   }
   if (keyEvent.keyCode == player.controlKeyShoot) {
     player.keyHeld_Shoot = setTo;
+    
+    if (!keyEvent.repeat) {
+      player.keyPressed_Shoot = setTo;
+    }
   }
   if (keyEvent.keyCode == KEY_RESET) {
     loadLevel(levels[currentLevel].level_map);

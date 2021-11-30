@@ -83,7 +83,7 @@ function loadLevel(whichLevel) {
 function updateAll() {
   gamepad.update();
   moveAll();
-  player.shoot();
+  player.update();
   drawAll();
 }
 

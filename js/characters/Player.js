@@ -22,6 +22,8 @@ function playerClass() {
   this.keyHeld_East = false;
   this.keyHeld_Shoot = false;
 
+  this.keyPressed_Shoot = false;
+
   this.controlKeyUp;
   this.controlKeyRight;
   this.controlKeyDown;
@@ -159,6 +161,11 @@ function playerClass() {
       this.ammo -= 1;
     }
 
+    if (this.ammo === 0 && this.keyPressed_Shoot) {
+      playSound(sounds.no_ammo);
+      this.keyPressed_Shoot = false;
+    }
+
     if (this.didShoot) {
       this.shootDelay -= 1;
     }
@@ -167,6 +174,20 @@ function playerClass() {
       this.shootDelay = this.MAX_DELAY;
       this.didShoot = false;
     }
+  };
+
+  this.input = function () {
+    if (this.keyHeld_Shoot && !this.keyPressed_Shoot) {
+      this.keyPressed_Shoot = true;
+    }
+
+    if (!this.keyHeld_Shoot) {
+      this.keyPressed_Shoot = false;
+    }
+  };
+
+  this.update = function () {
+    this.shoot();
   };
 
   this.draw = function () {
