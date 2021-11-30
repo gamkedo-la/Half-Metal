@@ -176,16 +176,6 @@ function playerClass() {
     }
   };
 
-  this.input = function () {
-    if (this.keyHeld_Shoot && !this.keyPressed_Shoot) {
-      this.keyPressed_Shoot = true;
-    }
-
-    if (!this.keyHeld_Shoot) {
-      this.keyPressed_Shoot = false;
-    }
-  };
-
   this.update = function () {
     this.shoot();
   };
