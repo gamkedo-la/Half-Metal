@@ -6,6 +6,7 @@ var bullets = new Array();
 var enemies = new Array();
 var entities = new Array();
 var editor = new EditorClass();
+editor.initiateUI();
 
 const EDIT_MODE = "EDIT_MODE";
 const PLAY_MODE = "PLAY_MODE";
@@ -14,6 +15,7 @@ var currentMode = PLAY_MODE;
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
+  canvasContext.font = "8px Arial";
 
   colorRect(0, 0, canvas.width, canvas.height, "white");
   colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, "white");
@@ -95,6 +97,7 @@ function updateAll() {
       break;
     case EDIT_MODE:
       editor.update();
+      drawAll();
       break;
     default:
       break;

@@ -4,7 +4,7 @@
 // --------------------------------------------
 // | NEW | SAVE | LOAD | PLAY
 // |----- ------ ------ -----------------------
-// |
+// | Toolbar ^
 // |  ------------------------------   _________
 // | |                              | | ENEMIES |
 // | |                              | | SHOTS   |
@@ -14,7 +14,7 @@
 // | |        LEVEL MAP             | | PLAYER  |
 // | |                              | |         |
 // | |                              |  ---------
-// | |                              |
+// | |                              |  Palette ^
 // | |                              |
 // | |                              |
 // |  ------------------------------
@@ -50,7 +50,7 @@ function EditorClass() {
       },
     },
   ];
-  this.palletteOptions = [
+  this.paletteOptions = [
     {
       label: "ENEMIES",
       pallete: [],
@@ -87,7 +87,7 @@ function EditorClass() {
       },
     },
   ];
-  this.currentPallette = [];
+  this.currentPalette = [];
   this.showLevelNameModal = false;
   this.showSelectLevelModal = false;
   this.levelNameModal = {
@@ -106,15 +106,49 @@ function EditorClass() {
   this.showEditor = false;
 
   this.initiateUI = function () {
-    console.log("Initiating UI");
+    this.toolBarOptions.forEach(function (option) {
+      option.height = 12;
+      option.width = option.label.length * 8;
+    });
+
+    this.paletteOptions.forEach(function (option) {
+      option.height = 12;
+      option.width = option.label.length * 8;
+    });
   };
 
-  this.update = function () {
-    console.log("IN EDIT MODE");
-  };
+  this.update = function () {};
 
   this.draw = function () {
-    console.log("Drawing editor");
-    colorRect(0, 0, canvas.width, canvas.height, "gray");
+    var textYOffset = 10;
+    var textXOffset = 5;
+
+    //   TOOLBAR
+    var buttonX = 0;
+    var buttonY = 0;
+    this.toolBarOptions.forEach((option) => {
+      colorRect(buttonX, buttonY, option.width, 12, "black");
+      colorText(
+        option.label,
+        buttonX + textXOffset,
+        buttonY + textYOffset,
+        "white"
+      );
+      buttonX = buttonX + option.label.length * 8;
+    });
+
+    //   PALETTE OPTIONS
+    var paletteX = 200;
+    var paletteY = 0;
+    this.paletteOptions.forEach(function (option) {
+      colorRect(paletteX, paletteY, 56, option.height, "black");
+      colorText(
+        option.label,
+        paletteX + textXOffset,
+        paletteY + textYOffset,
+        "white"
+      );
+      paletteY += option.height;
+    });
   };
 }
