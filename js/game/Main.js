@@ -138,6 +138,7 @@ function drawAll() {
       player.draw();
       break;
     case EDIT_MODE:
+      drawWorld();
       editor.draw();
       break;
     default:

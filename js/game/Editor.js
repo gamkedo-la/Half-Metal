@@ -35,7 +35,7 @@ function EditorClass() {
     {
       label: "NEW",
       handler: () => {
-        console.log("Clicked NEW");
+          loadLevel(baseLevel);
       },
     },
     {

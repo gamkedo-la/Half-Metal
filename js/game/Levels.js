@@ -4,7 +4,7 @@ const ARMORY = "ARMORY";
 const PROCESSING_CENTER = "PROCESSING_CENTER";
 const COURTYARD = "COURTYARD";
 
-const blankLevel = [
+const baseLevel = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -187,7 +187,7 @@ const levelNine = [
 ];
 
 const baseLevelConfig = {
-    level_map: levelOne,
+    level_map: baseLevel,
     starting_ammo: 0,
     enemy_directions: [],
     name: "",
