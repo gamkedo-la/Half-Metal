@@ -14,6 +14,12 @@ const EDIT_MODE = "EDIT_MODE";
 const PLAY_MODE = "PLAY_MODE";
 var currentMode = PLAY_MODE;
 
+const characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!.?";
+const charMap = {};
+for (var i = 0; i < characterSet.length; i++) {
+  charMap[characterSet[i]] = i * 8;
+}
+
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");

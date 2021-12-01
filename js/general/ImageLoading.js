@@ -1,6 +1,7 @@
 var playerImage = document.createElement("img");
 var bulletPic = document.createElement("img");
 var enemyPic = document.createElement("img");
+var fontPic = document.createElement("img");
 var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -28,6 +29,7 @@ function loadImages() {
     { varName: playerImage, theFile: "player.png" },
     { varName: bulletPic, theFile: "world_ammo.png" },
     { varName: enemyPic, theFile: "enemy.png" },
+    { varName: fontPic, theFile: "font.png" },
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },

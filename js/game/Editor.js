@@ -59,7 +59,7 @@ function EditorClass() {
   ];
   this.paletteOptions = [
     {
-      label: "ENEMIES",
+      label: "ENEMY",
       pallete: [],
       handler: () => {
         console.log("Clicked ENEMIES");
@@ -115,21 +115,18 @@ function EditorClass() {
   this.initiateUI = function () {
     this.toolBarOptions.forEach(function (option) {
       option.height = 12;
-      option.width = option.label.length * 8;
+      option.width = option.label.length * 10;
     });
 
     this.paletteOptions.forEach(function (option) {
       option.height = 12;
-      option.width = option.label.length * 8;
+      option.width = option.label.length * 10;
     });
   };
 
   this.update = function () {};
 
-  this.draw = function () {
-    var textYOffset = 10;
-    var textXOffset = 5;
-
+  this.drawButtonBackgroundLayer = function () {
     //   TOOLBAR
     var buttonX = 0;
     var buttonY = 0;
@@ -137,13 +134,7 @@ function EditorClass() {
       option.y = buttonY;
       option.x = buttonX;
       colorRect(buttonX, option.y, option.width, 12, "black");
-      colorText(
-        option.label,
-        buttonX + textXOffset,
-        buttonY + textYOffset,
-        "white"
-      );
-      buttonX = buttonX + option.label.length * 8;
+      buttonX = buttonX + option.label.length * 12;
     });
 
     //   PALETTE OPTIONS
@@ -152,15 +143,34 @@ function EditorClass() {
     this.paletteOptions.forEach(function (option) {
       option.x = paletteX;
       option.y = paletteY;
-
       colorRect(option.x, paletteY, 56, option.height, "black");
-      colorText(
-        option.label,
-        paletteX + textXOffset,
-        paletteY + textYOffset,
-        "white"
-      );
       paletteY += option.height;
     });
+  };
+
+  this.drawButtonTextLayer = function () {
+    var textYOffset = 2;
+    var textXOffset = 2;
+
+    //   TOOLBAR
+    var buttonX = 0;
+    var buttonY = 0;
+    this.toolBarOptions.forEach((option) => {
+      renderFont(option.label, buttonX + textXOffset, buttonY + textYOffset);
+      buttonX = buttonX + option.label.length * 12;
+    });
+
+    //   PALETTE OPTIONS
+    var paletteX = 200;
+    var paletteY = 0;
+    this.paletteOptions.forEach(function (option) {
+      renderFont(option.label, paletteX + textXOffset, paletteY + textYOffset);
+      paletteY += option.height;
+    });
+  };
+
+  this.draw = function () {
+    this.drawButtonBackgroundLayer();
+    this.drawButtonTextLayer();
   };
 }

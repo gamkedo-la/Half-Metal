@@ -35,3 +35,28 @@ function colorText(showWords, textX, textY, fillColor) {
   canvasContext.fillStyle = fillColor;
   canvasContext.fillText(showWords, textX, textY);
 }
+
+function renderFont(text, textX, textY) {
+  var currentX = textX;
+  var currentChar = "";
+
+  for (var i = 0; i < text.length; i++) {
+    currentChar = text[i];
+    fontCharPosition = charMap[currentChar.toUpperCase()];
+    if (!fontCharPosition) {
+      fontCharPosition = 0;
+    }
+    canvasContext.drawImage(
+      fontPic,
+      fontCharPosition,
+      0,
+      8,
+      8,
+      currentX,
+      textY,
+      8,
+      8
+    );
+    currentX += 9;
+  }
+}
