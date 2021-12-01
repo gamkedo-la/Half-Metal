@@ -21,6 +21,7 @@ var mouseY = 0;
 
 function setupInput() {
   canvas.addEventListener("mousemove", updateMousePos);
+  canvas.addEventListener("mousedown", mousePressed);
 
   document.addEventListener("keydown", keyPressed);
   document.addEventListener("keyup", keyReleased);
@@ -40,6 +41,19 @@ function updateMousePos(evt) {
 
   mouseX = evt.clientX - rect.left - root.scrollLeft;
   mouseY = evt.clientY - rect.top - root.scrollTop;
+}
+
+function mousePressed() {
+  buttons.forEach((button) => {
+    if (
+      mouseX > button.x &&
+      mouseX < button.x + button.width &&
+      mouseY > button.y &&
+      mouseY < button.y + button.height
+    ) {
+      button.handler();
+    }
+  });
 }
 
 function keySet(keyEvent, setTo) {

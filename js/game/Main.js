@@ -5,8 +5,10 @@ var gamepad = new GamepadSupport();
 var bullets = new Array();
 var enemies = new Array();
 var entities = new Array();
+var buttons = new Array();
 var editor = new EditorClass();
 editor.initiateUI();
+buttons = [...editor.toolBarOptions, ...editor.paletteOptions];
 
 const EDIT_MODE = "EDIT_MODE";
 const PLAY_MODE = "PLAY_MODE";

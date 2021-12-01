@@ -134,7 +134,9 @@ function EditorClass() {
     var buttonX = 0;
     var buttonY = 0;
     this.toolBarOptions.forEach((option) => {
-      colorRect(buttonX, buttonY, option.width, 12, "black");
+      option.y = buttonY;
+      option.x = buttonX;
+      colorRect(buttonX, option.y, option.width, 12, "black");
       colorText(
         option.label,
         buttonX + textXOffset,
@@ -148,7 +150,10 @@ function EditorClass() {
     var paletteX = 200;
     var paletteY = 0;
     this.paletteOptions.forEach(function (option) {
-      colorRect(paletteX, paletteY, 56, option.height, "black");
+      option.x = paletteX;
+      option.y = paletteY;
+
+      colorRect(option.x, paletteY, 56, option.height, "black");
       colorText(
         option.label,
         paletteX + textXOffset,
