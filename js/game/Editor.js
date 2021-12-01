@@ -35,7 +35,8 @@ function EditorClass() {
     {
       label: "NEW",
       handler: () => {
-          loadLevel(baseLevel);
+        this.currentMap = [...baseLevel];
+        loadLevel(this.currentMap);
       },
     },
     {
@@ -91,6 +92,13 @@ function EditorClass() {
       pallete: [],
       handler: () => {
         console.log("Clicked TILES");
+      },
+    },
+    {
+      label: "PLAYER",
+      pallete: [],
+      handler: () => {
+        console.log("Clicked PLAYER");
       },
     },
   ];
