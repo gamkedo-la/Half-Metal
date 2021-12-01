@@ -53,7 +53,7 @@ function EditorClass() {
     {
       label: "PLAY",
       handler: () => {
-        console.log("Clicked PLAY");
+        currentMode = PLAY_MODE;
       },
     },
   ];
