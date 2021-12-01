@@ -182,6 +182,5 @@ function playerClass() {
 
   this.draw = function () {
     drawBitmapCenteredWithRotation(this.image, this.x, this.y, 0);
-    // canvasContext.fillText(this.ammo, this.x - 3, this.y + 3);
   };
 }

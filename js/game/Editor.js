@@ -1,25 +1,32 @@
-// Need shortcut to open editor - "L" key
+function ButtonClass(
+  height = 12,
+  width = 16,
+  x,
+  y,
+  label = "TEXT",
+  color = "black",
+  textColor = "white",
+  handler,
+  paddingX = 0,
+  paddingY = 0
+) {
+  this.height = height;
+  this.width = width;
+  this.x = x;
+  this.y = y;
+  this.label = label;
+  this.color = color;
+  this.handler = handler;
+  this.paddingX = paddingX;
+  this.paddingY = paddingY;
+  this.textColor = textColor;
 
-// Interface
-// --------------------------------------------
-// | NEW | SAVE | LOAD | PLAY
-// |----- ------ ------ -----------------------
-// | Toolbar ^
-// |  ------------------------------   _________
-// | |                              | | ENEMIES |
-// | |                              | | SHOTS   |
-// | |                              | | HAZARDS |
-// | |                              | | WALLS   |
-// | |                              | | TILES   |
-// | |        LEVEL MAP             | | PLAYER  |
-// | |                              | |         |
-// | |                              |  ---------
-// | |                              |  Palette ^
-// | |                              |
-// | |                              |
-// |  ------------------------------
-// |
-// |  ------------------------------------------
+  this.draw = function () {
+    colorRect(this.x, this.y, this.width, this.height, this.color);
+    colorText(this.label, this.x + paddingX, this.y + paddingY, this.textColor);
+  };
+  this.buttonHandler = function () {};
+}
 
 function EditorClass() {
   this.currentLevel = 0;
