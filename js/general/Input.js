@@ -14,6 +14,8 @@ const KEY_D = 68;
 
 const KEY_SPACE = 32;
 
+const KEY_L = 76;
+
 var mouseX = 0;
 var mouseY = 0;
 
@@ -55,7 +57,7 @@ function keySet(keyEvent, setTo) {
   }
   if (keyEvent.keyCode == player.controlKeyShoot) {
     player.keyHeld_Shoot = setTo;
-    
+
     if (!keyEvent.repeat) {
       player.keyPressed_Shoot = setTo;
     }
@@ -78,6 +80,9 @@ function keySet(keyEvent, setTo) {
     } else {
       currentLevel++;
     }
+  }
+  if (keyEvent.keyCode == KEY_L) {
+    currentMode = EDIT_MODE;
   }
 }
 

@@ -5,6 +5,11 @@ var gamepad = new GamepadSupport();
 var bullets = new Array();
 var enemies = new Array();
 var entities = new Array();
+var editor = new EditorClass();
+
+const EDIT_MODE = "EDIT_MODE";
+const PLAY_MODE = "PLAY_MODE";
+var currentMode = PLAY_MODE;
 
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
@@ -81,10 +86,19 @@ function loadLevel(whichLevel) {
 }
 
 function updateAll() {
-  gamepad.update();
-  moveAll();
-  player.update();
-  drawAll();
+  switch (currentMode) {
+    case PLAY_MODE:
+      gamepad.update();
+      moveAll();
+      player.update();
+      drawAll();
+      break;
+    case EDIT_MODE:
+      editor.update();
+      break;
+    default:
+      break;
+  }
 }
 
 function moveAll() {
@@ -98,15 +112,24 @@ function moveAll() {
 }
 
 function drawAll() {
-  drawWorld();
-  bullets.forEach(function (bullet) {
-    bullet.draw();
-  });
-  enemies.forEach(function (enemy) {
-    enemy.draw();
-  });
-  entities.forEach(function (entity) {
-    entity.draw();
-  });
-  player.draw();
+  switch (currentMode) {
+    case PLAY_MODE:
+      drawWorld();
+      bullets.forEach(function (bullet) {
+        bullet.draw();
+      });
+      enemies.forEach(function (enemy) {
+        enemy.draw();
+      });
+      entities.forEach(function (entity) {
+        entity.draw();
+      });
+      player.draw();
+      break;
+    case EDIT_MODE:
+      editor.draw();
+      break;
+    default:
+      break;
+  }
 }

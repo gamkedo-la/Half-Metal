@@ -1,3 +1,9 @@
+// TILESET CONSTANTS
+const CELLS = "CELLS";
+const ARMORY = "ARMORY";
+const PROCESSING_CENTER = "PROCESSING_CENTER";
+const COURTYARD = "COURTYARD";
+
 const blankLevel = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -179,6 +185,14 @@ const levelNine = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
+
+const baseLevelConfig = {
+    level_map: levelOne,
+    starting_ammo: 0,
+    enemy_directions: [],
+    name: "",
+    tileset: "",
+};
 
 const levelOneConfig = {
     level_map: levelOne,
