@@ -117,7 +117,7 @@ const baseLevelConfig = {
 
 const levelOneConfig = {
     level_map: levelOne,
-    ammo: 0,
+    ammo: 100,
     enemies: [90, 180, 90],
 };
 

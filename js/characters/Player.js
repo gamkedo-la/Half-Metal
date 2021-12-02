@@ -128,9 +128,8 @@ function playerClass() {
       this.y <= 0 ||
       this.y >= canvas.height - 4
     ) {
-      console.log(canvas.width, canvas.height);
-      // loadLevel(levels[currentLevel].level_map);
-      // playSound(sounds.lose);
+      loadLevel(levels[currentLevel].level_map);
+      playSound(sounds.lose);
     }
 
     this.checkForCollisionWithEnemy(this);
