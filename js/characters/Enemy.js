@@ -80,6 +80,8 @@ function enemyClass() {
         self.removeSelf();
         break;
       case TILE_WALL:
+      case TILE_WINDOW_H:
+      case TILE_WINDOW_V:
         if (this.alerted) {
           worldGrid[walkIntoTileIndex] = TILE_GROUND;
         } else {

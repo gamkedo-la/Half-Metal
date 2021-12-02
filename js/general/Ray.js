@@ -32,7 +32,8 @@ function RayClass(x, y, direction) {
         this.y += this.speed * Math.sin((this.direction * Math.PI) / 180);
         break;
       case TILE_WALL:
-        this.destroyed = true;
+      case TILE_WINDOW_H:
+      case TILE_WINDOW_V:
       case TILE_STURDY_WALL:
         this.destroyed = true;
       default:

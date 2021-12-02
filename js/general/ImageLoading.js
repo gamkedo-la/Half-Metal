@@ -37,6 +37,8 @@ function loadImages() {
     { worldType: TILE_GOAL, theFile: "world_goal.png" },
     { worldType: TILE_AMMO, theFile: "world_ammo.png" },
     { worldType: TILE_DOOR, theFile: "world_door.png" },
+    { worldType: TILE_WINDOW_V, theFile: "world_window_vertical.png" },
+    { worldType: TILE_WINDOW_H, theFile: "world_window_horizontal.png" },
   ];
 
   picsToLoad = imageList.length;

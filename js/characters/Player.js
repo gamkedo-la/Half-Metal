@@ -91,6 +91,7 @@ function playerClass() {
       case TILE_GROUND:
         this.x = nextX;
         this.y = nextY;
+        console.log(this.x, this.y);
         break;
       case TILE_GOAL:
         console.log(this.name + " WINS!");
@@ -119,6 +120,17 @@ function playerClass() {
 
       default:
         break;
+    }
+
+    if (
+      this.x <= 0 ||
+      this.x >= canvas.width - 4 ||
+      this.y <= 0 ||
+      this.y >= canvas.height - 4
+    ) {
+      console.log(canvas.width, canvas.height);
+      loadLevel(levels[currentLevel].level_map);
+      playSound(sounds.lose);
     }
 
     this.checkForCollisionWithEnemy(this);
