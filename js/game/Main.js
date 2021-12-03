@@ -7,6 +7,8 @@ var enemies = new Array();
 var entities = new Array();
 var buttons = new Array();
 var editor = new EditorClass();
+var ui;
+
 editor.initiateUI();
 buttons = [...editor.toolBarOptions, ...editor.paletteOptions];
 
@@ -14,7 +16,7 @@ const EDIT_MODE = "EDIT_MODE";
 const PLAY_MODE = "PLAY_MODE";
 var currentMode = PLAY_MODE;
 
-const characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!.?";
+const characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!.? ";
 const charMap = {};
 for (var i = 0; i < characterSet.length; i++) {
   charMap[characterSet[i]] = i * 8;
@@ -28,6 +30,7 @@ window.onload = function () {
   colorRect(0, 0, canvas.width, canvas.height, "white");
   colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, "white");
 
+  setupUI();
   loadImages();
   initSounds();
 };
@@ -46,6 +49,15 @@ function spawnEnemy(direction) {
   enemies.push(enemy);
   enemy.reset(enemyPic);
   enemy.direction = direction;
+}
+
+function setupUI() {
+  var height = WORLD_H * 4;
+  var width = canvas.width;
+  var x = 0,
+    y = canvas.height - height;
+
+  ui = new UIClass(x, y, width, height, player);
 }
 
 function spawnEntity() {
@@ -136,6 +148,7 @@ function drawAll() {
         entity.draw();
       });
       player.draw();
+      ui.draw();
       break;
     case EDIT_MODE:
       drawWorld();

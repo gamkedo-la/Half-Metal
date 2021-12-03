@@ -91,10 +91,8 @@ function playerClass() {
       case TILE_GROUND:
         this.x = nextX;
         this.y = nextY;
-        console.log(this.x, this.y);
         break;
       case TILE_GOAL:
-        console.log(this.name + " WINS!");
         currentLevel++;
         if (currentLevel <= levels.length - 1) {
           loadLevel(levels[currentLevel].level_map);

@@ -81,10 +81,10 @@ function EditorClass() {
       },
     },
     {
-      label: "HAZARDS",
+      label: "HAZARD",
       pallete: [],
       handler: () => {
-        console.log("Clicked HAZARDS");
+        console.log("Clicked HAZARD");
       },
     },
     {
