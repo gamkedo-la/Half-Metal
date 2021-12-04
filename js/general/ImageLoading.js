@@ -1,4 +1,5 @@
 var playerImage = document.createElement("img");
+var playerSheet = document.createElement("img");
 var bulletPic = document.createElement("img");
 var enemyPic = document.createElement("img");
 var fontPic = document.createElement("img");
@@ -27,6 +28,7 @@ function loadImageForWorldCode(worldCode, fileName) {
 function loadImages() {
   var imageList = [
     { varName: playerImage, theFile: "player.png" },
+    { varName: playerSheet, theFile: "player_spritesheet.png" },
     { varName: bulletPic, theFile: "world_ammo.png" },
     { varName: enemyPic, theFile: "enemy.png" },
     { varName: fontPic, theFile: "font.png" },

@@ -1,4 +1,7 @@
 const PLAYER_MOVE_SPEED = 2.0;
+const MOVING = "MOVING";
+const SHOOTING = "SHOOTING";
+const IDLE = "IDLE";
 
 function playerClass() {
   this.x = 75;
@@ -31,6 +34,33 @@ function playerClass() {
   this.controlKeyShoot;
 
   this.direction = 0;
+  this.state = IDLE;
+
+  this.moveAnimation = new AnimationClass(
+    "move",
+    [
+      new FrameClass(2, 0, this.width, this.height),
+      new FrameClass(24, 0, this.width, this.height),
+    ],
+    playerSheet,
+    240
+  );
+
+  this.idleAnimation = new AnimationClass(
+    "idle",
+    [
+      new FrameClass(2, 0, this.width, this.height),
+      new FrameClass(24, 0, this.width, this.height),
+    ],
+    playerSheet,
+    0
+  );
+
+  this.shootAnimation = new AnimationClass(
+    "shooting",
+    [new FrameClass(2, this.height + 10, this.width, this.height)],
+    playerSheet
+  );
 
   this.setupInput = function (upKey, rightKey, downKey, leftKey, shootKey) {
     this.controlKeyUp = upKey;
@@ -115,6 +145,7 @@ function playerClass() {
           this.bumpDelay = 30;
         }
         this.bumpDelay -= 1;
+        break;
 
       default:
         break;
@@ -187,9 +218,49 @@ function playerClass() {
 
   this.update = function () {
     this.shoot();
+
+    if (
+      !this.keyHeld_Shoot &&
+      !this.keyHeld_East &&
+      !this.keyHeld_West &&
+      !this.keyHeld_North &&
+      !this.keyHeld_South
+    ) {
+      this.state = IDLE;
+    } else if (this.keyHeld_Shoot) {
+      this.state = SHOOTING;
+    } else {
+      this.state = MOVING;
+    }
+    console.log(this.state);
   };
 
   this.draw = function () {
-    drawBitmapCenteredWithRotation(this.image, this.x, this.y, 0);
+    switch (this.state) {
+      case MOVING:
+        this.moveAnimation.draw(
+          this.x,
+          this.y,
+          this.width,
+          this.height
+        );
+        break;
+      case IDLE:
+        this.idleAnimation.draw(
+          this.x,
+          this.y,
+          this.width,
+          this.height
+        );
+        break;
+      case SHOOTING:
+        this.shootAnimation.draw(
+          this.x,
+          this.y,
+          this.width,
+          this.height
+        );
+        break;
+    }
   };
 }

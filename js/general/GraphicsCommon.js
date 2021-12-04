@@ -66,3 +66,25 @@ function renderFont(text, textX, textY) {
     currentX += 9;
   }
 }
+
+function drawAnimation(animation, x, y, width, height) {
+  const frame = animation.frames[animation.currentFrame];
+  const image = animation.sheet;
+
+  canvasContext.save();
+  canvasContext.translate(x, y);
+  canvasContext.rotate(0);
+  canvasContext.drawImage(
+    image,
+    frame.x,
+    frame.y,
+    frame.width,
+    frame.height,
+    -width / 2,
+    -height / 2,
+    width,
+    height
+  );
+
+  canvasContext.restore();
+}
