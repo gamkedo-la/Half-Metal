@@ -18,6 +18,8 @@ const KEY_L = 76;
 
 var mouseX = 0;
 var mouseY = 0;
+var unscaledMouseX = -1,
+  unscaledMouseY = -1;
 
 function setupInput() {
   canvas.addEventListener("mousemove", updateMousePos);
@@ -36,14 +38,22 @@ function setupInput() {
 }
 
 function updateMousePos(evt) {
-  var rect = canvas.getBoundingClientRect();
+  var rect = scaledCanvas.getBoundingClientRect();
   var root = document.documentElement;
 
-  mouseX = evt.clientX - rect.left - root.scrollLeft;
-  mouseY = evt.clientY - rect.top - root.scrollTop;
+  // account for the margins, canvas position on page, scroll amount, etc.
+  unscaledMouseX = evt.clientX - rect.left - root.scrollLeft;
+  unscaledMouseY = evt.clientY - rect.top - root.scrollTop;
+
+  mouseX = Math.floor((unscaledMouseX * GAME_W) / SCALED_W);
+  mouseY = Math.floor((unscaledMouseY * GAME_H) / SCALED_H);
+
+  console.log(mouseX, mouseY);
 }
 
 function mousePressed() {
+  console.log("Clicked at " + mouseX + ", " + mouseY);
+  console.log(buttons);
   buttons.forEach((button) => {
     if (
       mouseX > button.x &&
