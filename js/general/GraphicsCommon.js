@@ -1,3 +1,9 @@
+const GAME_W = 256;
+const GAME_H = 240;
+
+const SCALED_W = 640;
+const SCALED_H = 600;
+
 function drawBitmapCenteredWithRotation(
   img,
   atX,
