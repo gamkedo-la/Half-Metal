@@ -1,7 +1,7 @@
 function enemyClass() {
   this.name = "Enemy";
   this.type = "Enemy";
-  this.speed = 3;
+  this.speed = 2;
   this.health = 1;
   this.damage = 1;
   this.image;
