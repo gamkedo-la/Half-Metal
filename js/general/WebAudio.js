@@ -3,7 +3,6 @@
 var audioCtx, audioMaster, compressor;
 
 function initSounds() {
-  //console.log("first click occurred! initializing webaudio.");
   // this must be run during the first click
   // and will cause a browser error if run earlier than that
   audioCtx = new AudioContext();
