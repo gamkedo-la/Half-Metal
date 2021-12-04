@@ -39,6 +39,7 @@ function loadImages() {
     { worldType: TILE_DOOR, theFile: "world_door.png" },
     { worldType: TILE_WINDOW_V, theFile: "world_window_vertical.png" },
     { worldType: TILE_WINDOW_H, theFile: "world_window_horizontal.png" },
+    { worldType: TILE_WINDOW_SMASHED_H, theFile: "world_window_smashed_horizontal.png" },
   ];
 
   picsToLoad = imageList.length;

@@ -31,6 +31,7 @@ function bulletClass() {
       case TILE_STURDY_WALL:
       case TILE_WINDOW_V:
       case TILE_WINDOW_H:
+      case TILE_WINDOW_SMASHED_H:
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
         this.removeSelf();
         playSound(sounds.destroy);
