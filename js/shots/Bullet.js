@@ -29,14 +29,17 @@ function bulletClass() {
         break;
       case TILE_WALL:
       case TILE_STURDY_WALL:
+        worldGrid[walkIntoTileIndex] = TILE_GROUND;
+        this.removeSelf();
+        playSound(sounds.destroy);
+        break;
       case TILE_WINDOW_V:
       case TILE_WINDOW_H:
       case TILE_WINDOW_SMASHED_H:
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
         this.removeSelf();
-        playSound(sounds.destroy);
-      // reverseDirection(this);
-      // moveInOwnDirection(this);
+        playSound(sounds.window_break);
+        break;
       default:
         break;
     }
