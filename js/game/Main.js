@@ -1,5 +1,5 @@
 var canvas, canvasContext;
-// Practice commit from Cooper, will remove
+
 var player = new playerClass();
 var gamepad = new GamepadSupport();
 var bullets = new Array();
