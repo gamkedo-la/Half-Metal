@@ -52,7 +52,7 @@ function spawnEnemy(direction) {
 }
 
 function setupUI() {
-  var height = WORLD_H * 4;
+  var height = WORLD_H * 2;
   var width = canvas.width;
   var x = 0,
     y = canvas.height - height;

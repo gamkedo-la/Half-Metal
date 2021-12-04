@@ -6,7 +6,30 @@
   </head>
 
   <body>
-    <canvas id="gameCanvas" width="512" height="480"></canvas>
+    <!-- Test resolution changes -->
+    <canvas id="gameCanvas" width="256" height="240"></canvas>
+    <style>
+      body,
+      html {
+        background-color: #000;
+      }
+      canvas {
+        width: 640px;
+        height: 600px;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        border-style: solid;
+        border-width: 2px;
+        border-color: white;
+      }
+    </style>
 
     <!-- General -->
     <script src="js/general/GraphicsCommon.js"></script>
@@ -17,13 +40,13 @@
     <script src="js/general/SoundLoading.js"></script>
     <script src="js/general/WebAudio.js"></script>
     <script src="js/general/GamepadSupport.js"></script>
-    
+
     <!-- Props -->
     <script src="js/props/Warp.js"></script>
-    
+
     <!-- Shots -->
     <script src="js/shots/Bullet.js"></script>
-    
+
     <!-- Characters -->
     <script src="js/game/UI.js"></script>
     <script src="js/characters/Player.js"></script>
