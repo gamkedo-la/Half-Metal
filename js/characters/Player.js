@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 4.0;
+const PLAYER_MOVE_SPEED = 2.0;
 
 function playerClass() {
   this.x = 75;
