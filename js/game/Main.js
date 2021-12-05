@@ -9,6 +9,13 @@ var buttons = new Array();
 var editor = new EditorClass();
 var ui;
 
+const DIRECTION_MAP = {
+  270: "north",
+  90: "south",
+  0: "east",
+  180: "west",
+};
+
 editor.initiateUI();
 buttons = [...editor.toolBarOptions, ...editor.paletteOptions];
 

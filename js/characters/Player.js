@@ -3,6 +3,7 @@ const MOVING = "MOVING";
 const SHOOTING = "SHOOTING";
 const IDLE = "IDLE";
 
+
 function playerClass() {
   this.x = 75;
   this.y = 75;
