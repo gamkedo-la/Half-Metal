@@ -19,6 +19,29 @@ function enemyClass() {
   this.alerted = false;
   this.rays = [];
 
+  this.moveAnimation = new AnimationClass(
+    "move",
+    [
+      new FrameClass(0, 0, this.width, this.height, "east"),
+      new FrameClass(this.width, 0, this.width, this.height, "east"),
+      new FrameClass(this.width * 2, 0, this.width, this.height, "west"),
+      new FrameClass(this.width * 3, 0, this.width, this.height, "west"),
+      new FrameClass(this.width * 4, 0, this.width, this.height, "south"),
+      new FrameClass(this.width * 5, 0, this.width, this.height, "south"),
+      new FrameClass(this.width * 6, 0, this.width, this.height, "north"),
+      new FrameClass(this.width * 7, 0, this.width, this.height, "north"),
+    ],
+    leaperSheet,
+    240
+  );
+
+  this.idleAnimation = new AnimationClass(
+    "idle",
+    [new FrameClass(this.width * 8, 0, this.width, this.height)],
+    leaperSheet,
+    0
+  );
+
   this.draw = function () {
     this.raycast();
     canvasContext.lineWidth = 1;
@@ -32,11 +55,18 @@ function enemyClass() {
     });
 
     canvasContext.stroke();
-    drawBitmapCenteredWithRotation(
-      this.image,
+    // drawBitmapCenteredWithRotation(
+    //   this.image,
+    //   this.x,
+    //   this.y,
+    //   (this.direction * Math.PI) / 180
+    // );
+    this.moveAnimation.draw(
       this.x,
       this.y,
-      (this.direction * Math.PI) / 180
+      this.height,
+      this.width,
+      DIRECTION_MAP[this.direction]
     );
   };
 
