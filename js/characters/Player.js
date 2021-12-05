@@ -3,7 +3,6 @@ const MOVING = "MOVING";
 const SHOOTING = "SHOOTING";
 const IDLE = "IDLE";
 
-
 function playerClass() {
   this.x = 75;
   this.y = 75;
@@ -47,14 +46,14 @@ function playerClass() {
   this.moveAnimation = new AnimationClass(
     "move",
     [
-      new FrameClass(2, 0, this.width, this.height, "south"),
-      new FrameClass(24, 0, this.width, this.height, "south"),
-      new FrameClass(125, 0, this.width, this.height, "north"),
-      new FrameClass(144, 0, this.width, this.height, "north"),
-      new FrameClass(84, 0, this.width, this.height, "east"),
-      new FrameClass(104, 0, this.width, this.height, "east"),
-      new FrameClass(45, 0, this.width, this.height, "west"),
-      new FrameClass(62, 0, this.width, this.height, "west"),
+      new FrameClass(0, 0, this.width, this.height, "south"),
+      new FrameClass(16, 0, this.width, this.height, "south"),
+      new FrameClass(33, 0, this.width, this.height, "west"),
+      new FrameClass(55, 0, this.width, this.height, "west"),
+      new FrameClass(76, 0, this.width, this.height, "east"),
+      new FrameClass(99, 0, this.width, this.height, "east"),
+      new FrameClass(119, 0, this.width, this.height, "north"),
+      new FrameClass(136, 0, this.width, this.height, "north"),
     ],
     playerSheet,
     240
@@ -62,14 +61,7 @@ function playerClass() {
 
   this.idleAnimation = new AnimationClass(
     "idle",
-    [
-      new FrameClass(
-        4 + this.width * 7,
-        this.height + 9,
-        this.width,
-        this.height
-      ),
-    ],
+    [new FrameClass(129, this.height + 9, this.width, this.height)],
     playerSheet,
     0
   );
@@ -162,6 +154,7 @@ function playerClass() {
       case TILE_AMMO:
         this.ammo++; // one more bullet
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
+        playSound(sounds.get_ammo);
         break;
       case TILE_WALL:
       case TILE_STURDY_WALL:

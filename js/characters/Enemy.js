@@ -55,12 +55,6 @@ function enemyClass() {
     });
 
     canvasContext.stroke();
-    // drawBitmapCenteredWithRotation(
-    //   this.image,
-    //   this.x,
-    //   this.y,
-    //   (this.direction * Math.PI) / 180
-    // );
     this.moveAnimation.draw(
       this.x,
       this.y,
