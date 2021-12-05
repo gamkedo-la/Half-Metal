@@ -14,6 +14,7 @@ async function loadSounds() {
     { sndName: "bump", theFile: "snd_bump.wav" },
     { sndName: "lose", theFile: "snd_lose.wav" },
     { sndName: "no_ammo", theFile: "snd_no_ammo.wav" },
+    { sndName: "get_ammo", theFile: "snd_get_ammo.wav" },
     { sndName: "window_break", theFile: "snd_windowbreak.wav" },
   ];
 
