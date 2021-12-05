@@ -126,6 +126,7 @@ function enemyClass() {
         this.removeRaycast(this.rays[i]);
       } else if (this.rays[i].found_player) {
         this.alerted = true;
+        playSound(sounds.leap);
       }
       this.rays[i].move();
     }
