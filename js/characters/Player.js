@@ -36,11 +36,24 @@ function playerClass() {
   this.direction = 0;
   this.state = IDLE;
 
+  this.directionMap = {
+    270: "north",
+    90: "south",
+    0: "east",
+    180: "west",
+  };
+
   this.moveAnimation = new AnimationClass(
     "move",
     [
-      new FrameClass(2, 0, this.width, this.height),
-      new FrameClass(24, 0, this.width, this.height),
+      new FrameClass(2, 0, this.width, this.height, "south"),
+      new FrameClass(24, 0, this.width, this.height, "south"),
+      new FrameClass(125, 0, this.width, this.height, "north"),
+      new FrameClass(144, 0, this.width, this.height, "north"),
+      new FrameClass(84, 0, this.width, this.height, "east"),
+      new FrameClass(104, 0, this.width, this.height, "east"),
+      new FrameClass(45, 0, this.width, this.height, "west"),
+      new FrameClass(62, 0, this.width, this.height, "west"),
     ],
     playerSheet,
     240
@@ -49,8 +62,12 @@ function playerClass() {
   this.idleAnimation = new AnimationClass(
     "idle",
     [
-      new FrameClass(2, 0, this.width, this.height),
-      new FrameClass(24, 0, this.width, this.height),
+      new FrameClass(
+        4 + this.width * 7,
+        this.height + 9,
+        this.width,
+        this.height
+      ),
     ],
     playerSheet,
     0
@@ -58,7 +75,12 @@ function playerClass() {
 
   this.shootAnimation = new AnimationClass(
     "shooting",
-    [new FrameClass(2, this.height + 10, this.width, this.height)],
+    [
+      new FrameClass(62, this.height + 3, this.width, this.height, "north"),
+      new FrameClass(47, this.height + 9, this.width, this.height, "south"),
+      new FrameClass(25, this.height + 10, this.width, this.height, "east"),
+      new FrameClass(3, this.height + 10, this.width, this.height, "west"),
+    ],
     playerSheet
   );
 
@@ -119,8 +141,10 @@ function playerClass() {
 
     switch (walkIntoTileType) {
       case TILE_GROUND:
-        this.x = nextX;
-        this.y = nextY;
+        if (!this.keyHeld_Shoot) {
+          this.x = nextX;
+          this.y = nextY;
+        }
         break;
       case TILE_GOAL:
         currentLevel++;
@@ -242,23 +266,20 @@ function playerClass() {
           this.x,
           this.y,
           this.width,
-          this.height
+          this.height,
+          this.directionMap[this.direction]
         );
         break;
       case IDLE:
-        this.idleAnimation.draw(
-          this.x,
-          this.y,
-          this.width,
-          this.height
-        );
+        this.idleAnimation.draw(this.x, this.y, this.width, this.height);
         break;
       case SHOOTING:
         this.shootAnimation.draw(
           this.x,
           this.y,
           this.width,
-          this.height
+          this.height,
+          this.directionMap[this.direction]
         );
         break;
     }
