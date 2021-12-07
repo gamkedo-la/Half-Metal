@@ -40,7 +40,7 @@ function StunShotClass() {
         enemy.y < bullet.y + bullet.height &&
         enemy.y + enemy.height > bullet.y
       ) {
-        enemy.state = "STUNNED";
+        enemy.state = STUNNED;
         bullet.removeSelf();
         // playSound(sounds.destroy);
       }

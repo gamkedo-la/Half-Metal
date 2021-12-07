@@ -1,7 +1,4 @@
 const PLAYER_MOVE_SPEED = 2.0;
-const MOVING = "MOVING";
-const SHOOTING = "SHOOTING";
-const IDLE = "IDLE";
 
 function playerClass() {
   this.x = 75;
