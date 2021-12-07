@@ -5,9 +5,12 @@ function playerClass() {
   this.y = 75;
   this.width = 18;
   this.height = 26;
-  this.image;
+  this.image = playerSheet;
   this.name = "Player";
   this.ammo = 0;
+  this.selected_ammo = NORMAL;
+  this.ammo_types = [NORMAL, STUN];
+  this.currentAmmoIndex = 0;
 
   this.MAX_DELAY = 15;
   this.shootDelay = this.MAX_DELAY;
@@ -21,6 +24,7 @@ function playerClass() {
   this.keyHeld_West = false;
   this.keyHeld_East = false;
   this.keyHeld_Shoot = false;
+  this.keyHeld_Switch_Ammo = false;
 
   this.keyPressed_Shoot = false;
 
@@ -29,6 +33,7 @@ function playerClass() {
   this.controlKeyDown;
   this.controlKeyLeft;
   this.controlKeyShoot;
+  this.controlKeySwitchAmmo;
 
   this.direction = 0;
   this.state = IDLE;
@@ -52,14 +57,14 @@ function playerClass() {
       new FrameClass(119, 0, this.width, this.height, "north"),
       new FrameClass(136, 0, this.width, this.height, "north"),
     ],
-    playerSheet,
+    this.image,
     240
   );
 
   this.idleAnimation = new AnimationClass(
     "idle",
     [new FrameClass(129, this.height + 9, this.width, this.height)],
-    playerSheet,
+    this.image,
     0
   );
 
@@ -71,19 +76,27 @@ function playerClass() {
       new FrameClass(25, this.height + 10, this.width, this.height, "east"),
       new FrameClass(3, this.height + 10, this.width, this.height, "west"),
     ],
-    playerSheet
+    this.image
   );
 
-  this.setupInput = function (upKey, rightKey, downKey, leftKey, shootKey) {
+  this.setupInput = function (
+    upKey,
+    rightKey,
+    downKey,
+    leftKey,
+    shootKey,
+    switchKey
+  ) {
     this.controlKeyUp = upKey;
     this.controlKeyRight = rightKey;
     this.controlKeyDown = downKey;
     this.controlKeyLeft = leftKey;
     this.controlKeyShoot = shootKey;
+    this.controlKeySwitchAmmo = switchKey;
   };
 
-  this.reset = function (whichImage, warriorName) {
-    this.name = warriorName;
+  this.reset = function (whichImage, name) {
+    this.name = name;
     this.image = whichImage;
     this.ammo = 0;
 
@@ -210,7 +223,7 @@ function playerClass() {
 
   this.shoot = function () {
     if (this.keyHeld_Shoot && !this.didShoot && this.ammo > 0) {
-      spawnBullet(this.x, this.y, this.direction, "STUN");
+      spawnBullet(this.x, this.y, this.direction, this.selected_ammo);
       playSound(sounds.shoot);
       this.didShoot = true;
       this.ammo -= 1;
@@ -233,6 +246,29 @@ function playerClass() {
 
   this.update = function () {
     this.shoot();
+
+    if (this.keyHeld_Switch_Ammo) {
+      this.currentAmmoIndex++;
+      if (this.currentAmmoIndex > this.ammo_types.length - 1) {
+        this.currentAmmoIndex = 0;
+      }
+      this.selected_ammo = this.ammo_types[this.currentAmmoIndex];
+
+      switch (this.selected_ammo) {
+        case NORMAL:
+          this.image = playerSheet;
+          break;
+        case STUN:
+          this.image = playerSheet_Stun;
+          break;
+      }
+
+      this.idleAnimation.sheet = this.image;
+      this.moveAnimation.sheet = this.image;
+      this.shootAnimation.sheet = this.image;
+
+      this.keyHeld_Switch_Ammo = false;
+    }
 
     if (
       !this.keyHeld_Shoot &&

@@ -1,5 +1,6 @@
 var playerImage = document.createElement("img");
 var playerSheet = document.createElement("img");
+var playerSheet_Stun = document.createElement("img");
 var leaperSheet = document.createElement("img");
 var bulletPic = document.createElement("img");
 var stunShotPic = document.createElement("img");
@@ -31,6 +32,7 @@ function loadImages() {
   var imageList = [
     { varName: playerImage, theFile: "player.png" },
     { varName: playerSheet, theFile: "player_spritesheet.png" },
+    { varName: playerSheet_Stun, theFile: "player_spritesheet_stun_ammo.png" },
     { varName: leaperSheet, theFile: "leaper_spritesheet.png" },
     { varName: bulletPic, theFile: "world_ammo.png" },
     { varName: stunShotPic, theFile: "stun_shot.png" },

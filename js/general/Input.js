@@ -13,6 +13,7 @@ const KEY_S = 83;
 const KEY_D = 68;
 
 const KEY_SPACE = 32;
+const KEY_X = 88;
 
 const KEY_L = 76;
 
@@ -33,7 +34,8 @@ function setupInput() {
     KEY_RIGHT_ARROW,
     KEY_DOWN_ARROW,
     KEY_LEFT_ARROW,
-    KEY_SPACE
+    KEY_SPACE,
+    KEY_X
   );
 }
 
@@ -104,6 +106,9 @@ function keySet(keyEvent, setTo) {
   if (keyEvent.keyCode == KEY_L) {
     currentMode = EDIT_MODE;
   }
+  if (keyEvent.keyCode == player.controlKeySwitchAmmo) {
+    player.keyHeld_Switch_Ammo = setTo;
+  }
 }
 
 function keyPressed(evt) {
@@ -114,6 +119,5 @@ function keyPressed(evt) {
 }
 
 function keyReleased(evt) {
-  // console.log("Key pressed: "+evt.keyCode);
   keySet(evt, false);
 }

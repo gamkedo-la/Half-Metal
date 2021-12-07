@@ -106,7 +106,7 @@ function setupEntities(level) {
 
 function loadLevel(whichLevel) {
   worldGrid = whichLevel.slice();
-  player.reset(playerImage, "Blue");
+  player.reset(playerSheet, "Player");
   player.ammo = levels[currentLevel].ammo;
   enemies = [];
   entities = [];

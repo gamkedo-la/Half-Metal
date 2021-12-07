@@ -94,13 +94,13 @@ function bulletClass() {
   };
 }
 
-function spawnBullet(x, y, direction, shot_type = "NORMAL") {
+function spawnBullet(x, y, direction, shot_type = NORMAL) {
   var bullet;
   switch (shot_type) {
-    case "NORMAL":
+    case NORMAL:
       bullet = new bulletClass();
       break;
-    case "STUN":
+    case STUN:
       bullet = new StunShotClass();
       break;
   }
