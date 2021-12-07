@@ -42,7 +42,7 @@ function StunShotClass() {
       ) {
         enemy.state = STUNNED;
         bullet.removeSelf();
-        // playSound(sounds.destroy);
+        playSound(sounds.stun);
       }
     });
   };

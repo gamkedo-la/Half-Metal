@@ -17,6 +17,7 @@ async function loadSounds() {
     { sndName: "get_ammo", theFile: "snd_get_ammo.wav" },
     { sndName: "window_break", theFile: "snd_windowbreak.wav" },
     { sndName: "leap", theFile: "snd_leap.wav" },
+    { sndName: "stun", theFile: "snd_stun.wav" },
   ];
 
   soundsToLoad = soundList.length;
