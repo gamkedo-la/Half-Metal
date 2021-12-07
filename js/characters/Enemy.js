@@ -4,7 +4,7 @@ function enemyClass() {
   this.speed = 2;
   this.health = 1;
   this.damage = 1;
-  this.image;
+  this.image = leaperSheet;
   this.height = 16;
   this.width = 16;
   this.moveLeft = false;

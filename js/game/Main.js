@@ -52,9 +52,9 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function spawnEnemy(direction) {
-  enemy = new enemyClass();
+  enemy = new HunterClass();
   enemies.push(enemy);
-  enemy.reset(enemyPic);
+  enemy.reset(enemy.image);
   enemy.direction = direction;
 }
 
