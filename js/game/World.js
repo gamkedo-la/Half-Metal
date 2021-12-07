@@ -19,6 +19,7 @@ const TILE_WINDOW_V = 9;
 const TILE_WINDOW_H = 10;
 const TILE_WINDOW_SMASHED_H = 11;
 const TILE_STUN_SHOT = 12;
+const TILE_HUNTER_BOT = 13;
 
 function returnTileTypeAtColRow(col, row) {
   if (col >= 0 && col < WORLD_COLS && row >= 0 && row < WORLD_ROWS) {
