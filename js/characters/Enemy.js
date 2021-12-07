@@ -86,7 +86,7 @@ function enemyClass() {
     nextX = this.x;
     nextY = this.y;
 
-    if (this.state === "STUNNED") return;
+    if (this.state === STUNNED) return;
 
     if (this.alerted) this.speed = 6;
 
