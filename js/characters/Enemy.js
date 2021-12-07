@@ -18,6 +18,7 @@ function enemyClass() {
   this.lineEndY = 0;
   this.alerted = false;
   this.rays = [];
+  this.state = "NORMAL";
 
   this.moveAnimation = new AnimationClass(
     "move",
@@ -84,6 +85,8 @@ function enemyClass() {
   this.move = function () {
     nextX = this.x;
     nextY = this.y;
+
+    if (this.state === "STUNNED") return;
 
     if (this.alerted) this.speed = 6;
 

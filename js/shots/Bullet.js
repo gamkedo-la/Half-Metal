@@ -6,6 +6,7 @@ function bulletClass() {
   this.bulletPic = bulletPic;
   this.speed = 7;
   this.direction;
+  this.rotation_angle = 0;
 
   this.move = function () {
     nextX = this.x;
@@ -17,35 +18,40 @@ function bulletClass() {
       walkIntoTileType = worldGrid[walkIntoTileIndex];
     }
 
-    switch (walkIntoTileType) {
+    this.checkTileType(walkIntoTileType, walkIntoTileIndex);
+
+    this.checkIfOutofBounds();
+    this.checkForCollisionWithEnemy(this);
+  };
+
+  this.checkTileType = function (tile_type, tile_index) {
+    switch (tile_type) {
       case TILE_GROUND:
       case TILE_AMMO:
+      case TILE_STUN_SHOT:
       case TILE_GOAL:
         moveInOwnDirection(this);
         break;
       case TILE_DOOR:
-        worldGrid[walkIntoTileIndex] = TILE_GROUND;
+        worldGrid[tile_index] = TILE_GROUND;
         self.removeSelf();
         break;
       case TILE_WALL:
       case TILE_STURDY_WALL:
-        worldGrid[walkIntoTileIndex] = TILE_GROUND;
+        worldGrid[tile_index] = TILE_GROUND;
         this.removeSelf();
         playSound(sounds.destroy);
         break;
       case TILE_WINDOW_V:
       case TILE_WINDOW_H:
       case TILE_WINDOW_SMASHED_H:
-        worldGrid[walkIntoTileIndex] = TILE_GROUND;
+        worldGrid[tile_index] = TILE_GROUND;
         this.removeSelf();
         playSound(sounds.window_break);
         break;
       default:
         break;
     }
-
-    this.checkIfOutofBounds();
-    this.checkForCollisionWithEnemy(this);
   };
 
   this.checkIfOutofBounds = function () {
@@ -64,7 +70,12 @@ function bulletClass() {
   };
 
   this.draw = function () {
-    drawBitmapCenteredWithRotation(this.bulletPic, this.x, this.y, 0);
+    drawBitmapCenteredWithRotation(
+      this.bulletPic,
+      this.x,
+      this.y,
+      this.rotation_angle
+    );
   };
 
   this.checkForCollisionWithEnemy = function (bullet) {
@@ -83,10 +94,19 @@ function bulletClass() {
   };
 }
 
-function spawnBullet(x, y, direction) {
-  var bullet = new bulletClass();
+function spawnBullet(x, y, direction, shot_type = "NORMAL") {
+  var bullet;
+  switch (shot_type) {
+    case "NORMAL":
+      bullet = new bulletClass();
+      break;
+    case "STUN":
+      bullet = new StunShotClass();
+      break;
+  }
   bullet.x = x;
   bullet.y = y;
   bullet.direction = direction;
+  // bullet.rotation_angle = direction;
   bullets.push(bullet);
 }

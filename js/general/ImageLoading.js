@@ -2,6 +2,7 @@ var playerImage = document.createElement("img");
 var playerSheet = document.createElement("img");
 var leaperSheet = document.createElement("img");
 var bulletPic = document.createElement("img");
+var stunShotPic = document.createElement("img");
 var enemyPic = document.createElement("img");
 var fontPic = document.createElement("img");
 var worldPics = [];
@@ -32,6 +33,7 @@ function loadImages() {
     { varName: playerSheet, theFile: "player_spritesheet.png" },
     { varName: leaperSheet, theFile: "leaper_spritesheet.png" },
     { varName: bulletPic, theFile: "world_ammo.png" },
+    { varName: stunShotPic, theFile: "stun_shot.png" },
     { varName: enemyPic, theFile: "enemy.png" },
     { varName: fontPic, theFile: "font.png" },
 
@@ -40,6 +42,7 @@ function loadImages() {
     { worldType: TILE_STURDY_WALL, theFile: "world_sturdy_wall.png" },
     { worldType: TILE_GOAL, theFile: "world_goal.png" },
     { worldType: TILE_AMMO, theFile: "world_ammo.png" },
+    { worldType: TILE_STUN_SHOT, theFile: "stun_shot.png" },
     { worldType: TILE_DOOR, theFile: "world_door.png" },
     { worldType: TILE_WINDOW_V, theFile: "world_window_vertical.png" },
     { worldType: TILE_WINDOW_H, theFile: "world_window_horizontal.png" },

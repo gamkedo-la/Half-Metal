@@ -18,6 +18,7 @@ const TILE_WARP = 8;
 const TILE_WINDOW_V = 9;
 const TILE_WINDOW_H = 10;
 const TILE_WINDOW_SMASHED_H = 11;
+const TILE_STUN_SHOT = 12;
 
 function returnTileTypeAtColRow(col, row) {
   if (col >= 0 && col < WORLD_COLS && row >= 0 && row < WORLD_ROWS) {
@@ -64,6 +65,7 @@ function tileTypeHasTransparency(checkTileType) {
   return (
     checkTileType == TILE_GOAL ||
     checkTileType == TILE_AMMO ||
+    checkTileType == TILE_STUN_SHOT ||
     checkTileType == TILE_DOOR ||
     checkTileType == TILE_ENEMY ||
     checkTileType == TILE_WINDOW_H ||
