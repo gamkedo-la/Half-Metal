@@ -12,14 +12,14 @@ const TILE_PLAYERSTART = 2;
 const TILE_GOAL = 3;
 const TILE_AMMO = 4;
 const TILE_DOOR = 5;
-const TILE_ENEMY = 6;
+const TILE_LEAPER = 6;
 const TILE_STURDY_WALL = 7;
 const TILE_WARP = 8;
 const TILE_WINDOW_V = 9;
 const TILE_WINDOW_H = 10;
 const TILE_WINDOW_SMASHED_H = 11;
 const TILE_STUN_SHOT = 12;
-const TILE_HUNTER_BOT = 13;
+const TILE_HUNTER = 13;
 
 function returnTileTypeAtColRow(col, row) {
   if (col >= 0 && col < WORLD_COLS && row >= 0 && row < WORLD_ROWS) {
@@ -68,7 +68,7 @@ function tileTypeHasTransparency(checkTileType) {
     checkTileType == TILE_AMMO ||
     checkTileType == TILE_STUN_SHOT ||
     checkTileType == TILE_DOOR ||
-    checkTileType == TILE_ENEMY ||
+    checkTileType == TILE_LEAPER ||
     checkTileType == TILE_WINDOW_H ||
     checkTileType == TILE_WINDOW_V ||
     checkTileType == TILE_WINDOW_SMASHED_H

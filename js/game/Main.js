@@ -51,11 +51,24 @@ function imageLoadingDoneSoStartGame() {
   loadLevel(levels[0].level_map);
 }
 
-function spawnEnemy(direction) {
-  enemy = new HunterClass();
+function spawnEnemy(config, type = LEAPER) {
+  switch (type) {
+    case LEAPER:
+      enemy = new LeaperClass();
+      break;
+    case FLYER:
+      enemy = new FlyerClass();
+      break;
+    case HUNTER:
+      enemy = new HunterClass();
+      break;
+    case BLOCKER:
+      enemy = new BlockerClass();
+      break;
+  }
   enemies.push(enemy);
   enemy.reset(enemy.image);
-  enemy.direction = direction;
+  enemy.direction = config.direction;
 }
 
 function setupUI() {
@@ -76,10 +89,17 @@ function spawnEntity() {
 function setupEnemies(level) {
   currentEnemy = 0;
   level.forEach((tile, index) => {
-    if (tile === TILE_ENEMY) {
-      spawnEnemy(levels[currentLevel].enemies[currentEnemy]);
-      currentEnemy++;
-      level[index] = TILE_GROUND;
+    switch (tile) {
+      case TILE_LEAPER:
+        spawnEnemy(levels[currentLevel].enemies[currentEnemy], LEAPER);
+        currentEnemy++;
+        level[index] = TILE_GROUND;
+        break;
+      case TILE_HUNTER:
+        spawnEnemy(levels[currentLevel].enemies[currentEnemy], HUNTER);
+        currentEnemy++;
+        level[index] = TILE_GROUND;
+        break;
     }
   });
 }
@@ -107,7 +127,7 @@ function setupEntities(level) {
 function loadLevel(whichLevel) {
   worldGrid = whichLevel.slice();
   player.reset(playerSheet, "Player");
-  player.ammo = levels[currentLevel].ammo;
+  player.ammo = levels[currentLevel].starting_ammo;
   enemies = [];
   entities = [];
   setupEnemies(worldGrid);

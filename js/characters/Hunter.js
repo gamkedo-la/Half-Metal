@@ -1,7 +1,7 @@
 HunterClass.prototype = new enemyClass();
 
 function HunterClass() {
-  this.myTileKind = TILE_HUNTER_BOT;
+  this.myTileKind = TILE_HUNTER;
   this.x = 75;
   this.y = 75;
   this.width = 35;

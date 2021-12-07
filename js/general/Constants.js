@@ -13,7 +13,13 @@ const STUNNED = "stunned";
 const PUSHED = "pushed";
 
 // TILESET CONSTANTS
-const CELLS = "CELLS";
-const ARMORY = "ARMORY";
-const PROCESSING_CENTER = "PROCESSING_CENTER";
-const COURTYARD = "COURTYARD";
+const CELLS = "cells";
+const ARMORY = "armory";
+const PROCESSING_CENTER = "processing_center";
+const COURTYARD = "courtyard";
+
+// ENEMY TYPES
+LEAPER = "leaper";
+FLYER = "flyer";
+HUNTER = "hunter";
+BLOCKER = "blocker";

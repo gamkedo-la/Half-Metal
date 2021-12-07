@@ -17,16 +17,16 @@ const baseLevel = [
 const levelOne = [
     1,1,1,1,10,1,1,1,1,1,1,1,1,1,1,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,6,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1,
     1,0,0,0,0,0,0,0,0,12,0,0,0,0,0,1,
-    1,0,0,0,6,0,0,0,0,4,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,6,0,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,6,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,13,0,1,
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 ];
 
@@ -46,7 +46,6 @@ const levelTwo = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 ];
 
-
 const baseLevelConfig = {
     level_map: baseLevel,
     starting_ammo: 0,
@@ -57,14 +56,14 @@ const baseLevelConfig = {
 
 const levelOneConfig = {
     level_map: levelOne,
-    ammo: 100,
-    enemies: [90, 180, 90],
+    starting_ammo:100,
+    enemies: [{direction: 90}, {direction: 180}, {direction: 90}],
 };
 
 const levelTwoConfig = {
     level_map: levelTwo,
-    ammo: 0,
-    enemies: [90, 180, 90],
+    starting_ammo:100,
+    enemies: [{direction: 90}, {direction: 180}, {direction: 90}],
 };
 
 const levels = [levelOneConfig, levelTwoConfig];
