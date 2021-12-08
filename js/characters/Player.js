@@ -72,31 +72,8 @@ function playerClass() {
     "shoot-up": [{ x: 45, y: 25, w: 15, h: 31 }],
   };
 
+  this.animator = new SpriteSheetAnimatorClass(this);
   this.currentAnimation = "walk-down";
-  this.currentAnimationFrame = 0;
-
-  this.animationFrameLimit = 8;
-  this.animationFrameProgress = this.animationFrameLimit;
-
-  this.getFrame = function () {
-    return this.animations[this.currentAnimation][this.currentAnimationFrame];
-  };
-
-  this.updateAnimationProgress = function () {
-    //Downtick frame progress
-    if (this.animationFrameProgress > 0) {
-      this.animationFrameProgress -= 1;
-      return;
-    }
-
-    //Reset the counter
-    this.animationFrameProgress = this.animationFrameLimit;
-    this.currentAnimationFrame += 1;
-
-    if (this.getFrame() === undefined) {
-      this.currentAnimationFrame = 0;
-    }
-  };
 
   this.setupInput = function (
     upKey,
@@ -292,34 +269,13 @@ function playerClass() {
       !this.keyHeld_South
     ) {
       this.state = IDLE;
-      this.currentAnimationFrame = 0;
+      this.animator.currentAnimationFrame = 0;
     } else if (this.keyHeld_Shoot) {
       this.state = SHOOTING;
-      this.currentAnimationFrame = 0;
+      this.animator.currentAnimationFrame = 0;
     } else {
       this.state = MOVING;
     }
-  };
-
-  this.animate = function () {
-    const { x, y, w, h } = this.getFrame();
-    canvasContext.save();
-    canvasContext.translate(this.x, this.y);
-    canvasContext.rotate(0);
-    canvasContext.drawImage(
-      this.image,
-      x,
-      y,
-      w,
-      h,
-      -this.width / 2,
-      -this.height / 2,
-      w,
-      h
-    );
-    canvasContext.restore();
-
-    this.updateAnimationProgress();
   };
 
   this.draw = function () {
@@ -334,7 +290,6 @@ function playerClass() {
         this.currentAnimation = "shoot-" + this.directionMap[this.direction];
         break;
     }
-
-    this.animate();
+    this.animator.animate();
   };
 }
