@@ -35,6 +35,6 @@ function HunterClass() {
       this.y - this.image.height / 2, 
       this.angleMovement
       );
-      // drawBitmapCenteredWithAnimationFlip()
+     
   };
 }
