@@ -39,45 +39,64 @@ function playerClass() {
   this.state = IDLE;
 
   this.directionMap = {
-    270: "north",
-    90: "south",
-    0: "east",
-    180: "west",
+    270: "up",
+    90: "down",
+    0: "right",
+    180: "left",
   };
 
-  this.moveAnimation = new AnimationClass(
-    "move",
-    [
-      new FrameClass(0, 0, this.width, this.height, "south"),
-      new FrameClass(16, 0, this.width, this.height, "south"),
-      new FrameClass(33, 0, this.width, this.height, "west"),
-      new FrameClass(55, 0, this.width, this.height, "west"),
-      new FrameClass(76, 0, this.width, this.height, "east"),
-      new FrameClass(99, 0, this.width, this.height, "east"),
-      new FrameClass(119, 0, this.width, this.height, "north"),
-      new FrameClass(136, 0, this.width, this.height, "north"),
+  this.animations = {
+    "idle-down": [{ x: 0, y: 25, w: 15, h: 25 }],
+    "idle-left": [{ x: 34, y: 56, w: 18, h: 25 }],
+    "idle-right": [{ x: 0, y: 81, w: 18, h: 25 }],
+    "idle-up": [{ x: 15, y: 25, w: 15, h: 25 }],
+    "walk-down": [
+      { x: 0, y: 0, w: 13, h: 25 },
+      { x: 13, y: 0, w: 13, h: 25 },
     ],
-    this.image,
-    240
-  );
-
-  this.idleAnimation = new AnimationClass(
-    "idle",
-    [new FrameClass(129, this.height + 9, this.width, this.height)],
-    this.image,
-    0
-  );
-
-  this.shootAnimation = new AnimationClass(
-    "shooting",
-    [
-      new FrameClass(62, this.height + 3, this.width, this.height, "north"),
-      new FrameClass(47, this.height + 9, this.width, this.height, "south"),
-      new FrameClass(25, this.height + 10, this.width, this.height, "east"),
-      new FrameClass(3, this.height + 10, this.width, this.height, "west"),
+    "walk-right": [
+      { x: 17, y: 56, w: 17, h: 25 },
+      { x: 18, y: 106, w: 18, h: 25 },
     ],
-    this.image
-  );
+    "walk-up": [
+      { x: 26, y: 0, w: 14, h: 25 },
+      { x: 40, y: 0, w: 14, h: 25 },
+    ],
+    "walk-left": [
+      { x: 0, y: 56, w: 17, h: 25 },
+      { x: 0, y: 106, w: 18, h: 25 },
+    ],
+    "shoot-down": [{ x: 30, y: 25, w: 15, h: 25 }],
+    "shoot-left": [{ x: 18, y: 81, w: 18, h: 25 }],
+    "shoot-right": [{ x: 36, y: 81, w: 18, h: 25 }],
+    "shoot-up": [{ x: 45, y: 25, w: 15, h: 31 }],
+  };
+
+  this.currentAnimation = "walk-down";
+  this.currentAnimationFrame = 0;
+
+  this.animationFrameLimit = 8;
+  this.animationFrameProgress = this.animationFrameLimit;
+
+  this.getFrame = function () {
+    return this.animations[this.currentAnimation][this.currentAnimationFrame];
+  };
+
+  this.updateAnimationProgress = function () {
+    //Downtick frame progress
+    if (this.animationFrameProgress > 0) {
+      this.animationFrameProgress -= 1;
+      return;
+    }
+
+    //Reset the counter
+    this.animationFrameProgress = this.animationFrameLimit;
+    this.currentAnimationFrame += 1;
+
+    if (this.getFrame() === undefined) {
+      this.currentAnimationFrame = 0;
+    }
+  };
 
   this.setupInput = function (
     upKey,
@@ -215,7 +234,6 @@ function playerClass() {
         entity.y < player.y + player.height &&
         entity.y + entity.height > player.y
       ) {
-        console.log("Hit warp");
         entity.teleport(player);
       }
     });
@@ -263,10 +281,6 @@ function playerClass() {
           break;
       }
 
-      this.idleAnimation.sheet = this.image;
-      this.moveAnimation.sheet = this.image;
-      this.shootAnimation.sheet = this.image;
-
       this.keyHeld_Switch_Ammo = false;
     }
 
@@ -278,37 +292,49 @@ function playerClass() {
       !this.keyHeld_South
     ) {
       this.state = IDLE;
+      this.currentAnimationFrame = 0;
     } else if (this.keyHeld_Shoot) {
       this.state = SHOOTING;
+      this.currentAnimationFrame = 0;
     } else {
       this.state = MOVING;
     }
-    console.log(this.state);
+  };
+
+  this.animate = function () {
+    const { x, y, w, h } = this.getFrame();
+    canvasContext.save();
+    canvasContext.translate(this.x, this.y);
+    canvasContext.rotate(0);
+    canvasContext.drawImage(
+      this.image,
+      x,
+      y,
+      w,
+      h,
+      -this.width / 2,
+      -this.height / 2,
+      w,
+      h
+    );
+    canvasContext.restore();
+
+    this.updateAnimationProgress();
   };
 
   this.draw = function () {
     switch (this.state) {
       case MOVING:
-        this.moveAnimation.draw(
-          this.x,
-          this.y,
-          this.width,
-          this.height,
-          this.directionMap[this.direction]
-        );
+        this.currentAnimation = "walk-" + this.directionMap[this.direction];
         break;
       case IDLE:
-        this.idleAnimation.draw(this.x, this.y, this.width, this.height);
+        this.currentAnimation = "idle-" + this.directionMap[this.direction];
         break;
       case SHOOTING:
-        this.shootAnimation.draw(
-          this.x,
-          this.y,
-          this.width,
-          this.height,
-          this.directionMap[this.direction]
-        );
+        this.currentAnimation = "shoot-" + this.directionMap[this.direction];
         break;
     }
+
+    this.animate();
   };
 }
