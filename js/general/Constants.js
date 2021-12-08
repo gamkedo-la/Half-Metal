@@ -23,3 +23,11 @@ LEAPER = "leaper";
 FLYER = "flyer";
 HUNTER = "hunter";
 BLOCKER = "blocker";
+
+// DIRECTIONS
+const DIRECTION_MAP = {
+  270: "north",
+  90: "south",
+  0: "east",
+  180: "west",
+};
