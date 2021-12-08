@@ -27,14 +27,8 @@ function HunterClass() {
   };
 
   this.draw = function () {
-    var hunterFrameW = this.width;
-    drawBitmapCenteredWithRotation(
-      this.image,
-      
-      this.x - hunterFrameW / 2, 
-      this.y - this.image.height / 2, 
-      this.angleMovement
-      );
-     
+    
+    drawBitmapCenteredWithRotation(this.image,this.x, this.y, 0);
+    
   };
 }
