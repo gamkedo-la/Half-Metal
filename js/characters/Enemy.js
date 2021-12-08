@@ -1,47 +1,37 @@
 function enemyClass() {
   this.name = "Enemy";
-  this.type = "Enemy";
   this.speed = 2;
   this.health = 1;
   this.damage = 1;
   this.image = leaperSheet;
   this.height = 16;
   this.width = 16;
-  this.moveLeft = false;
-  this.moveRight = false;
-  this.moveUp = false;
-  this.moveDown = false;
-  this.x;
-  this.y;
+  this.x = 0;
+  this.y = 0;
   this.direction;
-  this.lineEndX = 0;
-  this.lineEndY = 0;
-  this.alerted = false;
   this.rays = [];
-  this.state = "NORMAL";
-
-  this.moveAnimation = new AnimationClass(
-    "move",
-    [
-      new FrameClass(0, 0, this.width, this.height, "east"),
-      new FrameClass(this.width, 0, this.width, this.height, "east"),
-      new FrameClass(this.width * 2, 0, this.width, this.height, "west"),
-      new FrameClass(this.width * 3, 0, this.width, this.height, "west"),
-      new FrameClass(this.width * 4, 0, this.width, this.height, "south"),
-      new FrameClass(this.width * 5, 0, this.width, this.height, "south"),
-      new FrameClass(this.width * 6, 0, this.width, this.height, "north"),
-      new FrameClass(this.width * 7, 0, this.width, this.height, "north"),
+  this.state = NORMAL;
+  this.currentAnimation = "walk-right";
+  this.animations = {
+    "walk-right": [
+      { x: 0, y: 0, w: this.width, h: this.height },
+      { x: this.width, y: 0, w: this.width, h: this.height },
     ],
-    leaperSheet,
-    240
-  );
+    "walk-left": [
+      { x: this.width * 2, y: 0, w: this.width, h: this.height },
+      { x: this.width * 3, y: 0, w: this.width, h: this.height },
+    ],
+    "walk-down": [
+      { x: this.width * 4, y: 0, w: this.width, h: this.height },
+      { x: this.width * 5, y: 0, w: this.width, h: this.height },
+    ],
+    "walk-up": [
+      { x: this.width * 6, y: 0, w: this.width, h: this.height },
+      { x: this.width * 7, y: 0, w: this.width, h: this.height },
+    ],
+  };
 
-  this.idleAnimation = new AnimationClass(
-    "idle",
-    [new FrameClass(this.width * 8, 0, this.width, this.height)],
-    leaperSheet,
-    0
-  );
+  this.animator = new SpriteSheetAnimatorClass(this);
 
   this.draw = function () {
     this.raycast();
@@ -54,15 +44,10 @@ function enemyClass() {
       ray.draw();
       canvasContext.lineTo(ray.x, ray.y);
     });
-
+    
     canvasContext.stroke();
-    this.moveAnimation.draw(
-      this.x,
-      this.y,
-      this.height,
-      this.width,
-      DIRECTION_MAP[this.direction]
-    );
+    
+    this.animator.animate();
   };
 
   this.reset = function (whichImage) {
@@ -88,7 +73,7 @@ function enemyClass() {
 
     if (this.state === STUNNED) return;
 
-    if (this.alerted) this.speed = 6;
+    if (this.state === ALERT) this.speed = 6;
 
     var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
     walkIntoTileType = TILE_GROUND;
@@ -109,7 +94,7 @@ function enemyClass() {
       case TILE_WALL:
       case TILE_WINDOW_H:
       case TILE_WINDOW_V:
-        if (this.alerted) {
+        if (this.state === ALERT) {
           worldGrid[walkIntoTileIndex] = TILE_GROUND;
         } else {
           reverseDirection(this);
@@ -128,7 +113,7 @@ function enemyClass() {
       if (this.rays[i].destroyed) {
         this.removeRaycast(this.rays[i]);
       } else if (this.rays[i].found_player) {
-        this.alerted = true;
+        this.state = ALERT;
         playSound(sounds.leap);
       }
       this.rays[i].move();
