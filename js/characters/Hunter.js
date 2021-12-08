@@ -28,7 +28,7 @@ function HunterClass() {
 
   this.draw = function () {
     
-    drawBitmapCenteredWithRotation(this.image,this.x, this.y, 0);
+    drawBitmapCenteredWithRotation(this.image,this.x, this.y, this.angleMovement);
     
   };
 }
