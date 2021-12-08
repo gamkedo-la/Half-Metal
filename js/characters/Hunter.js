@@ -7,6 +7,7 @@ function HunterClass() {
   this.width = 35;
   this.height = 54;
   this.image = hunterBotImage;
+  this.angleMovement = 0;
 
   this.reset = function (whichImage) {
     this.image = whichImage;
@@ -26,6 +27,14 @@ function HunterClass() {
   };
 
   this.draw = function () {
-    drawBitmapCenteredWithRotation(this.image, this.x, this.y, 0);
+    var hunterFrameW = this.width;
+    drawBitmapCenteredWithRotation(
+      this.image,
+      
+      this.x - hunterFrameW / 2, 
+      this.y - this.image.height / 2, 
+      this.angleMovement
+      );
+      // drawBitmapCenteredWithAnimationFlip()
   };
 }
