@@ -1,12 +1,15 @@
 HunterClass.prototype = new enemyClass();
 
 function HunterClass() {
-  this.myTileKind = TILE_HUNTER;
-  this.x = 75;
-  this.y = 75;
-  this.width = 35;
-  this.height = 54;
   this.image = hunterBotImage;
+  this.width = 34;
+  this.height = 34;
+  this.myTileKind = TILE_HUNTER;
+  this.animations = {
+    idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
+  };
+
+  this.animator = new SpriteSheetAnimatorClass(this);
 
   this.reset = function (whichImage) {
     this.image = whichImage;
@@ -23,9 +26,5 @@ function HunterClass() {
       } // end of col for
     } // end of row for
     console.log("NO HUNTERBOT START FOUND!");
-  };
-
-  this.draw = function () {
-    drawBitmapCenteredWithRotation(this.image, this.x, this.y, 0);
   };
 }

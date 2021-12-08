@@ -4,8 +4,8 @@ function enemyClass() {
   this.health = 1;
   this.damage = 1;
   this.image = leaperSheet;
-  this.height = 16;
-  this.width = 16;
+  this.height = 0;
+  this.width = 0;
   this.x = 0;
   this.y = 0;
   this.direction;

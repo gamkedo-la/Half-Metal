@@ -1,6 +1,9 @@
 LeaperClass.prototype = new enemyClass();
 
 function LeaperClass() {
+  this.image = leaperSheet;
+  this.width = 16;
+  this.height = 16;
   this.animations = {
     "walk-right": [
       { x: 0, y: 0, w: this.width, h: this.height },
