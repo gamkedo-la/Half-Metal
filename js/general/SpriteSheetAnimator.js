@@ -8,7 +8,9 @@ function SpriteSheetAnimatorClass(game_object = {}, speed = 8) {
   this.animations = game_object?.animations;
 
   this.getFrame = function () {
-    return this.animations[game_object?.currentAnimation][this.currentAnimationFrame];
+    return this.animations[game_object?.currentAnimation][
+      this.currentAnimationFrame
+    ];
   };
 
   this.updateAnimationProgress = function () {
