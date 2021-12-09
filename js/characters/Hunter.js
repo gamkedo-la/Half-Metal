@@ -4,6 +4,8 @@ function HunterClass() {
   this.myTileKind = TILE_HUNTER;
   this.x = 75;
   this.y = 75;
+  this.velX=1;
+  this.velY=2;
   this.width = 35;
   this.height = 54;
   this.image = hunterBotImage;
@@ -25,6 +27,16 @@ function HunterClass() {
     } // end of row for
     console.log("NO HUNTERBOT START FOUND!");
   };
+
+  
+  this.move = function (){
+    var hunterPosition; 
+    hunterPosition = new HunterClass();
+    hunterPosition.x = player.x;
+    hunterPosition.y = player.y;
+    hunterPosition.velX = 6 - Math.random() * 10;
+    hunterPosition.velY = 10 - Math.random() * 10;
+  }
 
   this.draw = function () {
     
