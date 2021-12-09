@@ -24,7 +24,7 @@ If your image is only used for a tile, use the worldType property instead:
 
 ### Step 4: Test your image in a Game Object
 
-Finally, add your image to a game object (for example, the EnemyClass of the PlayerClass)
+Finally, add your image to a game object (for example, the `EnemyClass` of the `PlayerClass`)
 
     this.image = myImagePic;
 
