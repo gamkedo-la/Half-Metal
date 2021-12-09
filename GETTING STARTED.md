@@ -58,6 +58,10 @@ Thanks again, and have fun making games!
  - **HOW_TO_ANIMATE.md** - *how-to/general:* for learning how to do   
    SpriteSheetAnimation in Half-Metal
    
+ - **HOW_TO_LOAD_IMAGES.md** - *how-to/general:* for learning how to add and render new images
+   
+ - **HOW_TO_LOAD_SOUNDS.md** - *how-to/general:* for learning how to add and play new sounds
+   
  - **GENERAL_FILES.md** - *js/general:* explainer for each file in *js/general*
 
  - **GAME_FILES.md** - *js/game:* explainer for each file in *js/game*
