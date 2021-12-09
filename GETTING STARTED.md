@@ -52,7 +52,7 @@ Thanks again, and have fun making games!
  - **PRACTICE_FOLDER.md** - *js/practice:* for playing around with any
    coding/dev concepts you want
 
- - **GIMMICKS_FOLDER.md** - *js/practice:* a short explanation on the purpose of the gimmicks folder
+ - **GIMMICKS_FOLDER.md** - *js/gimmicks:* a short explanation on the purpose of the gimmicks folder
    
  - **HOW_TO_ANIMATE.md** - *js/general:* for learning how to do   
    SpriteSheetAnimation in Half-Metal
