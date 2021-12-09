@@ -39,6 +39,14 @@ function HunterClass() {
 
     this.x += this.speedX;
 
+    if(this.x < 0 && this.speedX < 0.0){
+      this.speedX *=-1;
+    }
+
+    if (this.x > canvas.width *1.2 && this.speedX > 0.0){
+      this.speedX *=-1;
+    }
+
 
     var hunterPosition; 
     hunterPosition = new HunterClass();
