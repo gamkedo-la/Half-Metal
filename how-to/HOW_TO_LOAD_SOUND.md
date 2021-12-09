@@ -1,22 +1,20 @@
 # HOW TO LOAD SOUNDS
-
 ### Step 1: Add your sound to the `sounds` folder
+Simply add your file to the folder and be sure to follow the established naming conventions (e.g., `snd_my_sound.wav`). 
 
-Simply add your file to the folder and be sure to follow the established naming conventions (e.g., `snd_my_sound.wav`).
+Normally, we'll use `.wav` files for our `sounds` folder. 
 
-Normally, we'll use `.wav` files for our `sounds` folder.
 
-### Step 2: Add your image to the `soundList`
-
-In `js/general/SoundLoading.js`, look for the `soundList` array inside `loadSounds()`.
+### Step 2: Add your sound to the `soundList`
+In `js/general/SoundLoading.js`, look for the `soundList` array inside `loadSounds()`. 
 
 Add a new entry to this array, containing your sound name and file name.
 
     { sndName:  "my_sound", theFile:  "snd_my_sound.wav" },
 
-### Step 3: Test your image in a Game Object
 
-Finally, play your sound in a Game Object (for example, the `EnemyClass` of the `PlayerClass`).
+### Step 3: Test your sound in a Game Object
+Finally, play your sound in a Game Object (for example, the `EnemyClass` of the `PlayerClass`). 
 
 You can add the following code whereever appropriate:
 
