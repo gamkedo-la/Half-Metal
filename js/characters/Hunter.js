@@ -38,6 +38,10 @@ function HunterClass() {
     this.y += this.speedY;
 
     this.x += this.speedX;
+    var hunterPosition; 
+    hunterPosition = new HunterClass();
+    hunterPosition.x = player.x;
+    hunterPosition.y = player.y;
 
     if(this.x < 0 && this.speedX < 0.0){
       this.speedX *=-1;
@@ -53,18 +57,20 @@ function HunterClass() {
 
      if (this.y > canvas.height && this.speedY > 0.0){
        this.speedY *= -1;
+      //  hunterPosition.x += player.x;
     }
 
-    if (this.y > canvas.height && this.speedY > 0.0){
+    if (this.y > canvas.height * 1.2 && this.speedY > 0.0){
       this.speedY *= 1;
+   }
+
+   if (this.y < canvas.height  && this.speedY > 0.0){
+     this.speedY *=-1;
    }
 
     
 
-    var hunterPosition; 
-    hunterPosition = new HunterClass();
-    hunterPosition.x = player.x;
-    hunterPosition.y = player.y;
+    
     // hunterPosition.speedX = 6 - Math.random() * 10;
     // hunterPosition.speedY = 10 - Math.random() * 10;
   }
