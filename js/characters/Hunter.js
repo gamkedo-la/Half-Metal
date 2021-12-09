@@ -10,6 +10,7 @@ function HunterClass() {
   this.height = 54;
   this.image = hunterBotImage;
   this.angleMovement = 0;
+  this.life;
 
   this.reset = function (whichImage) {
     this.image = whichImage;
@@ -30,6 +31,9 @@ function HunterClass() {
 
   
   this.move = function (){
+    nextX = this.x;
+    nextY = this.y;
+
     var hunterPosition; 
     hunterPosition = new HunterClass();
     hunterPosition.x = player.x;
