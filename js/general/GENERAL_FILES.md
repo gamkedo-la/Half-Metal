@@ -18,6 +18,6 @@ Here is a breakdown of the files in the js/general folder and their uses.
 
 **SoundLoading.js:** essentially the sound version of `ImageLoading.js`. Add a sound to the `soundList` to load it into the game.
 
-**SpriteSheetAnimator.js:** a class for animating the sprite sheets of Game Objects. Requires a Game Object be passed into it when instantiated. This code will be commonly used by classes in the `js/characters` folder. See `js/general/HOW_TO_ANIMATE.md` for more info.
+**SpriteSheetAnimator.js:** a class for animating the sprite sheets of Game Objects. Requires a Game Object be passed into it when instantiated. This code will be commonly used by classes in the `js/characters` folder. See `how-to/HOW_TO_ANIMATE.md` for more info.
 
 **WebAudio.js:** initializes sound based on the player's browser. Not to be confused with `SoundLoading.js` (don't use `WebAudio.js` to add new sounds). Only modify this file if we have audio incompatibilities with some browsers.
