@@ -34,8 +34,8 @@ function HunterClass() {
 
   
   this.move = function (){
-    // nextX = this.x;
-    // nextY = this.y;
+    this.x += this.speedX;
+    this.y += this.speedY;
 
     this.x += this.speedX;
 
@@ -47,6 +47,19 @@ function HunterClass() {
       this.speedX *=-1;
     }
 
+    // if (this.x < 20 && this.speedX > 0.0){
+    //    this.speedX *= 1;
+    // }
+
+     if (this.y > canvas.height && this.speedY > 0.0){
+       this.speedY *= -1;
+    }
+
+    if (this.y > canvas.height && this.speedY > 0.0){
+      this.speedY *= 1;
+   }
+
+    
 
     var hunterPosition; 
     hunterPosition = new HunterClass();
