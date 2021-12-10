@@ -67,3 +67,14 @@ const CONSTANTS = {
   hazards: HAZARDS,
   directions: DIRECTION_MAP,
 };
+
+// CHARACTER SET
+const CHARACTER_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!.? ";
+const CHARACTER_MAP = {};
+for (var i = 0; i < CHARACTER_SET.length; i++) {
+  CHARACTER_MAP[CHARACTER_SET[i]] = i * 8;
+}
+
+// MODES
+const EDIT_MODE = "EDIT_MODE";
+const PLAY_MODE = "PLAY_MODE";

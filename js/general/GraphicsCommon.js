@@ -25,20 +25,34 @@ function drawBitmapCenteredWithRotation(
   canvasContext.restore();
 }
 
-function drawBitmapCenteredWithAnimationFlip(useBitmap, atX,atY, frameW,frameH, frameNumX, frameNumY, flipHoriz, withAng){
+function drawBitmapCenteredWithAnimationFlip(
+  useBitmap,
+  atX,
+  atY,
+  frameW,
+  frameH,
+  frameNumX,
+  frameNumY,
+  flipHoriz,
+  withAng
+) {
   canvasContext.save();
   canvasContext.translate(atX, atY);
   canvasContext.rotate(withAng);
-  
-  if(flipHoriz){
-    canvasContext.scale(-1,1);
+
+  if (flipHoriz) {
+    canvasContext.scale(-1, 1);
   }
   canvasContext.drawImage(
     useBitmap,
-    frameNumX*frameW, frameNumY* frameH,
-    frameW,frameH,
-    -frameW /2, -frameH /2,
-    frameW, frameH
+    frameNumX * frameW,
+    frameNumY * frameH,
+    frameW,
+    frameH,
+    -frameW / 2,
+    -frameH / 2,
+    frameW,
+    frameH
   );
 
   canvasContext.restore();
@@ -67,7 +81,7 @@ function renderFont(text, textX, textY) {
 
   for (var i = 0; i < text.length; i++) {
     currentChar = text[i];
-    fontCharPosition = charMap[currentChar.toUpperCase()];
+    fontCharPosition = CHARACTER_MAP[currentChar.toUpperCase()];
     if (!fontCharPosition) {
       fontCharPosition = 0;
     }
@@ -85,5 +99,3 @@ function renderFont(text, textX, textY) {
     currentX += 9;
   }
 }
-
-
