@@ -1,10 +1,11 @@
-function effectClass(x, y) {
+function effectClass(x, y, img) {
     this.x = x;
     this.y = y;
     this.width = 16;
     this.height = 16;
-    this.image = wallDestructionSheet;
-    this.playedAnimation = false;
+    
+    // use img if specified, otherwise assume wall destruction
+    this.image = (img?img:wallDestructionSheet);
 
     this.animations = {
         "one": [{ x: 0, y: 0, w: 16, h: 16 },

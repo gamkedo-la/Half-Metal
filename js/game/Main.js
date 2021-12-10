@@ -70,6 +70,9 @@ function spawnEffect(x, y, type = EXPLOSION) {
     case EXPLOSION:
       effect = new effectClass(x, y);
       break;
+    case LEAPER_DIE:
+      effect = new effectClass(x, y, leaperDestructionSheet);
+      break;
   }
   // console.log("spawned new effect with:", effect.x, effect.y);
   effect.animator.currentAnimationFrame = 0;
