@@ -37,7 +37,11 @@ function setupInput() {
     KEY_DOWN_ARROW,
     KEY_LEFT_ARROW,
     KEY_SPACE,
-    KEY_X
+    KEY_X,
+    KEY_W,
+    KEY_D,
+    KEY_S,
+    KEY_A
   );
 }
 
@@ -78,16 +82,20 @@ function mousePressed() {
 }
 
 function keySet(keyEvent, setTo) {
-  if (keyEvent.keyCode == player.controlKeyLeft) {
+  if (keyEvent.keyCode == player.controlKeyLeft
+    || keyEvent.keyCode == player.controlKeyLeft2) {
     player.keyHeld_West = setTo;
   }
-  if (keyEvent.keyCode == player.controlKeyRight) {
+  if (keyEvent.keyCode == player.controlKeyRight
+    || keyEvent.keyCode == player.controlKeyRight2) {
     player.keyHeld_East = setTo;
   }
-  if (keyEvent.keyCode == player.controlKeyUp) {
+  if (keyEvent.keyCode == player.controlKeyUp
+    || keyEvent.keyCode == player.controlKeyUp2) {
     player.keyHeld_North = setTo;
   }
-  if (keyEvent.keyCode == player.controlKeyDown) {
+  if (keyEvent.keyCode == player.controlKeyDown
+    || keyEvent.keyCode == player.controlKeyDown2) {
     player.keyHeld_South = setTo;
   }
   if (keyEvent.keyCode == player.controlKeyShoot) {
