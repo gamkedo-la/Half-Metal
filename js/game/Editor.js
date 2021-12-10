@@ -1,11 +1,35 @@
-// Construct top level menus and buttons th
-const menuList = {};
+const objectMap = {
+  [NORMAL_WALL]: 1,
+  [LEAPER]: 6,
+  [HUNTER]: 13,
+};
+
+// Construct top level menu and buttons
+const menuList = {
+  palette: [
+    new ButtonClass(...[, , , ,], "ENEMY", ...[, ,], () => {
+      editor.goToMenu("enemies");
+    }),
+    new ButtonClass(...[, , , ,], "SHOTS", ...[, ,], () => {
+      editor.goToMenu("shots");
+    }),
+    new ButtonClass(...[, , , ,], "WALLS", ...[, ,], () => {
+      editor.goToMenu("walls");
+    }),
+    new ButtonClass(...[, , , ,], "HAZARD", ...[, ,], () => {
+      editor.goToMenu("hazards");
+    }),
+  ],
+};
+
+// Construct submenus based on Game Object types defined in Constants.js.
 const subMenus = ["enemies", "shots", "walls", "hazards"];
 subMenus.forEach((sub) => {
   // Return an array of buttons for each submenu item
   menuList[sub] = CONSTANTS[sub]?.map((constant) => {
     return new ButtonClass(...[, , , ,], constant, ...[, ,], () => {
       console.log("Clicked " + constant);
+      editor.selectedTile = objectMap[constant];
     });
   });
 
@@ -16,24 +40,8 @@ subMenus.forEach((sub) => {
     })
   );
 });
-menuList.palette = [
-  new ButtonClass(...[, , , ,], "ENEMY", ...[, ,], () => {
-    editor.goToMenu("enemies");
-  }),
-  new ButtonClass(...[, , , ,], "SHOTS", ...[, ,], () => {
-    console.log("Clicked SHOTS");
-    editor.goToMenu("shots");
-  }),
-  new ButtonClass(...[, , , ,], "WALLS", ...[, ,], () => {
-    console.log("Clicked WALLS");
-    editor.goToMenu("walls");
-  }),
-  new ButtonClass(...[, , , ,], "HAZARD", ...[, ,], () => {
-    console.log("Clicked HAZARD");
-    editor.goToMenu("hazards");
-  }),
-];
 
+// Define button functionality
 function ButtonClass(
   height = 12,
   width = 10,
@@ -64,6 +72,7 @@ function ButtonClass(
   };
 }
 
+// Main renderer and contoller of the Editor UI
 function EditorClass() {
   this.currentLevel = 0;
   this.currentMap = [];
@@ -82,44 +91,9 @@ function EditorClass() {
       currentMode = PLAY_MODE;
     }),
   ];
-  this.paletteOptions = [
-    new ButtonClass(...[, , , ,], "ENEMY", ...[, ,], () => {
-      console.log("Clicked ENEMIES");
-    }),
-    new ButtonClass(...[, , , ,], "SHOTS", ...[, ,], () => {
-      console.log("Clicked SHOTS");
-    }),
-    new ButtonClass(...[, , , ,], "WALLS", ...[, ,], () => {
-      console.log("Clicked WALLS");
-    }),
-    new ButtonClass(...[, , , ,], "HAZARD", ...[, ,], () => {
-      console.log("Clicked HAZARD");
-    }),
-    new ButtonClass(...[, , , ,], "TILES", ...[, ,], () => {
-      console.log("Clicked TILES");
-    }),
-    new ButtonClass(...[, , , ,], "PLAYER", ...[, ,], () => {
-      console.log("Clicked PLAYER");
-    }),
-  ];
-  this.currentPalette = [];
-  this.showLevelNameModal = false;
-  this.showSelectLevelModal = false;
-  this.levelNameModal = {
-    header: "Level Name",
-    handler: () => {
-      console.log("Clicked level name button");
-    },
-  };
-  this.showSelectLevelModal = {
-    header: "Select Level",
-    handler: () => {
-      console.log("Loading level");
-    },
-    levels: [],
-  };
   this.showEditor = false;
   this.currentMenu = "palette";
+  this.selectedTile = -1;
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
@@ -162,5 +136,10 @@ function EditorClass() {
     menuList[this.currentMenu].forEach((option) => {
       option.draw();
     });
+
+    if (this.selectedTile > -1) {
+      var tileImage = worldPics[this.selectedTile];
+      drawBitmapCenteredWithRotation(tileImage, mouseX, mouseY, 0);
+    }
   };
 }

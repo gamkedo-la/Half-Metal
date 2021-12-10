@@ -47,7 +47,8 @@ const ENEMY = "enemy";
 const SHOT = "shot";
 const WALL = "wall";
 const HAZARD = "hazard";
-const GAME_OBJECTS = [ENEMY, SHOT, WALL, HAZARD];
+const PLAYER = "player";
+const GAME_OBJECTS = [ENEMY, SHOT, WALL, HAZARD, PLAYER];
 
 // DIRECTIONS
 const DIRECTION_MAP = {

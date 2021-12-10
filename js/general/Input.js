@@ -71,7 +71,9 @@ function mousePressed() {
     console.log("Placed tile");
     var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
     console.log(tileIndex);
+    console.log(editor.selectedTile);
     editor.currentMap[tileIndex] = editor.selectedTile;
+    worldGrid = editor.currentMap;
   }
 }
 
@@ -118,6 +120,7 @@ function keySet(keyEvent, setTo) {
   if (keyEvent.keyCode == KEY_L && !Key_L_Held) {
     if (currentMode === PLAY_MODE) {
       currentMode = EDIT_MODE;
+      editor.currentMap = worldGrid.slice();
     } else {
       currentMode = PLAY_MODE;
     }

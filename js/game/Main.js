@@ -170,9 +170,10 @@ function drawAll() {
       player.draw();
       ui.draw();
       break;
-    case EDIT_MODE:
-      drawWorld();
-      editor.draw();
+      case EDIT_MODE:
+        drawWorld();
+        editor.draw();
+        ui.draw();
       break;
     default:
       break;
