@@ -17,6 +17,8 @@ const KEY_X = 88;
 
 const KEY_L = 76;
 
+var Key_L_Held = false;
+
 var mouseX = 0;
 var mouseY = 0;
 var unscaledMouseX = -1,
@@ -64,6 +66,13 @@ function mousePressed() {
       button.handler();
     }
   });
+
+  if (currentMode === EDIT_MODE && editor.selectedTile > -1) {
+    console.log("Placed tile");
+    var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
+    console.log(tileIndex);
+    editor.currentMap[tileIndex] = editor.selectedTile;
+  }
 }
 
 function keySet(keyEvent, setTo) {
@@ -105,9 +114,19 @@ function keySet(keyEvent, setTo) {
       currentLevel++;
     }
   }
-  if (keyEvent.keyCode == KEY_L) {
-    currentMode = EDIT_MODE;
+
+  if (keyEvent.keyCode == KEY_L && !Key_L_Held) {
+    if (currentMode === PLAY_MODE) {
+      currentMode = EDIT_MODE;
+    } else {
+      currentMode = PLAY_MODE;
+    }
   }
+
+  if (keyEvent.keyCode == KEY_L) {
+    Key_L_Held = setTo;
+  }
+
   if (keyEvent.keyCode == player.controlKeySwitchAmmo) {
     player.keyHeld_Switch_Ammo = setTo;
   }
