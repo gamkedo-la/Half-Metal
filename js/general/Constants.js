@@ -50,6 +50,10 @@ const HAZARD = "hazard";
 const PLAYER = "player";
 const GAME_OBJECTS = [ENEMY, SHOT, WALL, HAZARD, PLAYER];
 
+// EFFECTS
+const EXPLOSION = "explosion"; // a *WALL* being destroyed
+const LEAPER_DIE = "leaperdie"; // a robot being destroyed
+
 // DIRECTIONS
 const DIRECTION_MAP = {
   270: "north",

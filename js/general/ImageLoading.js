@@ -7,6 +7,8 @@ var stunShotPic = document.createElement("img");
 var enemyPic = document.createElement("img");
 var hunterBotImage = document.createElement("img");
 var fontPic = document.createElement("img");
+var wallDestructionSheet = document.createElement("img");
+var leaperDestructionSheet = document.createElement("img");
 var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -40,6 +42,8 @@ function loadImages() {
     { varName: enemyPic, theFile: "enemy.png" },
     { varName: hunterBotImage, theFile: "hunterBotSpriteSheet.png" },
     { varName: fontPic, theFile: "font.png" },
+    { varName: wallDestructionSheet, theFile: "wall_destruction_spritesheet.png"},
+    { varName: leaperDestructionSheet, theFile: "leaper_destruction_spritesheet.png"},
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },

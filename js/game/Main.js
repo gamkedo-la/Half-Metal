@@ -6,6 +6,7 @@ var bullets = new Array();
 var enemies = new Array();
 var entities = new Array();
 var buttons = new Array();
+var effects = new Array();
 var editor = new EditorClass();
 var ui;
 
@@ -56,6 +57,21 @@ function spawnEnemy(config, type = LEAPER) {
   enemies.push(enemy);
   enemy.reset(enemy.image);
   enemy.direction = config.direction;
+}
+
+function spawnEffect(x, y, type = EXPLOSION) {
+  switch (type) {
+    case EXPLOSION:
+      effect = new effectClass(x, y);
+      break;
+    case LEAPER_DIE:
+      effect = new effectClass(x, y, leaperDestructionSheet);
+      break;
+  }
+  // console.log("spawned new effect with:", effect.x, effect.y);
+  effect.animator.currentAnimationFrame = 0;
+  effects.push(effect);
+  
 }
 
 function setupUI() {
@@ -146,6 +162,11 @@ function moveAll() {
   enemies.forEach(function (enemy) {
     enemy.move();
   });
+ 
+  effects.forEach(function (effect) {
+    effect.update();
+  });
+  
 }
 
 function drawAll() {
@@ -161,6 +182,11 @@ function drawAll() {
       entities.forEach(function (entity) {
         entity.draw();
       });
+      
+      effects.forEach(function (effect) {
+        effect.draw();
+      });
+      
       player.draw();
       ui.draw();
       break;

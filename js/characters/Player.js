@@ -81,7 +81,11 @@ function playerClass() {
     downKey,
     leftKey,
     shootKey,
-    switchKey
+    switchKey,
+    upKey2,
+    rightKey2,
+    downKey2,
+    leftKey2
   ) {
     this.controlKeyUp = upKey;
     this.controlKeyRight = rightKey;
@@ -89,6 +93,10 @@ function playerClass() {
     this.controlKeyLeft = leftKey;
     this.controlKeyShoot = shootKey;
     this.controlKeySwitchAmmo = switchKey;
+    this.controlKeyUp2 = upKey2;
+    this.controlKeyRight2 = rightKey2;
+    this.controlKeyDown2 = downKey2;
+    this.controlKeyLeft2 = leftKey2;
   };
 
   this.reset = function (whichImage, name) {
