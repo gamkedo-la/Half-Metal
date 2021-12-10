@@ -114,6 +114,8 @@ function enemyClass() {
   };
 
   this.removeSelf = function () {
+    console.log("removing enemy!");
+    spawnEffect(this.x + (this.width+1)/2, this.y  + (this.height+1)/2, EXPLOSION);
     enemies.splice(enemies.indexOf(this), 1);
     delete this;
   };
