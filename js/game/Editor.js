@@ -1,3 +1,39 @@
+// Construct top level menus and buttons th
+const menuList = {};
+const subMenus = ["enemies", "shots", "walls", "hazards"];
+subMenus.forEach((sub) => {
+  // Return an array of buttons for each submenu item
+  menuList[sub] = CONSTANTS[sub]?.map((constant) => {
+    return new ButtonClass(...[, , , ,], constant, ...[, ,], () => {
+      console.log("Clicked " + constant);
+    });
+  });
+
+  // Ensure each submenu has a Back button
+  menuList[sub].push(
+    new ButtonClass(...[, , , ,], "BACK", ...[, ,], () => {
+      editor.goToMenu("palette");
+    })
+  );
+});
+menuList.palette = [
+  new ButtonClass(...[, , , ,], "ENEMY", ...[, ,], () => {
+    editor.goToMenu("enemies");
+  }),
+  new ButtonClass(...[, , , ,], "SHOTS", ...[, ,], () => {
+    console.log("Clicked SHOTS");
+    editor.goToMenu("shots");
+  }),
+  new ButtonClass(...[, , , ,], "WALLS", ...[, ,], () => {
+    console.log("Clicked WALLS");
+    editor.goToMenu("walls");
+  }),
+  new ButtonClass(...[, , , ,], "HAZARD", ...[, ,], () => {
+    console.log("Clicked HAZARD");
+    editor.goToMenu("hazards");
+  }),
+];
+
 function ButtonClass(
   height = 12,
   width = 10,
@@ -20,6 +56,7 @@ function ButtonClass(
   this.paddingX = paddingX;
   this.paddingY = paddingY;
   this.textColor = textColor;
+  this.active = false;
 
   this.draw = function () {
     colorRect(this.x, this.y, this.width, this.height, this.color);
@@ -82,33 +119,47 @@ function EditorClass() {
     levels: [],
   };
   this.showEditor = false;
+  this.currentMenu = "palette";
 
-  this.initiateUI = function () {
+  this.deactivateMenuButtons = function () {
+    menuList[this.currentMenu].forEach((button) => (button.active = false));
+  };
+
+  this.goToMenu = function (menu) {
+    this.deactivateMenuButtons();
+    this.currentMenu = menu;
+    buttons = [...this.toolBarOptions, ...menuList[menu]];
+    this.resetUI();
+  };
+
+  this.resetUI = function () {
     var buttonX = 0;
     var buttonY = 0;
     this.toolBarOptions.forEach((option) => {
       option.y = buttonY;
       option.x = buttonX;
       buttonX = buttonX + option.label.length * 12;
+      option.active = true;
     });
 
     buttonX = 200;
     buttonY = 0;
-    this.paletteOptions.forEach(function (option) {
+    menuList[this.currentMenu].forEach(function (option) {
       option.x = buttonX;
       option.y = buttonY;
       buttonY += option.height;
       option.width = 56;
+      option.active = true;
     });
   };
 
-  this.update = function () { };
-  
+  this.update = function () {};
+
   this.draw = function () {
     this.toolBarOptions.forEach((option) => {
       option.draw();
     });
-    this.paletteOptions.forEach((option) => {
+    menuList[this.currentMenu].forEach((option) => {
       option.draw();
     });
   };

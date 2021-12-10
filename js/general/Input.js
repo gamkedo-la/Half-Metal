@@ -52,12 +52,14 @@ function updateMousePos(evt) {
 
 function mousePressed() {
   console.log("Clicked at " + mouseX + ", " + mouseY);
+  console.log(buttons);
   buttons.forEach((button) => {
     if (
       mouseX > button.x &&
       mouseX < button.x + button.width &&
       mouseY > button.y &&
-      mouseY < button.y + button.height
+      mouseY < button.y + button.height &&
+      button.active
     ) {
       button.handler();
     }

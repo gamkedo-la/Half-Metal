@@ -9,8 +9,8 @@ var buttons = new Array();
 var editor = new EditorClass();
 var ui;
 
-editor.initiateUI();
-buttons = [...editor.toolBarOptions, ...editor.paletteOptions];
+editor.resetUI();
+buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
 const EDIT_MODE = "EDIT_MODE";
 const PLAY_MODE = "PLAY_MODE";
