@@ -30,6 +30,14 @@ function returnTileTypeAtColRow(col, row) {
   }
 }
 
+function snapPixelCoordToTileCoord(px, py) {
+  var worldCol = Math.floor(px / WORLD_W);
+  var worldRow = Math.floor(py / WORLD_H);
+  var x = worldCol * WORLD_W;
+  var y = worldRow * WORLD_H;
+  return { x: x, y: y };
+}
+
 function getTileIndexAtPixelCoord(atX, atY) {
   var warriorWorldCol = Math.floor(atX / WORLD_W);
   var warriorWorldRow = Math.floor(atY / WORLD_H);

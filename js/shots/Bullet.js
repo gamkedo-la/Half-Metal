@@ -35,11 +35,15 @@ function bulletClass() {
       case TILE_DOOR:
         worldGrid[tile_index] = TILE_GROUND;
         self.removeSelf();
+        spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
+        spawnEffect(spawnLoc.x + (this.width+1)/2, spawnLoc.y  + (this.height+1)/2, EXPLOSION);
         break;
       case TILE_WALL:
       case TILE_STURDY_WALL:
         worldGrid[tile_index] = TILE_GROUND;
         this.removeSelf();
+        spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
+        spawnEffect(spawnLoc.x + (this.width+1)/2, spawnLoc.y  + (this.height+1)/2, EXPLOSION);
         playSound(sounds.destroy);
         break;
       case TILE_WINDOW_V:

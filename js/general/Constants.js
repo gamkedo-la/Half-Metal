@@ -50,6 +50,9 @@ const HAZARD = "hazard";
 const PLAYER = "player";
 const GAME_OBJECTS = [ENEMY, SHOT, WALL, HAZARD, PLAYER];
 
+// EFFECTS
+EXPLOSION = "explosion";
+
 // DIRECTIONS
 const DIRECTION_MAP = {
   270: "north",

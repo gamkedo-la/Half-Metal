@@ -32,6 +32,7 @@ function SpriteSheetAnimatorClass(game_object = {}, speed = 8) {
   this.animate = function () {
     const { x, y, w, h } = this.getFrame();
     canvasContext.save();
+    console.log("translating at", game_object.x, game_object.y);
     canvasContext.translate(game_object.x, game_object.y);
     canvasContext.rotate(0);
     canvasContext.drawImage(
