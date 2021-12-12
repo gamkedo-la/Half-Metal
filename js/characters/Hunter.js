@@ -1,6 +1,6 @@
 HunterClass.prototype = new enemyClass();
 
-const HUNTER_BOT_MOVEMENT_SPEED=1.0;
+const HUNTER_BOT_MOVEMENT_SPEED = 1.0;
 
 function HunterClass() {
   this.myTileKind = TILE_HUNTER;
@@ -9,15 +9,19 @@ function HunterClass() {
   this.y = 75;
   this.speedX = HUNTER_BOT_MOVEMENT_SPEED;
   this.speedY = HUNTER_BOT_MOVEMENT_SPEED;
-  this.velX=1;
-  this.velY=2;
+  this.velX = 1;
+  this.velY = 2;
   this.width = 35;
   this.height = 54;
   this.image = hunterBotImage;
   this.angleMovement = 0;
   this.currentLevel = map;
   this.pathMap = [];
-  
+  this.hitbox_x = this.x;
+  this.hitbox_y = this.y;
+  this.hitbox_width = this.width;
+  this.hitbox_height = this.height;
+
   this.reset = function (whichImage) {
     this.image = whichImage;
 
@@ -35,7 +39,6 @@ function HunterClass() {
     console.log("NO HUNTERBOT START FOUND!");
   };
 
-  
   this.createPath = function () {
     // Make pathmap the same length as the level array
     this.pathMap = [...this.currentLevel];
@@ -60,52 +63,52 @@ function HunterClass() {
     // --   assign (value + 1) to (row[i] and col[i + 1]) and (row[i + 1] and col[i]), etc...
     // -- perform same evaluation to tiles adjacent to those tiles
   };
-  
-  this.move = function (){
+
+  this.move = function () {
     this.x += this.speedX;
     this.y += this.speedY;
 
     this.x += this.speedX;
-    var hunterPosition; 
+    var hunterPosition;
     hunterPosition = new HunterClass();
     hunterPosition.x = player.x;
     hunterPosition.y = player.y;
 
-    if(this.x < 0 && this.speedX < 0.0){
-      this.speedX *=-1;
+    if (this.x < 0 && this.speedX < 0.0) {
+      this.speedX *= -1;
     }
 
-    if (this.x > canvas.width *1.2 && this.speedX > 0.0){
-      this.speedX *=-1;
+    if (this.x > canvas.width * 1.2 && this.speedX > 0.0) {
+      this.speedX *= -1;
     }
 
     // if (this.x < 20 && this.speedX > 0.0){
     //    this.speedX *= 1;
     // }
 
-     if (this.y > canvas.height && this.speedY > 0.0){
-       this.speedY *= -1;
+    if (this.y > canvas.height && this.speedY > 0.0) {
+      this.speedY *= -1;
       //  hunterPosition.x += player.x;
     }
 
-    if (this.y > canvas.height * 1.2 && this.speedY > 0.0){
+    if (this.y > canvas.height * 1.2 && this.speedY > 0.0) {
       this.speedY *= 1;
-   }
+    }
 
-   if (this.y < canvas.height  && this.speedY > 0.0){
-     this.speedY *=-1;
-   }
+    if (this.y < canvas.height && this.speedY > 0.0) {
+      this.speedY *= -1;
+    }
 
-    
-
-    
     // hunterPosition.speedX = 6 - Math.random() * 10;
     // hunterPosition.speedY = 10 - Math.random() * 10;
-  }
+  };
 
   this.draw = function () {
-    
-    drawBitmapCenteredWithRotation(this.image,this.x, this.y, this.angleMovement);
-    
+    drawBitmapCenteredWithRotation(
+      this.image,
+      this.x,
+      this.y,
+      this.angleMovement
+    );
   };
 }

@@ -76,6 +76,26 @@ function bulletClass() {
         playSound(sounds.destroy);
         break;
       case BLOCKER:
+        // Check for collision with back hitbox
+        if (
+          collisionDetected(
+            {
+              x: this.x,
+              y: this.y,
+              w: this.width,
+              h: this.height,
+            },
+            {
+              x: enemy.back_hitbox_x,
+              y: enemy.back_hitbox_y,
+              w: enemy.back_hitbox_width,
+              h: enemy.back_hitbox_height,
+            }
+          )
+        ) {
+          enemy.health -= 3;
+        }
+        // Otherwise, deal normal damage
         enemy.health -= 1;
         this.removeSelf();
         playSound(sounds.destroy);
@@ -114,7 +134,7 @@ function bulletClass() {
     enemies.forEach(function (enemy) {
       if (
         collisionDetected(
-          { x: enemy.x, y: enemy.y, w: enemy.width, h: enemy.height },
+          { x: enemy.hitbox_x, y: enemy.hitbox_y, w: enemy.hitbox_width, h: enemy.hitbox_height },
           { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
         )
       ) {

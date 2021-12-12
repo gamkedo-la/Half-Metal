@@ -289,13 +289,13 @@ function playerClass() {
   this.draw = function () {
     switch (this.state) {
       case MOVING:
-        this.currentAnimation = "walk-" + this.directionMap[this.direction];
+        this.currentAnimation = `walk-${this.directionMap[this.direction]}`;
         break;
       case IDLE:
-        this.currentAnimation = "idle-" + this.directionMap[this.direction];
+        this.currentAnimation = `idle-${this.directionMap[this.direction]}`;
         break;
       case SHOOTING:
-        this.currentAnimation = "shoot-" + this.directionMap[this.direction];
+        this.currentAnimation = `shoot-${this.directionMap[this.direction]}`;
         break;
     }
     this.animator.animate();

@@ -17,6 +17,10 @@ function enemyClass() {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
   this.rotation = 0;
+  this.hitbox_x = this.x;
+  this.hitbox_y = this.y;
+  this.hitbox_width = this.width;
+  this.hitbox_height = this.height;
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
@@ -37,7 +41,14 @@ function enemyClass() {
     this.animator.animate();
   };
 
-  this.update = function () {};
+  this.updateHitBox = function () {
+    this.hitbox_x = this.x - this.width / 2;
+    this.hitbox_y = this.y - this.height / 2;
+  };
+
+  this.update = function () {
+    this.updateHitBox();
+  };
 
   this.reset = function (whichImage) {
     this.image = whichImage;

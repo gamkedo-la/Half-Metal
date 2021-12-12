@@ -17,7 +17,11 @@ function BlockerClass() {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
   this.currentAnimation = "idle";
-  this.render_hitbox = true;
+  this.render_hitbox = false;
+  this.hitbox_x = this.x;
+  this.hitbox_y = this.y;
+  this.hitbox_width = this.width;
+  this.hitbox_height = this.height;
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
@@ -69,15 +73,13 @@ function BlockerClass() {
         this.back_hitbox_x = this.x;
         this.back_hitbox_y = this.y - this.height / 2;
         break;
-        
-        case RIGHT:
-          this.back_hitbox_x = this.x - this.width / 2;
-          this.back_hitbox_y = this.y - this.height / 2;
+
+      case RIGHT:
+        this.back_hitbox_x = this.x - this.width / 2;
+        this.back_hitbox_y = this.y - this.height / 2;
         break;
 
       default:
-        this.back_hitbox_x = this.x;
-        this.back_hitbox_x = this.y;
         break;
     }
   };
@@ -85,6 +87,7 @@ function BlockerClass() {
   this.update = function () {
     this.updateHitBoxDimensions();
     this.updateHitBoxPosition();
+    this.updateHitBox();
     if (this.health <= 0) {
       this.removeSelf();
     }
@@ -107,6 +110,13 @@ function BlockerClass() {
     this.animator.animate();
 
     if (this.render_hitbox) {
+      colorRect(
+        this.hitbox_x,
+        this.hitbox_y,
+        this.hitbox_width,
+        this.hitbox_height,
+        "blue"
+      );
       colorRect(
         this.back_hitbox_x,
         this.back_hitbox_y,
