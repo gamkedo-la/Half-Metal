@@ -103,6 +103,11 @@ function setupEnemies(level) {
         currentEnemy++;
         level[index] = TILE_GROUND;
         break;
+      case TILE_BLOCKER:
+        spawnEnemy(levels[currentLevel].enemies[currentEnemy], BLOCKER);
+        currentEnemy++;
+        level[index] = TILE_GROUND;
+        break;
     }
   });
 }
@@ -143,6 +148,7 @@ function updateAll() {
       gamepad.update();
       moveAll();
       player.update();
+      enemies.forEach(enemy => enemy.update());
       drawAll();
       break;
     case EDIT_MODE:

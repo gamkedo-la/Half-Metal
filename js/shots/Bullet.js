@@ -36,14 +36,22 @@ function bulletClass() {
         worldGrid[tile_index] = TILE_GROUND;
         self.removeSelf();
         spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
-        spawnEffect(spawnLoc.x + (this.width+1)/2, spawnLoc.y  + (this.height+1)/2, EXPLOSION);
+        spawnEffect(
+          spawnLoc.x + (this.width + 1) / 2,
+          spawnLoc.y + (this.height + 1) / 2,
+          EXPLOSION
+        );
         break;
       case TILE_WALL:
       case TILE_STURDY_WALL:
         worldGrid[tile_index] = TILE_GROUND;
         this.removeSelf();
         spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
-        spawnEffect(spawnLoc.x + (this.width+1)/2, spawnLoc.y  + (this.height+1)/2, EXPLOSION);
+        spawnEffect(
+          spawnLoc.x + (this.width + 1) / 2,
+          spawnLoc.y + (this.height + 1) / 2,
+          EXPLOSION
+        );
         playSound(sounds.destroy);
         break;
       case TILE_WINDOW_V:
@@ -54,6 +62,26 @@ function bulletClass() {
         playSound(sounds.window_break);
         break;
       default:
+        break;
+    }
+  };
+
+  this.checkEnemyType = function (enemy) {
+    switch (enemy.type) {
+      case LEAPER:
+      case FLYER:
+      case HUNTER:
+        enemy.removeSelf();
+        this.removeSelf();
+        playSound(sounds.destroy);
+        break;
+      case BLOCKER:
+        enemy.health -= 1;
+        this.removeSelf();
+        playSound(sounds.destroy);
+        break;
+      default:
+        console.log("NO ENEMY TYPE FOUND: " + enemy.type);
         break;
     }
   };
@@ -90,9 +118,7 @@ function bulletClass() {
         enemy.y < bullet.y + bullet.height &&
         enemy.y + enemy.height > bullet.y
       ) {
-        enemy.removeSelf();
-        bullet.removeSelf();
-        playSound(sounds.destroy);
+        bullet.checkEnemyType(enemy);
       }
     });
   };

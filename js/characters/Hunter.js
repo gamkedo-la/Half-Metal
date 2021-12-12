@@ -15,6 +15,8 @@ function HunterClass() {
   this.height = 54;
   this.image = hunterBotImage;
   this.angleMovement = 0;
+  this.currentLevel = map;
+  this.pathMap = [];
   
   this.reset = function (whichImage) {
     this.image = whichImage;
@@ -33,6 +35,31 @@ function HunterClass() {
     console.log("NO HUNTERBOT START FOUND!");
   };
 
+  
+  this.createPath = function () {
+    // Make pathmap the same length as the level array
+    this.pathMap = [...this.currentLevel];
+
+    // Set all elements in path to 0
+    for (var i = 0; i < this.pathMap.length; i++) {
+      if (this.currentLevel[i] === 1) {
+        this.pathMap[i] = 100;
+        continue;
+      }
+      this.pathMap[i] = 0;
+    }
+
+    // get indices
+    var goal = getTileIndexAtPixelCoord(player.x, player.y);
+    var start = getTileIndexAtPixelCoord(this.x, this.y);
+
+    // build path
+    // -- get row and column position
+    // -- get current positon value (starting at 0)
+    // -- check if adjacent indices exist or if space is available,
+    // --   assign (value + 1) to (row[i] and col[i + 1]) and (row[i + 1] and col[i]), etc...
+    // -- perform same evaluation to tiles adjacent to those tiles
+  };
   
   this.move = function (){
     this.x += this.speedX;

@@ -16,6 +16,7 @@ function enemyClass() {
   this.animations = {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
+  this.rotation = 0;
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
