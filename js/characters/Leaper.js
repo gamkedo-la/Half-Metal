@@ -31,6 +31,11 @@ function LeaperClass() {
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
 
+  this.update = function () {
+    this.updateHitBox();
+    if (this.state === ALERT) this.speed = 6;
+  };
+
   this.alerted = function () {
     this.state = ALERT;
     playSound(sounds.leap);

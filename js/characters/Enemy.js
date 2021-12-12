@@ -73,8 +73,6 @@ function enemyClass() {
 
     if (this.state === STUNNED) return;
 
-    if (this.state === ALERT) this.speed = 6;
-
     var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
     walkIntoTileType = TILE_GROUND;
     if (walkIntoTileIndex != undefined) {
