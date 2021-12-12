@@ -17,7 +17,7 @@ function BlockerClass() {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
   this.currentAnimation = "idle";
-  this.render_hitbox = false;
+  
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
@@ -85,6 +85,8 @@ function BlockerClass() {
     this.updateHitBoxPosition();
     this.hitbox_x = this.x - this.width / 2;
     this.hitbox_y = this.y - this.height / 2;
+    this.hitbox_height = this.height;
+    this.hitbox_width = this.width;
   };
 
   this.draw = function () {

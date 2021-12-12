@@ -21,6 +21,7 @@ function enemyClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
+  this.render_hitbox = false;
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
@@ -39,13 +40,23 @@ function enemyClass() {
     canvasContext.stroke();
 
     this.animator.animate();
+
+    if (this.render_hitbox) {
+      colorRect(
+        this.hitbox_x,
+        this.hitbox_y,
+        this.hitbox_width,
+        this.hitbox_height,
+        "blue"
+      );
+    }
   };
 
   this.updateHitBoxes = function () {
-    this.hitbox_x = this.x;
-    this.hitbox_y = this.y;
     this.hitbox_x = this.x - this.width / 2;
     this.hitbox_y = this.y - this.height / 2;
+    this.hitbox_width = this.width;
+    this.hitbox_height = this.height;
   };
 
   this.update = function () {
@@ -138,7 +149,7 @@ function enemyClass() {
       default:
         break;
     }
-  }
+  };
 
   this.raycast = function () {
     this.rays.push(new RayClass(this.x, this.y, this.direction));
