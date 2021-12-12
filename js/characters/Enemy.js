@@ -41,13 +41,29 @@ function enemyClass() {
     this.animator.animate();
   };
 
-  this.updateHitBox = function () {
+  this.updateHitBoxes = function () {
     this.hitbox_x = this.x - this.width / 2;
     this.hitbox_y = this.y - this.height / 2;
   };
 
   this.update = function () {
-    this.updateHitBox();
+    this.updateHitBoxes();
+    switch (this.state) {
+      case ALERT:
+        this.alerted();
+        break;
+      case STUNNED:
+        console.log("STUNNED");
+        break;
+      default:
+        break;
+    }
+
+    if (this.health <= 0) {
+      this.removeSelf();
+    }
+
+    this.checkIfOutofBounds();
   };
 
   this.reset = function (whichImage) {
@@ -111,7 +127,7 @@ function enemyClass() {
       if (this.rays[i].destroyed) {
         this.removeRaycast(this.rays[i]);
       } else if (this.rays[i].found_player) {
-        this.alerted();
+        this.state = ALERT;
       }
       this.rays[i].move();
     }

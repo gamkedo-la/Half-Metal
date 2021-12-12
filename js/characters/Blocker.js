@@ -84,13 +84,11 @@ function BlockerClass() {
     }
   };
 
-  this.update = function () {
+  this.updateHitBoxes = function () {
     this.updateHitBoxDimensions();
     this.updateHitBoxPosition();
-    this.updateHitBox();
-    if (this.health <= 0) {
-      this.removeSelf();
-    }
+    this.hitbox_x = this.x - this.width / 2;
+    this.hitbox_y = this.y - this.height / 2;
   };
 
   this.draw = function () {
