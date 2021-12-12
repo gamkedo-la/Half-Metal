@@ -55,11 +55,15 @@ const EXPLOSION = "explosion"; // a *WALL* being destroyed
 const LEAPER_DIE = "leaperdie"; // a robot being destroyed
 
 // DIRECTIONS
+const UP = "up";
+const DOWN = "down";
+const RIGHT = "right";
+const LEFT = "left";
 const DIRECTION_MAP = {
-  270: "north",
-  90: "south",
-  0: "east",
-  180: "west",
+  270: UP,
+  90: DOWN,
+  0: RIGHT,
+  180: LEFT,
 };
 
 // CONSTANT MAP
