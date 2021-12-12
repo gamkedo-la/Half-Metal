@@ -42,12 +42,15 @@ function enemyClass() {
   };
 
   this.updateHitBoxes = function () {
+    this.hitbox_x = this.x;
+    this.hitbox_y = this.y;
     this.hitbox_x = this.x - this.width / 2;
     this.hitbox_y = this.y - this.height / 2;
   };
 
   this.update = function () {
     this.updateHitBoxes();
+
     switch (this.state) {
       case ALERT:
         this.alerted();
@@ -95,21 +98,34 @@ function enemyClass() {
       walkIntoTileType = worldGrid[walkIntoTileIndex];
     }
 
-    switch (walkIntoTileType) {
+    this.checkTileType(walkIntoTileType, walkIntoTileIndex);
+
+    for (var i = 0; i < this.rays.length; i++) {
+      if (this.rays[i].destroyed) {
+        this.removeRaycast(this.rays[i]);
+      } else if (this.rays[i].found_player) {
+        this.state = ALERT;
+      }
+      this.rays[i].move();
+    }
+  };
+
+  this.checkTileType = function (tile_type, tile_index) {
+    switch (tile_type) {
       case TILE_AMMO:
       case TILE_GROUND:
       case TILE_GOAL:
         moveInOwnDirection(this);
         break;
       case TILE_DOOR:
-        worldGrid[walkIntoTileIndex] = TILE_GROUND;
+        worldGrid[tile_index] = TILE_GROUND;
         self.removeSelf();
         break;
       case TILE_WALL:
       case TILE_WINDOW_H:
       case TILE_WINDOW_V:
         if (this.state === ALERT) {
-          worldGrid[walkIntoTileIndex] = TILE_GROUND;
+          worldGrid[tile_index] = TILE_GROUND;
         } else {
           reverseDirection(this);
         }
@@ -122,16 +138,7 @@ function enemyClass() {
       default:
         break;
     }
-
-    for (var i = 0; i < this.rays.length; i++) {
-      if (this.rays[i].destroyed) {
-        this.removeRaycast(this.rays[i]);
-      } else if (this.rays[i].found_player) {
-        this.state = ALERT;
-      }
-      this.rays[i].move();
-    }
-  };
+  }
 
   this.raycast = function () {
     this.rays.push(new RayClass(this.x, this.y, this.direction));

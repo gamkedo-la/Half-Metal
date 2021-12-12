@@ -18,10 +18,6 @@ function BlockerClass() {
   };
   this.currentAnimation = "idle";
   this.render_hitbox = false;
-  this.hitbox_x = this.x;
-  this.hitbox_y = this.y;
-  this.hitbox_width = this.width;
-  this.hitbox_height = this.height;
 
   this.animator = new SpriteSheetAnimatorClass(this);
 

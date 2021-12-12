@@ -26,10 +26,7 @@ function LeaperClass() {
   this.currentAnimation = "walk-right";
 
   this.animator = new SpriteSheetAnimatorClass(this);
-  this.hitbox_x = this.x;
-  this.hitbox_y = this.y;
-  this.hitbox_width = this.width;
-  this.hitbox_height = this.height;
+ 
 
   this.alerted = function () {
     if (this.state === ALERT) this.speed = 6;
