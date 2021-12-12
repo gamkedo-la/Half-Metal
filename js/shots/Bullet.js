@@ -113,10 +113,10 @@ function bulletClass() {
   this.checkForCollisionWithEnemy = function (bullet) {
     enemies.forEach(function (enemy) {
       if (
-        enemy.x < bullet.x + bullet.width &&
-        enemy.x + enemy.width > bullet.x &&
-        enemy.y < bullet.y + bullet.height &&
-        enemy.y + enemy.height > bullet.y
+        collisionDetected(
+          { x: enemy.x, y: enemy.y, w: enemy.width, h: enemy.height },
+          { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
+        )
       ) {
         bullet.checkEnemyType(enemy);
       }
