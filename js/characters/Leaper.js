@@ -2,6 +2,7 @@ LeaperClass.prototype = new enemyClass();
 
 function LeaperClass() {
   this.image = leaperSheet;
+  this.type = LEAPER;
   this.width = 16;
   this.height = 16;
   this.animations = {

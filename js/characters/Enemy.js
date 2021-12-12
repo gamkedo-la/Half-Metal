@@ -1,5 +1,6 @@
 function enemyClass() {
   this.name = "Enemy";
+  this.type = ENEMY;
   this.speed = 2;
   this.health = 1;
   this.damage = 1;
@@ -21,6 +22,8 @@ function enemyClass() {
   this.draw = function () {
     this.animator.animate();
   };
+
+  this.update = function () {};
 
   this.reset = function (whichImage) {
     this.image = whichImage;

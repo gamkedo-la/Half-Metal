@@ -1,3 +1,5 @@
 FlyerClass.prototype = new enemyClass();
 
-function FlyerClass() {}
+function FlyerClass() {
+  this.type = FLYER;
+}

@@ -4,6 +4,7 @@ const HUNTER_BOT_MOVEMENT_SPEED=1.0;
 
 function HunterClass() {
   this.myTileKind = TILE_HUNTER;
+  this.type = HUNTER;
   this.x = 75;
   this.y = 75;
   this.speedX = HUNTER_BOT_MOVEMENT_SPEED;
