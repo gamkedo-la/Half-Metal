@@ -62,7 +62,7 @@ function spawnEnemy(config, type = LEAPER) {
 function spawnEffect(x, y, type = EXPLOSION) {
   switch (type) {
     case EXPLOSION:
-      effect = new effectClass(x, y);
+      effect = new effectClass(x, y, wallDestructionSheet, 1);
       break;
     case LEAPER_DIE:
       effect = new effectClass(x, y, leaperDestructionSheet);
