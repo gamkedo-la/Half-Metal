@@ -31,21 +31,4 @@ function LeaperClass() {
     this.state = ALERT;
     playSound(sounds.leap);
   };
-
-  this.draw = function () {
-    this.raycast();
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
-    canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
-
-    this.rays.forEach(function (ray) {
-      ray.draw();
-      canvasContext.lineTo(ray.x, ray.y);
-    });
-
-    canvasContext.stroke();
-
-    this.animator.animate();
-  };
 }

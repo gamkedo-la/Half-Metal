@@ -21,6 +21,19 @@ function enemyClass() {
   this.animator = new SpriteSheetAnimatorClass(this);
 
   this.draw = function () {
+    this.raycast();
+    canvasContext.lineWidth = 1;
+    canvasContext.strokeStyle = "red";
+    canvasContext.beginPath();
+    canvasContext.moveTo(this.x, this.y);
+
+    this.rays.forEach(function (ray) {
+      ray.draw();
+      canvasContext.lineTo(ray.x, ray.y);
+    });
+
+    canvasContext.stroke();
+
     this.animator.animate();
   };
 
