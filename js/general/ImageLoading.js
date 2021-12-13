@@ -10,6 +10,8 @@ var hunterBotImage = document.createElement("img");
 var fontPic = document.createElement("img");
 var wallDestructionSheet = document.createElement("img");
 var leaperDestructionSheet = document.createElement("img");
+var elec_wall_h = document.createElement("img");
+var elec_wall_v = document.createElement("img");
 var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -46,6 +48,8 @@ function loadImages() {
     { varName: fontPic, theFile: "font.png" },
     { varName: wallDestructionSheet, theFile: "wall_destruction_spritesheet.png"},
     { varName: leaperDestructionSheet, theFile: "leaper_destruction_spritesheet.png"},
+    { varName: elec_wall_h, theFile: "elec_wall_h.png"},
+    { varName: elec_wall_v, theFile: "elec_wall_h.png"},
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },

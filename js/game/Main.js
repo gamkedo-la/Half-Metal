@@ -7,6 +7,8 @@ var enemies = new Array();
 var entities = new Array();
 var buttons = new Array();
 var effects = new Array();
+var hazards = new Array();
+var walls = new Array();
 var editor = new EditorClass();
 var ui;
 
@@ -14,8 +16,6 @@ editor.resetUI();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
 var currentMode = PLAY_MODE;
-
-
 
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
@@ -59,6 +59,24 @@ function spawnEnemy(config, type = LEAPER) {
   enemy.direction = config.direction;
 }
 
+function spawnWall(config, type = NORMAL) {
+  switch (type) {
+    case NORMAL_WALL:
+      wall = new WallClass();
+      break;
+    case ELECTRIC:
+      wall = new ElectricWallClass();
+      break;
+    case STURDY:
+      break;
+    case BOUNCE:
+      break;
+  }
+  walls.push(wall);
+  wall.reset();
+  wall.direction = config.direction ? config.direction : 0;
+}
+
 function spawnEffect(x, y, type = EXPLOSION) {
   switch (type) {
     case EXPLOSION:
@@ -71,7 +89,6 @@ function spawnEffect(x, y, type = EXPLOSION) {
   // console.log("spawned new effect with:", effect.x, effect.y);
   effect.animator.currentAnimationFrame = 0;
   effects.push(effect);
-  
 }
 
 function setupUI() {
@@ -112,6 +129,19 @@ function setupEnemies(level) {
   });
 }
 
+function setupWalls(level) {
+  level.forEach((tile, index) => {
+    switch (tile) {
+      case TILE_ELEC_WALL:
+        spawnWall({ direction: 0 }, ELECTRIC);
+        level[index] = TILE_GROUND;
+        break;
+      case TILE_WALL:
+        break;
+    }
+  });
+}
+
 function setupEntities(level) {
   level.forEach((tile, index) => {
     if (tile === TILE_WARP) {
@@ -139,6 +169,7 @@ function loadLevel(whichLevel) {
   enemies = [];
   entities = [];
   setupEnemies(worldGrid);
+  setupWalls(worldGrid);
   setupEntities(worldGrid);
 }
 
@@ -148,7 +179,7 @@ function updateAll() {
       gamepad.update();
       moveAll();
       player.update();
-      enemies.forEach(enemy => enemy.update());
+      enemies.forEach((enemy) => enemy.update());
       drawAll();
       break;
     case EDIT_MODE:
@@ -168,11 +199,10 @@ function moveAll() {
   enemies.forEach(function (enemy) {
     enemy.move();
   });
- 
+
   effects.forEach(function (effect) {
     effect.update();
   });
-  
 }
 
 function drawAll() {
@@ -188,18 +218,20 @@ function drawAll() {
       entities.forEach(function (entity) {
         entity.draw();
       });
-      
+      walls.forEach(function (wall) {
+        wall.draw();
+      })
       effects.forEach(function (effect) {
         effect.draw();
       });
-      
+
       player.draw();
       ui.draw();
       break;
-      case EDIT_MODE:
-        drawWorld();
-        editor.draw();
-        ui.draw();
+    case EDIT_MODE:
+      drawWorld();
+      editor.draw();
+      ui.draw();
       break;
     default:
       break;

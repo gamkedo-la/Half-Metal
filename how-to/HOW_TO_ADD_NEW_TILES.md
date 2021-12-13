@@ -1,7 +1,7 @@
 # HOW TO ADD NEW TILES
 
-### Step 1: Add a tile type to World.js
-In `js/game/World.js`, create a constant with the name of your tile, following the conventions of the other tiles in the file. Each tile must be assigned a unique integer.
+### Step 1: Add a tile type to Constant.js
+In `js/general/Constants.js`, create a constant with the name of your tile, following the conventions of the other tiles in the file. Each tile must be assigned a unique integer.
 
 	const TILE_NEW = 20;
 

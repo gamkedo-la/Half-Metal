@@ -12,14 +12,16 @@ const BOUNCE = "bounce";
 const ELECTRIC = "electric";
 const WALLS = [NORMAL_WALL, STURDY, BOUNCE, ELECTRIC];
 
-// PLAYER/ENEMY STATES
+// GAME OBJECT STATES
 const SHOOTING = "shooting";
 const MOVING = "moving";
 const IDLE = "idle";
 const ALERT = "alert";
 const STUNNED = "stunned";
 const PUSHED = "pushed";
-const STATES = [SHOOTING, MOVING, IDLE, ALERT, STUNNED, PUSHED];
+const CLOSED = "closed";
+const OPEN = "open";
+const STATES = [SHOOTING, MOVING, IDLE, ALERT, STUNNED, PUSHED, CLOSED, OPEN];
 
 // TILESET CONSTANTS
 const CELLS = "cells";
@@ -66,6 +68,11 @@ const DIRECTION_MAP = {
   180: LEFT,
 };
 
+// ORIENTATIONS
+const VERTICAL = "vertical";
+const HORIZONTAL = "horizontal";
+const ORIENTATIONS = [VERTICAL, HORIZONTAL];
+
 // CONSTANT MAP
 const CONSTANTS = {
   states: STATES,
@@ -86,3 +93,28 @@ for (var i = 0; i < CHARACTER_SET.length; i++) {
 // MODES
 const EDIT_MODE = "EDIT_MODE";
 const PLAY_MODE = "PLAY_MODE";
+
+// WORLD DIMENSIONS
+const WORLD_W = 16;
+const WORLD_H = 16;
+const WORLD_GAP = 1;
+const WORLD_COLS = 16;
+const WORLD_ROWS = 13;
+
+// TILES
+const TILE_GROUND = 0;
+const TILE_WALL = 1;
+const TILE_PLAYERSTART = 2;
+const TILE_GOAL = 3;
+const TILE_AMMO = 4;
+const TILE_DOOR = 5;
+const TILE_LEAPER = 6;
+const TILE_STURDY_WALL = 7;
+const TILE_WARP = 8;
+const TILE_WINDOW_V = 9;
+const TILE_WINDOW_H = 10;
+const TILE_WINDOW_SMASHED_H = 11;
+const TILE_STUN_SHOT = 12;
+const TILE_HUNTER = 13;
+const TILE_BLOCKER = 14;
+const TILE_ELEC_WALL = 15;

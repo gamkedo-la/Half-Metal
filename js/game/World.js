@@ -1,26 +1,4 @@
-const WORLD_W = 16;
-const WORLD_H = 16;
-const WORLD_GAP = 1;
-const WORLD_COLS = 16;
-const WORLD_ROWS = 13;
-
 var worldGrid = [];
-
-const TILE_GROUND = 0;
-const TILE_WALL = 1;
-const TILE_PLAYERSTART = 2;
-const TILE_GOAL = 3;
-const TILE_AMMO = 4;
-const TILE_DOOR = 5;
-const TILE_LEAPER = 6;
-const TILE_STURDY_WALL = 7;
-const TILE_WARP = 8;
-const TILE_WINDOW_V = 9;
-const TILE_WINDOW_H = 10;
-const TILE_WINDOW_SMASHED_H = 11;
-const TILE_STUN_SHOT = 12;
-const TILE_HUNTER = 13;
-const TILE_BLOCKER = 14;
 
 function returnTileTypeAtColRow(col, row) {
   if (col >= 0 && col < WORLD_COLS && row >= 0 && row < WORLD_ROWS) {
@@ -80,7 +58,8 @@ function tileTypeHasTransparency(checkTileType) {
     checkTileType == TILE_LEAPER ||
     checkTileType == TILE_WINDOW_H ||
     checkTileType == TILE_WINDOW_V ||
-    checkTileType == TILE_WINDOW_SMASHED_H
+    checkTileType == TILE_WINDOW_SMASHED_H ||
+    checkTileType == TILE_ELEC_WALL
   );
 }
 
