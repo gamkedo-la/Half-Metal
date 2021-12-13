@@ -1,3 +1,6 @@
 NormalWallClass.prototype = new WallClass();
 
-function NormalWallClass() {}
+function NormalWallClass() {
+
+
+}
