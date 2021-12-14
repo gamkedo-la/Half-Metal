@@ -29,6 +29,7 @@ subMenus.forEach((sub) => {
   menuList[sub] = CONSTANTS[sub]?.map((constant) => {
     return new ButtonClass(...[, , , ,], constant, ...[, ,], () => {
       console.log("Clicked " + constant);
+      console.log(objectMap[constant]);
       editor.selectedTile = objectMap[constant];
     });
   });
@@ -138,8 +139,41 @@ function EditorClass() {
     });
 
     if (this.selectedTile > -1) {
-      var tileImage = worldPics[this.selectedTile];
-      drawBitmapCenteredWithRotation(tileImage, mouseX, mouseY, 0);
+      var tileImage;
+      var prototype;
+      switch (this.selectedTile) {
+        case TILE_LEAPER:
+          prototype = LeaperClass.prototype;
+          break;
+        case TILE_HUNTER:
+          prototype = HunterClass.prototype;
+          break;
+        case TILE_BLOCKER:
+          prototype = BlockerClass.prototype;
+          break;
+        case TILE_FLYER:
+          prototype = FlyerClass.prototype;
+          break;
+        default:
+          tileImage = worldPics[this.selectedTile];
+          break;
+      }
+
+      var image_width = prototype.width ?? WORLD_W;
+      var image_height = prototype.height ?? WORLD_H;
+      if (prototype) tileImage = prototype.image;
+      console.log(image_width, image_height);
+      canvasContext.drawImage(
+        tileImage,
+        0,
+        0,
+        image_width,
+        image_height,
+        mouseX,
+        mouseY,
+        image_width,
+        image_height
+      );
     }
   };
 }

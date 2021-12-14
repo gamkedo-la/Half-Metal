@@ -15,7 +15,7 @@ function HunterClass() {
   this.height = 54;
   this.image = hunterBotImage;
   this.angleMovement = 0;
-  this.currentLevel = map;
+  this.currentLevel = [];
   this.pathMap = [];
   this.hitbox_x = this.x;
   this.hitbox_y = this.y;

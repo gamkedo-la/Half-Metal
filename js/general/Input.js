@@ -72,12 +72,12 @@ function mousePressed() {
   });
 
   if (currentMode === EDIT_MODE && editor.selectedTile > -1) {
-    console.log("Placed tile");
+
     var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
-    console.log(tileIndex);
-    console.log(editor.selectedTile);
+
     editor.currentMap[tileIndex] = editor.selectedTile;
     worldGrid = editor.currentMap;
+    setupEnemies(worldGrid);
   }
 }
 

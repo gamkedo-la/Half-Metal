@@ -230,6 +230,9 @@ function drawAll() {
       break;
     case EDIT_MODE:
       drawWorld();
+      enemies.forEach(function (enemy) {
+        enemy.draw();
+      });
       editor.draw();
       ui.draw();
       break;
