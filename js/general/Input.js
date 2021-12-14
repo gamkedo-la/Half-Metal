@@ -72,30 +72,58 @@ function mousePressed() {
   });
 
   if (currentMode === EDIT_MODE && editor.selectedTile > -1) {
-
     var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
 
     editor.currentMap[tileIndex] = editor.selectedTile;
+    editor.level_config.level_map = editor.currentMap;
     worldGrid = editor.currentMap;
+
+    // get the object type of the new tile
+    const type = Object.keys(OBJECT_MAP).find(
+      (key) => OBJECT_MAP[key] === editor.selectedTile
+    );
+    const config = editor.level_config;
+    const config_obj = config.configuration_prototype;
+
+    // place a fresh config object into the appropriate config array
+    if (ENEMIES.includes(type)) {
+      config.enemy_configurations.push(config_obj);
+    }
+    if (HAZARDS.includes(type)) {
+      config.hazard_configurations.push(config_obj);
+    }
+    if (WALLS.includes(type)) {
+      config.wall_configurations.push(config_obj);
+    }
+
+    // respawn enemies
     setupEnemies(worldGrid);
   }
 }
 
 function keySet(keyEvent, setTo) {
-  if (keyEvent.keyCode == player.controlKeyLeft
-    || keyEvent.keyCode == player.controlKeyLeft2) {
+  if (
+    keyEvent.keyCode == player.controlKeyLeft ||
+    keyEvent.keyCode == player.controlKeyLeft2
+  ) {
     player.keyHeld_West = setTo;
   }
-  if (keyEvent.keyCode == player.controlKeyRight
-    || keyEvent.keyCode == player.controlKeyRight2) {
+  if (
+    keyEvent.keyCode == player.controlKeyRight ||
+    keyEvent.keyCode == player.controlKeyRight2
+  ) {
     player.keyHeld_East = setTo;
   }
-  if (keyEvent.keyCode == player.controlKeyUp
-    || keyEvent.keyCode == player.controlKeyUp2) {
+  if (
+    keyEvent.keyCode == player.controlKeyUp ||
+    keyEvent.keyCode == player.controlKeyUp2
+  ) {
     player.keyHeld_North = setTo;
   }
-  if (keyEvent.keyCode == player.controlKeyDown
-    || keyEvent.keyCode == player.controlKeyDown2) {
+  if (
+    keyEvent.keyCode == player.controlKeyDown ||
+    keyEvent.keyCode == player.controlKeyDown2
+  ) {
     player.keyHeld_South = setTo;
   }
   if (keyEvent.keyCode == player.controlKeyShoot) {

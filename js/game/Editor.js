@@ -1,9 +1,3 @@
-const objectMap = {
-  [NORMAL_WALL]: 1,
-  [LEAPER]: 6,
-  [HUNTER]: 13,
-};
-
 // Construct top level menu and buttons
 const menuList = {
   palette: [
@@ -29,8 +23,9 @@ subMenus.forEach((sub) => {
   menuList[sub] = CONSTANTS[sub]?.map((constant) => {
     return new ButtonClass(...[, , , ,], constant, ...[, ,], () => {
       console.log("Clicked " + constant);
-      console.log(objectMap[constant]);
-      editor.selectedTile = objectMap[constant];
+      console.log(ENEMIES);
+      console.log(OBJECT_MAP[constant]);
+      editor.selectedTile = OBJECT_MAP[constant];
     });
   });
 
@@ -87,6 +82,7 @@ function EditorClass() {
     }),
     new ButtonClass(...[, , , ,], "SAVE", ...[, ,], () => {
       console.log("Clicked SAVE");
+      console.log(this.level_config);
     }),
     new ButtonClass(...[, , , ,], "PLAY", ...[, ,], () => {
       currentMode = PLAY_MODE;
@@ -95,6 +91,7 @@ function EditorClass() {
   this.showEditor = false;
   this.currentMenu = "palette";
   this.selectedTile = -1;
+  this.level_config = new BaseLevelClass();
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
