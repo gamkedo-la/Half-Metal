@@ -211,6 +211,28 @@ function playerClass() {
     });
   };
 
+  this.checkForCollisionWithWall = function (player) {
+    walls.forEach(function (wall) {
+      if (collisionDetected(wall, player)) {
+        switch (wall.type) {
+          case NORMAL_WALL:
+            console.log("Collided with normal wall");
+            break;
+          case ELECTRIC:
+            console.log("Collided with electric wall");
+            break;
+          case STURDY:
+            console.log("Collided with sturdy wall");
+            break;
+            break;
+          case BOUNCE:
+            console.log("Collided with bounce wall");
+            break;
+        }
+      }
+    });
+  };
+
   this.checkForCollisionWithEntity = function (player) {
     entities.forEach(function (entity) {
       if (
