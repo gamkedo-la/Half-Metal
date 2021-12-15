@@ -22,6 +22,7 @@ function bulletClass() {
 
     this.checkIfOutofBounds();
     this.checkForCollisionWithEnemy(this);
+    this.checkForCollisionWithSwitch(this);
   };
 
   this.checkTileType = function (tile_type, tile_index) {
@@ -134,11 +135,31 @@ function bulletClass() {
     enemies.forEach(function (enemy) {
       if (
         collisionDetected(
-          { x: enemy.hitbox_x, y: enemy.hitbox_y, w: enemy.hitbox_width, h: enemy.hitbox_height },
+          {
+            x: enemy.hitbox_x,
+            y: enemy.hitbox_y,
+            w: enemy.hitbox_width,
+            h: enemy.hitbox_height,
+          },
           { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
         )
       ) {
         bullet.checkEnemyType(enemy);
+      }
+    });
+  };
+
+  this.checkForCollisionWithSwitch = function (bullet) {
+    entities.forEach(function (ent) {
+      if (
+        collisionDetected(
+          { x: ent.x, y: ent.y, w: ent.width, h: ent.height },
+          { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
+        ) &&
+        ent.type === "switch"
+      ) {
+        ent.state = ent.state === PRESSED ? UNPRESSED : PRESSED;
+        bullet.removeSelf();
       }
     });
   };

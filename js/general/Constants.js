@@ -21,7 +21,20 @@ const STUNNED = "stunned";
 const PUSHED = "pushed";
 const CLOSED = "closed";
 const OPEN = "open";
-const STATES = [SHOOTING, MOVING, IDLE, ALERT, STUNNED, PUSHED, CLOSED, OPEN];
+const PRESSED = "pressed";
+const UNPRESSED = "unpressed";
+const STATES = [
+  SHOOTING,
+  MOVING,
+  IDLE,
+  ALERT,
+  STUNNED,
+  PUSHED,
+  CLOSED,
+  OPEN,
+  UNPRESSED,
+  PRESSED,
+];
 
 // TILESET CONSTANTS
 const CELLS = "cells";

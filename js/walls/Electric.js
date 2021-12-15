@@ -11,4 +11,16 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   this.animations = { closed: [{ x: 0, y: 0, h: this.height, w: this.width }] };
   this.currentAnimation = "closed";
   this.animator = new SpriteSheetAnimatorClass(this);
+
+  this.update = function () {
+    switch (this.state) {
+      case OPEN:
+        this.image =
+          this.orientation === VERTICAL ? elec_wall_v_open : elec_wall_h_open;
+        break;
+      case CLOSED:
+        this.image = this.orientation === VERTICAL ? elec_wall_v : elec_wall_h;
+        break;
+    }
+  };
 }

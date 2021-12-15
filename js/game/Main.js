@@ -9,6 +9,8 @@ var buttons = new Array();
 var effects = new Array();
 var hazards = new Array();
 var walls = new Array();
+var triggers = new Array();
+
 var editor = new EditorClass();
 var ui;
 
@@ -167,7 +169,6 @@ function loadLevel(whichLevel) {
   player.reset(playerSheet, "Player");
   player.ammo = levels[currentLevel].starting_ammo;
   enemies = [];
-  entities = [];
   setupEnemies(worldGrid);
   setupWalls(worldGrid);
   setupEntities(worldGrid);
@@ -180,6 +181,9 @@ function updateAll() {
       moveAll();
       player.update();
       enemies.forEach((enemy) => enemy.update());
+      triggers.forEach((trigger) => trigger.update());
+      walls.forEach((wall) => wall.update());
+      entities.forEach((ent) => ent.update());
       drawAll();
       break;
     case EDIT_MODE:
@@ -220,7 +224,7 @@ function drawAll() {
       });
       walls.forEach(function (wall) {
         wall.draw();
-      })
+      });
       effects.forEach(function (effect) {
         effect.draw();
       });
