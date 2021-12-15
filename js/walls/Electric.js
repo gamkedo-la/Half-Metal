@@ -8,8 +8,22 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   this.height = this.orientation === VERTICAL ? WORLD_H * 2 : WORLD_H;
   this.state = CLOSED;
   this.image = this.orientation === VERTICAL ? elec_wall_v : elec_wall_h;
-  this.animations = { closed: [{ x: 0, y: 0, h: this.height, w: this.width }] };
-  this.currentAnimation = "closed";
+  this.animations = {
+    closed_h: [
+      { x: 0, y: 0, h: this.height, w: this.width },
+      { x: this.width, y: 0, h: this.height, w: this.width },
+      { x: this.width * 2, y: 0, h: this.height, w: this.width },
+      { x: this.width, y: 0, h: this.height, w: this.width },
+    ],
+    closed_v: [
+      { x: 0, y: 0, h: this.height, w: this.width },
+      { x: 0, y: this.height, h: this.height, w: this.width },
+      { x: 0, y: this.height * 2, h: this.height, w: this.width },
+      { x: 0, y: this.height, h: this.height, w: this.width },
+    ],
+  };
+  this.currentAnimation =
+    this.orientation === HORIZONTAL ? "closed_h" : "closed_v";
   this.animator = new SpriteSheetAnimatorClass(this);
 
   this.update = function () {
