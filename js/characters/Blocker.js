@@ -2,6 +2,8 @@ BlockerClass.prototype = new enemyClass();
 
 const BLOCKER_BOT_MOVEMENT_SPEED = 1.0;
 
+const BLOCKER_MAX_SHOT_COUNT = 3;
+
 function BlockerClass() {
   this.myTileKind = TILE_BLOCKER;
   this.type = BLOCKER;
@@ -17,7 +19,21 @@ function BlockerClass() {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
   this.currentAnimation = "idle";
-  
+
+  // Shooting properties
+  this.shot_count = 0;
+  this.firing = false;
+  this.shot_delay = 60;
+
+  //
+  this.shot_timer = new TimerClass(
+    () => {
+      console.log("SHOT!");
+    },
+    1000,
+    3,
+    false
+  );
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
@@ -87,6 +103,38 @@ function BlockerClass() {
     this.hitbox_y = this.y - this.height / 2;
     this.hitbox_height = this.height;
     this.hitbox_width = this.width;
+  };
+
+  this.checkTileType = function (tile_type, tile_index) {
+    switch (tile_type) {
+      case TILE_AMMO:
+      case TILE_GROUND:
+      case TILE_GOAL:
+        moveInOwnDirection(this);
+        break;
+      case TILE_DOOR:
+        worldGrid[tile_index] = TILE_GROUND;
+        self.removeSelf();
+        break;
+      case TILE_WALL:
+      case TILE_WINDOW_H:
+      case TILE_WINDOW_V:
+        reverseDirection(this);
+        moveInOwnDirection(this);
+        break;
+      case TILE_STURDY_WALL:
+        reverseDirection(this);
+        moveInOwnDirection(this);
+        break;
+      default:
+        break;
+    }
+  };
+
+  this.alerted = function (dt) {
+    this.speed = 0;
+    this.shot_timer.start();
+    this.shot_timer.update();
   };
 
   this.draw = function () {
