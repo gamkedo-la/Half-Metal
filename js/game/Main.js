@@ -1,5 +1,7 @@
 var canvas, canvasContext;
 
+const GAME_SPEED = 60;
+
 var player = new playerClass();
 var gamepad = new GamepadSupport();
 var bullets = new Array();
@@ -33,8 +35,7 @@ window.onload = function () {
 };
 
 function imageLoadingDoneSoStartGame() {
-  var framesPerSecond = 60;
-  setInterval(updateAll, 1000 / framesPerSecond);
+  window.requestAnimationFrame(updateAll);
 
   setupInput();
 
@@ -174,25 +175,26 @@ function loadLevel(whichLevel) {
   setupEntities(worldGrid);
 }
 
-function updateAll() {
+function updateAll(dt) {
   switch (currentMode) {
     case PLAY_MODE:
-      gamepad.update();
-      moveAll();
-      player.update();
-      enemies.forEach((enemy) => enemy.update());
-      triggers.forEach((trigger) => trigger.update());
-      walls.forEach((wall) => wall.update());
-      entities.forEach((ent) => ent.update());
-      drawAll();
+      gamepad.update(dt);
+      moveAll(dt);
+      player.update(dt);
+      enemies.forEach((enemy) => enemy.update(dt));
+      triggers.forEach((trigger) => trigger.update(dt));
+      walls.forEach((wall) => wall.update(dt));
+      entities.forEach((ent) => ent.update(dt));
+      drawAll(dt);
       break;
     case EDIT_MODE:
-      editor.update();
-      drawAll();
+      editor.update(dt);
+      drawAll(dt);
       break;
     default:
       break;
   }
+  window.requestAnimationFrame(updateAll);
 }
 
 function moveAll() {

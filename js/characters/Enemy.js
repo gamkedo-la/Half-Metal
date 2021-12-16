@@ -59,12 +59,12 @@ function enemyClass() {
     this.hitbox_height = this.height;
   };
 
-  this.update = function () {
+  this.update = function (dt) {
     this.updateHitBoxes();
 
     switch (this.state) {
       case ALERT:
-        this.alerted();
+        this.alerted(dt);
         break;
       case STUNNED:
         console.log("STUNNED");
@@ -155,7 +155,7 @@ function enemyClass() {
     this.rays.push(new RayClass(this.x, this.y, this.direction));
   };
 
-  this.alerted = function () {
+  this.alerted = function (dt) {
     console.log("alerted enemy");
   };
 
