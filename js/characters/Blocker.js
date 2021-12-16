@@ -2,8 +2,6 @@ BlockerClass.prototype = new enemyClass();
 
 const BLOCKER_BOT_MOVEMENT_SPEED = 1.0;
 
-const BLOCKER_MAX_SHOT_COUNT = 3;
-
 function BlockerClass() {
   this.myTileKind = TILE_BLOCKER;
   this.type = BLOCKER;
@@ -19,19 +17,20 @@ function BlockerClass() {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
   this.currentAnimation = "idle";
-
-  // Shooting properties
-  this.shot_count = 0;
-  this.firing = false;
-  this.shot_delay = 60;
-
-  //
   this.shot_timer = new TimerClass(
     () => {
-      console.log("SHOT!");
+      this.shoot();
     },
     1000,
     3,
+    false
+  );
+  this.shield_timer = new TimerClass(
+    () => {
+      this.raiseShield();
+    },
+    1000,
+    1,
     false
   );
 
@@ -135,6 +134,24 @@ function BlockerClass() {
     this.speed = 0;
     this.shot_timer.start();
     this.shot_timer.update();
+    this.shield_timer.update();
+
+    if (this.shot_timer.finished) {
+      this.shield_timer.start();
+    }
+
+    if (this.shield_timer.finished) {
+      this.shot_timer.reset();
+      this.shield_timer.stop();
+    }
+  };
+
+  this.shoot = function () {
+    console.log("SHOOT");
+  };
+
+  this.raiseShield = function () {
+    console.log("SHIELD");
   };
 
   this.draw = function () {

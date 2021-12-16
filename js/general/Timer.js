@@ -10,6 +10,14 @@ function TimerClass(
   this.loop = loop;
   this.interval = undefined;
   this.started = false;
+  this.finished = false;
+
+  this.update = function () {
+    if (this.iterations <= 0 && !this.loop) {
+      clearInterval(this.interval);
+      this.finished = true;
+    }
+  };
 
   this.start = function () {
     if (!this.started) {
@@ -19,20 +27,19 @@ function TimerClass(
       }, this.countdown);
 
       this.started = true;
+      this.finished = false;
     }
   };
 
   this.stop = function () {
     clearInterval(this.interval);
+    this.finished = false;
+    this.started = false;
+    this.iterations = iterations;
   };
 
-  this.update = function (dt) {
-    if (this.loop) {
-      this.iterations++;
-    }
-
-    if (this.iterations <= 0) {
-      clearInterval(this.interval);
-    }
+  this.reset = function () {
+    this.stop();
+    this.start();
   };
 }
