@@ -15,6 +15,7 @@ function BlockerClass() {
   this.health = 3;
   this.animations = {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
+    "shield-right": [{ x: 160, y: 0, w: this.width, h: this.height }],
   };
   this.currentAnimation = "idle";
   this.shot_timer = new TimerClass(
@@ -33,6 +34,7 @@ function BlockerClass() {
     1,
     false
   );
+  this.shield_up = false;
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
@@ -147,11 +149,18 @@ function BlockerClass() {
   };
 
   this.shoot = function () {
-    console.log("SHOOT");
+    this.currentAnimation = "idle";
+    var spawn_x = this.width * Math.cos((this.direction * Math.PI) / 180);
+    var spawn_y = this.height * Math.sin((this.direction * Math.PI) / 180);
+
+    spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, NORMAL);
+
+    this.shield_up = false;
   };
 
   this.raiseShield = function () {
-    console.log("SHIELD");
+    this.currentAnimation = "shield-right";
+    this.shield_up = true;
   };
 
   this.draw = function () {
