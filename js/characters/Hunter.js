@@ -21,7 +21,13 @@ function HunterClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
-
+  
+  this.animations = {
+    standing: [{x:0,y:0, h:29, w:15}]//location of frame
+  }
+  this.currentAnimation = "standing";
+  this.animator = new SpriteSheetAnimatorClass(this);
+  
   this.reset = function (whichImage) {
     this.image = whichImage;
 
@@ -63,7 +69,7 @@ function HunterClass() {
     // --   assign (value + 1) to (row[i] and col[i + 1]) and (row[i + 1] and col[i]), etc...
     // -- perform same evaluation to tiles adjacent to those tiles
   };
-
+ /*
   this.move = function () {
     this.x += this.speedX;
     this.y += this.speedY;
@@ -101,14 +107,17 @@ function HunterClass() {
 
     // hunterPosition.speedX = 6 - Math.random() * 10;
     // hunterPosition.speedY = 10 - Math.random() * 10;
-  };
+  }; */
 
   this.draw = function () {
-    drawBitmapCenteredWithRotation(
-      this.image,
-      this.x,
-      this.y,
-      this.angleMovement
-    );
-  };
+    /*drawBitmapCenteredWithRotation(
+       this.image,
+       this.x,
+       this.y,
+       this.angleMovement
+     );
+   };*/
+
+  this.animator.animate();
+  }
 }
