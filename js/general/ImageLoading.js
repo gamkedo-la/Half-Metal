@@ -14,6 +14,9 @@ var elec_wall_h = document.createElement("img");
 var elec_wall_v = document.createElement("img");
 var elec_wall_v_open = document.createElement("img");
 var elec_wall_h_open = document.createElement("img");
+var laser_h = document.createElement("img");
+var laser_v = document.createElement("img");
+
 var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -60,6 +63,8 @@ function loadImages() {
     { varName: elec_wall_h_open, theFile: "elec_wall_open_h.png" },
     { varName: elec_wall_v_open, theFile: "elec_wall_open_v.png" },
     { varName: elec_wall_v, theFile: "elec_wall_v.png" },
+    { varName: laser_h, theFile: "laser_h.png" },
+    { varName: laser_v, theFile: "laser_h.png" },
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },

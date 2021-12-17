@@ -59,7 +59,8 @@ function tileTypeHasTransparency(checkTileType) {
     checkTileType == TILE_WINDOW_H ||
     checkTileType == TILE_WINDOW_V ||
     checkTileType == TILE_WINDOW_SMASHED_H ||
-    checkTileType == TILE_ELEC_WALL
+    checkTileType == TILE_ELEC_WALL ||
+    checkTileType == TILE_LASER
   );
 }
 

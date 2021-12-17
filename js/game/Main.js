@@ -62,6 +62,28 @@ function spawnEnemy(config, type = LEAPER) {
   enemy.direction = config.direction;
 }
 
+function spawnHazard(config = { orientation: HORIZONTAL }, type = LASER) {
+  switch (type) {
+    case WINDOW:
+      hazard = new WindowClass();
+      break;
+    case LASER:
+      hazard = new LaserClass();
+      break;
+    case CAMERA:
+      hazard = new CameraClass();
+      break;
+    case TURRET:
+      hazard = new TurretClass();
+      break;
+  }
+
+  hazards.push(hazard);
+  hazard.reset();
+  hazard.orientation = config?.orientation;
+  console.log("SPAWN HAZARD: ", hazard);
+}
+
 function spawnWall(config, type = NORMAL) {
   switch (type) {
     case NORMAL_WALL:
@@ -118,15 +140,40 @@ function setupEnemies(level) {
         currentEnemy++;
         level[index] = TILE_GROUND;
         break;
+
       case TILE_HUNTER:
         spawnEnemy(levels[currentLevel].enemies[currentEnemy], HUNTER);
         currentEnemy++;
         level[index] = TILE_GROUND;
         break;
+
       case TILE_BLOCKER:
         spawnEnemy(levels[currentLevel].enemies[currentEnemy], BLOCKER);
         currentEnemy++;
         level[index] = TILE_GROUND;
+        break;
+
+      default:
+        break;
+    }
+  });
+}
+
+function setupHazards(level) {
+  level.forEach((tile, index) => {
+    switch (tile) {
+      case TILE_LASER:
+        spawnHazard({ orientation: HORIZONTAL }, LASER);
+        level[index] = TILE_GROUND;
+        break;
+
+      case TILE_WINDOW_V:
+      case TILE_WINDOW_H:
+      case TILE_TURRET:
+      case TILE_CAMERA:
+        break;
+
+      default:
         break;
     }
   });
@@ -139,7 +186,11 @@ function setupWalls(level) {
         spawnWall({ direction: 0 }, ELECTRIC);
         level[index] = TILE_GROUND;
         break;
+
       case TILE_WALL:
+        break;
+
+      default:
         break;
     }
   });
@@ -172,6 +223,7 @@ function loadLevel(whichLevel) {
   enemies = [];
   setupEnemies(worldGrid);
   setupWalls(worldGrid);
+  setupHazards(worldGrid);
   setupEntities(worldGrid);
 }
 
@@ -185,6 +237,7 @@ function updateAll(dt) {
       triggers.forEach((trigger) => trigger.update(dt));
       walls.forEach((wall) => wall.update(dt));
       entities.forEach((ent) => ent.update(dt));
+      hazards.forEach((haz) => haz.update(dt));
       drawAll(dt);
       break;
     case EDIT_MODE:
@@ -205,9 +258,13 @@ function moveAll() {
   enemies.forEach(function (enemy) {
     enemy.move();
   });
-
   effects.forEach(function (effect) {
     effect.update();
+  });
+  hazards.forEach(function (hazard) {
+    if (hazard.hasOwnProperty("move")) {
+      hazard.move();
+    }
   });
 }
 
@@ -230,18 +287,26 @@ function drawAll() {
       effects.forEach(function (effect) {
         effect.draw();
       });
+      hazards.forEach(function (hazard) {
+        hazard.draw();
+      });
 
       player.draw();
       ui.draw();
       break;
+
     case EDIT_MODE:
       drawWorld();
       enemies.forEach(function (enemy) {
         enemy.draw();
       });
+      hazards.forEach(function (hazard) {
+        hazard.draw();
+      });
       editor.draw();
       ui.draw();
       break;
+
     default:
       break;
   }
