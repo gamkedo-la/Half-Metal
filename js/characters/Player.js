@@ -1,4 +1,5 @@
 const PLAYER_MOVE_SPEED = 2.0;
+const MOVEMENT_PROGRESS = 2;
 
 function playerClass() {
   this.x = 75;
@@ -44,6 +45,15 @@ function playerClass() {
     0: "right",
     180: "left",
   };
+
+  this.directionUpdate = {
+    [UP]: ["y", PLAYER_MOVE_SPEED * -1],
+    [DOWN]: ["y", PLAYER_MOVE_SPEED],
+    [LEFT]: ["x", PLAYER_MOVE_SPEED * -1],
+    [RIGHT]: ["x", PLAYER_MOVE_SPEED],
+  };
+
+  this.movingProgressRemaining = MOVEMENT_PROGRESS;
 
   this.animations = {
     "idle-down": [{ x: 0, y: 25, w: 15, h: 25 }],
@@ -125,18 +135,22 @@ function playerClass() {
     if (this.keyHeld_North) {
       nextY -= PLAYER_MOVE_SPEED;
       this.direction = 270;
+      this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
     if (this.keyHeld_East) {
       nextX += PLAYER_MOVE_SPEED;
       this.direction = 0;
+      this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
     if (this.keyHeld_South) {
       nextY += PLAYER_MOVE_SPEED;
       this.direction = 90;
+      this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
     if (this.keyHeld_West) {
       nextX -= PLAYER_MOVE_SPEED;
       this.direction = 180;
+      this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
 
     var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
@@ -149,8 +163,14 @@ function playerClass() {
     switch (walkIntoTileType) {
       case TILE_GROUND:
         if (!this.keyHeld_Shoot) {
-          this.x = nextX;
-          this.y = nextY;
+          if (this.movingProgressRemaining > 0) {
+            const [prop, change] =
+              this.directionUpdate[DIRECTION_MAP[this.direction]];
+
+            this[prop] += change;
+
+            this.movingProgressRemaining--;
+          }
         }
         break;
       case TILE_GOAL:
@@ -311,13 +331,13 @@ function playerClass() {
   this.draw = function () {
     switch (this.state) {
       case MOVING:
-        this.currentAnimation = `walk-${this.directionMap[this.direction]}`;
+        this.currentAnimation = `walk-${DIRECTION_MAP[this.direction]}`;
         break;
       case IDLE:
-        this.currentAnimation = `idle-${this.directionMap[this.direction]}`;
+        this.currentAnimation = `idle-${DIRECTION_MAP[this.direction]}`;
         break;
       case SHOOTING:
-        this.currentAnimation = `shoot-${this.directionMap[this.direction]}`;
+        this.currentAnimation = `shoot-${DIRECTION_MAP[this.direction]}`;
         break;
     }
     this.animator.animate();
