@@ -14,8 +14,15 @@ function BlockerClass() {
   this.image = blockerSheet;
   this.health = 3;
   this.animations = {
-    idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
-    "shield-right": [{ x: 160, y: 0, w: this.width, h: this.height }],
+    idle: [{ x: 0, y: 0, w: 36, h: 35 }],
+    "walk-right": [{ x: 0, y: 0, w: 36, h: 35 }],
+    "walk-left": [{ x: 0, y: 0, w: 36, h: 35 }],
+    "walk-up": [{ x: 0, y: 0, w: 36, h: 35 }],
+    "walk-down": [{ x: 0, y: 0, w: 36, h: 35 }],
+    "shield-right": [{ x: 160, y: 0, w: 36, h: 35 }],
+    "shield-left": [{ x: 160, y: 0, w: 36, h: 35 }],
+    "shield-up": [{ x: 160, y: 0, w: 36, h: 35 }],
+    "shield-down": [{ x: 160, y: 0, w: 36, h: 35 }],
   };
   this.currentAnimation = "idle";
   this.shot_timer = new TimerClass(
@@ -31,6 +38,14 @@ function BlockerClass() {
       this.raiseShield();
     },
     1000,
+    1,
+    false
+  );
+  this.alert_timer = new TimerClass(
+    () => {
+      this.stopAlert();
+    },
+    10000,
     1,
     false
   );
@@ -134,6 +149,7 @@ function BlockerClass() {
 
   this.alerted = function (dt) {
     this.speed = 0;
+    this.alert_timer.start();
     this.shot_timer.start();
     this.shot_timer.update();
     this.shield_timer.update();
@@ -148,12 +164,21 @@ function BlockerClass() {
     }
   };
 
+  this.stopAlert = function () {
+    this.shot_timer.stop();
+    this.shield_timer.stop();
+    this.alert_timer.stop();
+    this.state = MOVING;
+    this.speed = BLOCKER_BOT_MOVEMENT_SPEED;
+  }
+
   this.shoot = function () {
     this.currentAnimation = "idle";
     var spawn_x = this.width * Math.cos((this.direction * Math.PI) / 180);
     var spawn_y = this.height * Math.sin((this.direction * Math.PI) / 180);
 
     spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, NORMAL);
+    playSound(sounds.shoot);
 
     this.shield_up = false;
   };

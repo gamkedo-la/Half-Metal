@@ -22,6 +22,7 @@ function enemyClass() {
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
   this.render_hitbox = false;
+  this.alert_timer = new TimerClass();
 
   this.animator = new SpriteSheetAnimatorClass(this);
 
@@ -66,9 +67,11 @@ function enemyClass() {
       case ALERT:
         this.alerted(dt);
         break;
+
       case STUNNED:
         console.log("STUNNED");
         break;
+
       default:
         break;
     }
@@ -174,9 +177,9 @@ function enemyClass() {
   };
 
   this.removeSelf = function () {
-    console.log("removing enemy!");
     spawnEffect(this.x, this.y, LEAPER_DIE); // FIXME: put in subclass
     enemies.splice(enemies.indexOf(this), 1);
+    this.alert_timer.stopAndCall();
     delete this;
   };
 }

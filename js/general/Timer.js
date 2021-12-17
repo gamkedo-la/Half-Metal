@@ -38,6 +38,11 @@ function TimerClass(
     this.iterations = iterations;
   };
 
+  this.stopAndCall = function () {
+    this.stop();
+    this.callback();
+  };
+
   this.reset = function () {
     this.stop();
     this.start();

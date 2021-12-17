@@ -95,12 +95,24 @@ function bulletClass() {
           )
         ) {
           enemy.health -= 3;
+          this.removeSelf();
+          playSound(sounds.destroy);
+          break;
         }
+
+        // Check for collision with shield
+        if (enemy.shield_up) {
+          reverseDirection(this);
+          playSound(sounds.bump);
+          break;
+        }
+
         // Otherwise, deal normal damage
         enemy.health -= 1;
         this.removeSelf();
         playSound(sounds.destroy);
         break;
+
       default:
         console.log("NO ENEMY TYPE FOUND: " + enemy.type);
         break;
