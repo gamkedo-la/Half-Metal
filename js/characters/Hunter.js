@@ -11,8 +11,8 @@ function HunterClass() {
   this.speedY = HUNTER_BOT_MOVEMENT_SPEED;
   this.velX = 1;
   this.velY = 2;
-  this.width = 35;
-  this.height = 54;
+  this.width = 14;
+  this.height = 26;
   this.image = hunterSheet;
   this.angleMovement = 0;
   this.currentLevel = [];
@@ -23,9 +23,9 @@ function HunterClass() {
   this.hitbox_height = this.height;
   
   this.animations = {
-    standing: [{x:0,y:30, h:29, w:15.8}],//location of frame
-    "walk-left": [{ x: 0, y: 0, h: 29, w: 15.8 }],
-    "walk-up": [{ x: 0, y: 30, h: 29, w: 15.8 }]
+    standing: [{x:0,y:30, h:26, w:14}],//location of frame
+    "walk-left": [{ x: 0, y: 0, h: 26, w: 14 }],
+    "walk-up": [{ x: 0, y: 30, h: 26, w: 14 }]
   }
   this.currentAnimation = "walk-up";
   this.animator = new SpriteSheetAnimatorClass(this,5);
