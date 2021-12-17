@@ -23,10 +23,12 @@ function HunterClass() {
   this.hitbox_height = this.height;
   
   this.animations = {
-    standing: [{x:0,y:0, h:29, w:15}]//location of frame
+    standing: [{x:0,y:30, h:29, w:15.8}],//location of frame
+    "walk-left": [{ x: 0, y: 0, h: 29, w: 15.8 }],
+    "walk-up": [{ x: 0, y: 30, h: 29, w: 15.8 }]
   }
-  this.currentAnimation = "standing";
-  this.animator = new SpriteSheetAnimatorClass(this);
+  this.currentAnimation = "walk-up";
+  this.animator = new SpriteSheetAnimatorClass(this,5);
   
   this.reset = function (whichImage) {
     this.image = whichImage;
