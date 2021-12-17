@@ -19,7 +19,6 @@ function bulletClass() {
     }
 
     this.checkTileType(walkIntoTileType, walkIntoTileIndex);
-
     this.checkIfOutofBounds();
     this.checkForCollisionWithEnemy(this);
     this.checkForCollisionWithSwitch(this);

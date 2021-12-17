@@ -23,7 +23,6 @@ function enemyClass() {
   this.hitbox_height = this.height;
   this.render_hitbox = false;
   this.alert_timer = new TimerClass();
-
   this.animator = new SpriteSheetAnimatorClass(this);
 
   this.draw = function () {
@@ -130,10 +129,6 @@ function enemyClass() {
       case TILE_GROUND:
       case TILE_GOAL:
         moveInOwnDirection(this);
-        break;
-      case TILE_DOOR:
-        worldGrid[tile_index] = TILE_GROUND;
-        self.removeSelf();
         break;
       case TILE_WALL:
       case TILE_WINDOW_H:

@@ -13,6 +13,7 @@ function BlockerClass() {
   this.height = 34;
   this.image = blockerSheet;
   this.health = 3;
+  this.speed = BLOCKER_BOT_MOVEMENT_SPEED;
   this.animations = {
     idle: [{ x: 0, y: 0, w: 36, h: 35 }],
     "walk-right": [{ x: 0, y: 0, w: 36, h: 35 }],
@@ -50,12 +51,9 @@ function BlockerClass() {
     false
   );
   this.shield_up = false;
-
   this.animator = new SpriteSheetAnimatorClass(this);
 
   this.reset = function (whichImage) {
-    this.image = whichImage;
-
     for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
       for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
         var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -67,7 +65,6 @@ function BlockerClass() {
         } // end of blockerBot start if
       } // end of col for
     } // end of row for
-    console.log("NO BLOCKERBOT START FOUND!");
   };
 
   this.updateHitBoxDimensions = function () {
@@ -126,21 +123,14 @@ function BlockerClass() {
       case TILE_AMMO:
       case TILE_GROUND:
       case TILE_GOAL:
-        moveInOwnDirection(this);
-        break;
-      case TILE_DOOR:
-        worldGrid[tile_index] = TILE_GROUND;
-        self.removeSelf();
+        strafe(this);
         break;
       case TILE_WALL:
       case TILE_WINDOW_H:
       case TILE_WINDOW_V:
-        reverseDirection(this);
-        moveInOwnDirection(this);
-        break;
       case TILE_STURDY_WALL:
         reverseDirection(this);
-        moveInOwnDirection(this);
+        strafe(this);
         break;
       default:
         break;
@@ -170,7 +160,7 @@ function BlockerClass() {
     this.alert_timer.stop();
     this.state = MOVING;
     this.speed = BLOCKER_BOT_MOVEMENT_SPEED;
-  }
+  };
 
   this.shoot = function () {
     this.currentAnimation = "idle";
