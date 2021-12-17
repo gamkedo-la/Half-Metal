@@ -58,7 +58,7 @@ function loadImages() {
     },
     { varName: elec_wall_h, theFile: "elec_wall_h.png" },
     { varName: elec_wall_h_open, theFile: "elec_wall_open_h.png" },
-    { varName: elec_wall_v_open, theFile: "elec_wall_open_h.png" },
+    { varName: elec_wall_v_open, theFile: "elec_wall_open_v.png" },
     { varName: elec_wall_v, theFile: "elec_wall_v.png" },
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },

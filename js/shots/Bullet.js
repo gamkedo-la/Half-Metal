@@ -19,9 +19,10 @@ function bulletClass() {
     }
 
     this.checkTileType(walkIntoTileType, walkIntoTileIndex);
-    this.checkIfOutofBounds();
     this.checkForCollisionWithEnemy(this);
+    this.checkForCollisionWithWall(this);
     this.checkForCollisionWithSwitch(this);
+    this.checkIfOutofBounds();
   };
 
   this.checkTileType = function (tile_type, tile_index) {
@@ -173,6 +174,36 @@ function bulletClass() {
         bullet.removeSelf();
       }
     });
+  };
+
+  this.checkForCollisionWithWall = function (bullet) {
+    walls.forEach(function (wall) {
+      if (
+        collisionDetected(
+          {
+            x: wall.x,
+            y: wall.y,
+            w: wall.width,
+            h: wall.height,
+          },
+          { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
+        )
+      ) {
+        bullet.checkWallType(wall);
+      }
+    });
+  };
+
+  this.checkWallType = function (wall) {
+    switch (wall.type) {
+      case NORMAL_WALL:
+        break;
+
+      case ELECTRIC:
+        this.removeSelf();
+        playSound(sounds.bump);
+        break;
+    }
   };
 }
 

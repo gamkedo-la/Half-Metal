@@ -40,4 +40,33 @@ function WallClass() {
   this.checkIfOutofBounds = function () {};
 
   this.removeSelf = function () {};
+
+  this.checkForCollisionWithEnemy = function (wall) {
+    enemies.forEach(function (enemy) {
+      if (
+        collisionDetected(
+          {
+            x: enemy.hitbox_x,
+            y: enemy.hitbox_y,
+            w: enemy.hitbox_width,
+            h: enemy.hitbox_height,
+          },
+          { x: wall.x, y: wall.y, w: wall.width, h: wall.height }
+        )
+      ) {
+        wall.checkEnemyType(enemy);
+      }
+    });
+  };
+
+  this.checkEnemyType = function (enemy) {
+    switch (enemy.type) {
+      case LEAPER:
+      case HUNTER:
+      case FLYER:
+      case BLOCKER:
+        console.log("COLLIDE WITH " + enemy.type);
+        break;
+    }
+  };
 }

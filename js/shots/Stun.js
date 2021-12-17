@@ -46,4 +46,19 @@ function StunShotClass() {
       }
     });
   };
+
+  this.checkWallType = function (wall) {
+    switch (wall.type) {
+      case ELECTRIC:
+        wall.state = OPEN;
+        this.removeSelf();
+        break;
+
+      case NORMAL_WALL:
+        break;
+
+      default:
+        break;
+    }
+  };
 }

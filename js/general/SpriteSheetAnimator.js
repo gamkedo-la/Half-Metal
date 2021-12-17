@@ -51,4 +51,14 @@ function SpriteSheetAnimatorClass(game_object = {}, speed = 8) {
 
     this.updateAnimationProgress();
   };
+
+  this.setAnimation = function (animation) {
+    if (
+      game_object.animations.hasOwnProperty(animation) &&
+      game_object.currentAnimation !== animation
+    ) {
+      game_object.currentAnimation = animation;
+      this.currentAnimationFrame = 0;
+    }
+  };
 }

@@ -214,6 +214,7 @@ function playerClass() {
     }
 
     this.checkForCollisionWithEnemy(this);
+    this.checkForCollisionWithWall(this);
     this.checkForCollisionWithEntity(this);
   };
 
@@ -233,13 +234,22 @@ function playerClass() {
 
   this.checkForCollisionWithWall = function (player) {
     walls.forEach(function (wall) {
-      if (collisionDetected(wall, player)) {
+      if (
+        collisionDetected(
+          { x: wall.x, y: wall.y, w: wall.width, h: wall.height },
+          { x: player.x, y: player.y, w: player.width, h: player.height }
+        )
+      ) {
         switch (wall.type) {
           case NORMAL_WALL:
             console.log("Collided with normal wall");
             break;
           case ELECTRIC:
-            console.log("Collided with electric wall");
+            if (wall.state === CLOSED) {
+              loadLevel(levels[currentLevel].level_map);
+              playSound(sounds.destroy);
+              playSound(sounds.lose);
+            }
             break;
           case STURDY:
             console.log("Collided with sturdy wall");
