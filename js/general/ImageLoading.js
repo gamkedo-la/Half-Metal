@@ -6,7 +6,7 @@ var blockerSheet = document.createElement("img");
 var bulletPic = document.createElement("img");
 var stunShotPic = document.createElement("img");
 var enemyPic = document.createElement("img");
-var hunterBotImage = document.createElement("img");
+var hunterSheet = document.createElement("img");
 var fontPic = document.createElement("img");
 var wallDestructionSheet = document.createElement("img");
 var leaperDestructionSheet = document.createElement("img");
@@ -46,7 +46,7 @@ function loadImages() {
     { varName: bulletPic, theFile: "world_ammo.png" },
     { varName: stunShotPic, theFile: "stun_shot.png" },
     { varName: enemyPic, theFile: "enemy.png" },
-    { varName: hunterBotImage, theFile: "hunterBotSpriteSheet.png" },
+    { varName: hunterSheet, theFile: "hunter_spritesheet.png" },
     { varName: fontPic, theFile: "font.png" },
     {
       varName: wallDestructionSheet,

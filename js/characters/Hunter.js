@@ -13,7 +13,7 @@ function HunterClass() {
   this.velY = 2;
   this.width = 35;
   this.height = 54;
-  this.image = hunterBotImage;
+  this.image = hunterSheet;
   this.angleMovement = 0;
   this.currentLevel = [];
   this.pathMap = [];
