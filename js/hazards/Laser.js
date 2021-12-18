@@ -29,6 +29,8 @@ function LaserClass(orientation = HORIZONTAL) {
         } // end of start if
       } // end of col for
     } // end of row for
+
+    this.setWalls();
   };
 
   this.update = function () {
@@ -44,8 +46,52 @@ function LaserClass(orientation = HORIZONTAL) {
         this.animator.setAnimation(
           this.orientation === HORIZONTAL ? "off_h" : "off_v"
         );
-        this.image = this.orientation === HORIZONTAL ? laser_off_h : laser_off_v;
+        this.image =
+          this.orientation === HORIZONTAL ? laser_off_h : laser_off_v;
         break;
+    }
+
+    this.setWalls();
+
+    if (this.walls.length < 2) {
+      this.removeSelf();
+    }
+  };
+
+  this.setWalls = function () {
+    // Check for adjacent walls
+    var index = getTileIndexAtPixelCoord(this.x, this.y);
+    console.log("RESET LASER");
+    console.log(index);
+
+    this.walls = [];
+
+    if (this.orientation === HORIZONTAL) {
+      var leftCol = index - 1;
+      var rightCol = index + 1;
+
+      if (
+        worldGrid[leftCol] &&
+        worldGrid[rightCol] &&
+        worldGrid[leftCol] === TILE_WALL &&
+        worldGrid[rightCol] === TILE_WALL
+      ) {
+        this.walls.push(leftCol);
+        this.walls.push(rightCol);
+      }
+    } else {
+      var upperRow = index - WORLD_COLS;
+      var lowerRow = index + WORLD_COLS;
+
+      if (
+        worldGrid[upperRow] &&
+        worldGrid[lowerRow] &&
+        worldGrid[upperRow] === TILE_WALL &&
+        worldGrid[lowerRow] === TILE_WALL
+      ) {
+        this.walls.push(upperRow);
+        this.walls.push(lowerRow);
+      }
     }
   };
 
@@ -53,6 +99,11 @@ function LaserClass(orientation = HORIZONTAL) {
     enemies.forEach(function (enemy) {
       enemy.state = ALERT;
     });
+  };
+
+  this.removeSelf = function () {
+    hazards.splice(hazards.indexOf(this), 1);
+    delete this;
   };
 
   this.draw = function () {
