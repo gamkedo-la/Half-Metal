@@ -21,12 +21,6 @@ function RayClass(x, y, direction) {
     switch (walkIntoTileType) {
       case TILE_GROUND:
       case TILE_GOAL:
-        this.x += this.speed * Math.cos((this.direction * Math.PI) / 180);
-        this.y += this.speed * Math.sin((this.direction * Math.PI) / 180);
-        break;
-      case TILE_DOOR:
-        this.destroyed = true;
-        break;
       case TILE_AMMO:
         this.x += this.speed * Math.cos((this.direction * Math.PI) / 180);
         this.y += this.speed * Math.sin((this.direction * Math.PI) / 180);

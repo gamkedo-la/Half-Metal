@@ -176,6 +176,8 @@ function setupHazards(level) {
       case TILE_WINDOW_H:
       case TILE_TURRET:
       case TILE_CAMERA:
+        spawnHazard({ orientation: HORIZONTAL }, CAMERA);
+        level[index] = TILE_GROUND;
         break;
 
       default:
@@ -292,11 +294,13 @@ function drawAll() {
       effects.forEach(function (effect) {
         effect.draw();
       });
+
+      player.draw();
+      
       hazards.forEach(function (hazard) {
         hazard.draw();
       });
 
-      player.draw();
       ui.draw();
       break;
 
