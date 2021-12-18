@@ -9,6 +9,7 @@ var enemyPic = document.createElement("img");
 var hunterSheet = document.createElement("img");
 var fontPic = document.createElement("img");
 var wallDestructionSheet = document.createElement("img");
+var sturdyWallDestructionSheet = document.createElement("img");
 var leaperDestructionSheet = document.createElement("img");
 var elec_wall_h = document.createElement("img");
 var elec_wall_v = document.createElement("img");
@@ -56,6 +57,10 @@ function loadImages() {
     {
       varName: wallDestructionSheet,
       theFile: "wall_destruction_spritesheet.png",
+    },
+    {
+      varName: sturdyWallDestructionSheet,
+      theFile: "sturdy_wall_destruction_spritesheet.png",
     },
     {
       varName: leaperDestructionSheet,

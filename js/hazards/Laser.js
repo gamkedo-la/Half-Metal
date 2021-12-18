@@ -30,7 +30,7 @@ function LaserClass(orientation = HORIZONTAL) {
       } // end of col for
     } // end of row for
 
-    this.setWalls();
+    this.checkForAdjacentWalls();
   };
 
   this.update = function () {
@@ -51,20 +51,20 @@ function LaserClass(orientation = HORIZONTAL) {
         break;
     }
 
-    this.setWalls();
+    this.checkForAdjacentWalls();
 
     if (this.walls.length < 2) {
       this.removeSelf();
     }
   };
 
-  this.setWalls = function () {
+  this.checkForAdjacentWalls = function () {
     // Check for adjacent walls
     var index = getTileIndexAtPixelCoord(this.x, this.y);
     console.log("RESET LASER");
     console.log(index);
 
-    this.walls = [];
+    this.walls.length = 0;
 
     if (this.orientation === HORIZONTAL) {
       var leftCol = index - 1;

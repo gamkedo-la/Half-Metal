@@ -51,7 +51,7 @@ function bulletClass() {
         spawnEffect(
           spawnLoc.x + (this.width + 1) / 2,
           spawnLoc.y + (this.height + 1) / 2,
-          EXPLOSION
+          tile_type === TILE_WALL ? EXPLOSION : DESTROY_STURDY_WALL
         );
         playSound(sounds.destroy);
         break;

@@ -107,6 +107,11 @@ function spawnEffect(x, y, type = EXPLOSION) {
     case EXPLOSION:
       effect = new effectClass(x, y, wallDestructionSheet, 1);
       break;
+    
+    case DESTROY_STURDY_WALL:
+      effect = new effectClass(x, y, sturdyWallDestructionSheet, 1);
+      break;
+    
     case LEAPER_DIE:
       effect = new effectClass(x, y, leaperDestructionSheet);
       break;
