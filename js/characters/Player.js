@@ -10,7 +10,7 @@ function playerClass() {
   this.name = "Player";
   this.ammo = 0;
   this.selected_ammo = NORMAL;
-  this.ammo_types = [NORMAL, STUN];
+  this.ammo_types = [NORMAL, STUN, PUSH];
   this.currentAmmoIndex = 0;
 
   this.MAX_DELAY = 15;
@@ -180,6 +180,7 @@ function playerClass() {
         break;
       case TILE_AMMO:
       case TILE_STUN_SHOT:
+      case TILE_PUSH_SHOT:
         this.ammo++; // one more bullet
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
         playSound(sounds.get_ammo);
@@ -308,6 +309,7 @@ function playerClass() {
   this.shoot = function () {
     if (this.keyHeld_Shoot && !this.didShoot && this.ammo > 0) {
       spawnBullet(this.x, this.y, this.direction, this.selected_ammo);
+      console.log(this.selected_ammo);
       playSound(sounds.shoot);
       this.didShoot = true;
       this.ammo -= 1;
@@ -344,6 +346,9 @@ function playerClass() {
           break;
         case STUN:
           this.image = playerSheet_Stun;
+          break;
+        case PUSH:
+          this.image = playerSheet_Push;
           break;
       }
 

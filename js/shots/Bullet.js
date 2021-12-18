@@ -135,6 +135,7 @@ function bulletClass() {
   };
 
   this.draw = function () {
+    console.log("DRAW SHOT");
     drawBitmapCenteredWithRotation(
       this.bulletPic,
       this.x,
@@ -209,17 +210,27 @@ function bulletClass() {
 
 function spawnBullet(x, y, direction, shot_type = NORMAL) {
   var bullet;
+
   switch (shot_type) {
     case NORMAL:
       bullet = new bulletClass();
       break;
+
     case STUN:
       bullet = new StunShotClass();
       break;
+
+    case PUSH:
+      bullet = new PushShotClass();
+      break;
+
+    default:
+      bullet = new bulletClass();
+      break;
   }
+
   bullet.x = x;
   bullet.y = y;
   bullet.direction = direction;
-  // bullet.rotation_angle = direction;
   bullets.push(bullet);
 }
