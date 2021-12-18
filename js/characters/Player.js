@@ -39,13 +39,6 @@ function playerClass() {
   this.direction = 0;
   this.state = IDLE;
 
-  this.directionMap = {
-    270: "up",
-    90: "down",
-    0: "right",
-    180: "left",
-  };
-
   this.directionUpdate = {
     [UP]: ["y", PLAYER_MOVE_SPEED * -1],
     [DOWN]: ["y", PLAYER_MOVE_SPEED],
@@ -216,6 +209,7 @@ function playerClass() {
     this.checkForCollisionWithEnemy(this);
     this.checkForCollisionWithWall(this);
     this.checkForCollisionWithEntity(this);
+    this.checkForCollisionWithHazard(this);
   };
 
   this.checkForCollisionWithEnemy = function (player) {
@@ -274,6 +268,41 @@ function playerClass() {
         entity.teleport(player);
       }
     });
+  };
+
+  this.checkForCollisionWithHazard = function (player) {
+    hazards.forEach(function (hazard) {
+      if (
+        collisionDetected(
+          { x: hazard.x, y: hazard.y, h: hazard.height, w: hazard.width },
+          { x: player.x, y: player.y, h: player.height, w: player.width }
+        )
+      ) {
+        player.checkHazardType(hazard);
+      }
+    });
+  };
+
+  this.checkHazardType = function (hazard) {
+    switch (hazard.type) {
+      case LASER:
+        if (hazard.state === ON) {
+          hazard.alertEnemies();
+        }
+        break;
+
+      case CAMERA:
+        break;
+
+      case WINDOW:
+        break;
+
+      case TURRET:
+        break;
+
+      default:
+        break;
+    }
   };
 
   this.shoot = function () {
