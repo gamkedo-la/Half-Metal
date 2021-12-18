@@ -16,10 +16,6 @@ var triggers = new Array();
 var editor = new EditorClass();
 var ui;
 
-entities.push(my_switch);
-hazards.push(my_laser);
-triggers.push(trigger);
-
 editor.resetUI();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
