@@ -19,6 +19,7 @@ var laser_h = document.createElement("img");
 var laser_v = document.createElement("img");
 var laser_off_h = document.createElement("img");
 var laser_off_v = document.createElement("img");
+var camera_spritesheet = document.createElement("img");
 
 var worldPics = [];
 
@@ -74,6 +75,7 @@ function loadImages() {
     { varName: laser_v, theFile: "laser_h.png" },
     { varName: laser_off_h, theFile: "laser_off_h.png" },
     { varName: laser_off_v, theFile: "laser_off_h.png" },
+    { varName: camera_spritesheet, theFile: "camera.png" },
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },
