@@ -135,7 +135,6 @@ function bulletClass() {
   };
 
   this.draw = function () {
-    console.log("DRAW SHOT");
     drawBitmapCenteredWithRotation(
       this.bulletPic,
       this.x,

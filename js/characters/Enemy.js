@@ -24,6 +24,7 @@ function enemyClass() {
   this.render_hitbox = false;
   this.alert_timer = new TimerClass();
   this.animator = new SpriteSheetAnimatorClass(this);
+  this.push_vector = { magnitude: 0, direction: 0 };
 
   this.draw = function () {
     this.raycast();
@@ -70,6 +71,10 @@ function enemyClass() {
       case STUNNED:
         console.log("STUNNED");
         break;
+
+      case PUSHED:
+        applyVector(this, this.push_vector);
+        this.speed = 0;
 
       default:
         break;
