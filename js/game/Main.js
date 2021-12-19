@@ -13,6 +13,38 @@ var hazards = new Array();
 var walls = new Array();
 var triggers = new Array();
 
+var demo_switch = new SwitchClass();
+demo_switch.x = 128;
+demo_switch.y = 128;
+
+var demo_elec_wall = new ElectricWallClass();
+demo_elec_wall.state = OPEN;
+demo_elec_wall.x = 72;
+demo_elec_wall.y = 128;
+
+var demo_trigger = new TriggerClass(
+  demo_switch,
+  "state",
+  PRESSED,
+  demo_elec_wall,
+  "state",
+  CLOSED
+);
+
+var demo_trigger_2 = new TriggerClass(
+  demo_switch,
+  "state",
+  UNPRESSED,
+  demo_elec_wall,
+  "state",
+  OPEN
+);
+
+entities.push(demo_switch);
+walls.push(demo_elec_wall);
+triggers.push(demo_trigger);
+triggers.push(demo_trigger_2);
+
 var editor = new EditorClass();
 var ui;
 
@@ -107,16 +139,20 @@ function spawnEffect(x, y, type = EXPLOSION) {
     case EXPLOSION:
       effect = new effectClass(x, y, wallDestructionSheet, 1);
       break;
-    
+
     case DESTROY_STURDY_WALL:
       effect = new effectClass(x, y, sturdyWallDestructionSheet, 1);
       break;
-    
+
     case LEAPER_DIE:
       effect = new effectClass(x, y, leaperDestructionSheet);
       break;
+
+    case SHATTER:
+      effect = new effectClass(x, y, windowDestructionSheet, 1);
+      break;
   }
-  // console.log("spawned new effect with:", effect.x, effect.y);
+
   effect.animator.currentAnimationFrame = 0;
   effects.push(effect);
 }
@@ -175,6 +211,8 @@ function setupHazards(level) {
       case TILE_WINDOW_V:
       case TILE_WINDOW_H:
       case TILE_TURRET:
+        break;
+
       case TILE_CAMERA:
         spawnHazard({ orientation: HORIZONTAL }, CAMERA);
         level[index] = TILE_GROUND;
@@ -296,7 +334,7 @@ function drawAll() {
       });
 
       player.draw();
-      
+
       hazards.forEach(function (hazard) {
         hazard.draw();
       });

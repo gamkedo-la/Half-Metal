@@ -266,7 +266,8 @@ function playerClass() {
         entity.y < player.y + player.height &&
         entity.y + entity.height > player.y
       ) {
-        entity.teleport(player);
+        // entity.teleport(player);
+        console.log("COL WITH ENT")
       }
     });
   };

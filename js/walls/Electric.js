@@ -32,11 +32,12 @@ function ElectricWallClass(orientation = HORIZONTAL) {
     switch (this.state) {
       case OPEN:
         this.image =
-          this.orientation === VERTICAL ? elec_wall_h_open : elec_wall_v_open;
+          this.orientation === VERTICAL ? elec_wall_v_open : elec_wall_h_open;
         this.animator.setAnimation(
           this.orientation === VERTICAL ? "open_v" : "open_h"
         );
         break;
+
       case CLOSED:
         this.image = this.orientation === VERTICAL ? elec_wall_v : elec_wall_h;
         this.animator.setAnimation(
@@ -48,13 +49,7 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   };
 
   this.checkEnemyType = function (enemy) {
-    switch (enemy.type) {
-      case LEAPER:
-      case FLYER:
-      case HUNTER:
-      case BLOCKER:
         enemy.removeSelf();
         playSound(sounds.destroy);
-    }
   };
 }

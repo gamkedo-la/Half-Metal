@@ -60,6 +60,12 @@ function bulletClass() {
       case TILE_WINDOW_SMASHED_H:
         worldGrid[tile_index] = TILE_GROUND;
         this.removeSelf();
+        spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
+        spawnEffect(
+          spawnLoc.x + (this.width + 1) / 2,
+          spawnLoc.y + (this.height + 1) / 2,
+          SHATTER
+        );
         playSound(sounds.window_break);
         break;
       default:

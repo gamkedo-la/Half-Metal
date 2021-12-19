@@ -12,6 +12,7 @@ var hunterSheet = document.createElement("img");
 var fontPic = document.createElement("img");
 var wallDestructionSheet = document.createElement("img");
 var sturdyWallDestructionSheet = document.createElement("img");
+var windowDestructionSheet = document.createElement("img");
 var leaperDestructionSheet = document.createElement("img");
 var elec_wall_h = document.createElement("img");
 var elec_wall_v = document.createElement("img");
@@ -81,6 +82,7 @@ function loadImages() {
     { varName: laser_off_h, theFile: "laser_off_h.png" },
     { varName: laser_off_v, theFile: "laser_off_h.png" },
     { varName: camera_spritesheet, theFile: "camera.png" },
+    { varName: windowDestructionSheet, theFile: "world_window_horizontal_sharding-spritesheet.png" },
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },
