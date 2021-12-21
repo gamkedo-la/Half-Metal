@@ -2,6 +2,7 @@ var playerImage = document.createElement("img");
 var playerSheet = document.createElement("img");
 var playerSheet_Stun = document.createElement("img");
 var playerSheet_Push = document.createElement("img");
+var playerSheet_Turn = document.createElement("img");
 var leaperSheet = document.createElement("img");
 var blockerSheet = document.createElement("img");
 var bulletPic = document.createElement("img");
@@ -24,6 +25,7 @@ var laser_off_h = document.createElement("img");
 var laser_off_v = document.createElement("img");
 var camera_spritesheet = document.createElement("img");
 var push_shot_pic = document.createElement("img");
+var turn_shot_pic = document.createElement("img");
 
 var worldPics = [];
 
@@ -53,11 +55,13 @@ function loadImages() {
     { varName: playerSheet, theFile: "player_spritesheet.png" },
     { varName: playerSheet_Stun, theFile: "player_spritesheet_stun_ammo.png" },
     { varName: playerSheet_Push, theFile: "player_spritesheet_push_ammo.png" },
+    { varName: playerSheet_Turn, theFile: "player_spritesheet_turn_ammo.png" },
     { varName: leaperSheet, theFile: "leaper_spritesheet.png" },
     { varName: blockerSheet, theFile: "blocker_spritesheet.png" },
     { varName: bulletPic, theFile: "world_ammo.png" },
     { varName: stunShotPic, theFile: "stun_shot.png" },
     { varName: push_shot_pic, theFile: "push_shot.png" },
+    { varName: turn_shot_pic, theFile: "turn_shot.png" },
     { varName: enemyPic, theFile: "enemy.png" },
     { varName: hunterSheet, theFile: "hunter_spritesheet.png" },
     { varName: fontPic, theFile: "font.png" },
@@ -91,6 +95,7 @@ function loadImages() {
     { worldType: TILE_AMMO, theFile: "world_ammo.png" },
     { worldType: TILE_PUSH_SHOT, theFile: "push_shot.png" },
     { worldType: TILE_STUN_SHOT, theFile: "stun_shot.png" },
+    { worldType: TILE_TURN_SHOT, theFile: "turn_shot.png" },
     { worldType: TILE_DOOR, theFile: "world_door.png" },
     { worldType: TILE_WINDOW_V, theFile: "world_window_vertical.png" },
     { worldType: TILE_WINDOW_H, theFile: "world_window_horizontal.png" },

@@ -229,6 +229,10 @@ function spawnBullet(x, y, direction, shot_type = NORMAL) {
       bullet = new PushShotClass();
       break;
 
+    case TURN:
+      bullet = new TurnShotClass();
+      break;
+
     default:
       bullet = new bulletClass();
       break;

@@ -10,7 +10,7 @@ function playerClass() {
   this.name = "Player";
   this.ammo = 0;
   this.selected_ammo = NORMAL;
-  this.ammo_types = [NORMAL, STUN, PUSH];
+  this.ammo_types = [NORMAL, STUN, PUSH, TURN];
   this.currentAmmoIndex = 0;
 
   this.MAX_DELAY = 15;
@@ -181,6 +181,7 @@ function playerClass() {
       case TILE_AMMO:
       case TILE_STUN_SHOT:
       case TILE_PUSH_SHOT:
+      case TILE_TURN_SHOT:
         this.ammo++; // one more bullet
         worldGrid[walkIntoTileIndex] = TILE_GROUND;
         playSound(sounds.get_ammo);
@@ -267,7 +268,7 @@ function playerClass() {
         entity.y + entity.height > player.y
       ) {
         // entity.teleport(player);
-        console.log("COL WITH ENT")
+        console.log("COL WITH ENT");
       }
     });
   };
@@ -350,6 +351,9 @@ function playerClass() {
           break;
         case PUSH:
           this.image = playerSheet_Push;
+          break;
+        case TURN:
+          this.image = playerSheet_Turn;
           break;
       }
 
