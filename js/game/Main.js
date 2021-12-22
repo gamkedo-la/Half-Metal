@@ -211,6 +211,8 @@ function setupHazards(level) {
       case TILE_WINDOW_V:
       case TILE_WINDOW_H:
       case TILE_TURRET:
+        spawnHazard({ orientation: HORIZONTAL }, TURRET);
+        level[index] = TILE_GROUND;
         break;
 
       case TILE_CAMERA:

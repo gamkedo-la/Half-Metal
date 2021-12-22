@@ -26,6 +26,7 @@ var laser_off_v = document.createElement("img");
 var camera_spritesheet = document.createElement("img");
 var push_shot_pic = document.createElement("img");
 var turn_shot_pic = document.createElement("img");
+var turret_spritesheet = document.createElement("img");
 
 var worldPics = [];
 
@@ -86,7 +87,11 @@ function loadImages() {
     { varName: laser_off_h, theFile: "laser_off_h.png" },
     { varName: laser_off_v, theFile: "laser_off_h.png" },
     { varName: camera_spritesheet, theFile: "camera.png" },
-    { varName: windowDestructionSheet, theFile: "world_window_horizontal_sharding-spritesheet.png" },
+    { varName: turret_spritesheet, theFile: "turret.png" },
+    {
+      varName: windowDestructionSheet,
+      theFile: "world_window_horizontal_sharding-spritesheet.png",
+    },
 
     { worldType: TILE_GROUND, theFile: "world_ground.png" },
     { worldType: TILE_WALL, theFile: "world_wall.png" },

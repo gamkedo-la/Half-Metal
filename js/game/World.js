@@ -63,7 +63,8 @@ function tileTypeHasTransparency(checkTileType) {
     checkTileType == TILE_LASER ||
     checkTileType == TILE_CAMERA ||
     checkTileType == TILE_PUSH_SHOT ||
-    checkTileType == TILE_TURN_SHOT
+    checkTileType == TILE_TURN_SHOT ||
+    checkTileType == TILE_TURRET
   );
 }
 
