@@ -27,8 +27,184 @@ var camera_spritesheet = document.createElement("img");
 var push_shot_pic = document.createElement("img");
 var turn_shot_pic = document.createElement("img");
 var turret_spritesheet = document.createElement("img");
+var wall_img = document.createElement("img");
+var sturdy_wall_img = document.createElement("img");
+var ground_img = document.createElement("img");
 
 var worldPics = [];
+
+var image_list = [
+  // Player
+  {
+    var_name: playerSheet,
+    file: "player_spritesheet.png",
+    tile: TILE_PLAYERSTART,
+    transparent_bg: true,
+  },
+  {
+    var_name: playerSheet_Stun,
+    file: "player_spritesheet_stun_ammo.png",
+    transparent_bg: true,
+  },
+  {
+    var_name: playerSheet_Push,
+    file: "player_spritesheet_push_ammo.png",
+    transparent_bg: true,
+  },
+  {
+    var_name: playerSheet_Turn,
+    file: "player_spritesheet_turn_ammo.png",
+    transparent_bg: true,
+  },
+
+  // Enemies
+  {
+    var_name: leaperSheet,
+    file: "leaper_spritesheet.png",
+    tile: TILE_LEAPER,
+    transparent_bg: true,
+  },
+  {
+    var_name: blockerSheet,
+    file: "blocker_spritesheet.png",
+    tile: TILE_BLOCKER,
+    transparent_bg: true,
+  },
+  {
+    var_name: hunterSheet,
+    file: "hunter_spritesheet.png",
+    tile: TILE_HUNTER,
+    transparent_bg: true,
+  },
+
+  // Shots
+  {
+    var_name: bulletPic,
+    file: "world_ammo.png",
+    tile: TILE_AMMO,
+    transparent_bg: true,
+  },
+  {
+    var_name: stunShotPic,
+    file: "stun_shot.png",
+    tile: TILE_STUN_SHOT,
+    transparent_bg: true,
+  },
+  {
+    var_name: push_shot_pic,
+    file: "push_shot.png",
+    tile: TILE_PUSH_SHOT,
+    transparent_bg: true,
+  },
+  {
+    var_name: turn_shot_pic,
+    file: "turn_shot.png",
+    tile: TILE_TURN_SHOT,
+    transparent_bg: true,
+  },
+
+  // Hazards
+  {
+    var_name: laser_h,
+    file: "laser_h.png",
+    tile: TILE_LASER,
+    transparent_bg: true,
+  },
+  {
+    var_name: laser_v,
+    file: "laser_h.png",
+    transparent_bg: true,
+  },
+  {
+    var_name: laser_off_h,
+    file: "laser_off_h.png",
+    transparent_bg: true,
+  },
+  {
+    var_name: laser_off_v,
+    file: "laser_off_h.png",
+    transparent_bg: true,
+  },
+  {
+    var_name: camera_spritesheet,
+    file: "camera.png",
+    tile: TILE_CAMERA,
+    transparent_bg: true,
+  },
+  {
+    var_name: turret_spritesheet,
+    file: "turret.png",
+    tile: TILE_TURRET,
+    transparent_bg: true,
+  },
+  {
+    file: "world_window_vertical.png",
+    tile: TILE_WINDOW_V,
+    transparent_bg: true,
+  },
+  {
+    file: "world_window_horizontal.png",
+    tile: TILE_WINDOW_H,
+    transparent_bg: true,
+  },
+  {
+    file: "world_window_smashed_horizontal.png",
+    tile: TILE_WINDOW_SMASHED_H,
+  },
+
+  // Walls
+  { var_name: wall_img, tile: TILE_WALL, file: "world_wall.png" },
+  {
+    var_name: sturdy_wall_img,
+    tile: TILE_STURDY_WALL,
+    file: "world_sturdy_wall.png",
+  },
+  {
+    var_name: elec_wall_h,
+    file: "elec_wall_h.png",
+    tile: TILE_ELEC_WALL,
+    transparent_bg: true,
+  },
+  {
+    var_name: elec_wall_h_open,
+    file: "elec_wall_open_h.png",
+    tile: TILE_ELEC_WALL,
+    transparent_bg: true,
+  },
+  {
+    var_name: elec_wall_v_open,
+    file: "elec_wall_open_v.png",
+    transparent_bg: true,
+  },
+  {
+    var_name: elec_wall_v,
+    file: "elec_wall_v.png",
+    transparent_bg: true,
+  },
+
+  // Effects
+  {
+    var_name: windowDestructionSheet,
+    file: "world_window_horizontal_sharding-spritesheet.png",
+  },
+  {
+    var_name: wallDestructionSheet,
+    file: "wall_destruction_spritesheet.png",
+  },
+  {
+    var_name: sturdyWallDestructionSheet,
+    file: "sturdy_wall_destruction_spritesheet.png",
+  },
+  {
+    var_name: leaperDestructionSheet,
+    file: "leaper_destruction_spritesheet.png",
+  },
+
+  // ETC
+  { var_name: ground_img, tile: TILE_GROUND, file: "world_ground.png" },
+  { tile: TILE_GOAL, file: "world_goal.png", transparent_bg: true },
+  { var_name: fontPic, file: "font.png" },
+];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
 
@@ -51,72 +227,13 @@ function loadImageForWorldCode(worldCode, fileName) {
 }
 
 function loadImages() {
-  var imageList = [
-    { varName: playerImage, theFile: "player.png" },
-    { varName: playerSheet, theFile: "player_spritesheet.png" },
-    { varName: playerSheet_Stun, theFile: "player_spritesheet_stun_ammo.png" },
-    { varName: playerSheet_Push, theFile: "player_spritesheet_push_ammo.png" },
-    { varName: playerSheet_Turn, theFile: "player_spritesheet_turn_ammo.png" },
-    { varName: leaperSheet, theFile: "leaper_spritesheet.png" },
-    { varName: blockerSheet, theFile: "blocker_spritesheet.png" },
-    { varName: bulletPic, theFile: "world_ammo.png" },
-    { varName: stunShotPic, theFile: "stun_shot.png" },
-    { varName: push_shot_pic, theFile: "push_shot.png" },
-    { varName: turn_shot_pic, theFile: "turn_shot.png" },
-    { varName: enemyPic, theFile: "enemy.png" },
-    { varName: hunterSheet, theFile: "hunter_spritesheet.png" },
-    { varName: fontPic, theFile: "font.png" },
-    {
-      varName: wallDestructionSheet,
-      theFile: "wall_destruction_spritesheet.png",
-    },
-    {
-      varName: sturdyWallDestructionSheet,
-      theFile: "sturdy_wall_destruction_spritesheet.png",
-    },
-    {
-      varName: leaperDestructionSheet,
-      theFile: "leaper_destruction_spritesheet.png",
-    },
-    { varName: elec_wall_h, theFile: "elec_wall_h.png" },
-    { varName: elec_wall_h_open, theFile: "elec_wall_open_h.png" },
-    { varName: elec_wall_v_open, theFile: "elec_wall_open_v.png" },
-    { varName: elec_wall_v, theFile: "elec_wall_v.png" },
-    { varName: laser_h, theFile: "laser_h.png" },
-    { varName: laser_v, theFile: "laser_h.png" },
-    { varName: laser_off_h, theFile: "laser_off_h.png" },
-    { varName: laser_off_v, theFile: "laser_off_h.png" },
-    { varName: camera_spritesheet, theFile: "camera.png" },
-    { varName: turret_spritesheet, theFile: "turret.png" },
-    {
-      varName: windowDestructionSheet,
-      theFile: "world_window_horizontal_sharding-spritesheet.png",
-    },
+  picsToLoad = image_list.length;
 
-    { worldType: TILE_GROUND, theFile: "world_ground.png" },
-    { worldType: TILE_WALL, theFile: "world_wall.png" },
-    { worldType: TILE_STURDY_WALL, theFile: "world_sturdy_wall.png" },
-    { worldType: TILE_GOAL, theFile: "world_goal.png" },
-    { worldType: TILE_AMMO, theFile: "world_ammo.png" },
-    { worldType: TILE_PUSH_SHOT, theFile: "push_shot.png" },
-    { worldType: TILE_STUN_SHOT, theFile: "stun_shot.png" },
-    { worldType: TILE_TURN_SHOT, theFile: "turn_shot.png" },
-    { worldType: TILE_DOOR, theFile: "world_door.png" },
-    { worldType: TILE_WINDOW_V, theFile: "world_window_vertical.png" },
-    { worldType: TILE_WINDOW_H, theFile: "world_window_horizontal.png" },
-    {
-      worldType: TILE_WINDOW_SMASHED_H,
-      theFile: "world_window_smashed_horizontal.png",
-    },
-  ];
-
-  picsToLoad = imageList.length;
-
-  for (var i = 0; i < imageList.length; i++) {
-    if (imageList[i].varName != undefined) {
-      beginLoadingImage(imageList[i].varName, imageList[i].theFile);
+  for (var i = 0; i < image_list.length; i++) {
+    if (image_list[i].var_name != undefined) {
+      beginLoadingImage(image_list[i].var_name, image_list[i].file);
     } else {
-      loadImageForWorldCode(imageList[i].worldType, imageList[i].theFile);
+      loadImageForWorldCode(image_list[i].tile, image_list[i].file);
     }
   }
 }
