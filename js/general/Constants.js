@@ -1,12 +1,12 @@
 // SHOT TYPES
-const NORMAL = "normal";
+const NORMAL = "normal_shot";
 const STUN = "stun";
 const PUSH = "push";
 const TURN = "turn";
 const SHOTS = [NORMAL, STUN, PUSH, TURN];
 
 // WALL TYPES
-const NORMAL_WALL = "normal";
+const NORMAL_WALL = "normal_wall";
 const STURDY = "sturdy";
 const BOUNCE = "bounce";
 const ELECTRIC = "electric";

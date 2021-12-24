@@ -44,6 +44,13 @@ function rowColToArrayIndex(col, row) {
   return col + WORLD_COLS * row;
 }
 
+function arrayIndexToRowAndCol(index) {
+  var row = Math.ceil((index + 1) / WORLD_COLS);
+  var col = Math.ceil((index + 1) / row);
+
+  return { row, col };
+}
+
 function drawWorld() {
   var array_index = 0;
   var draw_tile_x = 0;

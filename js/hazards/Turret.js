@@ -53,9 +53,9 @@ function TurretClass() {
           this.x = eachCol * WORLD_W + WORLD_W / 2;
           this.y = eachRow * WORLD_H + WORLD_H / 2;
           return;
-        } // end of start if
-      } // end of col for
-    } // end of row for
+        } 
+      } 
+    }
   };
 
   this.draw = function () {

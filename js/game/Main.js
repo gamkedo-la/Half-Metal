@@ -12,39 +12,7 @@ var effects = new Array();
 var hazards = new Array();
 var walls = new Array();
 var triggers = new Array();
-
-var demo_switch = new SwitchClass();
-demo_switch.x = 128;
-demo_switch.y = 128;
-
-var demo_elec_wall = new ElectricWallClass();
-demo_elec_wall.state = OPEN;
-demo_elec_wall.x = 72;
-demo_elec_wall.y = 128;
-
-var demo_trigger = new TriggerClass(
-  demo_switch,
-  "state",
-  PRESSED,
-  demo_elec_wall,
-  "state",
-  CLOSED
-);
-
-var demo_trigger_2 = new TriggerClass(
-  demo_switch,
-  "state",
-  UNPRESSED,
-  demo_elec_wall,
-  "state",
-  OPEN
-);
-
-entities.push(demo_switch);
-walls.push(demo_elec_wall);
-triggers.push(demo_trigger);
-triggers.push(demo_trigger_2);
-
+var game_objects = new Array();
 var editor = new EditorClass();
 var ui;
 
@@ -74,64 +42,77 @@ function imageLoadingDoneSoStartGame() {
   loadLevel(levels[0].level_map);
 }
 
-function spawnEnemy(config, type = LEAPER) {
+function spawnGameObjects(config, type) {
+  var game_object;
+  // Find the correct class to spawn
   switch (type) {
+    // ENEMIES
     case LEAPER:
-      enemy = new LeaperClass();
-      break;
-    case FLYER:
-      enemy = new FlyerClass();
-      break;
-    case HUNTER:
-      enemy = new HunterClass();
+      game_object = new LeaperClass();
       break;
     case BLOCKER:
-      enemy = new BlockerClass();
+      game_object = new BlockerClass();
       break;
-  }
-  enemies.push(enemy);
-  enemy.reset(enemy.image);
-  enemy.direction = config.direction;
-}
+    case FLYER:
+      game_object = new FlyerClass();
+      break;
+    case HUNTER:
+      game_object = new HunterClass();
+      break;
 
-function spawnHazard(config = { orientation: HORIZONTAL }, type = LASER) {
-  switch (type) {
-    case WINDOW:
-      hazard = new WindowClass();
-      break;
-    case LASER:
-      hazard = new LaserClass();
-      break;
-    case CAMERA:
-      hazard = new CameraClass();
-      break;
-    case TURRET:
-      hazard = new TurretClass();
-      break;
-  }
-
-  hazards.push(hazard);
-  hazard.reset();
-  hazard.orientation = config?.orientation;
-  console.log("SPAWN HAZARD: ", hazard);
-}
-
-function spawnWall(config, type = NORMAL) {
-  switch (type) {
+    // WALLS
     case NORMAL_WALL:
-      wall = new WallClass();
       break;
     case ELECTRIC:
-      wall = new ElectricWallClass();
+      game_object = new ElectricWallClass();
       break;
     case STURDY:
       break;
     case BOUNCE:
       break;
+
+    // HAZARDS
+    case WINDOW:
+      break;
+    case LASER:
+      game_object = new LaserClass();
+      break;
+    case CAMERA:
+      game_object = new CameraClass();
+      break;
+    case TURRET:
+      game_object = new TurretClass();
+      break;
+
+    default:
+      return;
+
+    // TIMERS
+    // TRIGGERS
   }
-  walls.push(wall);
-  wall.reset();
-  wall.direction = config.direction ? config.direction : 0;
+
+  // If no game_object is found, end the function early
+  if (!game_object) return;
+
+  console.log(game_object);
+
+  // Assign instance of spawned class to the correct collection
+  if (ENEMIES.includes(type)) {
+    enemies.push(game_object);
+  }
+  if (WALLS.includes(type)) {
+    walls.push(game_object);
+  }
+  if (HAZARDS.includes(type)) {
+    hazards.push(game_object);
+  }
+
+  // Set instance to default state
+  game_object?.reset();
+
+  // Apply configurations to instance
+  game_object.direction = config?.direction;
+  game_object.orientation = config?.orientation;
 }
 
 function spawnEffect(x, y, type = EXPLOSION) {
@@ -166,99 +147,14 @@ function setupUI() {
   ui = new UIClass(x, y, width, height, player);
 }
 
-function spawnEntity() {
-  ent = new warpClass();
-  entities.push(ent);
-  ent.reset();
-}
-
-function setupEnemies(level) {
-  currentEnemy = 0;
+function initGameObjects(level) {
   level.forEach((tile, index) => {
-    switch (tile) {
-      case TILE_LEAPER:
-        spawnEnemy(levels[currentLevel].enemies[currentEnemy], LEAPER);
-        currentEnemy++;
-        level[index] = TILE_GROUND;
-        break;
+    var object_type = Object.keys(OBJECT_MAP).find((key) => {
+      return OBJECT_MAP[key] === tile;
+    });
 
-      case TILE_HUNTER:
-        spawnEnemy(levels[currentLevel].enemies[currentEnemy], HUNTER);
-        currentEnemy++;
-        level[index] = TILE_GROUND;
-        break;
-
-      case TILE_BLOCKER:
-        spawnEnemy(levels[currentLevel].enemies[currentEnemy], BLOCKER);
-        currentEnemy++;
-        level[index] = TILE_GROUND;
-        break;
-
-      default:
-        break;
-    }
-  });
-}
-
-function setupHazards(level) {
-  level.forEach((tile, index) => {
-    switch (tile) {
-      case TILE_LASER:
-        spawnHazard({ orientation: HORIZONTAL }, LASER);
-        level[index] = TILE_GROUND;
-        break;
-
-      case TILE_WINDOW_V:
-      case TILE_WINDOW_H:
-      case TILE_TURRET:
-        spawnHazard({ orientation: HORIZONTAL }, TURRET);
-        level[index] = TILE_GROUND;
-        break;
-
-      case TILE_CAMERA:
-        spawnHazard({ orientation: HORIZONTAL }, CAMERA);
-        level[index] = TILE_GROUND;
-        break;
-
-      default:
-        break;
-    }
-  });
-}
-
-function setupWalls(level) {
-  level.forEach((tile, index) => {
-    switch (tile) {
-      case TILE_ELEC_WALL:
-        spawnWall({ direction: 0 }, ELECTRIC);
-        level[index] = TILE_GROUND;
-        break;
-
-      case TILE_WALL:
-        break;
-
-      default:
-        break;
-    }
-  });
-}
-
-function setupEntities(level) {
-  level.forEach((tile, index) => {
-    if (tile === TILE_WARP) {
-      spawnEntity();
-      level[index] = TILE_GROUND;
-    }
-  });
-
-  // set warp points
-  entities.forEach(function (entity) {
-    entityPosition = entities.indexOf(entity);
-    if (entityPosition !== -1) {
-      entity.link =
-        entities[entityPosition + 1] ||
-        entities[entityPosition - 1] ||
-        undefined;
+    if (object_type) {
+      spawnGameObjects({ orientation: HORIZONTAL, direction: 0 }, object_type);
     }
   });
 }
@@ -268,10 +164,8 @@ function loadLevel(whichLevel) {
   player.reset(playerSheet, "Player");
   player.ammo = levels[currentLevel].starting_ammo;
   enemies = [];
-  setupEnemies(worldGrid);
-  setupWalls(worldGrid);
-  setupHazards(worldGrid);
-  setupEntities(worldGrid);
+
+  initGameObjects(worldGrid);
 }
 
 function updateAll(dt) {
