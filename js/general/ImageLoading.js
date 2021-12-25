@@ -5,7 +5,7 @@ var playerSheet_Push = document.createElement("img");
 var playerSheet_Turn = document.createElement("img");
 var leaperSheet = document.createElement("img");
 var blockerSheet = document.createElement("img");
-var bulletPic = document.createElement("img");
+var shot_img = document.createElement("img");
 var stunShotPic = document.createElement("img");
 var pushShotPic = document.createElement("img");
 var enemyPic = document.createElement("img");
@@ -79,7 +79,7 @@ var image_list = [
 
   // Shots
   {
-    var_name: bulletPic,
+    var_name: shot_img,
     file: "world_ammo.png",
     tile: TILE_AMMO,
     transparent_bg: true,

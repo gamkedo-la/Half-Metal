@@ -35,3 +35,40 @@ this.resetGameObject = function (object) {
     }
   }
 };
+
+/*
+
+Spawn a bullet of a given type, used for
+enemies, hazards, player, etc.
+
+*/
+function spawnBullet(x, y, direction, shot_type = NORMAL) {
+  var bullet;
+
+  switch (shot_type) {
+    case NORMAL:
+      bullet = new ShotClass();
+      break;
+
+    case STUN:
+      bullet = new StunShotClass();
+      break;
+
+    case PUSH:
+      bullet = new PushShotClass();
+      break;
+
+    case TURN:
+      bullet = new TurnShotClass();
+      break;
+
+    default:
+      bullet = new ShotClass();
+      break;
+  }
+
+  bullet.x = x;
+  bullet.y = y;
+  bullet.direction = direction;
+  bullets.push(bullet);
+}

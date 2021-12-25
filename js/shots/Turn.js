@@ -1,24 +1,10 @@
-TurnShotClass.prototype = new bulletClass();
+TurnShotClass.prototype = new ShotClass();
 
 function TurnShotClass() {
-  this.bulletPic = turn_shot_pic;
+  this.image = turn_shot_pic;
 
-  this.checkForCollisionWithEnemy = function (bullet) {
-    enemies.forEach(function (enemy) {
-      if (
-        enemy.x < bullet.x + bullet.width &&
-        enemy.x + enemy.width > bullet.x &&
-        enemy.y < bullet.y + bullet.height &&
-        enemy.y + enemy.height > bullet.y
-      ) {
-        bullet.turnObject(enemy);
-        bullet.removeSelf();
-        playSound(sounds.stun);
-      }
-    });
-  };
-
-  this.checkTileType = function (tile_type, tile_index) {
+  // Collision Events
+  this.onCollideWithTile = function (tile_type, tile_index) {
     switch (tile_type) {
       case TILE_GROUND:
       case TILE_AMMO:
@@ -43,7 +29,13 @@ function TurnShotClass() {
     }
   };
 
-  this.checkWallType = function (wall) {
+  this.onCollideWithEnemy = function (enemy) {
+    this.turnObject(enemy);
+    this.removeSelf();
+    playSound(sounds.stun);
+  };
+
+  this.onCollideWithWall = function (wall) {
     switch (wall.type) {
       case ELECTRIC:
       case NORMAL_WALL:
@@ -55,6 +47,7 @@ function TurnShotClass() {
     }
   };
 
+  // Class Specialties
   this.turnObject = function (object) {
     switch (object.type) {
       case LEAPER:

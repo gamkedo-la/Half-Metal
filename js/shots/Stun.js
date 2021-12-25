@@ -1,9 +1,10 @@
-StunShotClass.prototype = new bulletClass();
+StunShotClass.prototype = new ShotClass();
 
 function StunShotClass() {
-  this.bulletPic = stunShotPic;
+  this.image = stunShotPic;
 
-  this.checkTileType = function (tile_type, tile_index) {
+  // Collision Events
+  this.onCollideWithTile = function (tile_type, tile_index) {
     switch (tile_type) {
       case TILE_GROUND:
       case TILE_AMMO:
@@ -32,22 +33,13 @@ function StunShotClass() {
     }
   };
 
-  this.checkForCollisionWithEnemy = function (bullet) {
-    enemies.forEach(function (enemy) {
-      if (
-        enemy.x < bullet.x + bullet.width &&
-        enemy.x + enemy.width > bullet.x &&
-        enemy.y < bullet.y + bullet.height &&
-        enemy.y + enemy.height > bullet.y
-      ) {
-        enemy.state = STUNNED;
-        bullet.removeSelf();
-        playSound(sounds.stun);
-      }
-    });
+  this.onCollideWithEnemy = function (enemy) {
+    enemy.state = STUNNED;
+    this.removeSelf();
+    playSound(sounds.stun);
   };
 
-  this.checkWallType = function (wall) {
+  this.onCollideWithWall = function (wall) {
     switch (wall.type) {
       case ELECTRIC:
         wall.state = OPEN;

@@ -205,6 +205,7 @@ function drawAll() {
       drawWorld();
 
       bullets.forEach(function (bullet) {
+        console.log(bullet);
         bullet.draw();
       });
       enemies.forEach(function (enemy) {
