@@ -14,17 +14,25 @@ function BlockerClass() {
   this.health = 3;
   this.speed = BLOCKER_BOT_MOVEMENT_SPEED;
   this.animations = {
-    idle: [{ x: 0, y: 0, w: 36, h: 35 }],
+    // Idle
+    "idle-up": [{ x: 0, y: 0, w: 38, h: 35 }],
+    "idle-down": [{ x: 0, y: 0, w: 36, h: 35 }],
+    "idle-left": [{ x: 0, y: 0, w: 36, h: 35 }],
+    "idle-right": [{ x: 0, y: 0, w: 36, h: 35 }],
+
+    // Walk
     "walk-right": [{ x: 0, y: 0, w: 36, h: 35 }],
     "walk-left": [{ x: 0, y: 0, w: 36, h: 35 }],
     "walk-up": [{ x: 0, y: 0, w: 36, h: 35 }],
     "walk-down": [{ x: 0, y: 0, w: 36, h: 35 }],
+
+    // Shield
     "shield-right": [{ x: 108, y: 0, w: 36, h: 35 }],
     "shield-left": [{ x: 108, y: 0, w: 36, h: 35 }],
     "shield-up": [{ x: 108, y: 0, w: 36, h: 35 }],
     "shield-down": [{ x: 108, y: 0, w: 36, h: 35 }],
   };
-  this.currentAnimation = "idle";
+  this.currentAnimation = "idle-right";
   this.shot_timer = new TimerClass(
     () => {
       this.shoot();
@@ -49,7 +57,7 @@ function BlockerClass() {
     1,
     false
   );
-   this.shield_up = false;
+  this.shield_up = false;
 
   this.updateHitBoxDimensions = function () {
     switch (DIRECTION_MAP[this.direction]) {
@@ -147,7 +155,7 @@ function BlockerClass() {
   };
 
   this.shoot = function () {
-    this.currentAnimation = "idle";
+    this.currentAnimation = `idle-${getDirectionConstantOfObject(this)}`;
     var spawn_x = this.width * Math.cos((this.direction * Math.PI) / 180);
     var spawn_y = this.height * Math.sin((this.direction * Math.PI) / 180);
 
@@ -158,7 +166,7 @@ function BlockerClass() {
   };
 
   this.raiseShield = function () {
-    this.currentAnimation = "shield-right";
+    this.currentAnimation = `shield-${getDirectionConstantOfObject(this)}`;
     this.shield_up = true;
   };
 

@@ -75,6 +75,10 @@ function spawnBullet(x, y, direction, shot_type = NORMAL) {
 
 /*
 
+Used to create a deep copy of a class instance.
+Copies properties and methods, but does not share 
+the same reference as the original object.
+
 */
 function copyInstance(original) {
   var copied = Object.assign(
@@ -83,4 +87,14 @@ function copyInstance(original) {
   );
 
   return copied;
+}
+
+/*
+
+  Returns a string (up, right, down, or left) 
+  corresponding with the given object's current direction
+  
+*/
+function getDirectionConstantOfObject(object) {
+  return DIRECTION_MAP[object.direction];
 }
