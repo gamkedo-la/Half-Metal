@@ -19,10 +19,10 @@ function BlockerClass() {
     "walk-left": [{ x: 0, y: 0, w: 36, h: 35 }],
     "walk-up": [{ x: 0, y: 0, w: 36, h: 35 }],
     "walk-down": [{ x: 0, y: 0, w: 36, h: 35 }],
-    "shield-right": [{ x: 160, y: 0, w: 36, h: 35 }],
-    "shield-left": [{ x: 160, y: 0, w: 36, h: 35 }],
-    "shield-up": [{ x: 160, y: 0, w: 36, h: 35 }],
-    "shield-down": [{ x: 160, y: 0, w: 36, h: 35 }],
+    "shield-right": [{ x: 108, y: 0, w: 36, h: 35 }],
+    "shield-left": [{ x: 108, y: 0, w: 36, h: 35 }],
+    "shield-up": [{ x: 108, y: 0, w: 36, h: 35 }],
+    "shield-down": [{ x: 108, y: 0, w: 36, h: 35 }],
   };
   this.currentAnimation = "idle";
   this.shot_timer = new TimerClass(
