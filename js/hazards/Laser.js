@@ -2,14 +2,19 @@ function LaserClass(orientation = HORIZONTAL) {
   this.walls = [];
   this.x = 0;
   this.y = 0;
+  this.tile = TILE_LASER;
   this.type = LASER;
   this.orientation = orientation;
-  this.width = this.orientation === HORIZONTAL ? WORLD_W * 2 : WORLD_W;
-  this.height = this.orientation === VERTICAL ? WORLD_H * 2 : WORLD_H;
+  this.width = this.orientation === HORIZONTAL ? WORLD_W : WORLD_W;
+  this.height = this.orientation === VERTICAL ? WORLD_H : WORLD_H;
   this.image = this.orientation === HORIZONTAL ? laser_h : laser_v;
   this.state = ON;
   this.animations = {
-    on_h: [{ x: 0, y: 0, w: this.width, h: this.height }],
+    on_h: [
+      { x: 0, y: 0, w: this.width, h: this.height },
+      { x: 16, y: 0, w: this.width, h: this.height },
+      { x: 32, y: 0, w: this.width, h: this.height },
+    ],
     on_v: [{ x: 0, y: 0, w: this.width, h: this.height }],
     off_h: [{ x: 0, y: 0, w: this.width, h: this.height }],
     off_v: [{ x: 0, y: 0, w: this.width, h: this.height }],
