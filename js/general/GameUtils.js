@@ -72,3 +72,15 @@ function spawnBullet(x, y, direction, shot_type = NORMAL) {
   bullet.direction = direction;
   bullets.push(bullet);
 }
+
+/*
+
+*/
+function copyInstance(original) {
+  var copied = Object.assign(
+    Object.create(Object.getPrototypeOf(original)),
+    original
+  );
+
+  return copied;
+}
