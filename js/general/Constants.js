@@ -145,6 +145,11 @@ const TILE_LASER = 20;
 const TILE_TURRET = 21;
 const TILE_FLYER = 22;
 
+// MISC TYPES
+const SWITCH = "switch";
+const TRIGGER = "trigger";
+const TIMER = "timer";
+
 // TILE TO OBJECT MAP
 const OBJECT_MAP = {
   // WALLS

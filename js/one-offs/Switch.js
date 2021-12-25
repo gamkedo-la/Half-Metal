@@ -5,7 +5,7 @@ function SwitchClass() {
   this.width = 16;
   this.height = 16;
   this.color = "red";
-  this.type = "switch";
+  this.type = SWITCH;
 
   this.update = function () {
     if (this.state === UNPRESSED) this.color = "red";
