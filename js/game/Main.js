@@ -44,51 +44,13 @@ function imageLoadingDoneSoStartGame() {
 
 function spawnGameObject(config, type) {
   var game_object;
-  // Find the correct class to spawn
-  switch (type) {
-    // ENEMIES
-    case LEAPER:
-      game_object = new LeaperClass();
-      break;
-    case BLOCKER:
-      game_object = new BlockerClass();
-      break;
-    case FLYER:
-      game_object = new FlyerClass();
-      break;
-    case HUNTER:
-      game_object = new HunterClass();
-      break;
 
-    // WALLS
-    case NORMAL_WALL:
-      break;
-    case ELECTRIC:
-      game_object = new ElectricWallClass();
-      break;
-    case STURDY:
-      break;
-    case BOUNCE:
-      break;
+  // Get a corresponding object from the collection in ObjectData.js
+  var current_object = OBJECT_COLLECTION.find((obj) => obj.type === type);
 
-    // HAZARDS
-    case WINDOW:
-      break;
-    case LASER:
-      game_object = new LaserClass();
-      break;
-    case CAMERA:
-      game_object = new CameraClass();
-      break;
-    case TURRET:
-      game_object = new TurretClass();
-      break;
-
-    default:
-      return;
-
-    // TIMERS
-    // TRIGGERS
+  // Instantiate the Game Object based on the associated class in the OBJECT_COLLECTION
+  if (current_object) {
+    game_object = new current_object.class();
   }
 
   // If no game_object is found, end the function early
@@ -254,7 +216,7 @@ function drawAll() {
       hazards.forEach(function (hazard) {
         hazard.draw();
       });
-      
+
       editor.draw();
       ui.draw();
       break;
