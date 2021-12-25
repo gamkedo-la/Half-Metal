@@ -87,21 +87,8 @@ function enemyClass() {
     this.checkIfOutofBounds();
   };
 
-  this.reset = function (whichImage) {
-    this.image = whichImage;
-
-    for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
-      for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
-        var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-        if (worldGrid[arrayIndex] == TILE_LEAPER) {
-          worldGrid[arrayIndex] = TILE_GROUND;
-          this.x = eachCol * WORLD_W + WORLD_W / 2;
-          this.y = eachRow * WORLD_H + WORLD_H / 2;
-          return;
-        } // end of enemy start if
-      } // end of col for
-    } // end of row for
-    console.log("NO ENEMY START FOUND!");
+  this.reset = function () {
+    resetGameObject(this);
   };
 
   this.move = function () {
