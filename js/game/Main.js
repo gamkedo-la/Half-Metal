@@ -35,7 +35,7 @@ window.onload = function () {
 };
 
 function imageLoadingDoneSoStartGame() {
-  window.requestAnimationFrame(updateAll);
+  window.requestAnimationFrame(loop);
 
   setupInput();
 
@@ -173,38 +173,28 @@ function updateAll(dt) {
     case PLAY_MODE:
       gamepad.update(dt);
       moveAll(dt);
-      player.update(dt);
-      enemies.forEach((enemy) => enemy.update(dt));
-      triggers.forEach((trigger) => trigger.update(dt));
-      walls.forEach((wall) => wall.update(dt));
-      entities.forEach((ent) => ent.update(dt));
-      hazards.forEach((haz) => haz.update(dt));
-      drawAll(dt);
+      game_objects.forEach((object) => {
+        if (object?.update) {
+          object.update(dt);
+        }
+      });
       break;
+
     case EDIT_MODE:
+      gamepad.update(dt);
       editor.update(dt);
       drawAll(dt);
       break;
+
     default:
       break;
   }
-  window.requestAnimationFrame(updateAll);
 }
 
 function moveAll() {
-  player.move();
-  bullets.forEach(function (bullet) {
-    bullet.move();
-  });
-  enemies.forEach(function (enemy) {
-    enemy.move();
-  });
-  effects.forEach(function (effect) {
-    effect.update();
-  });
-  hazards.forEach(function (hazard) {
-    if (hazard.hasOwnProperty("move")) {
-      hazard.move();
+  game_objects.forEach(function (object) {
+    if (object?.move) {
+      object.move();
     }
   });
 }
@@ -213,6 +203,7 @@ function drawAll() {
   switch (currentMode) {
     case PLAY_MODE:
       drawWorld();
+
       bullets.forEach(function (bullet) {
         bullet.draw();
       });
@@ -240,12 +231,29 @@ function drawAll() {
 
     case EDIT_MODE:
       drawWorld();
+
+      bullets.forEach(function (bullet) {
+        bullet.draw();
+      });
       enemies.forEach(function (enemy) {
         enemy.draw();
       });
+      entities.forEach(function (entity) {
+        entity.draw();
+      });
+      walls.forEach(function (wall) {
+        wall.draw();
+      });
+      effects.forEach(function (effect) {
+        effect.draw();
+      });
+
+      player.draw();
+
       hazards.forEach(function (hazard) {
         hazard.draw();
       });
+      
       editor.draw();
       ui.draw();
       break;
@@ -253,4 +261,20 @@ function drawAll() {
     default:
       break;
   }
+}
+
+function loop(dt) {
+  game_objects = [
+    player,
+    ...enemies,
+    ...triggers,
+    ...walls,
+    ...entities,
+    ...hazards,
+    ...bullets,
+    ...effects,
+  ];
+  updateAll(dt);
+  drawAll(dt);
+  window.requestAnimationFrame(loop);
 }
