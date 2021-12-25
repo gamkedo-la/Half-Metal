@@ -55,8 +55,6 @@ function LaserClass(orientation = HORIZONTAL) {
   this.checkForAdjacentWalls = function () {
     // Check for adjacent walls
     var index = getTileIndexAtPixelCoord(this.x, this.y);
-    console.log("RESET LASER");
-    console.log(index);
 
     this.walls.length = 0;
 

@@ -21,16 +21,32 @@ function BlockerClass() {
     "idle-right": [{ x: 0, y: 0, w: 36, h: 35 }],
 
     // Walk
-    "walk-right": [{ x: 0, y: 0, w: 36, h: 35 }],
-    "walk-left": [{ x: 0, y: 0, w: 36, h: 35 }],
-    "walk-up": [{ x: 0, y: 0, w: 36, h: 35 }],
-    "walk-down": [{ x: 0, y: 0, w: 36, h: 35 }],
+    "walk-left": [
+      { x: 0, y: 0, w: 36, h: 35 },
+      { x: 49, y: 0, w: 36, h: 35 },
+      { x: 105, y: 0, w: 36, h: 35 },
+    ],
+    "walk-right": [
+      { x: 0, y: 35, w: 36, h: 35 },
+      { x: 49, y: 35, w: 36, h: 35 },
+      { x: 105, y: 35, w: 36, h: 35 },
+    ],
+    "walk-up": [
+      { x: 7, y: 105, w: 36, h: 35 },
+      { x: 56, y: 105, w: 36, h: 35 },
+      { x: 110, y: 105, w: 36, h: 35 },
+    ],
+    "walk-down": [
+      { x: 6, y: 70, w: 36, h: 35 },
+      { x: 55, y: 70, w: 36, h: 35 },
+      { x: 108, y: 70, w: 36, h: 35 },
+    ],
 
     // Shield
-    "shield-right": [{ x: 108, y: 0, w: 36, h: 35 }],
-    "shield-left": [{ x: 108, y: 0, w: 36, h: 35 }],
-    "shield-up": [{ x: 108, y: 0, w: 36, h: 35 }],
-    "shield-down": [{ x: 108, y: 0, w: 36, h: 35 }],
+    "shield-right": [{ x: 156, y: 35, w: 36, h: 35 }],
+    "shield-left": [{ x: 155, y: 0, w: 36, h: 35 }],
+    "shield-up": [{ x: 160, y: 105, w: 36, h: 35 }],
+    "shield-down": [{ x: 160, y: 70, w: 36, h: 35 }],
   };
   this.currentAnimation = "idle-right";
   this.shot_timer = new TimerClass(
@@ -115,6 +131,9 @@ function BlockerClass() {
       case TILE_AMMO:
       case TILE_GROUND:
       case TILE_GOAL:
+        this.animator.setAnimation(
+          `walk-${getDirectionConstantOfObject(this)}`
+        );
         strafe(this);
         break;
       case TILE_WALL:
@@ -166,7 +185,9 @@ function BlockerClass() {
   };
 
   this.raiseShield = function () {
-    this.currentAnimation = `shield-${getDirectionConstantOfObject(this)}`;
+    this.animator.setAnimation(
+      `shield-${getDirectionConstantOfObject(this)}`
+    );
     this.shield_up = true;
   };
 

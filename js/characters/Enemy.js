@@ -30,38 +30,10 @@ function enemyClass() {
   this.turnable = true;
   this.damageable = true;
 
-  this.draw = function () {
-    this.raycast();
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
-    canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
-
-    this.rays.forEach(function (ray) {
-      ray.draw();
-      canvasContext.lineTo(ray.x, ray.y);
-    });
-
-    canvasContext.stroke();
-
-    this.animator.animate();
-
-    if (this.render_hitbox) {
-      colorRect(
-        this.hitbox_x,
-        this.hitbox_y,
-        this.hitbox_width,
-        this.hitbox_height,
-        "blue"
-      );
-    }
-  };
-
-  this.updateHitBoxes = function () {
-    this.hitbox_x = this.x - this.width / 2;
-    this.hitbox_y = this.y - this.height / 2;
-    this.hitbox_width = this.width;
-    this.hitbox_height = this.height;
+  // General
+  this.reset = function () {
+    this.animator = new SpriteSheetAnimatorClass(this);
+    resetGameObject(this);
   };
 
   this.update = function (dt) {
@@ -91,11 +63,6 @@ function enemyClass() {
     this.checkIfOutofBounds();
   };
 
-  this.reset = function () {
-    this.animator = new SpriteSheetAnimatorClass(this)
-    resetGameObject(this);
-  };
-
   this.move = function () {
     nextX = this.x;
     nextY = this.y;
@@ -118,6 +85,41 @@ function enemyClass() {
       }
       this.rays[i].move();
     }
+  };
+
+  this.draw = function () {
+    this.raycast();
+    canvasContext.lineWidth = 1;
+    canvasContext.strokeStyle = "red";
+    canvasContext.beginPath();
+    canvasContext.moveTo(this.x, this.y);
+
+    this.rays.forEach(function (ray) {
+      ray.draw();
+      canvasContext.lineTo(ray.x, ray.y);
+    });
+
+    canvasContext.stroke();
+
+    this.animator.animate();
+
+    if (this.render_hitbox) {
+      colorRect(
+        this.hitbox_x,
+        this.hitbox_y,
+        this.hitbox_width,
+        this.hitbox_height,
+        "blue"
+      );
+    }
+  };
+
+  // Collision
+  this.updateHitBoxes = function () {
+    this.hitbox_x = this.x - this.width / 2;
+    this.hitbox_y = this.y - this.height / 2;
+    this.hitbox_width = this.width;
+    this.hitbox_height = this.height;
   };
 
   this.checkTileType = function (tile_type, tile_index) {
@@ -146,18 +148,16 @@ function enemyClass() {
     }
   };
 
-  this.raycast = function () {
-    this.rays.push(new RayClass(this.x, this.y, this.direction));
-  };
-
-  this.alerted = function (dt) {
-    console.log("alerted enemy");
-  };
-
+  // Raycasting
   this.removeRaycast = function (ray) {
     this.rays.splice(this.rays.indexOf(ray), 1);
   };
 
+  this.raycast = function () {
+    this.rays.push(new RayClass(this.x, this.y, this.direction));
+  };
+
+  // Removal
   this.checkIfOutofBounds = function () {
     if (this.x < 0 || this.x > canvas.width) {
       this.removeSelf();
@@ -173,5 +173,10 @@ function enemyClass() {
     enemies.splice(enemies.indexOf(this), 1);
     this.alert_timer.stopAndCall();
     delete this;
+  };
+
+  // State
+  this.alerted = function (dt) {
+    console.log("alerted enemy");
   };
 }

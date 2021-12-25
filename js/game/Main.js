@@ -116,7 +116,7 @@ function initGameObjects(level) {
     });
 
     if (object_type) {
-      spawnGameObject({ orientation: HORIZONTAL, direction: 0 }, object_type);
+      spawnGameObject({ orientation: HORIZONTAL, direction: 90 }, object_type);
     }
   });
 }
