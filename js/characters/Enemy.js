@@ -25,6 +25,10 @@ function enemyClass() {
   this.alert_timer = new TimerClass();
   this.animator = new SpriteSheetAnimatorClass(this);
   this.push_vector = { magnitude: 0, direction: 0 };
+  this.pushable = true;
+  this.stunnable = true;
+  this.turnable = true;
+  this.damageable = true;
 
   this.draw = function () {
     this.raycast();

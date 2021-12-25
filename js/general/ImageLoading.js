@@ -6,7 +6,7 @@ var playerSheet_Turn = document.createElement("img");
 var leaperSheet = document.createElement("img");
 var blockerSheet = document.createElement("img");
 var shot_img = document.createElement("img");
-var stunShotPic = document.createElement("img");
+var stun_shot_img = document.createElement("img");
 var pushShotPic = document.createElement("img");
 var enemyPic = document.createElement("img");
 var hunterSheet = document.createElement("img");
@@ -85,7 +85,7 @@ var image_list = [
     transparent_bg: true,
   },
   {
-    var_name: stunShotPic,
+    var_name: stun_shot_img,
     file: "stun_shot.png",
     tile: TILE_STUN_SHOT,
     transparent_bg: true,

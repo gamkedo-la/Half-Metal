@@ -29,22 +29,13 @@ function TurnShotClass() {
     }
   };
 
-  this.onCollideWithEnemy = function (enemy) {
-    this.turnObject(enemy);
+  this.onCollideWithObject = function (object) {
+    if (object?.turnable) {
+      this.turnObject(object);
+    }
+
     this.removeSelf();
     playSound(sounds.stun);
-  };
-
-  this.onCollideWithWall = function (wall) {
-    switch (wall.type) {
-      case ELECTRIC:
-      case NORMAL_WALL:
-        this.turnObject(wall);
-        break;
-
-      default:
-        break;
-    }
   };
 
   // Class Specialties

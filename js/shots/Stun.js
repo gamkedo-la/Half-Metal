@@ -1,7 +1,7 @@
 StunShotClass.prototype = new ShotClass();
 
 function StunShotClass() {
-  this.image = stunShotPic;
+  this.image = stun_shot_img;
 
   // Collision Events
   this.onCollideWithTile = function (tile_type, tile_index) {
@@ -11,10 +11,6 @@ function StunShotClass() {
       case TILE_STUN_SHOT:
       case TILE_GOAL:
         moveInOwnDirection(this);
-        break;
-      case TILE_DOOR:
-        worldGrid[tile_index] = TILE_GROUND;
-        self.removeSelf();
         break;
       case TILE_WALL:
       case TILE_STURDY_WALL:
@@ -33,24 +29,16 @@ function StunShotClass() {
     }
   };
 
-  this.onCollideWithEnemy = function (enemy) {
-    enemy.state = STUNNED;
+  this.onCollideWithObject = function (object) {
+    if (object?.stunnable) {
+      object.state = STUNNED;
+    }
+
+    if (object.type === ELECTRIC) {
+      object.state = OPEN;
+    }
+
     this.removeSelf();
     playSound(sounds.stun);
-  };
-
-  this.onCollideWithWall = function (wall) {
-    switch (wall.type) {
-      case ELECTRIC:
-        wall.state = OPEN;
-        this.removeSelf();
-        break;
-
-      case NORMAL_WALL:
-        break;
-
-      default:
-        break;
-    }
   };
 }

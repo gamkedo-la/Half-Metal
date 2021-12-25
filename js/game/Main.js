@@ -42,7 +42,7 @@ function imageLoadingDoneSoStartGame() {
   loadLevel(levels[0].level_map);
 }
 
-function spawnGameObjects(config, type) {
+function spawnGameObject(config, type) {
   var game_object;
   // Find the correct class to spawn
   switch (type) {
@@ -94,8 +94,6 @@ function spawnGameObjects(config, type) {
   // If no game_object is found, end the function early
   if (!game_object) return;
 
-  console.log(game_object);
-
   // Assign instance of spawned class to the correct collection
   if (ENEMIES.includes(type)) {
     enemies.push(game_object);
@@ -113,6 +111,8 @@ function spawnGameObjects(config, type) {
   // Apply configurations to instance
   game_object.direction = config?.direction;
   game_object.orientation = config?.orientation;
+
+  return game_object;
 }
 
 function spawnEffect(x, y, type = EXPLOSION) {
@@ -154,7 +154,7 @@ function initGameObjects(level) {
     });
 
     if (object_type) {
-      spawnGameObjects({ orientation: HORIZONTAL, direction: 0 }, object_type);
+      spawnGameObject({ orientation: HORIZONTAL, direction: 0 }, object_type);
     }
   });
 }

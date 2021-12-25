@@ -7,55 +7,23 @@ function ShotClass() {
   this.speed = 7;
   this.direction;
   this.rotation_angle = 0;
+  this.damage = 1;
 
   // Collision Checks
-  this.checkForCollisionWithEnemy = function (bullet) {
-    enemies.forEach(function (enemy) {
+  this.checkForCollisionWithObject = function (bullet) {
+    game_objects.forEach(function (object) {
       if (
         collisionDetected(
           {
-            x: enemy.hitbox_x,
-            y: enemy.hitbox_y,
-            w: enemy.hitbox_width,
-            h: enemy.hitbox_height,
+            x: object.hitbox_x,
+            y: object.hitbox_y,
+            w: object.hitbox_width,
+            h: object.hitbox_height,
           },
           { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
         )
       ) {
-        bullet.onCollideWithEnemy(enemy);
-      }
-    });
-  };
-
-  this.checkForCollisionWithSwitch = function (bullet) {
-    entities.forEach(function (ent) {
-      if (
-        collisionDetected(
-          { x: ent.x, y: ent.y, w: ent.width, h: ent.height },
-          { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
-        ) &&
-        ent.type === "switch"
-      ) {
-        ent.state = ent.state === PRESSED ? UNPRESSED : PRESSED;
-        bullet.removeSelf();
-      }
-    });
-  };
-
-  this.checkForCollisionWithWall = function (bullet) {
-    walls.forEach(function (wall) {
-      if (
-        collisionDetected(
-          {
-            x: wall.x,
-            y: wall.y,
-            w: wall.width,
-            h: wall.height,
-          },
-          { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
-        )
-      ) {
-        bullet.onCollideWithWall(wall);
+        bullet.onCollideWithObject(object);
       }
     });
   };
@@ -69,26 +37,18 @@ function ShotClass() {
       case TILE_GOAL:
         moveInOwnDirection(this);
         break;
-      case TILE_DOOR:
-        worldGrid[tile_index] = TILE_GROUND;
-        self.removeSelf();
-        spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
-        spawnEffect(
-          spawnLoc.x + (this.width + 1) / 2,
-          spawnLoc.y + (this.height + 1) / 2,
-          EXPLOSION
-        );
-        break;
       case TILE_WALL:
       case TILE_STURDY_WALL:
-        worldGrid[tile_index] = TILE_GROUND;
-        this.removeSelf();
-        spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
-        spawnEffect(
-          spawnLoc.x + (this.width + 1) / 2,
-          spawnLoc.y + (this.height + 1) / 2,
-          tile_type === TILE_WALL ? EXPLOSION : DESTROY_STURDY_WALL
-        );
+        if (this.damage >= 1) {
+          worldGrid[tile_index] = TILE_GROUND;
+          spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
+          spawnEffect(
+            spawnLoc.x + (this.width + 1) / 2,
+            spawnLoc.y + (this.height + 1) / 2,
+            tile_type === TILE_WALL ? EXPLOSION : DESTROY_STURDY_WALL
+          );
+          this.removeSelf();
+        }
         playSound(sounds.destroy);
         break;
       case TILE_WINDOW_V:
@@ -109,67 +69,59 @@ function ShotClass() {
     }
   };
 
-  this.onCollideWithEnemy = function (enemy) {
-    switch (enemy.type) {
-      case LEAPER:
-      case FLYER:
-      case HUNTER:
-        enemy.removeSelf();
+  this.onCollideWithObject = function (object) {
+    if (object?.type === BLOCKER) {
+      // Check for collision with back hitbox
+      if (
+        collisionDetected(
+          {
+            x: this.x,
+            y: this.y,
+            w: this.width,
+            h: this.height,
+          },
+          {
+            x: object.back_hitbox_x,
+            y: object.back_hitbox_y,
+            w: object.back_hitbox_width,
+            h: object.back_hitbox_height,
+          }
+        )
+      ) {
+        object.health -= 3;
         this.removeSelf();
         playSound(sounds.destroy);
-        break;
-      case BLOCKER:
-        // Check for collision with back hitbox
-        if (
-          collisionDetected(
-            {
-              x: this.x,
-              y: this.y,
-              w: this.width,
-              h: this.height,
-            },
-            {
-              x: enemy.back_hitbox_x,
-              y: enemy.back_hitbox_y,
-              w: enemy.back_hitbox_width,
-              h: enemy.back_hitbox_height,
-            }
-          )
-        ) {
-          enemy.health -= 3;
-          this.removeSelf();
-          playSound(sounds.destroy);
-          break;
-        }
+        return;
+      }
 
-        // Check for collision with shield
-        if (enemy.shield_up) {
-          reverseDirection(this);
-          playSound(sounds.bump);
-          break;
-        }
-
-        // Otherwise, deal normal damage
-        enemy.health -= 1;
-        this.removeSelf();
-        playSound(sounds.destroy);
-        break;
-
-      default:
-        console.log("NO ENEMY TYPE FOUND: " + enemy.type);
-        break;
-    }
-  };
-
-  this.onCollideWithWall = function (wall) {
-    switch (wall.type) {
-      case NORMAL_WALL:
-        break;
-
-      case ELECTRIC:
-        this.removeSelf();
+      // Check for collision with shield
+      if (object?.shield_up) {
+        reverseDirection(this);
         playSound(sounds.bump);
-        break;
+        return;
+      }
+
+      // Otherwise, deal normal damage
+      object.health -= 1;
+      this.removeSelf();
+      playSound(sounds.destroy);
+      return;
+    }
+
+    if (object?.damageable) {
+      object.removeSelf();
+      this.removeSelf();
+      playSound(sounds.destroy);
+    }
+
+    if (!object?.damageable) {
+      this.removeSelf();
+      playSound(sounds.bump);
+    }
+
+    if (object?.type === SWITCH) {
+      object.state = object.state === PRESSED ? UNPRESSED : PRESSED;
+      this.removeSelf();
     }
   };
 
@@ -185,9 +137,7 @@ function ShotClass() {
     }
 
     this.onCollideWithTile(walk_into_tile_type, walk_into_tile_index);
-    this.checkForCollisionWithEnemy(this);
-    this.checkForCollisionWithWall(this);
-    this.checkForCollisionWithSwitch(this);
+    this.checkForCollisionWithObject(this);
     this.checkIfOutofBounds();
   };
 

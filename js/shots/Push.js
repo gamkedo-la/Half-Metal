@@ -33,23 +33,12 @@ function PushShotClass() {
     }
   };
 
-  this.onCollideWithEnemy = function (enemy) {
-    this.pushObject(enemy);
-    this.removeSelf();
-    playSound(sounds.stun);
-  };
-
-  this.onCollideWithWall = function (wall) {
-    switch (wall.type) {
-      case ELECTRIC:
-        break;
-
-      case NORMAL_WALL:
-        break;
-
-      default:
-        break;
-    }
+  this.onCollideWithObject = function (object) {
+    if (object?.pushable) {
+      this.pushObject(object);
+      this.removeSelf();
+      playSound(sounds.stun);
+      }
   };
 
   // Class Specialties
@@ -63,5 +52,10 @@ function PushShotClass() {
     object.push_vector = this.push_vector;
 
     object.state = PUSHED;
+  };
+
+  this.pushTile = function (tile) {
+    var tile_object = spawnGameObject(tile);
+    this.pushObject(tile_object);
   };
 }
