@@ -92,6 +92,7 @@ function enemyClass() {
   };
 
   this.reset = function () {
+    this.animator = new SpriteSheetAnimatorClass(this)
     resetGameObject(this);
   };
 

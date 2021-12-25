@@ -49,8 +49,7 @@ function BlockerClass() {
     1,
     false
   );
-  this.shield_up = false;
-  this.animator = new SpriteSheetAnimatorClass(this);
+   this.shield_up = false;
 
   this.updateHitBoxDimensions = function () {
     switch (DIRECTION_MAP[this.direction]) {

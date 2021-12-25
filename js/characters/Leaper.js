@@ -24,9 +24,7 @@ function LeaperClass() {
     ],
   };
   this.currentAnimation = "walk-right";
-
-  this.animator = new SpriteSheetAnimatorClass(this);
-
+  
   this.alerted = function () {
     if (this.state === ALERT) this.speed = 6;
     playSound(sounds.leap);
