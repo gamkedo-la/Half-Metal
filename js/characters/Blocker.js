@@ -75,6 +75,68 @@ function BlockerClass() {
   );
   this.shield_up = false;
 
+  // General
+  this.draw = function () {
+    this.raycast();
+    canvasContext.lineWidth = 1;
+    canvasContext.strokeStyle = "red";
+    canvasContext.beginPath();
+    canvasContext.moveTo(this.x, this.y);
+
+    this.rays.forEach(function (ray) {
+      ray.draw();
+      canvasContext.lineTo(ray.x, ray.y);
+    });
+
+    canvasContext.stroke();
+
+    this.animator.animate();
+
+    if (this.render_hitbox) {
+      colorRect(
+        this.hitbox_x,
+        this.hitbox_y,
+        this.hitbox_width,
+        this.hitbox_height,
+        "blue"
+      );
+      colorRect(
+        this.back_hitbox_x,
+        this.back_hitbox_y,
+        this.back_hitbox_width,
+        this.back_hitbox_height,
+        "red"
+      );
+    }
+  };
+
+  // State
+  this.alerted = function (dt) {
+    this.speed = 0;
+    this.alert_timer.start();
+    this.shot_timer.start();
+    this.shot_timer.update();
+    this.shield_timer.update();
+
+    if (this.shot_timer.finished) {
+      this.shield_timer.start();
+    }
+
+    if (this.shield_timer.finished) {
+      this.shot_timer.reset();
+      this.shield_timer.stop();
+    }
+  };
+
+  this.stopAlert = function () {
+    this.shot_timer.stop();
+    this.shield_timer.stop();
+    this.alert_timer.stop();
+    this.state = MOVING;
+    this.speed = BLOCKER_BOT_MOVEMENT_SPEED;
+  };
+
+  // Collision
   this.updateHitBoxDimensions = function () {
     switch (DIRECTION_MAP[this.direction]) {
       case UP:
@@ -126,53 +188,19 @@ function BlockerClass() {
     this.hitbox_width = this.width;
   };
 
-  this.checkTileType = function (tile_type, tile_index) {
-    switch (tile_type) {
-      case TILE_AMMO:
-      case TILE_GROUND:
-      case TILE_GOAL:
-        this.animator.setAnimation(
-          `walk-${getDirectionConstantOfObject(this)}`
-        );
-        strafe(this);
-        break;
-      case TILE_WALL:
-      case TILE_WINDOW_H:
-      case TILE_WINDOW_V:
-      case TILE_STURDY_WALL:
-        reverseDirection(this);
-        strafe(this);
-        break;
-      default:
-        break;
-    }
+  this.onMoveInOpenSpace = function () {
+    this.animator.setAnimation(`walk-${getDirectionConstantOfObject(this)}`);
+    strafe(this);
   };
 
-  this.alerted = function (dt) {
-    this.speed = 0;
-    this.alert_timer.start();
-    this.shot_timer.start();
-    this.shot_timer.update();
-    this.shield_timer.update();
-
-    if (this.shot_timer.finished) {
-      this.shield_timer.start();
-    }
-
-    if (this.shield_timer.finished) {
-      this.shot_timer.reset();
-      this.shield_timer.stop();
-    }
+  this.onCollideWithSolid = function () {
+    reverseDirection(this);
+    strafe(this);
   };
 
-  this.stopAlert = function () {
-    this.shot_timer.stop();
-    this.shield_timer.stop();
-    this.alert_timer.stop();
-    this.state = MOVING;
-    this.speed = BLOCKER_BOT_MOVEMENT_SPEED;
-  };
+  this.onCollideWithDestructible = this.onCollideWithSolid;
 
+  // Class Specialties
   this.shoot = function () {
     this.currentAnimation = `idle-${getDirectionConstantOfObject(this)}`;
     var spawn_x = this.width * Math.cos((this.direction * Math.PI) / 180);
@@ -185,43 +213,7 @@ function BlockerClass() {
   };
 
   this.raiseShield = function () {
-    this.animator.setAnimation(
-      `shield-${getDirectionConstantOfObject(this)}`
-    );
+    this.animator.setAnimation(`shield-${getDirectionConstantOfObject(this)}`);
     this.shield_up = true;
-  };
-
-  this.draw = function () {
-    this.raycast();
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
-    canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
-
-    this.rays.forEach(function (ray) {
-      ray.draw();
-      canvasContext.lineTo(ray.x, ray.y);
-    });
-
-    canvasContext.stroke();
-
-    this.animator.animate();
-
-    if (this.render_hitbox) {
-      colorRect(
-        this.hitbox_x,
-        this.hitbox_y,
-        this.hitbox_width,
-        this.hitbox_height,
-        "blue"
-      );
-      colorRect(
-        this.back_hitbox_x,
-        this.back_hitbox_y,
-        this.back_hitbox_width,
-        this.back_hitbox_height,
-        "red"
-      );
-    }
   };
 }

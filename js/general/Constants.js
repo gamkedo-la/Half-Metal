@@ -176,3 +176,7 @@ const OBJECT_MAP = {
   [LASER]: TILE_LASER,
   [TURRET]: TILE_TURRET,
 };
+
+// For enemy relationship to tiles
+const DESTRUCTIBLE = [TILE_WALL, TILE_WINDOW_H, TILE_WINDOW_V];
+const SOLID = [TILE_STURDY_WALL, TILE_BOUNCE_WALL];

@@ -24,7 +24,24 @@ function LeaperClass() {
     ],
   };
   this.currentAnimation = "walk-right";
-  
+
+  // Collision
+  this.onCollideWithDestructible = function (tile_index) {
+    if (this.state === ALERT) {
+      worldGrid[tile_index] = TILE_GROUND;
+    } else {
+      reverseDirection(this);
+    }
+
+    moveInOwnDirection(this);
+  };
+
+  this.onCollideWithSolid = function () {
+    reverseDirection(this);
+    moveInOwnDirection(this);
+  };
+
+  // State
   this.alerted = function () {
     if (this.state === ALERT) this.speed = 6;
     playSound(sounds.leap);

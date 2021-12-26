@@ -122,30 +122,29 @@ function enemyClass() {
     this.hitbox_height = this.height;
   };
 
+  this.onMoveInOpenSpace = function () {
+    this.animator.setAnimation(
+      `walk-${getDirectionConstantOfObject(this)}`
+    );
+    moveInOwnDirection(this);
+  };
+
+  this.onCollideWithDestructible = function (tile_index) {};
+
+  this.onCollideWithSolid = function (tile_index) { };
+  
   this.checkTileType = function (tile_type, tile_index) {
-    switch (tile_type) {
-      case TILE_AMMO:
-      case TILE_GROUND:
-      case TILE_GOAL:
-        moveInOwnDirection(this);
-        break;
-      case TILE_WALL:
-      case TILE_WINDOW_H:
-      case TILE_WINDOW_V:
-        if (this.state === ALERT) {
-          worldGrid[tile_index] = TILE_GROUND;
-        } else {
-          reverseDirection(this);
-        }
-        moveInOwnDirection(this);
-        break;
-      case TILE_STURDY_WALL:
-        reverseDirection(this);
-        moveInOwnDirection(this);
-        break;
-      default:
-        break;
+    if (DESTRUCTIBLE.includes(tile_type)) {
+      this.onCollideWithDestructible(tile_index);
+      return;
     }
+
+    if (SOLID.includes(tile_type)) {
+      this.onCollideWithSolid(tile_index);
+      return;
+    }
+
+    this.onMoveInOpenSpace();
   };
 
   // Raycasting
