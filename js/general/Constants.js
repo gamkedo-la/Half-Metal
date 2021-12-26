@@ -177,6 +177,7 @@ const OBJECT_MAP = {
   [TURRET]: TILE_TURRET,
 };
 
-// For enemy relationship to tiles
+// For collision relationships to tiles
 const DESTRUCTIBLE = [TILE_WALL, TILE_WINDOW_H, TILE_WINDOW_V];
 const SOLID = [TILE_STURDY_WALL, TILE_BOUNCE_WALL];
+const PUSHABLE = [TILE_STURDY_WALL, TILE_WALL];

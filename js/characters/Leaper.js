@@ -35,12 +35,7 @@ function LeaperClass() {
 
     moveInOwnDirection(this);
   };
-
-  this.onCollideWithSolid = function () {
-    reverseDirection(this);
-    moveInOwnDirection(this);
-  };
-
+  
   // State
   this.alerted = function () {
     if (this.state === ALERT) this.speed = 6;

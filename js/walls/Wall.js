@@ -9,18 +9,25 @@ function WallClass() {
   this.state = IDLE;
   this.animations = { idle: [{ x: 0, y: 0, h: this.height, w: this.width }] };
   this.currentAnimation = "idle";
-  this.image = elec_wall_h;
+  this.image = wall_img;
   this.animator = new SpriteSheetAnimatorClass(this);
+  this.push_vector = {};
+
+  // TODO: Set collision rules for when wall is pushed
 
   this.draw = function () {
     this.animator.animate();
   };
 
-  this.update = function () {};
+  this.update = function () {
+    if (this.state === PUSHED) {
+      applyVector(this, this.push_vector);
+    }
+  };
 
   this.reset = function () {
     this.animator = new SpriteSheetAnimatorClass(this);
-    resetGameObject(this);
+    // resetGameObject(this);
   };
 
   this.move = function () {};

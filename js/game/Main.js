@@ -73,6 +73,10 @@ function spawnGameObject(config, type) {
   // Apply configurations to instance
   game_object.direction = config?.direction;
   game_object.orientation = config?.orientation;
+  if (config?.x && config?.y) {
+    game_object.x = config?.x;
+    game_object.y = config?.y;
+  }
 
   return game_object;
 }
@@ -111,6 +115,8 @@ function setupUI() {
 
 function initGameObjects(level) {
   level.forEach((tile, index) => {
+    if (tile === TILE_WALL) return;
+
     var object_type = Object.keys(OBJECT_MAP).find((key) => {
       return OBJECT_MAP[key] === tile;
     });
@@ -167,7 +173,6 @@ function drawAll() {
       drawWorld();
 
       bullets.forEach(function (bullet) {
-        console.log(bullet);
         bullet.draw();
       });
       enemies.forEach(function (enemy) {

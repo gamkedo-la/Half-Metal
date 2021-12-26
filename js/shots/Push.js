@@ -6,6 +6,19 @@ function PushShotClass() {
 
   // Collision Events
   this.onCollideWithTile = function (tile_type, tile_index) {
+    if (PUSHABLE.includes(tile_type)) {
+      var object_type = Object.keys(OBJECT_MAP).find((key) => {
+        return OBJECT_MAP[key] === tile_type;
+      });
+
+      this.pushTile(object_type);
+      this.removeSelf();
+
+      worldGrid[tile_index] = TILE_GROUND;
+
+      return;
+    }
+
     switch (tile_type) {
       case TILE_GROUND:
       case TILE_AMMO:
@@ -38,7 +51,7 @@ function PushShotClass() {
       this.pushObject(object);
       this.removeSelf();
       playSound(sounds.stun);
-      }
+    }
   };
 
   // Class Specialties
@@ -55,7 +68,16 @@ function PushShotClass() {
   };
 
   this.pushTile = function (tile) {
-    var tile_object = spawnGameObject(tile);
+    var tile_object = spawnGameObject(
+      {
+        orientation: HORIZONTAL,
+        direction: this.direction,
+        x: this.x,
+        y: this.y,
+      },
+      tile
+    );
+
     this.pushObject(tile_object);
   };
 }

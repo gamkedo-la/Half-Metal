@@ -29,6 +29,15 @@ function enemyClass() {
   this.stunnable = true;
   this.turnable = true;
   this.damageable = true;
+  this.hitboxes = [
+    {
+      name: "main",
+      x: this.x,
+      y: this.y,
+      w: this.width,
+      h: this.height,
+    }, 
+  ];
 
   // General
   this.reset = function () {
@@ -123,16 +132,20 @@ function enemyClass() {
   };
 
   this.onMoveInOpenSpace = function () {
-    this.animator.setAnimation(
-      `walk-${getDirectionConstantOfObject(this)}`
-    );
+    this.animator.setAnimation(`walk-${getDirectionConstantOfObject(this)}`);
     moveInOwnDirection(this);
   };
 
-  this.onCollideWithDestructible = function (tile_index) {};
+  this.onCollideWithDestructible = function (tile_index) {
+    reverseDirection(this);
+    moveInOwnDirection(this);
+  };
 
-  this.onCollideWithSolid = function (tile_index) { };
-  
+  this.onCollideWithSolid = function () {
+    reverseDirection(this);
+    moveInOwnDirection(this);
+  };
+
   this.checkTileType = function (tile_type, tile_index) {
     if (DESTRUCTIBLE.includes(tile_type)) {
       this.onCollideWithDestructible(tile_index);
