@@ -30,6 +30,7 @@ var turret_spritesheet = document.createElement("img");
 var wall_img = document.createElement("img");
 var sturdy_wall_img = document.createElement("img");
 var ground_img = document.createElement("img");
+var bounce_wall = document.createElement("img");
 
 var worldPics = [];
 
@@ -180,6 +181,12 @@ var image_list = [
     var_name: elec_wall_v,
     file: "elec_wall_v.png",
     transparent_bg: true,
+  },
+  {
+    var_name: bounce_wall,
+    file: "bounce_wall.png",
+    tile: TILE_BOUNCE_WALL,
+    transparent_bg: false,
   },
 
   // Effects
