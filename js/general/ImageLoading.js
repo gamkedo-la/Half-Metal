@@ -31,6 +31,7 @@ var wall_img = document.createElement("img");
 var sturdy_wall_img = document.createElement("img");
 var ground_img = document.createElement("img");
 var bounce_wall = document.createElement("img");
+var flyer_sheet = document.createElement("img");
 
 var worldPics = [];
 
@@ -75,6 +76,12 @@ var image_list = [
     var_name: hunterSheet,
     file: "hunter_spritesheet.png",
     tile: TILE_HUNTER,
+    transparent_bg: true,
+  },
+  {
+    var_name: flyer_sheet,
+    file: "flyer_spritesheet.png",
+    tile: TILE_FLYER,
     transparent_bg: true,
   },
 
