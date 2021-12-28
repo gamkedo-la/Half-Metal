@@ -70,6 +70,11 @@ function drawWorld() {
         (image) => image?.tile === TILE_GROUND
       );
 
+      // If no image is found, just render the ground tile
+      if (!current_image) {
+        current_image = ground_image;
+      }
+
       // Draw image or ground tile underneath
       canvasContext.drawImage(
         current_image?.transparent_bg
