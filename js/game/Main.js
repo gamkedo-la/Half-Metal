@@ -157,6 +157,7 @@ function updateAll(dt) {
     default:
       break;
   }
+ 
 }
 
 function moveAll() {

@@ -1,17 +1,36 @@
 function WallClass() {
+  // Dimensions
   this.x = 0;
   this.y = 0;
   this.height = WORLD_H;
   this.width = WORLD_W;
+
+  // Typing
   this.tile_type = TILE_WALL;
   this.type = NORMAL_WALL;
-  this.direction = 0;
-  this.state = IDLE;
+
+  // Sprite props
   this.animations = { idle: [{ x: 0, y: 0, h: this.height, w: this.width }] };
   this.currentAnimation = "idle";
   this.image = wall_img;
   this.animator = new SpriteSheetAnimatorClass(this);
   this.push_vector = {};
+
+  // Collision props
+  this.invincible = true;
+  this.pushable = false;
+  this.damageable = false;
+  this.damageable = false;
+
+  // Hitbox props
+  this.hitbox_x = this.x;
+  this.hitbox_y = this.y;
+  this.hitbox_height = this.height;
+  this.hitbox_width = this.width;
+
+  // General
+  this.direction = 0;
+  this.state = IDLE;
 
   // TODO: Set collision rules for when wall is pushed
 
@@ -20,6 +39,7 @@ function WallClass() {
   };
 
   this.update = function () {
+    this.updateHitBoxes();
     if (this.state === PUSHED) {
       applyVector(this, this.push_vector);
     }
@@ -65,5 +85,12 @@ function WallClass() {
         console.log("COLLIDE WITH " + enemy.type);
         break;
     }
+  };
+
+  this.updateHitBoxes = function () {
+    this.hitbox_x = this.x;
+    this.hitbox_y = this.y;
+    this.hitbox_height = this.height;
+    this.hitbox_width = this.width;
   };
 }

@@ -27,8 +27,16 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   this.currentAnimation =
     this.orientation === HORIZONTAL ? "closed_h" : "closed_v";
   this.animator = new SpriteSheetAnimatorClass(this);
+  this.turnable = true;
+
+
+  this.reset = function () {
+    this.animator = new SpriteSheetAnimatorClass(this);
+    resetGameObject(this);
+  };
 
   this.update = function () {
+    this.updateHitBoxes();
     switch (this.state) {
       case OPEN:
         this.image =

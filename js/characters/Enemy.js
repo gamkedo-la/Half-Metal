@@ -17,18 +17,23 @@ function enemyClass() {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
   this.rotation = 0;
-  this.hitbox_x = this.x;
-  this.hitbox_y = this.y;
-  this.hitbox_width = this.width;
-  this.hitbox_height = this.height;
+
   this.render_hitbox = false;
   this.alert_timer = new TimerClass();
   this.animator = new SpriteSheetAnimatorClass(this);
   this.push_vector = { magnitude: 0, direction: 0 };
+  
+  // Collision props
   this.pushable = true;
   this.stunnable = true;
   this.turnable = true;
   this.damageable = true;
+
+  // Hitboxes
+  this.hitbox_x = this.x;
+  this.hitbox_y = this.y;
+  this.hitbox_width = this.width;
+  this.hitbox_height = this.height;
   this.hitboxes = [
     {
       name: "main",

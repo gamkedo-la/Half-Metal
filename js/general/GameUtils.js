@@ -98,3 +98,34 @@ function copyInstance(original) {
 function getDirectionConstantOfObject(object) {
   return DIRECTION_MAP[object.direction];
 }
+
+/*
+  Push a Game Object with a given vector
+*/
+function pushObject(object, vector) {
+  object.push_vector = vector;
+
+  object.state = PUSHED;
+}
+
+function turnObject(object, degrees) {
+  switch (object.type) {
+    case LEAPER:
+    case FLYER:
+    case HUNTER:
+    case BLOCKER:
+      object.direction += degrees;
+      break;
+
+    case NORMAL_WALL:
+    case ELECTRIC:
+    case LASER:
+    case TURRET:
+      object.orientation =
+        object.orientation === HORIZONTAL ? VERTICAL : HORIZONTAL;
+      break;
+
+    default:
+      break;
+  }
+};

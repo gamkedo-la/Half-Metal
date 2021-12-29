@@ -2,6 +2,8 @@ TurnShotClass.prototype = new ShotClass();
 
 function TurnShotClass() {
   this.image = turn_shot_pic;
+  this.can_turn = true;
+  this.can_damage = false;
 
   // Collision Events
   this.onCollideWithTile = function (tile_type, tile_index) {
@@ -24,38 +26,6 @@ function TurnShotClass() {
         this.removeSelf();
         playSound(sounds.window_break);
         break;
-      default:
-        break;
-    }
-  };
-
-  this.onCollideWithObject = function (object) {
-    if (object?.turnable) {
-      this.turnObject(object);
-    }
-
-    this.removeSelf();
-    playSound(sounds.stun);
-  };
-
-  // Class Specialties
-  this.turnObject = function (object) {
-    switch (object.type) {
-      case LEAPER:
-      case FLYER:
-      case HUNTER:
-      case BLOCKER:
-        object.direction += 90;
-        break;
-
-      case NORMAL_WALL:
-      case ELECTRIC:
-      case LASER:
-      case TURRET:
-        object.orientation =
-          object.orientation === HORIZONTAL ? VERTICAL : HORIZONTAL;
-        break;
-
       default:
         break;
     }

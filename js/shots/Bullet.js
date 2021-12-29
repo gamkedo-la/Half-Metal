@@ -9,6 +9,12 @@ function ShotClass() {
   this.rotation_angle = 0;
   this.damage = 1;
 
+  // Used for collision checking with other object attributes
+  this.can_damage = true;
+  this.can_turn = false;
+  this.can_push = false;
+  this.can_stun = false;
+
   // Collision Checks
   this.checkForCollisionWithObject = function (bullet) {
     game_objects.forEach(function (object) {
@@ -70,7 +76,8 @@ function ShotClass() {
   };
 
   this.onCollideWithObject = function (object) {
-    if (object?.type === BLOCKER) {
+    // COLLIDE WITH BLOCKER
+    if (object?.type === BLOCKER && this.can_damage) {
       // Check for collision with back hitbox
       if (
         collisionDetected(
@@ -108,7 +115,41 @@ function ShotClass() {
       return;
     }
 
-    if (object?.damageable) {
+    // ON STUN
+    if (object.stunnable && this.can_stun) {
+      object.state = STUNNED;
+      this.removeSelf();
+      playSound(sounds.stun);
+      return;
+    }
+
+    // OPEN ELECTRIC WALL
+    if (object.type === ELECTRIC && this.can_stun) {
+      object.state = OPEN;
+      this.removeSelf();
+      playSound(sounds.stun);
+      return;
+    }
+
+    // ON PUSH
+    if (object.pushable && this.can_push) {
+      this.push_vector = { magnitude: 3, direction: this.direction };
+      pushObject(object, this.push_vector);
+      this.removeSelf();
+      playSound(sounds.stun);
+      return;
+    }
+
+    // ON TURN
+    if (object.turnable && this.can_turn) {
+      turnObject(object, 90);
+      this.removeSelf();
+      playSound(sounds.stun);
+      return;
+    }
+
+    // ON DAMAGE
+    if (object?.damageable && this.can_damage) {
       object.removeSelf();
       this.removeSelf();
       playSound(sounds.destroy);
@@ -122,6 +163,13 @@ function ShotClass() {
     if (object?.type === SWITCH) {
       object.state = object.state === PRESSED ? UNPRESSED : PRESSED;
       this.removeSelf();
+    }
+
+    // REFLECT SHOT
+    if (object?.type === BOUNCE) {
+      reverseDirection(this);
+      playSound(sounds.bump);
+      return;
     }
   };
 

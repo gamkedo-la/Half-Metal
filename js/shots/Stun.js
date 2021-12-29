@@ -2,6 +2,8 @@ StunShotClass.prototype = new ShotClass();
 
 function StunShotClass() {
   this.image = stun_shot_img;
+  this.can_damage = false;
+  this.can_stun = true;
 
   // Collision Events
   this.onCollideWithTile = function (tile_type, tile_index) {
@@ -27,18 +29,5 @@ function StunShotClass() {
       default:
         break;
     }
-  };
-
-  this.onCollideWithObject = function (object) {
-    if (object?.stunnable) {
-      object.state = STUNNED;
-    }
-
-    if (object.type === ELECTRIC) {
-      object.state = OPEN;
-    }
-
-    this.removeSelf();
-    playSound(sounds.stun);
   };
 }

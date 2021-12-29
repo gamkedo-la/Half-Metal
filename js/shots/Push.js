@@ -2,7 +2,9 @@ PushShotClass.prototype = new ShotClass();
 
 function PushShotClass() {
   this.image = push_shot_pic;
-  this.push_vector = { magnitude: 0, direction: this.direction };
+  this.push_vector = { magnitude: 3, direction: this.direction };
+  this.can_push = true;
+  this.can_damage = false;
 
   // Collision Events
   this.onCollideWithTile = function (tile_type, tile_index) {
@@ -46,13 +48,13 @@ function PushShotClass() {
     }
   };
 
-  this.onCollideWithObject = function (object) {
-    if (object?.pushable) {
-      this.pushObject(object);
-      this.removeSelf();
-      playSound(sounds.stun);
-    }
-  };
+  // this.onCollideWithObject = function (object) {
+  //   if (object?.pushable) {
+  //     this.pushObject(object);
+  //     this.removeSelf();
+  //     playSound(sounds.stun);
+  //   }
+  // };
 
   // Class Specialties
   this.setPushVector = function (magnitude = 0, direction = 0) {
