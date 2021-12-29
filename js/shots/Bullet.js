@@ -153,24 +153,29 @@ function ShotClass() {
       object.removeSelf();
       this.removeSelf();
       playSound(sounds.destroy);
-    }
-
-    if (!object?.damageable) {
-      this.removeSelf();
-      playSound(sounds.bump);
+      return;
     }
 
     if (object?.type === SWITCH) {
+      console.log("SWITCH");
       object.state = object.state === PRESSED ? UNPRESSED : PRESSED;
       this.removeSelf();
+      return;
     }
 
     // REFLECT SHOT
     if (object?.type === BOUNCE) {
+      console.log("REFLECT SHOT");
       reverseDirection(this);
       playSound(sounds.bump);
       return;
     }
+
+    // DEFAULT
+    console.log("NO DAMAGE");
+    this.removeSelf();
+    playSound(sounds.bump);
+    return;
   };
 
   // General
