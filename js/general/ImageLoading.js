@@ -32,6 +32,7 @@ var sturdy_wall_img = document.createElement("img");
 var ground_img = document.createElement("img");
 var bounce_wall = document.createElement("img");
 var flyer_sheet = document.createElement("img");
+var shadow = document.createElement("img");
 
 var worldPics = [];
 
@@ -81,6 +82,12 @@ var image_list = [
   {
     var_name: flyer_sheet,
     file: "flyer_spritesheet.png",
+    tile: TILE_FLYER,
+    transparent_bg: true,
+  },
+  {
+    var_name: shadow,
+    file: "shadow.png",
     tile: TILE_FLYER,
     transparent_bg: true,
   },
