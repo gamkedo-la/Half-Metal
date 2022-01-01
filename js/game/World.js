@@ -70,16 +70,19 @@ function drawWorld() {
         (image) => image?.tile === TILE_GROUND
       );
 
+      if (tile_type === TILE_STUN_SHOT) {
+        console.log(current_image);
+      }
+
       // If no image is found, just render the ground tile
       if (!current_image) {
         current_image = ground_image;
       }
 
       // Draw image or ground tile underneath
+      canvasContext.drawImage(ground_image?.var_name, draw_tile_x, draw_tile_y);
       canvasContext.drawImage(
-        current_image?.transparent_bg
-          ? ground_image?.var_name
-          : current_image?.var_name,
+        current_image?.var_name,
         draw_tile_x,
         draw_tile_y
       );
