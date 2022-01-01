@@ -1,7 +1,7 @@
 function enemyClass() {
   this.name = "Enemy";
   this.type = ENEMY;
-  this.speed = 2;
+  this.speed = 1;
   this.health = 1;
   this.damage = 1;
   this.image = leaperSheet;
