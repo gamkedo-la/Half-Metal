@@ -4,7 +4,7 @@ function ShotClass() {
   this.width = 15;
   this.height = 15;
   this.image = shot_img;
-  this.speed = 7;
+  this.speed = 4;
   this.direction;
   this.rotation_angle = 0;
   this.damage = 1;
@@ -149,7 +149,7 @@ function ShotClass() {
     }
 
     // ON DAMAGE
-    if (object?.damageable && this.can_damage) {
+    if (object?.damageable && this.can_damage && object?.flight_height !== ASCEND) {
       object.removeSelf();
       this.removeSelf();
       playSound(sounds.destroy);
@@ -168,6 +168,11 @@ function ShotClass() {
       console.log("REFLECT SHOT");
       reverseDirection(this);
       playSound(sounds.bump);
+      return;
+    }
+    
+    // PASS FLYING ENEMY
+    if (object?.flight_height === ASCEND) {
       return;
     }
 
