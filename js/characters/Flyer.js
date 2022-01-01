@@ -33,17 +33,25 @@ function FlyerClass() {
     () => {
       this.changeFlightHeight();
     },
-    100,
+    50,
     this.flight_dist,
-    false
+    true
   );
   this.shot_timer = new TimerClass(
     () => {
       this.shoot();
     },
     1000,
-    1,
+    3,
     false
+  );
+  this.alert_timer = new TimerClass(
+    () => {
+      this.stopAlert();
+    },
+    3000,
+    1,
+    true
   );
 
   // Behavior:
@@ -51,15 +59,15 @@ function FlyerClass() {
   // Flyer stops in place - DONE
   // Flyer lowers to ground - DONE
   // Flyer height = DESCENDED - DONE
-  // Flyer shoots three shots in current direction -DONE
-  // Flyer ASCENDEDs, height = ASCENDED
-  // Check if still alerted,
-  //  If alerted, repeat descent
+  // Flyer shoots three shots in current direction - DONE
+  // Flyer ASCENDEDs, height = ASCENDED - DONE
+  // Check if still alerted, - DONE
+  //  If alerted, repeat descent - DONE
   // Else, resume movement
 
   this.changeFlightHeight = function () {
     console.log("running changeFlightHeight");
-    console.log(this.flight_state);
+
     if (this.flight_state === ASCENDED) {
       this.flight_dist -= 1;
     }
@@ -70,8 +78,11 @@ function FlyerClass() {
   };
 
   this.shoot = function () {
-    var spawn_x = this.width * Math.cos((this.direction * Math.PI) / 180) * 1.2;
-    var spawn_y = this.height * Math.sin((this.direction * Math.PI) / 180) * 1.2;
+    var shot_buffer = 3;
+    var spawn_x =
+      (this.width + shot_buffer) * Math.cos((this.direction * Math.PI) / 180);
+    var spawn_y =
+      (this.height + shot_buffer) * Math.sin((this.direction * Math.PI) / 180);
 
     spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, STUN);
   };
@@ -82,11 +93,10 @@ function FlyerClass() {
   };
 
   this.alerted = function () {
-    console.log("alerted flyer");
     this.shot_timer.update();
 
     if (this.flight_state === ASCENDED) {
-      this.flight_dist -= 1;
+      this.flight_timer.start();
     }
 
     if (this.flight_dist <= 0) {
@@ -95,13 +105,19 @@ function FlyerClass() {
       this.shot_timer.start();
     }
 
-    if (this.shot_timer.finished) {
-      this.flight_dist += 1;
+    if (this.flight_dist >= 16) {
+      this.flight_state = ASCENDED;
 
-      if (this.flight_dist >= 16) {
-        this.flight_state = ASCENDED;
-        this.shot_timer.stop();
+      if (!this.checkIfPlayerIsInSight()) {
+        this.stopAlert();
+        return;
       }
+    }
+
+    if (this.shot_timer.finished) {
+      this.flight_dist = 1;
+      this.flight_timer.start();
+      this.shot_timer.stop();
     }
 
     this.speed = 0;
@@ -126,5 +142,13 @@ function FlyerClass() {
 
     canvasContext.stroke();
     this.animator.animate();
+  };
+
+  this.stopAlert = function () {
+    this.shot_timer.stop();
+    this.flight_timer.stop();
+    this.alert_timer.stop();
+    this.state = MOVING;
+    this.speed = 1;
   };
 }

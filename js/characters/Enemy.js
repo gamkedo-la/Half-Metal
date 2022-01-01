@@ -22,7 +22,7 @@ function enemyClass() {
   this.alert_timer = new TimerClass();
   this.animator = new SpriteSheetAnimatorClass(this);
   this.push_vector = { magnitude: 0, direction: 0 };
-  
+
   // Collision props
   this.pushable = true;
   this.stunnable = true;
@@ -41,7 +41,7 @@ function enemyClass() {
       y: this.y,
       w: this.width,
       h: this.height,
-    }, 
+    },
   ];
 
   // General
@@ -78,6 +78,7 @@ function enemyClass() {
   };
 
   this.move = function () {
+    console.log(this.state);
     nextX = this.x;
     nextY = this.y;
 
@@ -195,5 +196,10 @@ function enemyClass() {
   // State
   this.alerted = function (dt) {
     console.log("alerted enemy");
+  };
+
+  this.checkIfPlayerIsInSight = function () {
+    var finder_ray = this.rays.find((ray) => ray.found_player);
+    return finder_ray !== undefined;
   };
 }
