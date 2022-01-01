@@ -149,7 +149,7 @@ function ShotClass() {
     }
 
     // ON DAMAGE
-    if (object?.damageable && this.can_damage && object?.flight_height !== ASCEND) {
+    if (object?.damageable && this.can_damage && object?.flight_height !== ASCENDED) {
       object.removeSelf();
       this.removeSelf();
       playSound(sounds.destroy);
@@ -172,7 +172,7 @@ function ShotClass() {
     }
     
     // PASS FLYING ENEMY
-    if (object?.flight_height === ASCEND) {
+    if (object?.flight_height === ASCENDED) {
       return;
     }
 
