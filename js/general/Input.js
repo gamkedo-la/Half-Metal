@@ -97,7 +97,7 @@ function mousePressed() {
     }
 
     // respawn enemies
-    setupEnemies(worldGrid);
+    initGameObjects(worldGrid);
   }
 }
 
