@@ -25,6 +25,8 @@ const PRESSED = "pressed";
 const UNPRESSED = "unpressed";
 const ON = "on";
 const OFF = "off";
+const ASCEND = "ascend";
+const DESCEND = "descend";
 const STATES = [
   SHOOTING,
   MOVING,
@@ -38,6 +40,8 @@ const STATES = [
   PRESSED,
   ON,
   OFF,
+  ASCEND,
+  DESCEND,
 ];
 
 // TILESET CONSTANTS
