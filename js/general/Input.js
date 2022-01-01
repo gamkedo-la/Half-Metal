@@ -59,6 +59,8 @@ function updateMousePos(evt) {
 function mousePressed() {
   console.log("Clicked at " + mouseX + ", " + mouseY);
   console.log(buttons);
+  var over_button = false;
+
   buttons.forEach((button) => {
     if (
       mouseX > button.x &&
@@ -68,8 +70,11 @@ function mousePressed() {
       button.active
     ) {
       button.handler();
+      over_button = true;
     }
   });
+
+  if (over_button) return;
 
   if (currentMode === EDIT_MODE && editor.selectedTile > -1) {
     var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
