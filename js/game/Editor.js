@@ -32,6 +32,7 @@ subMenus.forEach((sub) => {
   // Ensure each submenu has a Back button
   menuList[sub].push(
     new ButtonClass(...[, , , ,], "BACK", ...[, ,], () => {
+      console.log("Clicked back");
       editor.goToMenu("palette");
     })
   );
@@ -67,6 +68,22 @@ function ButtonClass(
     renderFont(this.label, this.x + this.paddingX, this.y + this.paddingY);
   };
 }
+
+// BEHAVIOR:
+// Open editor - DONE
+// Select submenu - DONE
+// Select object type - DONE
+// Render object as cursor image
+// Select tile to place object
+// Press 'R' to rotate object
+// Replace tile in level map with new selectedTile
+// Add the object to the appropriate configurations array
+// Configs: 
+// --- Enemies: [{direction, position, type}...], 
+// --- Walls: [{orientation, position, type}...], 
+// --- Hazards: [{orientation, position, type, triggers}...], 
+// --- Shots: [{position}...], 
+// Reset the level with new configurations
 
 // Main renderer and contoller of the Editor UI
 function EditorClass() {
@@ -136,41 +153,18 @@ function EditorClass() {
     });
 
     if (this.selectedTile > -1) {
-      var tileImage;
-      var prototype;
-      switch (this.selectedTile) {
-        case TILE_LEAPER:
-          prototype = LeaperClass.prototype;
-          break;
-        case TILE_HUNTER:
-          prototype = HunterClass.prototype;
-          break;
-        case TILE_BLOCKER:
-          prototype = BlockerClass.prototype;
-          break;
-        case TILE_FLYER:
-          prototype = FlyerClass.prototype;
-          break;
-        default:
-          tileImage = worldPics[this.selectedTile];
-          break;
-      }
-
-      var image_width = prototype.width ?? WORLD_W;
-      var image_height = prototype.height ?? WORLD_H;
-      if (prototype) tileImage = prototype.image;
-      console.log(image_width, image_height);
-      canvasContext.drawImage(
-        tileImage,
-        0,
-        0,
-        image_width,
-        image_height,
-        mouseX,
-        mouseY,
-        image_width,
-        image_height
-      );
+     
+      // canvasContext.drawImage(
+      //   tileImage,
+      //   0,
+      //   0,
+      //   image_width,
+      //   image_height,
+      //   mouseX,
+      //   mouseY,
+      //   image_width,
+      //   image_height
+      // );
     }
   };
 }

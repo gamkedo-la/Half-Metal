@@ -79,6 +79,7 @@ function mousePressed() {
   if (currentMode === EDIT_MODE && editor.selectedTile > -1) {
     var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
 
+    // Update level map to match the editor's version
     editor.currentMap[tileIndex] = editor.selectedTile;
     editor.level_config.level_map = editor.currentMap;
     worldGrid = editor.currentMap;
