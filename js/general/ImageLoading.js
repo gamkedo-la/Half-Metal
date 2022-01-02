@@ -72,12 +72,16 @@ var image_list = [
     file: "blocker_spritesheet.png",
     tile: TILE_BLOCKER,
     transparent_bg: true,
+    height: 34,
+    width: 34,
   },
   {
     var_name: hunterSheet,
     file: "hunter_spritesheet.png",
     tile: TILE_HUNTER,
     transparent_bg: true,
+    height: 26,
+    width: 14,
   },
   {
     var_name: flyer_sheet,
@@ -179,6 +183,7 @@ var image_list = [
     file: "elec_wall_h.png",
     tile: TILE_ELEC_WALL,
     transparent_bg: true,
+    width: 32,
   },
   {
     var_name: elec_wall_h_open,

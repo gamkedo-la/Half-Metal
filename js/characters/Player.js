@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 2.0;
+const PLAYER_MOVE_SPEED = 1;
 const MOVEMENT_PROGRESS = 2;
 
 function playerClass() {

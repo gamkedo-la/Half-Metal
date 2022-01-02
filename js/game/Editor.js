@@ -78,11 +78,11 @@ function ButtonClass(
 // Press 'R' to rotate object
 // Replace tile in level map with new selectedTile
 // Add the object to the appropriate configurations array
-// Configs: 
-// --- Enemies: [{direction, position, type}...], 
-// --- Walls: [{orientation, position, type}...], 
-// --- Hazards: [{orientation, position, type, triggers}...], 
-// --- Shots: [{position}...], 
+// Configs:
+// --- Enemies: [{direction, position, type}...],
+// --- Walls: [{orientation, position, type}...],
+// --- Hazards: [{orientation, position, type, triggers}...],
+// --- Shots: [{position}...],
 // Reset the level with new configurations
 
 // Main renderer and contoller of the Editor UI
@@ -145,26 +145,27 @@ function EditorClass() {
   this.update = function () {};
 
   this.draw = function () {
+    if (this.selectedTile > -1) {
+      var tile_image = image_list.find((img) => img.tile === this.selectedTile);
+
+      canvasContext.drawImage(
+        tile_image?.var_name,
+        0,
+        0,
+        tile_image?.width ?? 16,
+        tile_image?.height ?? 16,
+        mouseX - (tile_image?.width / 2 || 8),
+        mouseY - (tile_image?.height / 2 || 8),
+        tile_image?.width ?? 16,
+        tile_image?.height ?? 16
+      );
+    }
+
     this.toolBarOptions.forEach((option) => {
       option.draw();
     });
     menuList[this.currentMenu].forEach((option) => {
       option.draw();
     });
-
-    if (this.selectedTile > -1) {
-     
-      // canvasContext.drawImage(
-      //   tileImage,
-      //   0,
-      //   0,
-      //   image_width,
-      //   image_height,
-      //   mouseX,
-      //   mouseY,
-      //   image_width,
-      //   image_height
-      // );
-    }
   };
 }
