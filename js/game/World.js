@@ -70,10 +70,6 @@ function drawWorld() {
         (image) => image?.tile === TILE_GROUND
       );
 
-      if (tile_type === TILE_STUN_SHOT) {
-        console.log(current_image);
-      }
-
       // If no image is found, just render the ground tile
       if (!current_image) {
         current_image = ground_image;

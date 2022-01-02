@@ -131,7 +131,13 @@ function loadLevel(whichLevel) {
   worldGrid = whichLevel.slice();
   player.reset(playerSheet, "Player");
   player.ammo = levels[currentLevel].starting_ammo;
-  enemies = [];
+  enemies.length = 0;
+  hazards.length = 0;
+  bullets.length = 0;
+  entities.length = 0;
+  effects.length = 0;
+  walls.length = 0;
+  triggers.length = 0;
 
   initGameObjects(worldGrid);
 }
@@ -151,7 +157,6 @@ function updateAll(dt) {
     case EDIT_MODE:
       gamepad.update(dt);
       editor.update(dt);
-      drawAll(dt);
       break;
 
     default:
