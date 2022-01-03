@@ -79,3 +79,56 @@ const levelTwoConfig = {
 const levels = [levelOneConfig, levelTwoConfig];
 
 currentLevel = 0;
+
+function generateRandomLevel(w=16,h=13) {
+    console.log("Generating a random "+w+"x"+h+" level...");
+    let x,y;
+    let levelData = [];
+    
+    for (y=0; y<h; y++) {
+        for (x=0; x<w; x++) {
+            
+            // usually empty floor
+            levelData[x*y] = TILE_GROUND;
+            
+            // scatter random blocks
+            if (Math.random()<0.1) {
+                levelData[x*y] = TILE_WALL;
+            }
+
+            // outside edges are always wals
+            if (y==0 || y==h-1 || x==0 || x==w-1) {
+                levelData[x*y] = TILE_WALL;
+            }
+        }
+    }
+
+    // one of each important tile
+    x = 1+Math.floor(Math.random()*(w-2));
+    y = 1+Math.floor(Math.random()*(h-2));
+    levelData[x*y] = TILE_PLAYERSTART;
+
+    x = 1+Math.floor(Math.random()*(w-2));
+    y = 1+Math.floor(Math.random()*(h-2));
+    levelData[x*y] = TILE_GOAL;
+
+    // select a gameplay tile in range
+    t = TILE_AMMO+Math.floor(Math.random()*(TILE_FLYER-TILE_AMMO));
+    x = 1+Math.floor(Math.random()*(w-2));
+    y = 1+Math.floor(Math.random()*(h-2));
+    levelData[x*y] = t;
+    t = TILE_AMMO+Math.floor(Math.random()*(TILE_FLYER-TILE_AMMO));
+    x = 1+Math.floor(Math.random()*(w-2));
+    y = 1+Math.floor(Math.random()*(h-2));
+    levelData[x*y] = t;
+    t = TILE_AMMO+Math.floor(Math.random()*(TILE_FLYER-TILE_AMMO));
+    x = 1+Math.floor(Math.random()*(w-2));
+    y = 1+Math.floor(Math.random()*(h-2));
+    levelData[x*y] = t;
+    t = TILE_AMMO+Math.floor(Math.random()*(TILE_FLYER-TILE_AMMO));
+    x = 1+Math.floor(Math.random()*(w-2));
+    y = 1+Math.floor(Math.random()*(h-2));
+    levelData[x*y] = t;
+
+    return levelData;
+}

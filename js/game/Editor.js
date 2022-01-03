@@ -13,7 +13,10 @@ const menuList = {
     new ButtonClass(...[, , , ,], "HAZARD", ...[, ,], () => {
       editor.goToMenu("hazards");
     }),
-  ],
+    new ButtonClass(...[, , , ,], "RANDOM", ...[, ,], () => {
+        randomizelevel();
+      }),
+    ],
 };
 
 // Construct submenus based on Game Object types defined in Constants.js.

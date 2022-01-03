@@ -34,6 +34,26 @@ window.onload = function () {
   initSounds();
 };
 
+function randomizelevel() {
+    console.log("Randomizing Level!");
+    
+    // sadly you cannot simply change the worldGrid array =(
+
+    // FIXME: 
+    // we need to fake a mouse click to edit world data!
+    // this likely breaks "config objects" (????)
+    let randomLevelData = generateRandomLevel();
+    editor.currentMap = randomLevelData;
+    editor.level_config.level_map = randomLevelData;
+    worldGrid = randomLevelData;
+    initGameObjects(worldGrid);
+
+    // FIXME: does not work either; I think it expects a string
+    // loadLevel(generateRandomLevel());
+
+    console.log("Random level generated successfully.");
+}
+
 function imageLoadingDoneSoStartGame() {
   window.requestAnimationFrame(loop);
 
