@@ -114,6 +114,10 @@ function spawnEffect(x, y, type = EXPLOSION) {
       effect = new effectClass(x, y, leaperDestructionSheet);
       break;
 
+    case FLYER_DIE:
+      effect = new effectClass(x, y, flyer_destruction_sheet);
+      break;
+
     case SHATTER:
       effect = new effectClass(x, y, windowDestructionSheet, 1);
       break;

@@ -15,6 +15,7 @@ var wallDestructionSheet = document.createElement("img");
 var sturdyWallDestructionSheet = document.createElement("img");
 var windowDestructionSheet = document.createElement("img");
 var leaperDestructionSheet = document.createElement("img");
+var flyer_destruction_sheet = document.createElement("img");
 var elec_wall_h = document.createElement("img");
 var elec_wall_v = document.createElement("img");
 var elec_wall_v_open = document.createElement("img");
@@ -224,6 +225,10 @@ var image_list = [
   {
     var_name: leaperDestructionSheet,
     file: "leaper_destruction_spritesheet.png",
+  },
+  {
+    var_name: flyer_destruction_sheet,
+    file: "flyer_destruction_spritesheet.png",
   },
 
   // ETC

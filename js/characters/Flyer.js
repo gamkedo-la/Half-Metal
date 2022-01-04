@@ -11,6 +11,7 @@ function FlyerClass() {
   this.flight_dist = this.height;
   this.image = flyer_sheet;
   this.currentAnimation = "walk-down";
+  this.death_anim = FLYER_DIE;
   this.animations = {
     "walk-down": [
       { x: 0, y: 0, w: this.width, h: this.height },

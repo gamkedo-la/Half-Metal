@@ -16,6 +16,7 @@ function enemyClass() {
   this.animations = {
     idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
   };
+  this.death_anim = LEAPER_DIE;
   this.rotation = 0;
 
   this.render_hitbox = false;
@@ -187,7 +188,7 @@ function enemyClass() {
   };
 
   this.removeSelf = function () {
-    spawnEffect(this.x, this.y, LEAPER_DIE); // FIXME: put in subclass
+    spawnEffect(this.x, this.y, this.death_anim); // FIXME: put in subclass
     enemies.splice(enemies.indexOf(this), 1);
     this.alert_timer.stopAndCall();
     delete this;

@@ -77,6 +77,7 @@ const GAME_OBJECTS = [ENEMY, SHOT, WALL, HAZARD, PLAYER];
 const EXPLOSION = "explosion"; // a *WALL* being destroyed
 const DESTROY_STURDY_WALL = "destroy_sturdy_wall"; // a *STURDY WALL* being destroyed
 const LEAPER_DIE = "leaperdie"; // a robot being destroyed
+const FLYER_DIE = "flyerdie";
 const SHATTER = "shatter"; // a *WINDOW* being destroyed
 
 // DIRECTIONS
