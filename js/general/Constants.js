@@ -128,26 +128,26 @@ const WORLD_ROWS = 13;
 const TILE_GROUND = 0;
 const TILE_WALL = 1;
 const TILE_PLAYERSTART = 2;
-const TILE_GOAL = 3;
 const TILE_AMMO = 4;
-const TILE_DOOR = 5;
-const TILE_LEAPER = 6;
-const TILE_STURDY_WALL = 7;
-const TILE_WARP = 8;
-const TILE_WINDOW_V = 9;
-const TILE_WINDOW_H = 10;
-const TILE_WINDOW_SMASHED_H = 11;
-const TILE_STUN_SHOT = 12;
-const TILE_HUNTER = 13;
-const TILE_BLOCKER = 14;
-const TILE_ELEC_WALL = 15;
-const TILE_BOUNCE_WALL = 16;
-const TILE_TURN_SHOT = 17;
-const TILE_PUSH_SHOT = 18;
-const TILE_CAMERA = 19;
-const TILE_LASER = 20;
-const TILE_TURRET = 21;
-const TILE_FLYER = 22;
+const TILE_LEAPER = 5;
+const TILE_STURDY_WALL = 6;
+// PROBLEMS
+const TILE_GOAL = 3;
+const TILE_WINDOW_V = 7;
+const TILE_WINDOW_H = 8;
+const TILE_WINDOW_SMASHED_H = 9;
+// 
+const TILE_STUN_SHOT = 10;
+const TILE_HUNTER = 11;
+const TILE_BLOCKER = 12;
+const TILE_ELEC_WALL = 13;
+const TILE_BOUNCE_WALL = 14;
+const TILE_TURN_SHOT = 15;
+const TILE_PUSH_SHOT = 16;
+const TILE_CAMERA = 17;
+const TILE_LASER = 18;
+const TILE_TURRET = 19;
+const TILE_FLYER = 20;
 
 // MISC TYPES
 const SWITCH = "switch";

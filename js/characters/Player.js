@@ -172,12 +172,6 @@ function playerClass() {
           loadLevel(levels[currentLevel].level_map);
         }
         break;
-      case TILE_DOOR:
-        if (this.ammo > 0) {
-          this.ammo--; // one less bullet
-          worldGrid[walkIntoTileIndex] = TILE_GROUND;
-        }
-        break;
       case TILE_AMMO:
       case TILE_STUN_SHOT:
       case TILE_PUSH_SHOT:

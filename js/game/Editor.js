@@ -77,9 +77,9 @@ function ButtonClass(
 // Select submenu - DONE
 // Select object type - DONE
 // Render object as cursor image
-// Select tile to place object
+// Select tile to place object - DONE
 // Press 'R' to rotate object
-// Replace tile in level map with new selectedTile
+// Replace tile in level map with new selectedTile - DONE
 // Add the object to the appropriate configurations array
 // Configs:
 // --- Enemies: [{direction, position, type}...],
