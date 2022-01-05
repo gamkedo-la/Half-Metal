@@ -55,17 +55,6 @@ function FlyerClass() {
     true
   );
 
-  // Behavior:
-  // Player hits raycast - DONE
-  // Flyer stops in place - DONE
-  // Flyer lowers to ground - DONE
-  // Flyer height = DESCENDED - DONE
-  // Flyer shoots three shots in current direction - DONE
-  // Flyer ASCENDEDs, height = ASCENDED - DONE
-  // Check if still alerted, - DONE
-  //  If alerted, repeat descent - DONE
-  // Else, resume movement
-
   this.changeFlightHeight = function () {
     console.log("running changeFlightHeight");
 
