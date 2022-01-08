@@ -28,14 +28,24 @@ function ElectricWallClass(orientation = HORIZONTAL) {
     this.orientation === HORIZONTAL ? "closed_h" : "closed_v";
   this.animator = new SpriteSheetAnimatorClass(this);
   this.turnable = true;
-
+  this.has_opened = false;
+  this.prev_state = this.state;
 
   this.reset = function () {
+    this.start_hum = true;
     this.animator = new SpriteSheetAnimatorClass(this);
     resetGameObject(this);
   };
 
+  this.checkForStateChange = function () {
+    if (this.prev_state !== this.state) {
+      playSound(sounds.elec_open);
+      this.prev_state = this.state;
+    }
+  };
+
   this.update = function () {
+    this.checkForStateChange();
     this.updateHitBoxes();
     switch (this.state) {
       case OPEN:
@@ -57,7 +67,7 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   };
 
   this.checkEnemyType = function (enemy) {
-        enemy.removeSelf();
-        playSound(sounds.destroy);
+    enemy.removeSelf();
+    playSound(sounds.destroy);
   };
 }

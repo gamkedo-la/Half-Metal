@@ -9,6 +9,7 @@ async function loadSounds() {
 
   startedLoading = true;
   const soundList = [
+    // SFX
     { sndName: "shoot", theFile: "snd_shoot.wav" },
     { sndName: "destroy", theFile: "snd_destroy.wav" },
     { sndName: "bump", theFile: "snd_bump.wav" },
@@ -18,6 +19,19 @@ async function loadSounds() {
     { sndName: "window_break", theFile: "snd_windowbreak.wav" },
     { sndName: "leap", theFile: "snd_leap.wav" },
     { sndName: "stun", theFile: "snd_stun.wav" },
+    { sndName: "turn", theFile: "snd_turn.wav" },
+    { sndName: "push", theFile: "snd_push.wav" },
+    { sndName: "push_alt", theFile: "snd_push_alt.wav" },
+    { sndName: "fly_up", theFile: "snd_fly_up.wav" },
+    { sndName: "fly_down", theFile: "snd_fly_down.wav" },
+    { sndName: "detected", theFile: "snd_detected.wav" },
+    { sndName: "hum", theFile: "snd_elecwall_hum.wav" },
+    { sndName: "elec_open", theFile: "snd_elecwall_open.wav" },
+
+    // MUSIC
+    { sndName: "prison_music", theFile: "bg_prisonloop.wav" },
+    { sndName: "processing_music", theFile: "bg_processingloop.wav" },
+    { sndName: "alert_music", theFile: "bg_alertloop.mp3" },
   ];
 
   soundsToLoad = soundList.length;

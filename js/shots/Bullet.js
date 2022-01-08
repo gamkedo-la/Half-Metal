@@ -136,7 +136,7 @@ function ShotClass() {
       this.push_vector = { magnitude: 3, direction: this.direction };
       pushObject(object, this.push_vector);
       this.removeSelf();
-      playSound(sounds.stun);
+      playSound(sounds.push);
       return;
     }
 
@@ -144,7 +144,7 @@ function ShotClass() {
     if (object.turnable && this.can_turn) {
       turnObject(object, 90);
       this.removeSelf();
-      playSound(sounds.stun);
+      playSound(sounds.turn);
       return;
     }
 

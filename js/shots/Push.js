@@ -14,6 +14,7 @@ function PushShotClass() {
       });
 
       this.pushTile(object_type);
+      playSound(sounds.push_alt);
       this.removeSelf();
 
       worldGrid[tile_index] = TILE_GROUND;

@@ -56,13 +56,17 @@ function FlyerClass() {
   );
 
   this.changeFlightHeight = function () {
-    console.log("running changeFlightHeight");
-
     if (this.flight_state === ASCENDED) {
+      if (this.flight_dist >= 16) {
+        playSound(sounds.fly_down);
+      }
       this.flight_dist -= 1;
     }
 
     if (this.flight_state === DESCENDED) {
+      if (this.flight_dist <= 1) {
+        playSound(sounds.fly_up);
+      }
       this.flight_dist += 1;
     }
   };
@@ -75,6 +79,7 @@ function FlyerClass() {
       (this.height + shot_buffer) * Math.sin((this.direction * Math.PI) / 180);
 
     spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, STUN);
+    playSound(sounds.shoot);
   };
 
   this.reset = function () {
