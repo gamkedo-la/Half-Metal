@@ -96,6 +96,7 @@ function enemyClass() {
     for (var i = 0; i < this.rays.length; i++) {
       if (this.rays[i].destroyed) {
         this.removeRaycast(this.rays[i]);
+        continue;
       } else if (this.rays[i].found_player) {
         this.state = ALERT;
       }
