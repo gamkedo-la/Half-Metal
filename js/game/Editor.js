@@ -14,9 +14,13 @@ const menuList = {
       editor.goToMenu("hazards");
     }),
     new ButtonClass(...[, , , ,], "RANDOM", ...[, ,], () => {
-        randomizelevel();
-      }),
-    ],
+      randomizelevel();
+    }),
+    new ButtonClass(...[, , , ,], "TILES", ...[, ,], () => {
+      // go to tile set menu
+      editor.goToMenu("tiles");
+    }),
+  ],
 };
 
 // Construct submenus based on Game Object types defined in Constants.js.
@@ -40,6 +44,25 @@ subMenus.forEach((sub) => {
     })
   );
 });
+
+menuList["tiles"] = [
+  new ButtonClass(...[, , , ,], "CELLS", ...[, ,], () => {
+    console.log("clicked cells");
+  }),
+  new ButtonClass(...[, , , ,], "ARMORY", ...[, ,], () => {
+    console.log("clicked armory");
+  }),
+  new ButtonClass(...[, , , ,], "PROCESS", ...[, ,], () => {
+    console.log("clicked processing center");
+  }),
+  new ButtonClass(...[, , , ,], "YARD", ...[, ,], () => {
+    console.log("clicked courtyard");
+  }),
+  new ButtonClass(...[, , , ,], "BACK", ...[, ,], () => {
+    console.log("Clicked back");
+    editor.goToMenu("palette");
+  }),
+];
 
 // Define button functionality
 function ButtonClass(
@@ -87,6 +110,9 @@ function ButtonClass(
 // --- Hazards: [{orientation, position, type, triggers}...],
 // --- Shots: [{position}...],
 // Reset the level with new configurations
+// Select tileset from menu
+// Update all tiles to match current set
+// Set some tiles as solid/passable/etc
 
 // Main renderer and contoller of the Editor UI
 function EditorClass() {
@@ -112,6 +138,7 @@ function EditorClass() {
   this.currentMenu = "palette";
   this.selectedTile = -1;
   this.level_config = new BaseLevelClass();
+  this.current_tileset = cell_tileset;
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
@@ -122,6 +149,35 @@ function EditorClass() {
     this.currentMenu = menu;
     buttons = [...this.toolBarOptions, ...menuList[menu]];
     this.resetUI();
+  };
+
+  this.drawCurrentTileset = function () {
+    var x = 110;
+    var y = 192;
+
+    // Cut tile set into 16x16 slices
+    for (var i = 0; i < TILE_ROWS; i++) {
+      for (var j = 0; j < TILE_COLS; j++) {
+        // Render each slice as a grid
+        canvasContext.drawImage(
+          // Tileset image
+          this.current_tileset,
+
+          // Tile cut
+          j * TILE_WIDTH, // x
+          i * TILE_HEIGHT, // y
+          TILE_WIDTH, // w
+          TILE_HEIGHT, // h
+
+          // Canvas
+          // Include buffer space between grid elements
+          x + (TILE_WIDTH + 1) * j, // x
+          y + (TILE_HEIGHT + 1) * i, // y
+          TILE_WIDTH, // w
+          TILE_HEIGHT // h
+        );
+      }
+    }
   };
 
   this.resetUI = function () {
@@ -170,5 +226,7 @@ function EditorClass() {
     menuList[this.currentMenu].forEach((option) => {
       option.draw();
     });
+
+    this.drawCurrentTileset();
   };
 }

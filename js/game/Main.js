@@ -25,7 +25,7 @@ var ui;
 editor.resetUI();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
-var currentMode = CUTSCENE_MODE;
+var currentMode = EDIT_MODE;
 var state_stack = [];
 var play_state = {};
 var scene_state = {};
@@ -242,6 +242,7 @@ function drawAll() {
 
     case EDIT_MODE:
       drawWorld();
+      drawTileset();
 
       bullets.forEach(function (bullet) {
         bullet.draw();
@@ -265,8 +266,8 @@ function drawAll() {
         hazard.draw();
       });
 
-      editor.draw();
       ui.draw();
+      editor.draw();
       break;
 
     case CUTSCENE_MODE:
