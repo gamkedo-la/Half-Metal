@@ -14,12 +14,24 @@ var walls = new Array();
 var triggers = new Array();
 var game_objects = new Array();
 var editor = new EditorClass();
+var cutscene = new CutsceneClass();
+cutscene.dialogue = [
+  "TEST LINE A",
+  "TEST LINE B",
+  "TEST LINE C",
+];
 var ui;
 
 editor.resetUI();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
-var currentMode = PLAY_MODE;
+var currentMode = CUTSCENE_MODE;
+var state_stack = [];
+var play_state = {};
+var scene_state = {};
+var menu_state = {};
+var pause_state = {};
+var edit_state = {};
 
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
@@ -182,6 +194,9 @@ function updateAll(dt) {
       editor.update(dt);
       break;
 
+    case CUTSCENE_MODE:
+      cutscene.update(dt);
+
     default:
       break;
   }
@@ -253,6 +268,9 @@ function drawAll() {
       editor.draw();
       ui.draw();
       break;
+
+    case CUTSCENE_MODE:
+      cutscene.draw();
 
     default:
       break;

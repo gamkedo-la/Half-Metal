@@ -117,6 +117,7 @@ for (var i = 0; i < CHARACTER_SET.length; i++) {
 // MODES
 const EDIT_MODE = "EDIT_MODE";
 const PLAY_MODE = "PLAY_MODE";
+const CUTSCENE_MODE = "CUTSCENE_MODE";
 
 // WORLD DIMENSIONS
 const WORLD_W = 16;

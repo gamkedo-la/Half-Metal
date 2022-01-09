@@ -108,6 +108,12 @@ function mousePressed() {
 }
 
 function keySet(keyEvent, setTo) {
+  if (currentMode === CUTSCENE_MODE) {
+    if (keyEvent.keyCode === KEY_X) {
+      cutscene.key_next_held = setTo;
+    }
+    return;
+  }
   if (
     keyEvent.keyCode == player.controlKeyLeft ||
     keyEvent.keyCode == player.controlKeyLeft2
