@@ -56,28 +56,16 @@ function updateMousePos(evt) {
   mouseY = Math.floor((unscaledMouseY * GAME_H) / SCALED_H);
 }
 
-function mousePressed() {
-  console.log("Clicked at " + mouseX + ", " + mouseY);
-  console.log(buttons);
-  var over_button = false;
+function editorMapClick(mX,mY) {
+    
+    console.log("editorMapClick at "+mX+","+mY);
 
-  buttons.forEach((button) => {
-    if (
-      mouseX > button.x &&
-      mouseX < button.x + button.width &&
-      mouseY > button.y &&
-      mouseY < button.y + button.height &&
-      button.active
-    ) {
-      button.handler();
-      over_button = true;
+    if (editor.selectedTile < 0) {
+        console.log("editorMapClick ignored: editor.selectedTile is "+editor.selectedTile);
+        return;
     }
-  });
-
-  if (over_button) return;
-
-  if (currentMode === EDIT_MODE && editor.selectedTile > -1) {
-    var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
+    
+    var tileIndex = getTileIndexAtPixelCoord(mX,mY);
 
     // Update level map to match the editor's version
     editor.currentMap[tileIndex] = editor.selectedTile;
@@ -105,6 +93,29 @@ function mousePressed() {
     // respawn enemies
     initGameObjects(worldGrid);
   }
+
+function mousePressed() {
+  console.log("Clicked at " + mouseX + ", " + mouseY);
+  console.log(buttons);
+  var over_button = false;
+
+  buttons.forEach((button) => {
+    if (
+      mouseX > button.x &&
+      mouseX < button.x + button.width &&
+      mouseY > button.y &&
+      mouseY < button.y + button.height &&
+      button.active
+    ) {
+      button.handler();
+      over_button = true;
+    }
+  });
+
+  if (over_button) return;
+
+  if (currentMode === EDIT_MODE) editorMapClick(mouseX, mouseY);
+ 
 }
 
 function keySet(keyEvent, setTo) {
