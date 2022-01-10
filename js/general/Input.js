@@ -58,10 +58,10 @@ function updateMousePos(evt) {
 
 function editorMapClick(mX,mY) {
     
-    console.log("editorMapClick at "+mX+","+mY);
+    console.log("editorMapClick at "+mX+","+mY+". Selected tile: "+editor.selectedTile);
 
     if (editor.selectedTile < 0) {
-        console.log("editorMapClick ignored: editor.selectedTile is "+editor.selectedTile);
+        console.log("editorMapClick ignored: no selected tile.");
         return;
     }
     
