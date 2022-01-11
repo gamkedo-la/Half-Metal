@@ -30,9 +30,8 @@ subMenus.forEach((sub) => {
   menuList[sub] = CONSTANTS[sub]?.map((constant) => {
     return new ButtonClass(...[, , , ,], constant, ...[, ,], () => {
       console.log("Clicked " + constant);
-      console.log(ENEMIES);
-      console.log(OBJECT_MAP[constant]);
-      editor.selectedTile = OBJECT_MAP[constant];
+      editor.layer = "world";
+      editor.selected_tile_type = OBJECT_MAP[constant];
     });
   });
 
@@ -102,7 +101,7 @@ function ButtonClass(
 // Render object as cursor image
 // Select tile to place object - DONE
 // Press 'R' to rotate object
-// Replace tile in level map with new selectedTile - DONE
+// Replace tile in level map with new selected_tile_type - DONE
 // Add the object to the appropriate configurations array
 // Configs:
 // --- Enemies: [{direction, position, type}...],
@@ -110,7 +109,8 @@ function ButtonClass(
 // --- Hazards: [{orientation, position, type, triggers}...],
 // --- Shots: [{position}...],
 // Reset the level with new configurations
-// Select tileset from menu
+// Select tileset from menu - DONE
+// Place tiles in editor - DONE
 // Update all tiles to match current set
 // Set some tiles as solid/passable/etc
 
@@ -136,9 +136,14 @@ function EditorClass() {
   ];
   this.showEditor = false;
   this.currentMenu = "palette";
-  this.selectedTile = -1;
+  this.selected_tile_type = -1;
+  this.selected_tile = {};
   this.level_config = new BaseLevelClass();
   this.current_tileset = cell_tileset;
+  this.tiles = [];
+  this.layer = "world";
+  this.tileset_start_x = 110;
+  this.tileset_start_y = 192;
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
@@ -151,10 +156,28 @@ function EditorClass() {
     this.resetUI();
   };
 
-  this.drawCurrentTileset = function () {
-    var x = 110;
-    var y = 192;
+  this.initTileset = function () {
+    var tile_type = 0;
+    this.tiles.length = 0;
 
+    // Store the properties of each tile in the set
+    for (var i = 0; i < TILE_ROWS; i++) {
+      for (var j = 0; j < TILE_COLS; j++) {
+        this.tiles.push({
+          x: this.tileset_start_x + (TILE_WIDTH + 1) * j,
+          y: this.tileset_start_y + (TILE_HEIGHT + 1) * i,
+          width: TILE_WIDTH,
+          height: TILE_HEIGHT,
+          tileset_x: TILE_WIDTH * j,
+          tileset_y: TILE_HEIGHT * i,
+          tile_type,
+        });
+        tile_type++;
+      }
+    }
+  };
+
+  this.drawCurrentTileset = function () {
     // Cut tile set into 16x16 slices
     for (var i = 0; i < TILE_ROWS; i++) {
       for (var j = 0; j < TILE_COLS; j++) {
@@ -171,8 +194,8 @@ function EditorClass() {
 
           // Canvas
           // Include buffer space between grid elements
-          x + (TILE_WIDTH + 1) * j, // x
-          y + (TILE_HEIGHT + 1) * i, // y
+          this.tileset_start_x + (TILE_WIDTH + 1) * j, // x
+          this.tileset_start_y + (TILE_HEIGHT + 1) * i, // y
           TILE_WIDTH, // w
           TILE_HEIGHT // h
         );
@@ -204,29 +227,61 @@ function EditorClass() {
   this.update = function () {};
 
   this.draw = function () {
-    if (this.selectedTile > -1) {
-      var tile_image = image_list.find((img) => img.tile === this.selectedTile);
+    if (this.selected_tile_type > -1) {
+      var tile_image;
+      switch (this.layer) {
+        case "world":
+          tile_image = image_list.find(
+            (img) => img.tile === this.selected_tile_type
+          );
+          // Draw current selection at mouse position
+          canvasContext.drawImage(
+            tile_image?.var_name,
+            0,
+            0,
+            tile_image?.width ?? 16,
+            tile_image?.height ?? 16,
+            mouseX - (tile_image?.width / 2 || 8),
+            mouseY - (tile_image?.height / 2 || 8),
+            tile_image?.width ?? 16,
+            tile_image?.height ?? 16
+          );
+          break;
+        case "tile":
+          // Render each slice as a grid
+          canvasContext.drawImage(
+            // Tileset image
+            this.current_tileset,
 
-      canvasContext.drawImage(
-        tile_image?.var_name,
-        0,
-        0,
-        tile_image?.width ?? 16,
-        tile_image?.height ?? 16,
-        mouseX - (tile_image?.width / 2 || 8),
-        mouseY - (tile_image?.height / 2 || 8),
-        tile_image?.width ?? 16,
-        tile_image?.height ?? 16
-      );
+            // Tile cut
+            this.selected_tile.tileset_x, // x
+            this.selected_tile.tileset_y, // y
+            TILE_WIDTH, // w
+            TILE_HEIGHT, // h
+
+            // Canvas
+            mouseX - TILE_WIDTH / 2, // x
+            mouseY - TILE_HEIGHT / 2, // y
+            TILE_WIDTH, // w
+            TILE_HEIGHT // h
+          );
+          break;
+        default:
+          break;
+      }
     }
 
+    // Tool bar for PLAY, SAVE, LOAD, etc
     this.toolBarOptions.forEach((option) => {
       option.draw();
     });
+
+    // Menu of lists of game objects
     menuList[this.currentMenu].forEach((option) => {
       option.draw();
     });
 
+    // Tileset palette
     this.drawCurrentTileset();
   };
 }

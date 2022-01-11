@@ -56,49 +56,60 @@ function updateMousePos(evt) {
   mouseY = Math.floor((unscaledMouseY * GAME_H) / SCALED_H);
 }
 
-function editorMapClick(mX,mY) {
-    
-    console.log("editorMapClick at "+mX+","+mY+". Selected tile: "+editor.selectedTile);
+function editorMapClick(mX, mY) {
+  console.log(
+    "editorMapClick at " +
+      mX +
+      "," +
+      mY +
+      ". Selected tile: " +
+      editor.selected_tile_type
+  );
 
-    if (editor.selectedTile < 0) {
-        console.log("editorMapClick ignored: no selected tile.");
-        return;
-    }
-    
-    var tileIndex = getTileIndexAtPixelCoord(mX,mY);
-
-    // Update level map to match the editor's version
-    editor.currentMap[tileIndex] = editor.selectedTile;
-    editor.level_config.level_map = editor.currentMap;
-    worldGrid = editor.currentMap;
-
-    // get the object type of the new tile
-    const type = Object.keys(OBJECT_MAP).find(
-      (key) => OBJECT_MAP[key] === editor.selectedTile
-    );
-    const config = editor.level_config;
-    const config_obj = config.configuration_prototype;
-
-    // place a fresh config object into the appropriate config array
-    if (ENEMIES.includes(type)) {
-      config.enemy_configurations.push(config_obj);
-    }
-    if (HAZARDS.includes(type)) {
-      config.hazard_configurations.push(config_obj);
-    }
-    if (WALLS.includes(type)) {
-      config.wall_configurations.push(config_obj);
-    }
-
-    // respawn enemies
-    initGameObjects(worldGrid);
+  if (editor.selected_tile_type < 0) {
+    console.log("editorMapClick ignored: no selected tile.");
+    return;
   }
+  var tileIndex = getTileIndexAtPixelCoord(mX, mY);
+
+  if (editor.layer === "tile") {
+    tileSetGrid[tileIndex] = editor.selected_tile_type;
+    initGameObjects(worldGrid);
+    return;
+  }
+
+  // Update level map to match the editor's version
+  editor.currentMap[tileIndex] = editor.selected_tile_type;
+  editor.level_config.level_map = editor.currentMap;
+  worldGrid = editor.currentMap;
+
+  // get the object type of the new tile
+  const type = Object.keys(OBJECT_MAP).find(
+    (key) => OBJECT_MAP[key] === editor.selected_tile_type
+  );
+  const config = editor.level_config;
+  const config_obj = config.configuration_prototype;
+
+  // place a fresh config object into the appropriate config array
+  if (ENEMIES.includes(type)) {
+    config.enemy_configurations.push(config_obj);
+  }
+  if (HAZARDS.includes(type)) {
+    config.hazard_configurations.push(config_obj);
+  }
+  if (WALLS.includes(type)) {
+    config.wall_configurations.push(config_obj);
+  }
+
+  // respawn enemies
+  initGameObjects(worldGrid);
+}
 
 function mousePressed() {
   console.log("Clicked at " + mouseX + ", " + mouseY);
-  console.log(buttons);
   var over_button = false;
 
+  // Check if the user has clicked any of the UI buttons
   buttons.forEach((button) => {
     if (
       mouseX > button.x &&
@@ -112,10 +123,24 @@ function mousePressed() {
     }
   });
 
+  // Check if user has clicked any of the tiles on the current tileset palette
+  editor.tiles.forEach((tile) => {
+    if (
+      mouseX > tile.x &&
+      mouseX < tile.x + tile.width &&
+      mouseY > tile.y &&
+      mouseY < tile.y + tile.height
+    ) {
+      editor.layer = "tile";
+      editor.selected_tile_type = tile.tile_type;
+      editor.selected_tile = tile;
+      over_button = true;
+    }
+  });
+
   if (over_button) return;
 
   if (currentMode === EDIT_MODE) editorMapClick(mouseX, mouseY);
- 
 }
 
 function keySet(keyEvent, setTo) {
