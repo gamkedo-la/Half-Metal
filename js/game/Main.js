@@ -15,14 +15,11 @@ var triggers = new Array();
 var game_objects = new Array();
 var editor = new EditorClass();
 var cutscene = new CutsceneClass();
-cutscene.dialogue = [
-  "TEST LINE A",
-  "TEST LINE B",
-  "TEST LINE C",
-];
+cutscene.dialogue = ["TEST LINE A", "TEST LINE B", "TEST LINE C"];
 var ui;
 
 editor.resetUI();
+editor.initTileset();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
 var currentMode = EDIT_MODE;
@@ -173,8 +170,9 @@ function loadLevel(whichLevel) {
   effects.length = 0;
   walls.length = 0;
   triggers.length = 0;
-
+  
   initGameObjects(worldGrid);
+  editor.currentMap = worldGrid.slice();
 }
 
 function updateAll(dt) {
