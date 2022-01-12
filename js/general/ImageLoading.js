@@ -35,6 +35,7 @@ var bounce_wall = document.createElement("img");
 var flyer_sheet = document.createElement("img");
 var shadow = document.createElement("img");
 var cell_tileset = document.createElement("img");
+var transceiver = document.createElement("img");
 
 var worldPics = [];
 
@@ -236,10 +237,10 @@ var image_list = [
   { var_name: ground_img, tile: TILE_GROUND, file: "world_ground.png" },
   { tile: TILE_GOAL, file: "world_goal.png", transparent_bg: true },
   { var_name: fontPic, file: "font.png" },
-  
+  { var_name: transceiver, file: "transceiver_2.png" },
+
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
-
 ];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()

@@ -22,7 +22,7 @@ editor.resetUI();
 editor.initTileset();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
-var currentMode = EDIT_MODE;
+var currentMode = CUTSCENE_MODE;
 var state_stack = [];
 var play_state = {};
 var scene_state = {};

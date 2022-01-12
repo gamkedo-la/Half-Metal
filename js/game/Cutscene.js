@@ -19,6 +19,9 @@ function CutsceneClass(dialogue = [""]) {
     colorRect(this.x + 14, this.y + 159, 228, 52, "white");
     colorRect(this.x + 15, this.y + 160, 226, 50, "black");
     renderFont(this.revealed_chars, this.x + 20, this.y + 168);
+
+    // IMAGE
+    canvasContext.drawImage(transceiver, 0, 0);
   };
 
   this.checkForInput = function () {
