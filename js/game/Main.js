@@ -211,6 +211,7 @@ function moveAll() {
 function drawAll() {
   switch (currentMode) {
     case PLAY_MODE:
+      drawTileset();
       drawWorld();
 
       bullets.forEach(function (bullet) {
@@ -239,8 +240,8 @@ function drawAll() {
       break;
 
     case EDIT_MODE:
-      drawWorld();
       drawTileset();
+      drawWorld();
 
       bullets.forEach(function (bullet) {
         bullet.draw();
