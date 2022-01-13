@@ -70,6 +70,7 @@ function editorMapClick(mX, mY) {
     console.log("editorMapClick ignored: no selected tile.");
     return;
   }
+  
   var tileIndex = getTileIndexAtPixelCoord(mX, mY);
 
   if (editor.layer === "tile") {
@@ -88,17 +89,22 @@ function editorMapClick(mX, mY) {
     (key) => OBJECT_MAP[key] === editor.selected_tile_type
   );
   const config = editor.level_config;
-  const config_obj = config.configuration_prototype;
+  const config_obj = { ...config.default_object_config };
+  config_obj.type = type;
+  config_obj.position = { x: mX, y: mY };
 
   // place a fresh config object into the appropriate config array
   if (ENEMIES.includes(type)) {
-    config.enemy_configurations.push(config_obj);
+    config.enemies.push(config_obj);
   }
   if (HAZARDS.includes(type)) {
-    config.hazard_configurations.push(config_obj);
+    config.hazards.push(config_obj);
   }
   if (WALLS.includes(type)) {
-    config.wall_configurations.push(config_obj);
+    config.walls.push(config_obj);
+  }
+  if (SHOTS.includes(type)) {
+    config.shots.push(config_obj);
   }
 
   // respawn enemies
