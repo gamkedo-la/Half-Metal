@@ -142,8 +142,8 @@ function EditorClass() {
   this.current_tileset = cell_tileset;
   this.tiles = [];
   this.layer = "world";
-  this.tileset_start_x = 110;
-  this.tileset_start_y = 192;
+  this.tileset_start_x = 2;
+  this.tileset_start_y = 208;
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));

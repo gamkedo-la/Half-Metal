@@ -22,7 +22,7 @@ editor.resetUI();
 editor.initTileset();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
-var currentMode = CUTSCENE_MODE;
+var currentMode = EDIT_MODE;
 var state_stack = [];
 var play_state = {};
 var scene_state = {};
@@ -170,7 +170,7 @@ function loadLevel(whichLevel) {
   effects.length = 0;
   walls.length = 0;
   triggers.length = 0;
-  
+
   initGameObjects(worldGrid);
   editor.currentMap = worldGrid.slice();
 }
