@@ -127,7 +127,8 @@ function EditorClass() {
       console.log("Clicked LOAD");
     }),
     new ButtonClass(...[, , , ,], "SAVE", ...[, ,], () => {
-      console.log("Clicked SAVE");
+      this.level_config.level_map = [...this.currentMap];
+      this.level_config.tile_map = [...tileSetGrid];
       console.log(this.level_config);
     }),
     new ButtonClass(...[, , , ,], "PLAY", ...[, ,], () => {
