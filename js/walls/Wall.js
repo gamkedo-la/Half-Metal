@@ -21,6 +21,7 @@ function WallClass() {
   this.pushable = false;
   this.damageable = false;
   this.damageable = false;
+  this.solid = true;
 
   // Hitbox props
   this.hitbox_x = this.x;
@@ -47,7 +48,7 @@ function WallClass() {
 
   this.reset = function () {
     this.animator = new SpriteSheetAnimatorClass(this);
-    // resetGameObject(this);
+    resetGameObject(this);
   };
 
   this.move = function () {};
