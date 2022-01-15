@@ -214,27 +214,13 @@ function drawAll() {
       drawTileset();
       drawWorld();
 
-      bullets.forEach(function (bullet) {
-        bullet.draw();
-      });
-      enemies.forEach(function (enemy) {
-        enemy.draw();
-      });
-      entities.forEach(function (entity) {
-        entity.draw();
-      });
-      walls.forEach(function (wall) {
-        wall.draw();
-      });
-      effects.forEach(function (effect) {
-        effect.draw();
-      });
-
-      player.draw();
-
-      hazards.forEach(function (hazard) {
-        hazard.draw();
-      });
+      game_objects
+        .sort(function (a, b) {
+          return a.y - b.y;
+        })
+        .forEach(function (object) {
+          object.draw();
+        });
 
       ui.draw();
       break;
@@ -243,27 +229,13 @@ function drawAll() {
       drawTileset();
       drawWorld();
 
-      bullets.forEach(function (bullet) {
-        bullet.draw();
-      });
-      enemies.forEach(function (enemy) {
-        enemy.draw();
-      });
-      entities.forEach(function (entity) {
-        entity.draw();
-      });
-      walls.forEach(function (wall) {
-        wall.draw();
-      });
-      effects.forEach(function (effect) {
-        effect.draw();
-      });
-
-      player.draw();
-
-      hazards.forEach(function (hazard) {
-        hazard.draw();
-      });
+      game_objects
+        .sort(function (a, b) {
+          return a.y - b.y;
+        })
+        .forEach(function (object) {
+          object.draw();
+        });
 
       ui.draw();
       editor.draw();
