@@ -74,7 +74,7 @@ const levels = [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0,
     ],
-    starting_ammo: 0,
+    starting_ammo: 10,
     default_object_config: {
       direction: 0,
       orientation: "vertical",
