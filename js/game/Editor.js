@@ -87,10 +87,13 @@ function ButtonClass(
   this.paddingY = paddingY;
   this.textColor = textColor;
   this.active = false;
+  this.visible = true;
 
   this.draw = function () {
-    colorRect(this.x, this.y, this.width, this.height, this.color);
-    renderFont(this.label, this.x + this.paddingX, this.y + this.paddingY);
+    if (this.visible) {
+      colorRect(this.x, this.y, this.width, this.height, this.color);
+      renderFont(this.label, this.x + this.paddingX, this.y + this.paddingY);
+    }
   };
 }
 
@@ -148,6 +151,13 @@ function EditorClass() {
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
+  };
+
+  this.toggleButtonVisibility = function () {
+    buttons.forEach((button) => {
+      button.active = !button.active;
+      button.visible = !button.visible;
+    });
   };
 
   this.goToMenu = function (menu) {
