@@ -173,6 +173,7 @@ function loadLevel(whichLevel) {
 
   initGameObjects(worldGrid);
   editor.currentMap = worldGrid.slice();
+  console.log(editor);
 }
 
 function updateAll(dt) {

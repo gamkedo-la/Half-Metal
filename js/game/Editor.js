@@ -162,7 +162,7 @@ function EditorClass() {
     }),
     new ButtonClass(...[, , , ,], "SAVE", ...[, ,], () => {
       this.level_config.level_map = [...this.currentMap];
-      this.level_config.tile_map = [...tileSetGrid];
+      this.level_config.tile_map = [...levels[currentLevel].tile_map];
       this.level_config.tileset = this.current_tileset;
       console.log(this.level_config);
     }),

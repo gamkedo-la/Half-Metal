@@ -86,7 +86,8 @@ function editorMapClick(mX, mY) {
   
 
   if (editor.layer === "tile") {
-    tileSetGrid[tileIndex] = editor.selected_tile_type;
+    editor.level_config.tile_map[tileIndex] = editor.selected_tile_type;
+    levels[currentLevel].tile_map[tileIndex] = editor.selected_tile_type;
     initGameObjects(worldGrid);
     return;
   }
