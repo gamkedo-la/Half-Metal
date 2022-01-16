@@ -91,7 +91,7 @@ const levels = [
     walls: [],
     shots: [],
     name: "",
-    tileset: "cells",
+    tileset: cell_tileset,
   },
   {
     level_map: [
@@ -163,7 +163,7 @@ const levels = [
     walls: [],
     shots: [],
     name: "",
-    tileset: "cells",
+    tileset: cell_tileset,
   },
 ];
 

@@ -102,7 +102,7 @@ function drawWorld() {
   }
 }
 
-function drawTileset() {
+function drawTileset(level) {
   var array_index = 0;
   var draw_tile_x = 0;
   var draw_tile_y = 0;
@@ -136,7 +136,7 @@ function drawTileset() {
       // Draw the current tile
       canvasContext.drawImage(
         // Tileset image
-        cell_tileset,
+        level.tileset,
 
         // Tile cut
         col_num * TILE_WIDTH, // x

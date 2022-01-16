@@ -211,7 +211,7 @@ function moveAll() {
 function drawAll() {
   switch (currentMode) {
     case PLAY_MODE:
-      drawTileset();
+      drawTileset(levels[currentLevel]);
       drawWorld();
 
       game_objects
@@ -226,7 +226,7 @@ function drawAll() {
       break;
 
     case EDIT_MODE:
-      drawTileset();
+      drawTileset(levels[currentLevel]);
       drawWorld();
 
       game_objects

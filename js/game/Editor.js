@@ -46,10 +46,12 @@ subMenus.forEach((sub) => {
 
 menuList["tiles"] = [
   new ButtonClass(...[, , , ,], "CELLS", ...[, ,], () => {
-    console.log("clicked cells");
+    editor.current_tileset = cell_tileset;
+    editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "ARMORY", ...[, ,], () => {
-    console.log("clicked armory");
+    editor.current_tileset = armory_tileset;
+    editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "PROCESS", ...[, ,], () => {
     console.log("clicked processing center");
@@ -132,6 +134,7 @@ function EditorClass() {
     new ButtonClass(...[, , , ,], "SAVE", ...[, ,], () => {
       this.level_config.level_map = [...this.currentMap];
       this.level_config.tile_map = [...tileSetGrid];
+      this.level_config.tileset = this.current_tileset;
       console.log(this.level_config);
     }),
     new ButtonClass(...[, , , ,], "PLAY", ...[, ,], () => {
@@ -234,6 +237,12 @@ function EditorClass() {
       option.active = true;
     });
   };
+
+  this.updateTileset = function () {
+    this.level_config.tileset = this.current_tileset;
+    levels[currentLevel] = this.level_config;
+    console.log(levels[currentLevel]);
+  }
 
   this.update = function () {};
 
