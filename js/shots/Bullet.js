@@ -46,7 +46,7 @@ function ShotClass() {
       case TILE_WALL:
       case TILE_STURDY_WALL:
         if (this.damage >= 1) {
-          worldGrid[tile_index] = TILE_GROUND;
+          world_grid[tile_index] = TILE_GROUND;
           spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
           spawnEffect(
             spawnLoc.x + (this.width + 1) / 2,
@@ -60,7 +60,7 @@ function ShotClass() {
       case TILE_WINDOW_V:
       case TILE_WINDOW_H:
       case TILE_WINDOW_SMASHED_H:
-        worldGrid[tile_index] = TILE_GROUND;
+        world_grid[tile_index] = TILE_GROUND;
         this.removeSelf();
         spawnLoc = snapPixelCoordToTileCoord(this.x, this.y);
         spawnEffect(
@@ -149,7 +149,11 @@ function ShotClass() {
     }
 
     // ON DAMAGE
-    if (object?.damageable && this.can_damage && object?.flight_height !== ASCENDED) {
+    if (
+      object?.damageable &&
+      this.can_damage &&
+      object?.flight_height !== ASCENDED
+    ) {
       object.removeSelf();
       this.removeSelf();
       playSound(sounds.destroy);
@@ -170,7 +174,7 @@ function ShotClass() {
       playSound(sounds.bump);
       return;
     }
-    
+
     // PASS FLYING ENEMY
     if (object?.flight_height === ASCENDED) {
       return;
@@ -191,7 +195,7 @@ function ShotClass() {
     var walk_into_tile_index = getTileIndexAtPixelCoord(next_x, next_y);
     walk_into_tile_type = TILE_GROUND;
     if (walk_into_tile_index != undefined) {
-      walk_into_tile_type = worldGrid[walk_into_tile_index];
+      walk_into_tile_type = world_grid[walk_into_tile_index];
     }
 
     this.onCollideWithTile(walk_into_tile_type, walk_into_tile_index);

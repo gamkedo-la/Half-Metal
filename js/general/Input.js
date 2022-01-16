@@ -66,7 +66,6 @@ function updateMousePos(evt) {
 }
 
 function editorMapClick(mX, mY) {
-  
   console.log(
     "editorMapClick at " +
       mX +
@@ -75,7 +74,7 @@ function editorMapClick(mX, mY) {
       ". Selected tile: " +
       editor.selected_tile_type
   );
-  
+
   if (editor.selected_tile_type < 0) {
     console.log("editorMapClick ignored: no selected tile.");
     return;
@@ -83,15 +82,13 @@ function editorMapClick(mX, mY) {
 
   var tileIndex = getTileIndexAtPixelCoord(mX, mY);
 
-  
-
   if (editor.layer === "tile") {
     editor.level_config.tile_map[tileIndex] = editor.selected_tile_type;
     levels[currentLevel].tile_map[tileIndex] = editor.selected_tile_type;
-    initGameObjects(worldGrid);
+    initGameObjects(world_grid);
     return;
   }
-  
+
   if (levelHistory.length === 0) {
     // this has an issue with not capturing something important, perhaps tile info
     // so the redraw is off
@@ -103,16 +100,14 @@ function editorMapClick(mX, mY) {
   // Update level map to match the editor's version
   editor.currentMap[tileIndex] = editor.selected_tile_type;
   editor.level_config.level_map = editor.currentMap;
-  worldGrid = editor.currentMap;
-
-  
+  world_grid = editor.currentMap;
 
   // get the object type of the new tile
   const type = Object.keys(OBJECT_MAP).find(
     (key) => OBJECT_MAP[key] === editor.selected_tile_type
   );
   const config = editor.level_config;
-  
+
   const config_obj = { ...config.default_object_config };
   config_obj.type = type;
   config_obj.position = { x: mX, y: mY };
@@ -132,7 +127,7 @@ function editorMapClick(mX, mY) {
   }
 
   // respawn enemies
-  initGameObjects(worldGrid);
+  initGameObjects(world_grid);
 
   currentLevelCheck = JSON.stringify(config);
 
@@ -256,7 +251,7 @@ function keySet(keyEvent, setTo) {
   if (keyEvent.keyCode == KEY_L && !Key_L_Held) {
     if (currentMode === PLAY_MODE) {
       currentMode = EDIT_MODE;
-      editor.currentMap = worldGrid.slice();
+      editor.currentMap = world_grid.slice();
     } else {
       currentMode = PLAY_MODE;
     }
@@ -267,7 +262,7 @@ function keySet(keyEvent, setTo) {
       // call undo function
       console.log("pressed undo");
       undoChange();
-    } 
+    }
   }
 
   if (keyEvent.keyCode == KEY_R && !Key_R_Held) {
@@ -275,7 +270,7 @@ function keySet(keyEvent, setTo) {
       // call redo function
       console.log("pressed redo");
       redoChange();
-    } 
+    }
   }
 
   if (keyEvent.keyCode == KEY_L) {

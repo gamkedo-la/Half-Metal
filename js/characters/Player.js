@@ -110,8 +110,8 @@ function playerClass() {
     for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
       for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
         var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-        if (worldGrid[arrayIndex] == TILE_PLAYERSTART) {
-          worldGrid[arrayIndex] = TILE_GROUND;
+        if (world_grid[arrayIndex] == TILE_PLAYERSTART) {
+          world_grid[arrayIndex] = TILE_GROUND;
           this.x = eachCol * WORLD_W + WORLD_W / 2;
           this.y = eachRow * WORLD_H + WORLD_H / 2;
           return;
@@ -150,7 +150,7 @@ function playerClass() {
     var walkIntoTileType = TILE_WALL;
 
     if (walkIntoTileIndex != undefined) {
-      walkIntoTileType = worldGrid[walkIntoTileIndex];
+      walkIntoTileType = world_grid[walkIntoTileIndex];
     }
 
     switch (walkIntoTileType) {
@@ -177,7 +177,7 @@ function playerClass() {
       case TILE_PUSH_SHOT:
       case TILE_TURN_SHOT:
         this.ammo++; // one more bullet
-        worldGrid[walkIntoTileIndex] = TILE_GROUND;
+        world_grid[walkIntoTileIndex] = TILE_GROUND;
         playSound(sounds.get_ammo);
         break;
       case TILE_WALL:

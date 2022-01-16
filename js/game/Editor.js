@@ -31,12 +31,11 @@ var levelHistoryIndex = 0;
 
 function undoChange() {
   if (levelHistoryIndex > 0 && levelHistory.length > 0) {
-    levelHistoryIndex--
+    levelHistoryIndex--;
     console.log("undoing, index now ", levelHistoryIndex);
     editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
-    worldGrid = editor.level_config.level_map;
-    loadLevel(worldGrid);
-    
+    world_grid = editor.level_config.level_map;
+    loadLevel(world_grid);
   }
 }
 
@@ -46,10 +45,9 @@ function redoChange() {
     console.log("redoing");
     levelHistoryIndex++;
     editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
-    worldGrid = editor.level_config.level_map;
-    loadLevel(worldGrid);
+    world_grid = editor.level_config.level_map;
+    loadLevel(world_grid);
   }
-  
 }
 
 // Construct submenus based on Game Object types defined in Constants.js.
@@ -271,7 +269,7 @@ function EditorClass() {
     this.level_config.tileset = this.current_tileset;
     levels[currentLevel] = this.level_config;
     console.log(levels[currentLevel]);
-  }
+  };
 
   this.update = function () {};
 

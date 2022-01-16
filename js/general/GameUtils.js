@@ -26,8 +26,8 @@ this.resetGameObject = function (object) {
   for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
     for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-      if (worldGrid[arrayIndex] == OBJECT_MAP[object.type]) {
-        worldGrid[arrayIndex] = TILE_GROUND;
+      if (world_grid[arrayIndex] == OBJECT_MAP[object.type]) {
+        world_grid[arrayIndex] = TILE_GROUND;
         object.x = eachCol * WORLD_W + WORLD_W / 2;
         object.y = eachRow * WORLD_H + WORLD_H / 2;
         return;
@@ -128,4 +128,4 @@ function turnObject(object, degrees) {
     default:
       break;
   }
-};
+}

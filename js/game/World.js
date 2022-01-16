@@ -1,9 +1,9 @@
-var worldGrid = [];
+var world_grid = [];
 
 function returnTileTypeAtColRow(col, row) {
   if (col >= 0 && col < WORLD_COLS && row >= 0 && row < WORLD_ROWS) {
     var worldIndexUnderCoord = rowColToArrayIndex(col, row);
-    return worldGrid[worldIndexUnderCoord];
+    return world_grid[worldIndexUnderCoord];
   } else {
     return WORLD_WALL;
   }
@@ -62,7 +62,7 @@ function drawWorld() {
       var array_index = rowColToArrayIndex(each_col, each_row);
 
       // get tile type at that index
-      var tile_type = worldGrid[array_index];
+      var tile_type = world_grid[array_index];
 
       // Get image associated with tile type
       var current_image = image_list.find((image) => image?.tile === tile_type);

@@ -63,10 +63,10 @@ function LaserClass(orientation = HORIZONTAL) {
       var rightCol = index + 1;
 
       if (
-        worldGrid[leftCol] &&
-        worldGrid[rightCol] &&
-        worldGrid[leftCol] === TILE_WALL &&
-        worldGrid[rightCol] === TILE_WALL
+        world_grid[leftCol] &&
+        world_grid[rightCol] &&
+        world_grid[leftCol] === TILE_WALL &&
+        world_grid[rightCol] === TILE_WALL
       ) {
         this.walls.push(leftCol);
         this.walls.push(rightCol);
@@ -76,10 +76,10 @@ function LaserClass(orientation = HORIZONTAL) {
       var lowerRow = index + WORLD_COLS;
 
       if (
-        worldGrid[upperRow] &&
-        worldGrid[lowerRow] &&
-        worldGrid[upperRow] === TILE_WALL &&
-        worldGrid[lowerRow] === TILE_WALL
+        world_grid[upperRow] &&
+        world_grid[lowerRow] &&
+        world_grid[upperRow] === TILE_WALL &&
+        world_grid[lowerRow] === TILE_WALL
       ) {
         this.walls.push(upperRow);
         this.walls.push(lowerRow);

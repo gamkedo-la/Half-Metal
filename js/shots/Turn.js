@@ -22,7 +22,7 @@ function TurnShotClass() {
       case TILE_WINDOW_V:
       case TILE_WINDOW_H:
       case TILE_WINDOW_SMASHED_H:
-        worldGrid[tile_index] = TILE_GROUND;
+        world_grid[tile_index] = TILE_GROUND;
         this.removeSelf();
         playSound(sounds.window_break);
         break;

@@ -15,7 +15,7 @@ function RayClass(x, y, direction) {
     var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
     walkIntoTileType = TILE_GROUND;
     if (walkIntoTileIndex != undefined) {
-      walkIntoTileType = worldGrid[walkIntoTileIndex];
+      walkIntoTileType = world_grid[walkIntoTileIndex];
     }
 
     switch (walkIntoTileType) {

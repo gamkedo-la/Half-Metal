@@ -56,8 +56,8 @@ function randomizelevel() {
 
   editor.currentMap = randomLevelData;
   editor.level_config.level_map = randomLevelData;
-  worldGrid = randomLevelData;
-  initGameObjects(worldGrid);
+  world_grid = randomLevelData;
+  initGameObjects(world_grid);
 
   console.log("Random level generated successfully.");
 }
@@ -160,7 +160,7 @@ function initGameObjects(level) {
 }
 
 function loadLevel(whichLevel) {
-  worldGrid = whichLevel.slice();
+  world_grid = whichLevel.slice();
   player.reset(playerSheet, "Player");
   player.ammo = levels[currentLevel].starting_ammo;
   enemies.length = 0;
@@ -171,8 +171,8 @@ function loadLevel(whichLevel) {
   walls.length = 0;
   triggers.length = 0;
 
-  initGameObjects(worldGrid);
-  editor.currentMap = worldGrid.slice();
+  initGameObjects(world_grid);
+  editor.currentMap = world_grid.slice();
   console.log(editor);
 }
 
