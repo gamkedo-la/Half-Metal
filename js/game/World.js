@@ -113,7 +113,7 @@ function drawTileset(level) {
       var array_index = rowColToArrayIndex(each_col, each_row);
 
       // get tile type at that index
-      var tile_type = tileSetGrid[array_index];
+      var tile_type = level.tile_map[array_index];
 
       // Search for row and col number within the tile map
       var row_num = 0;
