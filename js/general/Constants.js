@@ -193,4 +193,4 @@ const INVINCIBLE = [TILE_BOUNCE_WALL];
 const TILE_WIDTH = 16;
 const TILE_HEIGHT = 16;
 const TILE_ROWS = 2;
-const TILE_COLS = 12;
+const TILE_COLS = 14;
