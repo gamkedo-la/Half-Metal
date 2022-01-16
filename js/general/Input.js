@@ -14,6 +14,7 @@ const KEY_D = 68;
 
 const KEY_SPACE = 32;
 const KEY_X = 88;
+const KEY_V = 86;
 
 const KEY_L = 76;
 
@@ -22,6 +23,7 @@ const KEY_U = 85;
 const KEY_R = 82;
 
 var Key_L_Held = false;
+var KEY_V_Held = false;
 
 var Key_U_Held = false;
 var Key_R_Held = false;
@@ -78,7 +80,7 @@ function editorMapClick(mX, mY) {
     console.log("editorMapClick ignored: no selected tile.");
     return;
   }
-  
+
   var tileIndex = getTileIndexAtPixelCoord(mX, mY);
 
   
@@ -188,6 +190,17 @@ function keySet(keyEvent, setTo) {
     }
     return;
   }
+
+  if (currentMode === EDIT_MODE && keyEvent.keyCode === KEY_V) {
+    if (!KEY_V_Held) {
+      editor.toggleButtonVisibility();
+    }
+
+    if (keyEvent.keyCode == KEY_V) {
+      KEY_V_Held = setTo;
+    }
+  }
+
   if (
     keyEvent.keyCode == player.controlKeyLeft ||
     keyEvent.keyCode == player.controlKeyLeft2

@@ -75,10 +75,12 @@ subMenus.forEach((sub) => {
 
 menuList["tiles"] = [
   new ButtonClass(...[, , , ,], "CELLS", ...[, ,], () => {
-    console.log("clicked cells");
+    editor.current_tileset = cell_tileset;
+    editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "ARMORY", ...[, ,], () => {
-    console.log("clicked armory");
+    editor.current_tileset = armory_tileset;
+    editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "PROCESS", ...[, ,], () => {
     console.log("clicked processing center");
@@ -116,10 +118,13 @@ function ButtonClass(
   this.paddingY = paddingY;
   this.textColor = textColor;
   this.active = false;
+  this.visible = true;
 
   this.draw = function () {
-    colorRect(this.x, this.y, this.width, this.height, this.color);
-    renderFont(this.label, this.x + this.paddingX, this.y + this.paddingY);
+    if (this.visible) {
+      colorRect(this.x, this.y, this.width, this.height, this.color);
+      renderFont(this.label, this.x + this.paddingX, this.y + this.paddingY);
+    }
   };
 }
 
@@ -158,6 +163,7 @@ function EditorClass() {
     new ButtonClass(...[, , , ,], "SAVE", ...[, ,], () => {
       this.level_config.level_map = [...this.currentMap];
       this.level_config.tile_map = [...tileSetGrid];
+      this.level_config.tileset = this.current_tileset;
       console.log(this.level_config);
     }),
     new ButtonClass(...[, , , ,], "PLAY", ...[, ,], () => {
@@ -177,6 +183,13 @@ function EditorClass() {
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
+  };
+
+  this.toggleButtonVisibility = function () {
+    buttons.forEach((button) => {
+      button.active = !button.active;
+      button.visible = !button.visible;
+    });
   };
 
   this.goToMenu = function (menu) {
@@ -253,6 +266,12 @@ function EditorClass() {
       option.active = true;
     });
   };
+
+  this.updateTileset = function () {
+    this.level_config.tileset = this.current_tileset;
+    levels[currentLevel] = this.level_config;
+    console.log(levels[currentLevel]);
+  }
 
   this.update = function () {};
 

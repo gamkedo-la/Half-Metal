@@ -102,7 +102,7 @@ function drawWorld() {
   }
 }
 
-function drawTileset() {
+function drawTileset(level) {
   var array_index = 0;
   var draw_tile_x = 0;
   var draw_tile_y = 0;
@@ -113,7 +113,7 @@ function drawTileset() {
       var array_index = rowColToArrayIndex(each_col, each_row);
 
       // get tile type at that index
-      var tile_type = tileSetGrid[array_index];
+      var tile_type = level.tile_map[array_index];
 
       // Search for row and col number within the tile map
       var row_num = 0;
@@ -136,7 +136,7 @@ function drawTileset() {
       // Draw the current tile
       canvasContext.drawImage(
         // Tileset image
-        cell_tileset,
+        level.tileset,
 
         // Tile cut
         col_num * TILE_WIDTH, // x

@@ -35,6 +35,7 @@ var bounce_wall = document.createElement("img");
 var flyer_sheet = document.createElement("img");
 var shadow = document.createElement("img");
 var cell_tileset = document.createElement("img");
+var armory_tileset = document.createElement("img");
 var transceiver = document.createElement("img");
 
 var worldPics = [];
@@ -241,6 +242,7 @@ var image_list = [
 
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
+  { var_name: armory_tileset, file: "armory_tileset.png" },
 ];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
