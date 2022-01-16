@@ -17,7 +17,14 @@ const KEY_X = 88;
 
 const KEY_L = 76;
 
+// undo and redo
+const KEY_U = 85;
+const KEY_R = 82;
+
 var Key_L_Held = false;
+
+var Key_U_Held = false;
+var Key_R_Held = false;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -57,6 +64,7 @@ function updateMousePos(evt) {
 }
 
 function editorMapClick(mX, mY) {
+  
   console.log(
     "editorMapClick at " +
       mX +
@@ -65,7 +73,7 @@ function editorMapClick(mX, mY) {
       ". Selected tile: " +
       editor.selected_tile_type
   );
-
+  
   if (editor.selected_tile_type < 0) {
     console.log("editorMapClick ignored: no selected tile.");
     return;
@@ -73,10 +81,20 @@ function editorMapClick(mX, mY) {
   
   var tileIndex = getTileIndexAtPixelCoord(mX, mY);
 
+  
+
   if (editor.layer === "tile") {
     tileSetGrid[tileIndex] = editor.selected_tile_type;
     initGameObjects(worldGrid);
     return;
+  }
+  
+  if (levelHistory.length === 0) {
+    // this has an issue with not capturing something important, perhaps tile info
+    // so the redraw is off
+    console.log("pushing original config");
+    levelHistory.push(JSON.stringify(editor.level_config));
+    levelHistoryIndex++;
   }
 
   // Update level map to match the editor's version
@@ -84,11 +102,14 @@ function editorMapClick(mX, mY) {
   editor.level_config.level_map = editor.currentMap;
   worldGrid = editor.currentMap;
 
+  
+
   // get the object type of the new tile
   const type = Object.keys(OBJECT_MAP).find(
     (key) => OBJECT_MAP[key] === editor.selected_tile_type
   );
   const config = editor.level_config;
+  
   const config_obj = { ...config.default_object_config };
   config_obj.type = type;
   config_obj.position = { x: mX, y: mY };
@@ -109,6 +130,17 @@ function editorMapClick(mX, mY) {
 
   // respawn enemies
   initGameObjects(worldGrid);
+
+  currentLevelCheck = JSON.stringify(config);
+
+  // Check if we need to update the undo/redo stack, push if necessary
+  if (currentLevelCheck != lastLevelCheck) {
+    console.log("updated level history");
+    levelHistory.push(currentLevelCheck);
+    console.log(levelHistory[levelHistoryIndex]);
+    lastLevelCheck = currentLevelCheck;
+    levelHistoryIndex++;
+  }
 }
 
 function mousePressed() {
@@ -216,8 +248,32 @@ function keySet(keyEvent, setTo) {
     }
   }
 
+  if (keyEvent.keyCode == KEY_U && !Key_U_Held) {
+    if (currentMode === EDIT_MODE) {
+      // call undo function
+      console.log("pressed undo");
+      undoChange();
+    } 
+  }
+
+  if (keyEvent.keyCode == KEY_R && !Key_R_Held) {
+    if (currentMode === EDIT_MODE) {
+      // call redo function
+      console.log("pressed redo");
+      redoChange();
+    } 
+  }
+
   if (keyEvent.keyCode == KEY_L) {
     Key_L_Held = setTo;
+  }
+
+  if (keyEvent.keyCode == KEY_U) {
+    Key_U_Held = setTo;
+  }
+
+  if (keyEvent.keyCode == KEY_R) {
+    Key_R_Held = setTo;
   }
 
   if (keyEvent.keyCode == player.controlKeySwitchAmmo) {

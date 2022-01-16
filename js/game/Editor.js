@@ -23,6 +23,35 @@ const menuList = {
   ],
 };
 
+// some global variables to deal with undo/redo
+var currentLevelCheck;
+var lastLevelCheck;
+var levelHistory = [];
+var levelHistoryIndex = 0;
+
+function undoChange() {
+  if (levelHistoryIndex > 0 && levelHistory.length > 0) {
+    levelHistoryIndex--
+    console.log("undoing, index now ", levelHistoryIndex);
+    editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
+    worldGrid = editor.level_config.level_map;
+    loadLevel(worldGrid);
+    
+  }
+}
+
+function redoChange() {
+  // I *think* this is right?
+  if (levelHistoryIndex <= levelHistory.length - 2) {
+    console.log("redoing");
+    levelHistoryIndex++;
+    editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
+    worldGrid = editor.level_config.level_map;
+    loadLevel(worldGrid);
+  }
+  
+}
+
 // Construct submenus based on Game Object types defined in Constants.js.
 const subMenus = ["enemies", "shots", "walls", "hazards"];
 subMenus.forEach((sub) => {
