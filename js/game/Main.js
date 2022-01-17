@@ -18,6 +18,8 @@ var cutscene = new CutsceneClass();
 cutscene.dialogue = ["TEST LINE A", "TEST LINE B", "TEST LINE C"];
 var ui;
 
+var level = new BaseLevelClass();
+
 editor.resetUI();
 editor.initTileset();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
@@ -67,7 +69,10 @@ function imageLoadingDoneSoStartGame() {
 
   setupInput();
 
-  loadLevel(levels[0].level_map);
+  // Shallow copy of current level
+  level = { ...levels[currentLevel] };
+
+  loadLevel(level.level_map);
 }
 
 function spawnGameObject(config, type) {
@@ -172,8 +177,9 @@ function loadLevel(whichLevel) {
   triggers.length = 0;
 
   initGameObjects(world_grid);
-  editor.currentMap = world_grid.slice();
-  console.log(editor);
+
+  editor.currentMap = editor.currentMap.length === 0 ? world_grid.slice() : editor.currentMap;
+  editor.level_config = { ...level };
 }
 
 function updateAll(dt) {

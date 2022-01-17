@@ -82,10 +82,10 @@ function editorMapClick(mX, mY) {
 
   var tileIndex = getTileIndexAtPixelCoord(mX, mY);
 
+  // Update tile map
   if (editor.layer === "tile") {
     editor.level_config.tile_map[tileIndex] = editor.selected_tile_type;
-    levels[currentLevel].tile_map[tileIndex] = editor.selected_tile_type;
-    initGameObjects(world_grid);
+    level.tile_map[tileIndex] = editor.selected_tile_type;
     return;
   }
 
@@ -97,10 +97,10 @@ function editorMapClick(mX, mY) {
     levelHistoryIndex++;
   }
 
-  // Update level map to match the editor's version
+  // Update level map
   editor.currentMap[tileIndex] = editor.selected_tile_type;
   editor.level_config.level_map = editor.currentMap;
-  world_grid = editor.currentMap;
+  world_grid = editor.currentMap.slice();
 
   // get the object type of the new tile
   const type = Object.keys(OBJECT_MAP).find(
@@ -250,9 +250,12 @@ function keySet(keyEvent, setTo) {
 
   if (keyEvent.keyCode == KEY_L && !Key_L_Held) {
     if (currentMode === PLAY_MODE) {
+      // ENTER EDIT MODE
       currentMode = EDIT_MODE;
-      editor.currentMap = world_grid.slice();
+      level = { ...editor.level_config };
+      loadLevel(editor.currentMap);
     } else {
+      // ENTER PLAY MODE
       currentMode = PLAY_MODE;
     }
   }
