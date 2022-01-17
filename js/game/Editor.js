@@ -23,6 +23,24 @@ const menuList = {
   ],
 };
 
+// Functions to keep world grid and the current level data in sync with editor
+function syncLevelData() {
+  world_grid = editor.currentMap.slice();
+  level = { ...editor.level_config };
+}
+
+function loadEditorData() {
+  level = { ...levels[currentLevel] };
+  editor.currentMap =
+    editor.currentMap.length === 0 ? world_grid.slice() : editor.currentMap;
+  editor.level_config = { ...level };
+}
+
+function updateEditorData(property, change) {
+  editor.level_config[property] = change;
+  syncLevelData();
+}
+
 // some global variables to deal with undo/redo
 var currentLevelCheck;
 var lastLevelCheck;
@@ -33,8 +51,11 @@ function undoChange() {
   if (levelHistoryIndex > 0 && levelHistory.length > 0) {
     levelHistoryIndex--;
     console.log("undoing, index now ", levelHistoryIndex);
-    editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
-    world_grid = editor.level_config.level_map;
+
+    editor.level_config = { ...JSON.parse(levelHistory[levelHistoryIndex]) };
+    editor.currentMap = editor.level_config.level_map.slice();
+    world_grid = editor.level_config.level_map.slice();
+    level = { ...editor.level_config };
     loadLevel(world_grid);
   }
 }
@@ -45,6 +66,7 @@ function redoChange() {
     console.log("redoing");
     levelHistoryIndex++;
     editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
+    editor.currentMap = editor.level_config.level_map.slice();
     world_grid = editor.level_config.level_map;
     loadLevel(world_grid);
   }

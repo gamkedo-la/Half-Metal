@@ -82,60 +82,59 @@ function editorMapClick(mX, mY) {
 
   var tileIndex = getTileIndexAtPixelCoord(mX, mY);
 
+  // Capture editor data before change
+  if (levelHistory.length === 0) {
+    // this has an issue with not capturing something important, perhaps tile info
+    // so the redraw is off
+    editor.level_config.level_map = editor.currentMap.slice();
+    levelHistory.push(JSON.stringify(editor.level_config));
+  }
+
   // Update tile map
   if (editor.layer === "tile") {
     editor.level_config.tile_map[tileIndex] = editor.selected_tile_type;
     level.tile_map[tileIndex] = editor.selected_tile_type;
-    return;
-  }
-
-  if (levelHistory.length === 0) {
-    // this has an issue with not capturing something important, perhaps tile info
-    // so the redraw is off
-    console.log("pushing original config");
-    levelHistory.push(JSON.stringify(editor.level_config));
-    levelHistoryIndex++;
   }
 
   // Update level map
-  editor.currentMap[tileIndex] = editor.selected_tile_type;
-  editor.level_config.level_map = editor.currentMap;
-  world_grid = editor.currentMap.slice();
+  if (editor.layer !== "tile") {
+    editor.currentMap[tileIndex] = editor.selected_tile_type;
+    editor.level_config.level_map = editor.currentMap;
+    world_grid = editor.currentMap.slice();
 
-  // get the object type of the new tile
-  const type = Object.keys(OBJECT_MAP).find(
-    (key) => OBJECT_MAP[key] === editor.selected_tile_type
-  );
-  const config = editor.level_config;
+    // Get the object type of the new tile
+    const type = Object.keys(OBJECT_MAP).find(
+      (key) => OBJECT_MAP[key] === editor.selected_tile_type
+    );
+    const config = editor.level_config;
 
-  const config_obj = { ...config.default_object_config };
-  config_obj.type = type;
-  config_obj.position = { x: mX, y: mY };
+    const config_obj = { ...config.default_object_config };
+    config_obj.type = type;
+    config_obj.position = { x: mX, y: mY };
 
-  // place a fresh config object into the appropriate config array
-  if (ENEMIES.includes(type)) {
-    config.enemies.push(config_obj);
+    // Place a fresh config object into the appropriate config array
+    if (ENEMIES.includes(type)) {
+      config.enemies.push(config_obj);
+    }
+    if (HAZARDS.includes(type)) {
+      config.hazards.push(config_obj);
+    }
+    if (WALLS.includes(type)) {
+      config.walls.push(config_obj);
+    }
+    if (SHOTS.includes(type)) {
+      config.shots.push(config_obj);
+    }
+
+    // Respawn enemies
+    initGameObjects(world_grid);
   }
-  if (HAZARDS.includes(type)) {
-    config.hazards.push(config_obj);
-  }
-  if (WALLS.includes(type)) {
-    config.walls.push(config_obj);
-  }
-  if (SHOTS.includes(type)) {
-    config.shots.push(config_obj);
-  }
 
-  // respawn enemies
-  initGameObjects(world_grid);
-
-  currentLevelCheck = JSON.stringify(config);
+  currentLevelCheck = JSON.stringify(editor.level_config);
 
   // Check if we need to update the undo/redo stack, push if necessary
   if (currentLevelCheck != lastLevelCheck) {
-    console.log("updated level history");
     levelHistory.push(currentLevelCheck);
-    console.log(levelHistory[levelHistoryIndex]);
     lastLevelCheck = currentLevelCheck;
     levelHistoryIndex++;
   }
