@@ -39,6 +39,15 @@ function playerClass() {
   this.direction = 0;
   this.state = IDLE;
 
+  this.hitbox_x = this.x;
+  this.hitbox_y = this.y;
+  this.hitbox_width = this.width;
+  this.hitbox_height = this.height;
+  this.render_hitbox = true;
+
+  this.nextX = this.x;
+  this.nextY = this.y;
+
   this.directionUpdate = {
     [UP]: ["y", PLAYER_MOVE_SPEED * -1],
     [DOWN]: ["y", PLAYER_MOVE_SPEED],
@@ -121,32 +130,39 @@ function playerClass() {
     console.log("NO PLAYER START FOUND!");
   };
 
+  this.updateHitbox = function () {
+    this.hitbox_x = this.x - this.width / 4;
+    this.hitbox_y = this.y - this.height / 4;
+    this.hitbox_width = this.width / 2;
+    this.hitbox_height = this.height / 2;
+  };
+
   this.move = function () {
-    var nextX = this.x;
-    var nextY = this.y;
+    this.nextX = this.x;
+    this.nextY = this.y;
 
     if (this.keyHeld_North) {
-      nextY -= PLAYER_MOVE_SPEED;
+      this.nextY -= PLAYER_MOVE_SPEED;
       this.direction = 270;
       this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
     if (this.keyHeld_East) {
-      nextX += PLAYER_MOVE_SPEED;
+      this.nextX += PLAYER_MOVE_SPEED;
       this.direction = 0;
       this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
     if (this.keyHeld_South) {
-      nextY += PLAYER_MOVE_SPEED;
+      this.nextY += PLAYER_MOVE_SPEED;
       this.direction = 90;
       this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
     if (this.keyHeld_West) {
-      nextX -= PLAYER_MOVE_SPEED;
+      this.nextX -= PLAYER_MOVE_SPEED;
       this.direction = 180;
       this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
 
-    var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
+    var walkIntoTileIndex = getTileIndexAtPixelCoord(this.nextX, this.nextY);
     var walkIntoTileType = TILE_WALL;
 
     if (walkIntoTileIndex != undefined) {
@@ -230,24 +246,14 @@ function playerClass() {
           { x: player.x, y: player.y, w: player.width, h: player.height }
         )
       ) {
-        switch (wall.type) {
-          case NORMAL_WALL:
-            console.log("Collided with normal wall");
-            break;
-          case ELECTRIC:
-            if (wall.state === CLOSED) {
-              loadLevel(levels[currentLevel].level_map);
-              playSound(sounds.destroy);
-              playSound(sounds.lose);
-            }
-            break;
-          case STURDY:
-            console.log("Collided with sturdy wall");
-            break;
-            break;
-          case BOUNCE:
-            console.log("Collided with bounce wall");
-            break;
+        if (wall.type === ELECTRIC && wall.state === CLOSED) {
+          loadLevel(levels[currentLevel].level_map);
+          playSound(sounds.destroy);
+          playSound(sounds.lose);
+        }
+
+        if (wall.solid) {
+          console.log("CANT MOVE");
         }
       }
     });
@@ -327,6 +333,7 @@ function playerClass() {
   };
 
   this.update = function () {
+    this.updateHitbox();
     this.shoot();
 
     if (this.keyHeld_Switch_Ammo) {
@@ -384,5 +391,14 @@ function playerClass() {
         break;
     }
     this.animator.animate();
+    if (this.render_hitbox) {
+      canvasContext.fillStyle = "blue";
+      canvasContext.fillRect(
+        this.hitbox_x,
+        this.hitbox_y,
+        this.hitbox_width,
+        this.hitbox_height
+      );
+    }
   };
 }
