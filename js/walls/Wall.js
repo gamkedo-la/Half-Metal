@@ -20,7 +20,7 @@ function WallClass() {
   this.invincible = true;
   this.pushable = false;
   this.damageable = false;
-  this.damageable = false;
+  this.turnable = false;
   this.solid = true;
 
   // Hitbox props

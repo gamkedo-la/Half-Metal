@@ -7,7 +7,7 @@ const OBJECT_COLLECTION = [
 
   // Walls
   { type: ELECTRIC, class: ElectricWallClass },
-  { type: NORMAL_WALL, class: WallClass },
+  { type: NORMAL_WALL, class: NormalWallClass },
   { type: BOUNCE, class: BounceWallClass },
 
   // Hazards

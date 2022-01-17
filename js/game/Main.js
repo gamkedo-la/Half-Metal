@@ -168,7 +168,6 @@ function setupUI() {
 
 function initGameObjects(level) {
   level.forEach((tile, index) => {
-    if (tile === TILE_WALL) return;
 
     var object_type = Object.keys(OBJECT_MAP).find((key) => {
       return OBJECT_MAP[key] === tile;
