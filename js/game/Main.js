@@ -24,13 +24,10 @@ editor.resetUI();
 editor.initTileset();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
-var currentMode = EDIT_MODE;
-var state_stack = [];
-var play_state = {};
-var scene_state = {};
-var menu_state = {};
-var pause_state = {};
-var edit_state = {};
+var currentMode = PLAY_MODE;
+
+var current_song = {};
+var song_playing = false;
 
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
@@ -114,6 +111,23 @@ function spawnGameObject(config, type) {
   return game_object;
 }
 
+function playMusic() {
+  let playbackRate = 1;
+  let pan = 0;
+  let volume = 0.5;
+  let loop = true;
+
+  if (!song_playing && sounds[level.song] !== undefined) {
+    current_song = playSound(sounds[level.song], playbackRate, pan, volume, loop);
+    song_playing = true;
+  }
+}
+
+function stopMusic() {
+  current_song.sound.stop();
+  song_playing = false;
+}
+
 function spawnEffect(x, y, type = EXPLOSION) {
   switch (type) {
     case EXPLOSION:
@@ -178,7 +192,8 @@ function loadLevel(whichLevel) {
 
   initGameObjects(world_grid);
 
-  editor.currentMap = editor.currentMap.length === 0 ? world_grid.slice() : editor.currentMap;
+  editor.currentMap =
+    editor.currentMap.length === 0 ? world_grid.slice() : editor.currentMap;
   editor.level_config = { ...level };
 }
 
@@ -192,11 +207,14 @@ function updateAll(dt) {
           object.update(dt);
         }
       });
+
+      playMusic();
       break;
 
     case EDIT_MODE:
       gamepad.update(dt);
       editor.update(dt);
+      stopMusic();
       break;
 
     case CUTSCENE_MODE:

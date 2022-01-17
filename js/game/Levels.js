@@ -14,6 +14,7 @@ function BaseLevelClass() {
   this.walls = [];
   this.shots = [];
   this.name = "";
+  this.song = "";
   this.tileset = CELLS;
 }
 
@@ -92,6 +93,7 @@ const levels = [
     shots: [],
     name: "",
     tileset: cell_tileset,
+    song: "prison_music",
   },
   {
     level_map: [
@@ -164,6 +166,7 @@ const levels = [
     shots: [],
     name: "",
     tileset: cell_tileset,
+    song: "processing_music",
   },
 ];
 
