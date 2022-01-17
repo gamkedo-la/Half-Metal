@@ -52,22 +52,27 @@ function undoChange() {
     levelHistoryIndex--;
     console.log("undoing, index now ", levelHistoryIndex);
 
-    editor.level_config = { ...JSON.parse(levelHistory[levelHistoryIndex]) };
+    editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
+    editor.level_config.tileset = editor.current_tileset;
     editor.currentMap = editor.level_config.level_map.slice();
     world_grid = editor.level_config.level_map.slice();
     level = { ...editor.level_config };
+    
     loadLevel(world_grid);
   }
 }
 
 function redoChange() {
-  // I *think* this is right?
   if (levelHistoryIndex <= levelHistory.length - 2) {
-    console.log("redoing");
     levelHistoryIndex++;
+    console.log("redoing");
+    
     editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
+    editor.level_config.tileset = editor.current_tileset;
     editor.currentMap = editor.level_config.level_map.slice();
     world_grid = editor.level_config.level_map;
+    level = { ...editor.level_config };
+
     loadLevel(world_grid);
   }
 }
@@ -156,7 +161,7 @@ function ButtonClass(
 // Select tile to place object - DONE
 // Press 'R' to rotate object
 // Replace tile in level map with new selected_tile_type - DONE
-// Add the object to the appropriate configurations array
+// Add the object to the appropriate configurations array - DONE
 // Configs:
 // --- Enemies: [{direction, position, type}...],
 // --- Walls: [{orientation, position, type}...],
@@ -165,7 +170,7 @@ function ButtonClass(
 // Reset the level with new configurations
 // Select tileset from menu - DONE
 // Place tiles in editor - DONE
-// Update all tiles to match current set
+// Update all tiles to match current set - DONE
 // Set some tiles as solid/passable/etc
 
 // Main renderer and contoller of the Editor UI

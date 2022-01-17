@@ -27,7 +27,9 @@ buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 var currentMode = PLAY_MODE;
 
 var current_song = {};
-var song_playing = false;
+
+// Set to true if you want to turn off the music temporarily
+var song_playing = true;
 
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
@@ -214,7 +216,9 @@ function updateAll(dt) {
     case EDIT_MODE:
       gamepad.update(dt);
       editor.update(dt);
-      stopMusic();
+      if (current_song.sound) {
+        stopMusic();
+      }
       break;
 
     case CUTSCENE_MODE:
@@ -236,7 +240,7 @@ function moveAll() {
 function drawAll() {
   switch (currentMode) {
     case PLAY_MODE:
-      drawTileset(levels[currentLevel]);
+      drawTileset(level);
       drawWorld();
 
       game_objects
@@ -251,7 +255,7 @@ function drawAll() {
       break;
 
     case EDIT_MODE:
-      drawTileset(levels[currentLevel]);
+      drawTileset(level);
       drawWorld();
 
       game_objects

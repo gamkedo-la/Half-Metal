@@ -15,7 +15,7 @@ function BaseLevelClass() {
   this.shots = [];
   this.name = "";
   this.song = "";
-  this.tileset = CELLS;
+  this.tileset = cell_tileset;
 }
 
 const baseLevel = [
