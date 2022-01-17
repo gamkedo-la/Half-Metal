@@ -28,6 +28,7 @@ function WallClass() {
   this.hitbox_y = this.y;
   this.hitbox_height = this.height;
   this.hitbox_width = this.width;
+  this.render_hitbox = true;
 
   // General
   this.direction = 0;
@@ -37,6 +38,15 @@ function WallClass() {
 
   this.draw = function () {
     this.animator.animate();
+    if (this.render_hitbox) {
+      canvasContext.fillStyle = "red";
+      canvasContext.fillRect(
+        this.hitbox_x,
+        this.hitbox_y,
+        this.hitbox_width,
+        this.hitbox_height
+      );
+    }
   };
 
   this.update = function () {
@@ -89,9 +99,10 @@ function WallClass() {
   };
 
   this.updateHitBoxes = function () {
-    this.hitbox_x = this.x;
-    this.hitbox_y = this.y;
-    this.hitbox_height = this.height;
-    this.hitbox_width = this.width;
+    var buffer = 4;
+    this.hitbox_x = buffer / 2 + this.x - this.width / 2;
+    this.hitbox_y = buffer / 2 + this.y - this.height / 2;
+    this.hitbox_height = this.height - buffer;
+    this.hitbox_width = this.width - buffer;
   };
 }
