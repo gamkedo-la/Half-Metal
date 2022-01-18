@@ -1,0 +1,23 @@
+dialogue = [
+  [
+    "Cyrus?",
+    "Can you hear me, Cyrus?",
+    "Wake up!",
+    "Today’s the day you’re getting free, soldier.",
+    "Got your attention now? Good.",
+    "Look inside your cell. You see that red orb? ",
+    "That’s what’s getting you out.",
+    "It’s ammo for your new cannon arm.",
+    "We reprogrammed a robot on the inside to place it in your cell during the night.",
+    "The little thing got turned into scrap once the Metallics found out.",
+    "Make sure you don’t end up the same.",
+    "Alright, no more wasting time.",
+    "Just grab that ammo and load up your weapon.",
+    "There’s more littered around the facility.",
+    "Over and out, Cyrus. We’ll see you soon. ",
+  ],
+  [],
+  [],
+  [],
+  [],
+];
