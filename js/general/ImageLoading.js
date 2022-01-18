@@ -44,7 +44,7 @@ var image_list = [
   // Player
   {
     var_name: playerSheet,
-    file: "player_spritesheet.png",
+    file: "player_alt.png",
     tile: TILE_PLAYERSTART,
     transparent_bg: true,
   },
