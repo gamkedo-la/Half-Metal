@@ -4,8 +4,8 @@ const MOVEMENT_PROGRESS = 2;
 function playerClass() {
   this.x = 75;
   this.y = 75;
-  this.width = 18;
-  this.height = 26;
+  this.width = 16;
+  this.height = 16;
   this.image = playerSheet;
   this.name = "Player";
   this.ammo = 0;
@@ -43,10 +43,12 @@ function playerClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
-  this.render_hitbox = true;
+  this.render_hitbox = false;
 
   this.nextX = this.x;
   this.nextY = this.y;
+  this.prevX = this.x;
+  this.prevY = this.y;
 
   this.directionUpdate = {
     [UP]: ["y", PLAYER_MOVE_SPEED * -1],
@@ -58,33 +60,58 @@ function playerClass() {
   this.movingProgressRemaining = MOVEMENT_PROGRESS;
 
   this.animations = {
-    "idle-down": [{ x: 0, y: 25, w: 15, h: 25 }],
-    "idle-left": [{ x: 34, y: 56, w: 18, h: 25 }],
-    "idle-right": [{ x: 0, y: 81, w: 18, h: 25 }],
-    "idle-up": [{ x: 15, y: 25, w: 15, h: 25 }],
+    // "idle-down": [{ x: 0, y: 25, w: 15, h: 25 }],
+    // "idle-left": [{ x: 34, y: 56, w: 18, h: 25 }],
+    // "idle-right": [{ x: 0, y: 81, w: 18, h: 25 }],
+    // "idle-up": [{ x: 15, y: 25, w: 15, h: 25 }],
+    // "walk-down": [
+    //   { x: 0, y: 0, w: 13, h: 25 },
+    //   { x: 13, y: 0, w: 13, h: 25 },
+    // ],
+    // "walk-right": [
+    //   { x: 17, y: 56, w: 17, h: 25 },
+    //   { x: 18, y: 106, w: 18, h: 25 },
+    // ],
+    // "walk-up": [
+    //   { x: 26, y: 0, w: 14, h: 25 },
+    //   { x: 40, y: 0, w: 14, h: 25 },
+    // ],
+    // "walk-left": [
+    //   { x: 0, y: 56, w: 17, h: 25 },
+    //   { x: 0, y: 106, w: 18, h: 25 },
+    // ],
+    // "shoot-down": [{ x: 30, y: 25, w: 15, h: 25 }],
+    // "shoot-left": [{ x: 18, y: 81, w: 18, h: 25 }],
+    // "shoot-right": [{ x: 36, y: 81, w: 18, h: 25 }],
+    // "shoot-up": [{ x: 45, y: 25, w: 15, h: 31 }],
+    "idle-down": [{ x: 0, y: 0, w: 16, h: 16 }],
+    "idle-up": [{ x: 0, y: 16, w: 16, h: 16 }],
+    "idle-right": [{ x: 0, y: 32, w: 16, h: 16 }],
+    "idle-left": [{ x: 0, y: 48, w: 16, h: 16 }],
     "walk-down": [
-      { x: 0, y: 0, w: 13, h: 25 },
-      { x: 13, y: 0, w: 13, h: 25 },
+      { x: 16, y: 0, w: 16, h: 16 },
+      { x: 32, y: 0, w: 16, h: 16 },
     ],
     "walk-right": [
-      { x: 17, y: 56, w: 17, h: 25 },
-      { x: 18, y: 106, w: 18, h: 25 },
+      { x: 16, y: 32, w: 16, h: 16 },
+      { x: 32, y: 32, w: 16, h: 16 },
     ],
     "walk-up": [
-      { x: 26, y: 0, w: 14, h: 25 },
-      { x: 40, y: 0, w: 14, h: 25 },
+      { x: 16, y: 16, w: 16, h: 16 },
+      { x: 32, y: 16, w: 16, h: 16 },
     ],
     "walk-left": [
-      { x: 0, y: 56, w: 17, h: 25 },
-      { x: 0, y: 106, w: 18, h: 25 },
+      { x: 16, y: 48, w: 16, h: 16 },
+      { x: 32, y: 48, w: 16, h: 16 },
     ],
-    "shoot-down": [{ x: 30, y: 25, w: 15, h: 25 }],
-    "shoot-left": [{ x: 18, y: 81, w: 18, h: 25 }],
-    "shoot-right": [{ x: 36, y: 81, w: 18, h: 25 }],
-    "shoot-up": [{ x: 45, y: 25, w: 15, h: 31 }],
+    "shoot-down": [{ x: 0, y: 64, w: 16, h: 16 }],
+    "shoot-up": [{ x: 16, y: 64, w: 16, h: 16 }],
+    "shoot-right": [{ x: 32, y: 64, w: 16, h: 16 }],
+    "shoot-left": [{ x: 48, y: 64, w: 16, h: 16 }],
   };
 
   this.animator = new SpriteSheetAnimatorClass(this);
+  this.animator.animationFrameLimit = 16;
   this.currentAnimation = "walk-down";
 
   this.setupInput = function (
@@ -132,15 +159,19 @@ function playerClass() {
 
   this.updateHitbox = function () {
     this.hitbox_x = this.x - this.width / 4;
-    this.hitbox_y = this.y - this.height / 4;
-    this.hitbox_width = this.width / 2;
-    this.hitbox_height = this.height / 2;
+    this.hitbox_y = this.y - 2;
+    this.hitbox_width = 12;
+    this.hitbox_height = 6;
   };
 
   this.move = function () {
+    // Get previous X and Y values
+    this.prevX = this.x;
+    this.prevY = this.y;
     this.nextX = this.x;
     this.nextY = this.y;
 
+    // Get direction of movement
     if (this.keyHeld_North) {
       this.nextY -= PLAYER_MOVE_SPEED;
       this.direction = 270;
@@ -162,50 +193,26 @@ function playerClass() {
       this.movingProgressRemaining = MOVEMENT_PROGRESS;
     }
 
-    var walkIntoTileIndex = getTileIndexAtPixelCoord(this.nextX, this.nextY);
-    var walkIntoTileType = TILE_WALL;
+    // Get expected X and Y of hitbox
+    this.hitbox_x = this.nextX - this.width / 4;
+    this.hitbox_y = this.nextY - 2;
 
-    if (walkIntoTileIndex != undefined) {
-      walkIntoTileType = world_grid[walkIntoTileIndex];
-    }
+    // If hitbox at expected X,Y collides with a solid, set X and Y to prev
+    this.checkForCollisionWithWall(this);
+    this.checkForCollisionWithEnemy(this);
+    this.checkForCollisionWithEntity(this);
+    this.checkForCollisionWithHazard(this);
 
-    switch (walkIntoTileType) {
-      case TILE_GROUND:
-        if (!this.keyHeld_Shoot) {
-          if (this.movingProgressRemaining > 0) {
-            const [prop, change] =
-              this.directionUpdate[DIRECTION_MAP[this.direction]];
+    // Else, move to expected X and Y
+    if (!this.keyHeld_Shoot) {
+      if (this.movingProgressRemaining > 0) {
+        const [prop, change] =
+          this.directionUpdate[DIRECTION_MAP[this.direction]];
 
-            this[prop] += change;
+        this[prop] += change;
 
-            this.movingProgressRemaining--;
-          }
-        }
-        break;
-      case TILE_GOAL:
-        currentLevel++;
-        if (currentLevel <= levels.length - 1) {
-          loadLevel(levels[currentLevel].level_map);
-        }
-        break;
-      case TILE_AMMO:
-      case TILE_STUN_SHOT:
-      case TILE_PUSH_SHOT:
-      case TILE_TURN_SHOT:
-        this.ammo++; // one more bullet
-        world_grid[walkIntoTileIndex] = TILE_GROUND;
-        playSound(sounds.get_ammo);
-        break;
-      case TILE_WALL:
-      case TILE_STURDY_WALL:
-        if (this.bumpDelay <= 0) {
-          playSound(sounds.bump);
-          this.bumpDelay = 30;
-        }
-        this.bumpDelay -= 1;
-        break;
-      default:
-        break;
+        this.movingProgressRemaining--;
+      }
     }
 
     if (
@@ -218,10 +225,51 @@ function playerClass() {
       playSound(sounds.lose);
     }
 
-    this.checkForCollisionWithEnemy(this);
-    this.checkForCollisionWithWall(this);
-    this.checkForCollisionWithEntity(this);
-    this.checkForCollisionWithHazard(this);
+    // var walkIntoTileIndex = getTileIndexAtPixelCoord(this.nextX, this.nextY);
+    // var walkIntoTileType = TILE_WALL;
+
+    // if (walkIntoTileIndex != undefined) {
+    //   walkIntoTileType = world_grid[walkIntoTileIndex];
+    // }
+
+    // switch (walkIntoTileType) {
+    //   case TILE_GROUND:
+    //     if (!this.keyHeld_Shoot) {
+    //       if (this.movingProgressRemaining > 0) {
+    //         const [prop, change] =
+    //           this.directionUpdate[DIRECTION_MAP[this.direction]];
+
+    //         this[prop] += change;
+
+    //         this.movingProgressRemaining--;
+    //       }
+    //     }
+    //     break;
+    //   case TILE_GOAL:
+    //     currentLevel++;
+    //     if (currentLevel <= levels.length - 1) {
+    //       loadLevel(levels[currentLevel].level_map);
+    //     }
+    //     break;
+    //   case TILE_AMMO:
+    //   case TILE_STUN_SHOT:
+    //   case TILE_PUSH_SHOT:
+    //   case TILE_TURN_SHOT:
+    //     this.ammo++; // one more bullet
+    //     world_grid[walkIntoTileIndex] = TILE_GROUND;
+    //     playSound(sounds.get_ammo);
+    //     break;
+    //   case TILE_WALL:
+    //   case TILE_STURDY_WALL:
+    //     if (this.bumpDelay <= 0) {
+    //       playSound(sounds.bump);
+    //       this.bumpDelay = 30;
+    //     }
+    //     this.bumpDelay -= 1;
+    //     break;
+    //   default:
+    //     break;
+    // }
   };
 
   this.checkForCollisionWithEnemy = function (player) {
@@ -242,8 +290,18 @@ function playerClass() {
     walls.forEach(function (wall) {
       if (
         collisionDetected(
-          { x: wall.x, y: wall.y, w: wall.width, h: wall.height },
-          { x: player.x, y: player.y, w: player.width, h: player.height }
+          {
+            x: wall.hitbox_x,
+            y: wall.hitbox_y,
+            w: wall.hitbox_width,
+            h: wall.hitbox_height,
+          },
+          {
+            x: player.hitbox_x,
+            y: player.hitbox_y,
+            w: player.hitbox_width,
+            h: player.hitbox_height,
+          }
         )
       ) {
         if (wall.type === ELECTRIC && wall.state === CLOSED) {
@@ -254,6 +312,9 @@ function playerClass() {
 
         if (wall.solid) {
           console.log("CANT MOVE");
+          player.x = player.prevX;
+          player.y = player.prevY;
+          player.movingProgressRemaining = 0;
         }
       }
     });
