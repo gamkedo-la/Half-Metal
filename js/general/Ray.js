@@ -1,12 +1,13 @@
 function RayClass(x, y, direction) {
   this.x = x;
   this.y = y;
-  this.height = 12;
-  this.width = 12;
+  this.height = 6;
+  this.width = 6;
   this.direction = direction;
   this.speed = 10;
   this.destroyed = false;
   this.found_player = false;
+  this.color = "red";
 
   this.move = function () {
     nextX = this.x + this.speed * Math.cos((this.direction * Math.PI) / 180);
@@ -39,7 +40,8 @@ function RayClass(x, y, direction) {
   };
 
   this.draw = function () {
-    // canvasContext.fillRect(this.x, this.y, this.width, this.height);
+    canvasContext.fillStyle = this.color;
+    canvasContext.fillRect(this.x, this.y, this.width, this.height);
   };
 
   this.checkIfOutofBounds = function () {

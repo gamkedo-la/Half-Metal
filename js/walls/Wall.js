@@ -28,7 +28,7 @@ function WallClass() {
   this.hitbox_y = this.y;
   this.hitbox_height = this.height;
   this.hitbox_width = this.width;
-  this.render_hitbox = true;
+  this.render_hitbox = false;
 
   // General
   this.direction = 0;
@@ -50,7 +50,12 @@ function WallClass() {
   };
 
   this.update = function () {
+    if (this.destroyed) {
+      this.removeSelf();
+    }
+
     this.updateHitBoxes();
+
     if (this.state === PUSHED) {
       applyVector(this, this.push_vector);
     }
@@ -67,7 +72,10 @@ function WallClass() {
 
   this.checkIfOutofBounds = function () {};
 
-  this.removeSelf = function () {};
+  this.removeSelf = function () {
+    walls.splice(walls.indexOf(this), 1);
+    delete this;
+  };
 
   this.checkForCollisionWithEnemy = function (wall) {
     enemies.forEach(function (enemy) {
