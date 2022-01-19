@@ -18,6 +18,8 @@ const KEY_V = 86;
 
 const KEY_L = 76;
 
+const KEY_T = 84;
+
 // undo and redo
 const KEY_U = 85;
 const KEY_R = 82;
@@ -27,6 +29,7 @@ var KEY_V_Held = false;
 
 var Key_U_Held = false;
 var Key_R_Held = false;
+var key_T_Held = false;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -108,7 +111,7 @@ function editorMapClick(mX, mY) {
     );
     const config = editor.level_config;
 
-    const config_obj = { ...config.default_object_config };
+    const config_obj = { ...editor.current_config };
     config_obj.type = type;
     config_obj.position = { x: mX, y: mY };
 
@@ -194,6 +197,20 @@ function keySet(keyEvent, setTo) {
     if (keyEvent.keyCode == KEY_V) {
       KEY_V_Held = setTo;
     }
+  }
+
+  if (currentMode === EDIT_MODE && keyEvent.keyCode === KEY_T) {
+    key_T_Held = setTo;
+  }
+
+  if (key_T_Held) {
+    editor.current_config.direction += 90;
+
+    if (editor.current_config.direction >= 360) {
+      editor.current_config.direction = 0;
+    }
+
+    key_T_Held = false;
   }
 
   if (

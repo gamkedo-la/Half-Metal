@@ -57,7 +57,7 @@ function undoChange() {
     editor.currentMap = editor.level_config.level_map.slice();
     world_grid = editor.level_config.level_map.slice();
     level = { ...editor.level_config };
-    
+
     loadLevel(world_grid);
   }
 }
@@ -66,7 +66,7 @@ function redoChange() {
   if (levelHistoryIndex <= levelHistory.length - 2) {
     levelHistoryIndex++;
     console.log("redoing");
-    
+
     editor.level_config = JSON.parse(levelHistory[levelHistoryIndex]);
     editor.level_config.tileset = editor.current_tileset;
     editor.currentMap = editor.level_config.level_map.slice();
@@ -86,6 +86,9 @@ subMenus.forEach((sub) => {
       console.log("Clicked " + constant);
       editor.layer = "world";
       editor.selected_tile_type = OBJECT_MAP[constant];
+      editor.current_config = { ...editor.level_config.default_object_config };
+      editor.current_config.type = constant;
+      console.log(editor.current_config);
     });
   });
 
@@ -201,6 +204,7 @@ function EditorClass() {
   this.selected_tile = {};
   this.level_config = new BaseLevelClass();
   this.current_tileset = cell_tileset;
+  this.current_config = {};
   this.tiles = [];
   this.layer = "world";
   this.tileset_start_x = 2;
@@ -308,11 +312,22 @@ function EditorClass() {
           tile_image = image_list.find(
             (img) => img.tile === this.selected_tile_type
           );
+
+          // Get object and animation data with the current config direction
+          const object_frame_data = FRAME_DATA[this.current_config.type];
+
+          // Only use frame data when an object has multiple frames to 
+          const frames = object_frame_data
+            ? object_frame_data[
+                `walk-${DIRECTION_MAP[this.current_config.direction]}`
+              ]
+            : [];
+
           // Draw current selection at mouse position
           canvasContext.drawImage(
             tile_image?.var_name,
-            0,
-            0,
+            frames.length === 0 ? 0 : frames[0].x,
+            frames.length === 0 ? 0 : frames[0].y,
             tile_image?.width ?? 16,
             tile_image?.height ?? 16,
             mouseX - (tile_image?.width / 2 || 8),
