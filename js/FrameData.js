@@ -16,6 +16,10 @@ FRAME_DATA = {
       { x: 16 * 6, y: 0, w: 16, h: 16 },
       { x: 16 * 7, y: 0, w: 16, h: 16 },
     ],
+    "leap-right": [{ x: 0, y: 32, w: 16, h: 16 }],
+    "leap-left": [{ x: 16, y: 32, w: 16, h: 16 }],
+    "leap-down": [{ x: 16 * 2, y: 32, w: 16, h: 16 }],
+    "leap-up": [{ x: 16 * 3, y: 32, w: 16, h: 16 }],
   },
   [FLYER]: {
     "walk-down": [
