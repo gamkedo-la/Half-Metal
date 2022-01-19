@@ -9,7 +9,8 @@ function moveInGivenDirection(object, direction) {
 }
 
 function reverseDirection(object) {
-  object.direction = (object.direction + 90) % 360;
+  object.direction = (object.direction + 180) % 360;
+  object.direction = (object.direction + 360) % 360;
 }
 
 function strafe(object) {
