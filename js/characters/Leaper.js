@@ -5,24 +5,7 @@ function LeaperClass() {
   this.type = LEAPER;
   this.width = 16;
   this.height = 16;
-  this.animations = {
-    "walk-right": [
-      { x: 0, y: 0, w: this.width, h: this.height },
-      { x: this.width, y: 0, w: this.width, h: this.height },
-    ],
-    "walk-left": [
-      { x: this.width * 2, y: 0, w: this.width, h: this.height },
-      { x: this.width * 3, y: 0, w: this.width, h: this.height },
-    ],
-    "walk-down": [
-      { x: this.width * 4, y: 0, w: this.width, h: this.height },
-      { x: this.width * 5, y: 0, w: this.width, h: this.height },
-    ],
-    "walk-up": [
-      { x: this.width * 6, y: 0, w: this.width, h: this.height },
-      { x: this.width * 7, y: 0, w: this.width, h: this.height },
-    ],
-  };
+  this.animations = FRAME_DATA[LEAPER];
   this.currentAnimation = "walk-right";
 
   // Collision

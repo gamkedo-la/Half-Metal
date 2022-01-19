@@ -12,24 +12,7 @@ function FlyerClass() {
   this.image = flyer_sheet;
   this.currentAnimation = "walk-down";
   this.death_anim = FLYER_DIE;
-  this.animations = {
-    "walk-down": [
-      { x: 0, y: 0, w: this.width, h: this.height },
-      { x: 16, y: 0, w: this.width, h: this.height },
-    ],
-    "walk-up": [
-      { x: 0, y: 16, w: this.width, h: this.height },
-      { x: 16, y: 16, w: this.width, h: this.height },
-    ],
-    "walk-left": [
-      { x: 0, y: 32, w: this.width, h: this.height },
-      { x: 16, y: 32, w: this.width, h: this.height },
-    ],
-    "walk-right": [
-      { x: 0, y: 48, w: this.width, h: this.height },
-      { x: 16, y: 48, w: this.width, h: this.height },
-    ],
-  };
+  this.animations = FRAME_DATA[FLYER];
   this.flight_timer = new TimerClass(
     () => {
       this.changeFlightHeight();

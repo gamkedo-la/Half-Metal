@@ -21,14 +21,10 @@ function HunterClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
-  
-  this.animations = {
-    standing: [{x:0,y:30, h:26, w:14}],//location of frame
-    "walk-left": [{ x: 0, y: 0, h: 26, w: 14 }],
-    "walk-up": [{ x: 0, y: 30, h: 26, w: 14 }]
-  }
+
+  this.animations = FRAME_DATA[HUNTER];
   this.currentAnimation = "walk-up";
-  this.animator = new SpriteSheetAnimatorClass(this,5);
+  this.animator = new SpriteSheetAnimatorClass(this, 5);
 
   this.createPath = function () {
     // Make pathmap the same length as the level array
@@ -54,7 +50,7 @@ function HunterClass() {
     // --   assign (value + 1) to (row[i] and col[i + 1]) and (row[i + 1] and col[i]), etc...
     // -- perform same evaluation to tiles adjacent to those tiles
   };
- /*
+  /*
   this.move = function () {
     this.x += this.speedX;
     this.y += this.speedY;
@@ -103,6 +99,6 @@ function HunterClass() {
      );
    };*/
 
-  this.animator.animate();
-  }
+    this.animator.animate();
+  };
 }
