@@ -24,12 +24,12 @@ editor.resetUI();
 editor.initTileset();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
-var currentMode = PLAY_MODE;
+var currentMode = EDIT_MODE;
 
 var current_song = {};
 
 // Set to true if you want to turn off the music temporarily
-var song_playing = true;
+var song_playing = false;
 
 window.onload = function () {
   canvas = document.getElementById("gameCanvas");
@@ -98,6 +98,8 @@ function spawnGameObject(config, type) {
   if (HAZARDS.includes(type)) {
     hazards.push(game_object);
   }
+
+  console.log(game_object);
 
   // Set instance to default state
   game_object?.reset();
@@ -174,7 +176,7 @@ function initGameObjects(level) {
     });
 
     if (object_type) {
-      spawnGameObject({ orientation: HORIZONTAL, direction: 90 }, object_type);
+      spawnGameObject({ orientation: HORIZONTAL, direction: 180 }, object_type);
     }
   });
 }

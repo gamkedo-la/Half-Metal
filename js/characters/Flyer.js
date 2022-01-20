@@ -13,6 +13,10 @@ function FlyerClass() {
   this.currentAnimation = "walk-down";
   this.animations = FRAME_DATA[FLYER];
   this.tile = TILE_FLYER;
+  this.render_hitbox = true;
+
+  // -Combat
+  this.shoot_timer = 30;
 
   // -State-
   this.flight_state = ASCENDED;
@@ -21,27 +25,11 @@ function FlyerClass() {
   this.flight_speed = 0.02;
   this.flight_delay = 11;
   this.flight_amplitude = 15;
-  this.flight_timer = new TimerClass(
-    () => {
-      this.changeFlightHeight();
-    },
-    50,
-    this.flight_dist,
-    true
-  );
-  this.shot_timer = new TimerClass(
-    () => {
-      this.shoot();
-    },
-    1000,
-    3,
-    false
-  );
   this.alert_timer = new TimerClass(
     () => {
       this.stopAlert();
     },
-    3000,
+    4500,
     1,
     true
   );
@@ -54,31 +42,82 @@ function FlyerClass() {
   };
 
   this.draw = function () {
+    // Draw shadow underneath main image
     canvasContext.drawImage(
       shadow,
       this.x - this.width / 2,
       this.y + this.height
     );
 
+    //   Set animation frame to render
+    this.animationHandler();
+
+    // Setup drawing for line of sight
+    if (this.render_raycasts) {
+      canvasContext.lineWidth = 1;
+      canvasContext.strokeStyle = "red";
+      canvasContext.beginPath();
+      canvasContext.moveTo(this.x, this.y);
+
+      // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
+      const last_ray = this.rays[0];
+      if (last_ray) {
+        canvasContext.lineTo(
+          last_ray.x + last_ray.width / 2,
+          last_ray.y + last_ray.height / 2
+        );
+      }
+      canvasContext.stroke();
+    }
+
+    // Update sprite animation
     this.animator.animate(0, -1 * this.flight_dist);
+
+    // Render hitbox for debugging
+    if (this.render_hitbox) {
+      this.hitboxes.forEach(function (hitbox) {
+        canvasContext.fillStyle = hitbox.color;
+        canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+      });
+    }
   };
 
   // -State-
   this.whileAlerted = function () {
-    // this.shot_timer.update();
+    this.alert_timer.update();
     this.speed = 0;
     this.changeFlightHeight();
+
+    if (this.flight_dist + 14 <= 0) {
+      this.shoot_timer -= 1;
+    }
+
+    if (this.shoot_timer <= 0) {
+      this.shoot();
+      this.shoot_timer = 45;
+    }
+  };
+
+  this.stopAlert = function () {
+    this.alert_timer.stop();
+    this.state = MOVING;
+    this.speed = 1;
   };
 
   // -Combat-
   this.shoot = function () {
     var shot_buffer = 3;
+
     var spawn_x =
       (this.width + shot_buffer) * Math.cos((this.direction * Math.PI) / 180);
     var spawn_y =
       (this.height + shot_buffer) * Math.sin((this.direction * Math.PI) / 180);
 
-    spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, STUN);
+    var flyer_x = this.x;
+    var flyer_y = this.y + this.flight_dist * -1;
+
+    spawnBullet(flyer_x + spawn_x, flyer_y + spawn_y, this.direction, STUN);
+
     playSound(sounds.shoot);
   };
 
@@ -92,18 +131,11 @@ function FlyerClass() {
     this.flight_time += this.flight_speed;
   };
 
+  // -Animation-
   this.animationHandler = function () {
     const pose = "walk";
     const direction = DIRECTION_MAP[this.direction];
     const animation = `${pose}-${direction}`;
     this.animator.setAnimation(animation);
-  };
-
-  this.stopAlert = function () {
-    this.shot_timer.stop();
-    this.flight_timer.stop();
-    this.alert_timer.stop();
-    this.state = MOVING;
-    this.speed = 1;
   };
 }
