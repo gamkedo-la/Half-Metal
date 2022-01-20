@@ -325,7 +325,7 @@ function EditorClass() {
 
           // Draw current selection at mouse position
           canvasContext.drawImage(
-            tile_image?.var_name,
+            tile_image ? tile_image?.var_name : invisible_wall,
             frames.length === 0 ? 0 : frames[0].x,
             frames.length === 0 ? 0 : frames[0].y,
             tile_image?.width ?? 16,

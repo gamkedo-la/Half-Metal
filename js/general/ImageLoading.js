@@ -37,6 +37,7 @@ var shadow = document.createElement("img");
 var cell_tileset = document.createElement("img");
 var armory_tileset = document.createElement("img");
 var transceiver = document.createElement("img");
+var invisible_wall = document.createElement("img");
 
 var worldPics = [];
 
@@ -211,6 +212,7 @@ var image_list = [
     tile: TILE_BOUNCE_WALL,
     transparent_bg: false,
   },
+  { var_name: invisible_wall, tile: TILE_INVISIBLE, file: "invisible_wall.png" },
 
   // Effects
   {

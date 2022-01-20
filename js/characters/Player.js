@@ -60,30 +60,6 @@ function playerClass() {
   this.movingProgressRemaining = MOVEMENT_PROGRESS;
 
   this.animations = {
-    // "idle-down": [{ x: 0, y: 25, w: 15, h: 25 }],
-    // "idle-left": [{ x: 34, y: 56, w: 18, h: 25 }],
-    // "idle-right": [{ x: 0, y: 81, w: 18, h: 25 }],
-    // "idle-up": [{ x: 15, y: 25, w: 15, h: 25 }],
-    // "walk-down": [
-    //   { x: 0, y: 0, w: 13, h: 25 },
-    //   { x: 13, y: 0, w: 13, h: 25 },
-    // ],
-    // "walk-right": [
-    //   { x: 17, y: 56, w: 17, h: 25 },
-    //   { x: 18, y: 106, w: 18, h: 25 },
-    // ],
-    // "walk-up": [
-    //   { x: 26, y: 0, w: 14, h: 25 },
-    //   { x: 40, y: 0, w: 14, h: 25 },
-    // ],
-    // "walk-left": [
-    //   { x: 0, y: 56, w: 17, h: 25 },
-    //   { x: 0, y: 106, w: 18, h: 25 },
-    // ],
-    // "shoot-down": [{ x: 30, y: 25, w: 15, h: 25 }],
-    // "shoot-left": [{ x: 18, y: 81, w: 18, h: 25 }],
-    // "shoot-right": [{ x: 36, y: 81, w: 18, h: 25 }],
-    // "shoot-up": [{ x: 45, y: 25, w: 15, h: 31 }],
     "idle-down": [{ x: 0, y: 0, w: 16, h: 16 }],
     "idle-up": [{ x: 0, y: 16, w: 16, h: 16 }],
     "idle-right": [{ x: 0, y: 32, w: 16, h: 16 }],
@@ -385,8 +361,6 @@ function playerClass() {
         this.direction,
         this.selected_ammo
       );
-
-      console.log(this.selected_ammo);
 
       playSound(sounds.shoot);
 

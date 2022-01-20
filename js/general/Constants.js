@@ -10,7 +10,8 @@ const NORMAL_WALL = "normal_wall";
 const STURDY = "sturdy";
 const BOUNCE = "bounce";
 const ELECTRIC = "electric";
-const WALLS = [NORMAL_WALL, STURDY, BOUNCE, ELECTRIC];
+const INVISIBLE = "collider";
+const WALLS = [NORMAL_WALL, STURDY, BOUNCE, ELECTRIC, INVISIBLE];
 
 // GAME OBJECT STATES
 const SHOOTING = "shooting";
@@ -138,7 +139,7 @@ const TILE_GOAL = 3;
 const TILE_WINDOW_V = 7;
 const TILE_WINDOW_H = 8;
 const TILE_WINDOW_SMASHED_H = 9;
-// 
+//
 const TILE_STUN_SHOT = 10;
 const TILE_HUNTER = 11;
 const TILE_BLOCKER = 12;
@@ -150,6 +151,7 @@ const TILE_CAMERA = 17;
 const TILE_LASER = 18;
 const TILE_TURRET = 19;
 const TILE_FLYER = 20;
+const TILE_INVISIBLE = 21;
 
 // MISC TYPES
 const SWITCH = "switch";
@@ -163,6 +165,7 @@ const OBJECT_MAP = {
   [STURDY]: TILE_STURDY_WALL,
   [ELECTRIC]: TILE_ELEC_WALL,
   [BOUNCE]: TILE_BOUNCE_WALL,
+  [INVISIBLE]: TILE_INVISIBLE,
 
   // ENEMIES
   [LEAPER]: TILE_LEAPER,
@@ -185,7 +188,7 @@ const OBJECT_MAP = {
 
 // For collision relationships to tiles
 const DESTRUCTIBLE = [TILE_WALL, TILE_WINDOW_H, TILE_WINDOW_V];
-const SOLID = [TILE_STURDY_WALL, TILE_BOUNCE_WALL];
+const SOLID = [TILE_STURDY_WALL, TILE_BOUNCE_WALL, INVISIBLE];
 const PUSHABLE = [TILE_STURDY_WALL, TILE_WALL];
 const INVINCIBLE = [TILE_BOUNCE_WALL];
 
