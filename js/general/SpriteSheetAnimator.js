@@ -29,8 +29,9 @@ function SpriteSheetAnimatorClass(game_object = {}, speed = 8) {
     }
   };
 
-  this.animate = function () {
+  this.animate = function (offset_x = 0, offset_y = 0) {
     const { x, y, w, h } = this.getFrame();
+    const offset = 10;
     canvasContext.save();
     // handy debug console spam
     // console.log("translating at", game_object.x, game_object.y);
@@ -42,8 +43,8 @@ function SpriteSheetAnimatorClass(game_object = {}, speed = 8) {
       y,
       w,
       h,
-      -game_object.width / 2,
-      -game_object.height / 2,
+      -game_object.width / 2 + offset_x,
+      -game_object.height / 2 + offset_y,
       w,
       h
     );
