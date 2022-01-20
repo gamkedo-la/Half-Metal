@@ -1,207 +1,269 @@
-function enemyClass() {
+const RAY_CAST_COUNTDOWN_MAX = 10;
+// Movement - DONE
+// Alert state - DONE
+// Raycasting - DONE
+// Animating - DONE
+// Exploding - DONE
+// Alert timer - DONE
+// Subclasses -
+
+function EnemyClass() {
+  // --- PROPERTIES ---
+  // -General-
   this.name = "Enemy";
-  this.type = ENEMY;
-  this.speed = 1;
+  this.type = LEAPER;
+
+  // -Stats-
   this.health = 1;
   this.damage = 1;
-  this.image = leaperSheet;
-  this.height = 16;
-  this.width = 16;
+  this.speed = 1;
+  this.ammo = NORMAL;
+
+  // -Position/Dimensions-
   this.x = 0;
   this.y = 0;
-  this.direction;
-  this.rays = [];
-  this.state = NORMAL;
-  this.currentAnimation = "idle";
-  this.animations = {
-    idle: [{ x: 0, y: 0, w: this.width, h: this.height }],
-  };
-  this.death_anim = LEAPER_DIE;
-  this.rotation = 0;
+  this.width = 16;
+  this.height = 16;
 
-  this.render_hitbox = false;
-  this.alert_timer = new TimerClass();
-  this.animator = new SpriteSheetAnimatorClass(this);
+  // -Movement-
+  this.direction = 0;
   this.push_vector = { magnitude: 0, direction: 0 };
 
-  // Collision props
+  // -Collision-
+  this.hitboxes = [
+    {
+      name: "main",
+      x: 0,
+      y: 0,
+      w: 16,
+      h: 16,
+      offset_x: 0,
+      offset_y: 0,
+      color: "red",
+    },
+  ];
   this.pushable = true;
   this.stunnable = true;
   this.turnable = true;
   this.damageable = true;
 
-  // Hitboxes
-  this.hitbox_x = this.x;
-  this.hitbox_y = this.y;
-  this.hitbox_width = this.width;
-  this.hitbox_height = this.height;
-  this.hitboxes = [
-    {
-      name: "main",
-      x: this.x,
-      y: this.y,
-      w: this.width,
-      h: this.height,
-    },
-  ];
+  // -Rendering-
+  this.image = leaperSheet;
+  this.death_anim = LEAPER_DIE;
+  this.currentAnimation = "walk-down";
+  this.animations = FRAME_DATA[LEAPER];
+  this.animator = new SpriteSheetAnimatorClass(this);
+  this.render_hitbox = false;
 
-  // General
+  // -State-
+  this.state = NORMAL;
+  this.alert_timer = new TimerClass(
+    () => {
+      this.stopAlert();
+    },
+    3000,
+    1,
+    true
+  );
+
+  // -Raycasting-
+  this.rays = [];
+  this.raycast_countdown = RAY_CAST_COUNTDOWN_MAX;
+
+  // --- METHODS ---
+  // -Life cycle methods-
   this.reset = function () {
     this.animator = new SpriteSheetAnimatorClass(this);
     resetGameObject(this);
   };
 
-  this.update = function (dt) {
-    this.updateHitBoxes();
-
-    switch (this.state) {
-      case ALERT:
-        this.alerted(dt);
-        break;
-
-      case STUNNED:
-        console.log("STUNNED");
-        break;
-
-      case PUSHED:
-        applyVector(this, this.push_vector);
-        this.speed = 0;
-
-      default:
-        break;
+  this.update = function () {
+    if (this.checkIfDestroyed()) {
+      this.speed = 0;
+      return;
     }
 
-    if (this.health <= 0) {
-      this.removeSelf();
+    this.checkForPlayer();
+
+    if (this.state === ALERT) {
+      this.whileAlerted();
     }
 
-    this.checkIfOutofBounds();
-  };
+    this.checkForCollision();
 
-  this.move = function () {
-    console.log(this.state);
-    nextX = this.x;
-    nextY = this.y;
-
-    if (this.state === STUNNED) return;
-
-    var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
-    walkIntoTileType = TILE_GROUND;
-    if (walkIntoTileIndex != undefined) {
-      walkIntoTileType = world_grid[walkIntoTileIndex];
-    }
-
-    this.checkTileType(walkIntoTileType, walkIntoTileIndex);
-
-    for (var i = 0; i < this.rays.length; i++) {
-      if (this.rays[i].destroyed) {
-        this.removeRaycast(this.rays[i]);
-        continue;
-      } else if (this.rays[i].found_player) {
-        this.state = ALERT;
-      }
-      this.rays[i].move();
-    }
+    this.move();
   };
 
   this.draw = function () {
-    this.raycast();
+    //   Set animation frame to render
+    this.animationHandler();
+
+    // Setup drawing for line of sight
     canvasContext.lineWidth = 1;
     canvasContext.strokeStyle = "red";
     canvasContext.beginPath();
     canvasContext.moveTo(this.x, this.y);
 
-    this.rays.forEach(function (ray) {
-      ray.draw();
-      canvasContext.lineTo(ray.x, ray.y);
-    });
-
-    canvasContext.stroke();
-
-    this.animator.animate();
-
-    if (this.render_hitbox) {
-      colorRect(
-        this.hitbox_x,
-        this.hitbox_y,
-        this.hitbox_width,
-        this.hitbox_height,
-        "blue"
+    // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
+    const last_ray = this.rays[0];
+    if (last_ray) {
+      canvasContext.lineTo(
+        last_ray.x + last_ray.width / 2,
+        last_ray.y + last_ray.height / 2
       );
     }
+    canvasContext.stroke();
+
+    // Update sprite animation
+    this.animator.animate();
+
+    // Render hitbox for debugging
+    if (this.render_hitbox) {
+      this.hitboxes.forEach(function (hitbox) {
+        canvasContext.fillStyle = hitbox.color;
+        canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+      });
+    }
   };
 
-  // Collision
+  this.move = function () {
+    moveInOwnDirection(this);
+    this.updateHitBoxes();
+  };
+
+  // -Collision methods-
   this.updateHitBoxes = function () {
-    this.hitbox_x = this.x - this.width / 2;
-    this.hitbox_y = this.y - this.height / 2;
-    this.hitbox_width = this.width;
-    this.hitbox_height = this.height;
+    this.hitboxes.forEach((hitbox) => {
+      hitbox.x = this.x - hitbox.w / 2 + hitbox.offset_x;
+      hitbox.y = this.y - hitbox.h / 2 + hitbox.offset_y;
+    });
   };
 
-  this.onMoveInOpenSpace = function () {
-    this.animator.setAnimation(`walk-${getDirectionConstantOfObject(this)}`);
-    moveInOwnDirection(this);
+  this.checkForCollision = function () {
+    // Get main hitbox for collisions
+    const hitbox = this.hitboxes.find((box) => box.name === "main");
+
+    // Check across game objects for collisions
+    game_objects.forEach((object) => {
+      //   If collided with an object (based on main hitbox),
+      //   perform collision event
+      if (
+        collisionDetected(
+          {
+            x: object.hitbox_x,
+            y: object.hitbox_y,
+            w: object.hitbox_width,
+            h: object.hitbox_height,
+          },
+          {
+            x: hitbox.x,
+            y: hitbox.y,
+            w: hitbox.w,
+            h: hitbox.h,
+          }
+        )
+      ) {
+        this.onCollision(object);
+      }
+    });
   };
 
-  this.onCollideWithDestructible = function (tile_index) {
-    reverseDirection(this);
-    moveInOwnDirection(this);
-  };
-
-  this.onCollideWithSolid = function () {
-    reverseDirection(this);
-    moveInOwnDirection(this);
-  };
-
-  this.checkTileType = function (tile_type, tile_index) {
-    if (DESTRUCTIBLE.includes(tile_type)) {
-      this.onCollideWithDestructible(tile_index);
+  this.onCollision = function (other) {
+    if (this.state === ALERT) {
+      this.onCollisionWhileAlert(other);
       return;
     }
 
-    if (SOLID.includes(tile_type)) {
-      this.onCollideWithSolid(tile_index);
-      return;
+    reverseDirection(this);
+  };
+
+  this.onCollisionWhileAlert = function (other) {
+    // Override in subclasses
+    console.log("Colliding while alert");
+  };
+
+  // -State methods-
+  this.whileAlerted = function () {
+    // Override in subclasses
+    console.log("Alerted");
+    this.alert_timer.start();
+  };
+
+  this.stopAlert = function () {
+    this.state = NORMAL;
+    this.alert_timer.stop();
+  };
+
+  // -Raycasting-
+  this.checkForPlayer = function () {
+    // Send out rays at regular intervals
+    this.raycast_countdown--;
+    if (this.raycast_countdown <= 0) {
+      this.emitRaycast();
+      this.raycast_countdown = RAY_CAST_COUNTDOWN_MAX;
     }
 
-    this.onMoveInOpenSpace();
+    // Check for a collision with the player and any of these rays
+    this.rays.forEach((ray) => {
+      ray.move();
+
+      if (ray.found_player) {
+        // Remove ray that found the player
+        ray.destroyed = true;
+
+        // If the player is found, perform onDetect event
+        this.onDetectPlayer();
+      }
+    });
+
+    //   If ray collides with a wall or is outside of the boundaries, destroy it
+    this.rays.forEach((ray) => {
+      if (ray.destroyed) {
+        this.rays.splice(this.rays.indexOf(ray), 1);
+      }
+    });
   };
 
-  // Raycasting
-  this.removeRaycast = function (ray) {
-    this.rays.splice(this.rays.indexOf(ray), 1);
+  this.emitRaycast = function () {
+    this.rays.push(new RayClass(this.x - 3, this.y - 3, this.direction));
   };
 
-  this.raycast = function () {
-    this.rays.push(new RayClass(this.x, this.y, this.direction));
+  this.onDetectPlayer = function () {
+    this.state = ALERT;
   };
 
-  // Removal
-  this.checkIfOutofBounds = function () {
-    if (this.x < 0 || this.x > canvas.width) {
-      this.removeSelf();
+  // -Combat-
+  this.checkIfDestroyed = function () {
+    if (this.health <= 0) {
+      this.onDestroy();
+      return true;
     }
-
-    if (this.y < 0 || this.y > canvas.height) {
-      this.removeSelf();
-    }
+    return false;
   };
 
+  this.onDestroy = function () {
+    this.removeSelf();
+  };
+
+  this.shoot = function () {
+    // Override in subclasses
+    console.log("Shooting ...");
+  };
+
+  // -Animation-
+  this.animationHandler = function () {
+    //   Override in subclasses
+    const pose = this.state === NORMAL ? "walk" : "leap";
+    const direction = DIRECTION_MAP[this.direction];
+    const animation = `${pose}-${direction}`;
+    this.animator.setAnimation(animation);
+  };
+
+  // -Cleanup-
   this.removeSelf = function () {
     spawnEffect(this.x, this.y, this.death_anim); // FIXME: put in subclass
     enemies.splice(enemies.indexOf(this), 1);
     this.alert_timer.stopAndCall();
     delete this;
-  };
-
-  // State
-  this.alerted = function (dt) {
-    console.log("alerted enemy");
-  };
-
-  this.checkIfPlayerIsInSight = function () {
-    var finder_ray = this.rays.find((ray) => ray.found_player);
-    return finder_ray !== undefined;
   };
 }
