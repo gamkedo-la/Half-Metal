@@ -148,6 +148,7 @@ function EnemyClass() {
       //   If collided with an object (based on main hitbox),
       //   perform collision event
       if (
+        object.solid &&
         collisionDetected(
           {
             x: object.hitbox_x,

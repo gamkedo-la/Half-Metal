@@ -9,6 +9,11 @@ function ShotClass() {
   this.rotation_angle = 0;
   this.damage = 1;
 
+  this.hitbox_height = 8;
+  this.hitbox_width = 8;
+  this.hitbox_x = this.x;
+  this.hitbox_y = this.y;
+
   // Used for collision checking with other object attributes
   this.can_damage = true;
   this.can_turn = false;
@@ -18,17 +23,32 @@ function ShotClass() {
   // Collision Checks
   this.checkForCollisionWithObject = function (bullet) {
     game_objects.forEach(function (object) {
-      if (
-        collisionDetected(
-          {
-            x: object.hitbox_x,
-            y: object.hitbox_y,
-            w: object.hitbox_width,
-            h: object.hitbox_height,
-          },
-          { x: bullet.x, y: bullet.y, w: bullet.width, h: bullet.height }
-        )
-      ) {
+      // Bullet won't collide with itself
+      if (object === bullet) {
+        return;
+      }
+
+      // Get hitboxes of potentially colliding objects
+      let object_hitbox = object?.hitboxes?.find((box) => box.name === "main");
+      let bullet_hitbox = {
+        x: bullet.hitbox_x,
+        y: bullet.hitbox_y,
+        w: bullet.hitbox_width,
+        h: bullet.hitbox_height,
+      };
+
+      // If no hitbox for other is found, use a different hitbox contract
+      if (!object_hitbox) {
+        object_hitbox = {
+          x: object.hitbox_x,
+          y: object.hitbox_y,
+          w: object.hitbox_width,
+          h: object.hitbox_height,
+        };
+      }
+
+      // Compare positions of hitboxes with AABB collision detection
+      if (collisionDetected(object_hitbox, bullet_hitbox)) {
         bullet.onCollideWithObject(object);
       }
     });
@@ -192,6 +212,9 @@ function ShotClass() {
     next_x = this.x;
     next_y = this.y;
 
+    this.hitbox_x = this.x - this.hitbox_width / 2;
+    this.hitbox_y = this.y - this.hitbox_height / 2;
+
     var walk_into_tile_index = getTileIndexAtPixelCoord(next_x, next_y);
     walk_into_tile_type = TILE_GROUND;
     if (walk_into_tile_index != undefined) {
@@ -204,6 +227,14 @@ function ShotClass() {
   };
 
   this.draw = function () {
+    canvasContext.fillStyle = "red";
+    canvasContext.fillRect(
+      this.hitbox_x,
+      this.hitbox_y,
+      this.hitbox_width,
+      this.hitbox_height
+    );
+
     drawBitmapCenteredWithRotation(
       this.image,
       this.x,
