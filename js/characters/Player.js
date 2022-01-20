@@ -371,9 +371,25 @@ function playerClass() {
 
   this.shoot = function () {
     if (this.keyHeld_Shoot && !this.didShoot && this.ammo > 0) {
-      spawnBullet(this.x, this.y, this.direction, this.selected_ammo);
+      var shot_buffer = 1;
+
+      var spawn_x =
+        (this.width + shot_buffer) * Math.cos((this.direction * Math.PI) / 180);
+      var spawn_y =
+        (this.height + shot_buffer) *
+        Math.sin((this.direction * Math.PI) / 180);
+
+      spawnBullet(
+        this.x + spawn_x,
+        this.y + spawn_y,
+        this.direction,
+        this.selected_ammo
+      );
+
       console.log(this.selected_ammo);
+
       playSound(sounds.shoot);
+
       this.didShoot = true;
       this.ammo -= 1;
     }
