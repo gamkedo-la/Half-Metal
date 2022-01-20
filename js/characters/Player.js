@@ -201,51 +201,25 @@ function playerClass() {
       playSound(sounds.lose);
     }
 
-    // var walkIntoTileIndex = getTileIndexAtPixelCoord(this.nextX, this.nextY);
-    // var walkIntoTileType = TILE_WALL;
+    var walkIntoTileIndex = getTileIndexAtPixelCoord(this.nextX, this.nextY);
+    var walkIntoTileType = TILE_WALL;
 
-    // if (walkIntoTileIndex != undefined) {
-    //   walkIntoTileType = world_grid[walkIntoTileIndex];
-    // }
+    if (walkIntoTileIndex != undefined) {
+      walkIntoTileType = world_grid[walkIntoTileIndex];
+    }
 
-    // switch (walkIntoTileType) {
-    //   case TILE_GROUND:
-    //     if (!this.keyHeld_Shoot) {
-    //       if (this.movingProgressRemaining > 0) {
-    //         const [prop, change] =
-    //           this.directionUpdate[DIRECTION_MAP[this.direction]];
-
-    //         this[prop] += change;
-
-    //         this.movingProgressRemaining--;
-    //       }
-    //     }
-    //     break;
-    //   case TILE_GOAL:
-    //     currentLevel++;
-    //     if (currentLevel <= levels.length - 1) {
-    //       loadLevel(levels[currentLevel].level_map);
-    //     }
-    //     break;
-    //   case TILE_AMMO:
-    //   case TILE_STUN_SHOT:
-    //   case TILE_PUSH_SHOT:
-    //   case TILE_TURN_SHOT:
-    //     this.ammo++; // one more bullet
-    //     world_grid[walkIntoTileIndex] = TILE_GROUND;
-    //     playSound(sounds.get_ammo);
-    //     break;
-    //   case TILE_WALL:
-    //   case TILE_STURDY_WALL:
-    //     if (this.bumpDelay <= 0) {
-    //       playSound(sounds.bump);
-    //       this.bumpDelay = 30;
-    //     }
-    //     this.bumpDelay -= 1;
-    //     break;
-    //   default:
-    //     break;
-    // }
+    switch (walkIntoTileType) {
+      case TILE_AMMO:
+      case TILE_STUN_SHOT:
+      case TILE_PUSH_SHOT:
+      case TILE_TURN_SHOT:
+        this.ammo++; // one more bullet
+        world_grid[walkIntoTileIndex] = TILE_GROUND;
+        playSound(sounds.get_ammo);
+        break;
+      default:
+        break;
+    }
   };
 
   this.checkForCollisionWithEnemy = function (player) {
