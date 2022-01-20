@@ -186,7 +186,7 @@ function EnemyClass() {
   this.whileAlerted = function () {
     // Override in subclasses
     console.log("Alerted");
-    this.alert_timer.start();
+    this.alert_timer.update();
   };
 
   this.stopAlert = function () {
@@ -230,6 +230,7 @@ function EnemyClass() {
 
   this.onDetectPlayer = function () {
     this.state = ALERT;
+    this.alert_timer.start();
   };
 
   // -Combat-
