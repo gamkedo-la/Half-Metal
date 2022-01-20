@@ -1,8 +1,7 @@
-HunterClass.prototype = new enemyClass();
-
 const HUNTER_BOT_MOVEMENT_SPEED = 1.0;
 
 function HunterClass() {
+  EnemyClass.call(this);
   this.myTileKind = TILE_HUNTER;
   this.type = HUNTER;
   this.x = 75;

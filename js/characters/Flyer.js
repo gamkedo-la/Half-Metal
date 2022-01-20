@@ -1,18 +1,26 @@
-FlyerClass.prototype = new enemyClass();
-
 function FlyerClass() {
+  // --- PROPERTIES ---
+  // -Super Constructor-
+  EnemyClass.call(this);
+
+  // -General-
+  this.name = "Flyer";
   this.type = FLYER;
+
+  // -Rendering-
+  this.image = flyer_sheet;
+  this.death_anim = FLYER_DIE;
+  this.currentAnimation = "walk-down";
+  this.animations = FRAME_DATA[FLYER];
   this.tile = TILE_FLYER;
-  this.hitbox_x = this.x;
-  this.hitbox_y = this.y;
-  this.hitbox_width = this.width;
-  this.hitbox_height = this.height;
+
+  // -State-
   this.flight_state = ASCENDED;
   this.flight_dist = this.height;
-  this.image = flyer_sheet;
-  this.currentAnimation = "walk-down";
-  this.death_anim = FLYER_DIE;
-  this.animations = FRAME_DATA[FLYER];
+  this.flight_time = 0;
+  this.flight_speed = 0.02;
+  this.flight_delay = 11;
+  this.flight_amplitude = 15;
   this.flight_timer = new TimerClass(
     () => {
       this.changeFlightHeight();
@@ -38,22 +46,31 @@ function FlyerClass() {
     true
   );
 
-  this.changeFlightHeight = function () {
-    if (this.flight_state === ASCENDED) {
-      if (this.flight_dist >= 16) {
-        playSound(sounds.fly_down);
-      }
-      this.flight_dist -= 1;
-    }
-
-    if (this.flight_state === DESCENDED) {
-      if (this.flight_dist <= 1) {
-        playSound(sounds.fly_up);
-      }
-      this.flight_dist += 1;
-    }
+  // --- METHODS ---
+  // -Life cycle methods-
+  this.reset = function () {
+    this.animator = new SpriteSheetAnimatorClass(this, 4);
+    resetGameObject(this);
   };
 
+  this.draw = function () {
+    canvasContext.drawImage(
+      shadow,
+      this.x - this.width / 2,
+      this.y + this.height
+    );
+
+    this.animator.animate(0, -1 * this.flight_dist);
+  };
+
+  // -State-
+  this.whileAlerted = function () {
+    // this.shot_timer.update();
+    this.speed = 0;
+    this.changeFlightHeight();
+  };
+
+  // -Combat-
   this.shoot = function () {
     var shot_buffer = 3;
     var spawn_x =
@@ -65,61 +82,21 @@ function FlyerClass() {
     playSound(sounds.shoot);
   };
 
-  this.reset = function () {
-    this.animator = new SpriteSheetAnimatorClass(this, 4);
-    resetGameObject(this);
-  };
-
-  this.alerted = function () {
-    this.shot_timer.update();
-
-    if (this.flight_state === ASCENDED) {
-      this.flight_timer.start();
-    }
-
-    if (this.flight_dist <= 0) {
-      this.flight_state = DESCENDED;
-      this.flight_timer.stop();
-      this.shot_timer.start();
-    }
-
-    if (this.flight_dist >= 16) {
-      this.flight_state = ASCENDED;
-
-      if (!this.checkIfPlayerIsInSight()) {
-        this.stopAlert();
-        return;
-      }
-    }
-
-    if (this.shot_timer.finished) {
-      this.flight_dist = 1;
-      this.flight_timer.start();
-      this.shot_timer.stop();
-    }
-
-    this.speed = 0;
-  };
-
-  this.draw = function () {
-    canvasContext.drawImage(
-      shadow,
-      this.x - this.width / 2,
-      this.y + this.flight_dist
+  // -Flight-
+  this.changeFlightHeight = function () {
+    this.flight_dist = getFlatArc(
+      this.flight_time,
+      this.flight_delay,
+      this.flight_amplitude
     );
-    this.raycast();
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
-    canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
+    this.flight_time += this.flight_speed;
+  };
 
-    this.rays.forEach(function (ray) {
-      ray.draw();
-      canvasContext.lineTo(ray.x, ray.y);
-    });
-
-    canvasContext.stroke();
-    this.animator.animate();
+  this.animationHandler = function () {
+    const pose = "walk";
+    const direction = DIRECTION_MAP[this.direction];
+    const animation = `${pose}-${direction}`;
+    this.animator.setAnimation(animation);
   };
 
   this.stopAlert = function () {

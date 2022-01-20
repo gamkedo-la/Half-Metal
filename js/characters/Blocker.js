@@ -1,8 +1,7 @@
-BlockerClass.prototype = new enemyClass();
-
 const BLOCKER_BOT_MOVEMENT_SPEED = 1.0;
 
 function BlockerClass() {
+  EnemyClass.call(this);
   this.type = BLOCKER;
   this.back_hitbox_width = 0;
   this.back_hitbox_height = 0;
@@ -41,41 +40,10 @@ function BlockerClass() {
   );
   this.shield_up = false;
 
-  // General
-  this.draw = function () {
-    this.raycast();
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
-    canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
-
-    this.rays.forEach(function (ray) {
-      ray.draw();
-      canvasContext.lineTo(ray.x, ray.y);
-    });
-
-    canvasContext.stroke();
-
-    this.animator.animate();
-
-    if (this.render_hitbox) {
-      colorRect(
-        this.hitbox_x,
-        this.hitbox_y,
-        this.hitbox_width,
-        this.hitbox_height,
-        "blue"
-      );
-      colorRect(
-        this.back_hitbox_x,
-        this.back_hitbox_y,
-        this.back_hitbox_width,
-        this.back_hitbox_height,
-        "red"
-      );
-    }
+  this.move = function () {
+    strafe(this);
+    this.updateHitBoxes();
   };
-
   // State
   this.alerted = function (dt) {
     this.speed = 0;
