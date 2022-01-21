@@ -236,7 +236,9 @@ function EnemyClass() {
   };
 
   this.emitRaycast = function () {
-    this.rays.push(new RayClass(this.x - 3, this.y - 3, this.direction));
+    var ray = new RayClass(this.x - 3, this.y - 3, this.direction);
+    ray.parent = this;
+    this.rays.push(ray);
   };
 
   this.onDetectPlayer = function () {

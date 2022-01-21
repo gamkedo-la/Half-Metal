@@ -8,6 +8,7 @@ function RayClass(x, y, direction) {
   this.destroyed = false;
   this.found_player = false;
   this.color = "red";
+  this.parent = undefined;
 
   this.move = function () {
     nextX = this.x + this.speed * Math.cos((this.direction * Math.PI) / 180);
@@ -37,6 +38,7 @@ function RayClass(x, y, direction) {
 
     this.checkIfOutofBounds();
     this.checkForCollisionWithPlayer(this);
+    this.checkForCollisionWithObject();
   };
 
   this.draw = function () {
@@ -63,5 +65,36 @@ function RayClass(x, y, direction) {
     ) {
       this.found_player = true;
     }
+  };
+
+  this.checkForCollisionWithObject = function () {
+    game_objects.forEach((object) => {
+      // Ray won't collide with itself
+      if (object === self || object === this.parent) {
+        return;
+      }
+
+      // Get hitboxes of potentially colliding objects
+      let object_hitbox = object?.hitboxes?.find((box) => box.name === "main");
+      if (!object_hitbox) {
+        object_hitbox = {
+          x: object.hitbox_x,
+          y: object.hitbox_y,
+          w: object.hitbox_width,
+          h: object.hitbox_height,
+        };
+      }
+
+      var ray_hitbox = {
+        x: this.x,
+        y: this.y,
+        w: this.width,
+        h: this.height,
+      };
+
+      if (collisionDetected(ray_hitbox, object_hitbox)) {
+        this.destroyed = true;
+      }
+    });
   };
 }
