@@ -1,7 +1,7 @@
 NormalWallClass.prototype = new WallClass();
 
 function NormalWallClass() {
-  this.damageable = true;
   this.invincible = false;
+  this.damageable = true;
   this.pushable = true;
 }
