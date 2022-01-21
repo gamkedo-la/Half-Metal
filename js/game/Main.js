@@ -196,7 +196,7 @@ function loadLevel(whichLevel) {
   initGameObjects(world_grid);
 
   editor.currentMap =
-    editor.currentMap.length === 0 ? world_grid.slice() : editor.currentMap;
+    editor.currentMap.length === 0 ? whichLevel.slice() : editor.currentMap;
   editor.level_config = { ...level };
 }
 

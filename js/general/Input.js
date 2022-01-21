@@ -131,6 +131,7 @@ function editorMapClick(mX, mY) {
 
     // Respawn enemies
     initGameObjects(world_grid);
+    player.reset(playerSheet, "Player");
   }
 
   currentLevelCheck = JSON.stringify(editor.level_config);
@@ -268,7 +269,6 @@ function keySet(keyEvent, setTo) {
     if (currentMode === PLAY_MODE) {
       // ENTER EDIT MODE
       currentMode = EDIT_MODE;
-      level = { ...editor.level_config };
       loadLevel(editor.currentMap);
     } else {
       // ENTER PLAY MODE
