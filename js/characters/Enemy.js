@@ -46,6 +46,7 @@ function EnemyClass() {
   this.stunnable = true;
   this.turnable = true;
   this.damageable = true;
+  this.solid = true;
 
   // -Rendering-
   this.image = leaperSheet;
@@ -142,27 +143,36 @@ function EnemyClass() {
   this.checkForCollision = function () {
     // Get main hitbox for collisions
     const hitbox = this.hitboxes.find((box) => box.name === "main");
+    const self = this;
 
     // Check across game objects for collisions
     game_objects.forEach((object) => {
+      // Enemy won't collide with itself
+      if (object === self) {
+        return;
+      }
+
+      // Get hitboxes of potentially colliding objects
+      let object_hitbox = object?.hitboxes?.find((box) => box.name === "main");
+      if (!object_hitbox) {
+        object_hitbox = {
+          x: object.hitbox_x,
+          y: object.hitbox_y,
+          w: object.hitbox_width,
+          h: object.hitbox_height,
+        };
+      }
+
       //   If collided with an object (based on main hitbox),
       //   perform collision event
       if (
         object.solid &&
-        collisionDetected(
-          {
-            x: object.hitbox_x,
-            y: object.hitbox_y,
-            w: object.hitbox_width,
-            h: object.hitbox_height,
-          },
-          {
-            x: hitbox.x,
-            y: hitbox.y,
-            w: hitbox.w,
-            h: hitbox.h,
-          }
-        )
+        collisionDetected(object_hitbox, {
+          x: hitbox.x,
+          y: hitbox.y,
+          w: hitbox.w,
+          h: hitbox.h,
+        })
       ) {
         this.onCollision(object);
       }
