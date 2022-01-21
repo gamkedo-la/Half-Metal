@@ -30,6 +30,7 @@ var KEY_V_Held = false;
 var Key_U_Held = false;
 var Key_R_Held = false;
 var key_T_Held = false;
+var key_X_held = false;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -144,6 +145,47 @@ function editorMapClick(mX, mY) {
   }
 }
 
+function getObjectAtMouseCoord(mX, mY) {
+  return game_objects.find(
+    (object) =>
+      mX >= mX &&
+      mX <= object.x + object.width &&
+      mY >= mY &&
+      mY <= object.y + object.height
+  );
+}
+
+function deleteEditorTile() {
+  // Get tile at mouse coordinates
+  var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
+
+  if (editor.layer === "tile") {
+    return;
+  }
+
+  if (editor.layer !== "tile") {
+    // Get the game object at that tile
+    var object = getObjectAtMouseCoord(mouseX, mouseY);
+
+    // Remove the game object from the appropriate collection
+    var index = game_objects.indexOf(object);
+    game_objects.splice(index, 1);
+    delete object;
+
+    // Remove object from the config array
+    // ---TODO:
+
+    // Remove the tile from all maps
+    editor.currentMap[tileIndex] = 0;
+    editor.level_config.level_map = editor.currentMap;
+    world_grid = editor.currentMap.slice();
+
+    // Respawn enemies
+    initGameObjects(world_grid);
+    player.reset(playerSheet, "Player");
+  }
+}
+
 function mousePressed() {
   console.log("Clicked at " + mouseX + ", " + mouseY);
   var over_button = false;
@@ -197,6 +239,17 @@ function keySet(keyEvent, setTo) {
 
     if (keyEvent.keyCode == KEY_V) {
       KEY_V_Held = setTo;
+    }
+  }
+
+  if (currentMode === EDIT_MODE && keyEvent.keyCode === KEY_X) {
+    if (!key_X_held) {
+      deleteEditorTile();
+      console.log("deleteEditorTile called");
+    }
+
+    if (keyEvent.keyCode == KEY_X) {
+      key_X_held = setTo;
     }
   }
 
