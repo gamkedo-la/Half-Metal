@@ -93,6 +93,8 @@ function EnemyClass() {
     this.checkForCollision();
 
     this.move();
+
+    this.checkIfOutofBounds();
   };
 
   this.draw = function () {
@@ -279,5 +281,15 @@ function EnemyClass() {
     enemies.splice(enemies.indexOf(this), 1);
     this.alert_timer.stopAndCall();
     delete this;
+  };
+
+  this.checkIfOutofBounds = function () {
+    if (this.x < 0 || this.x > canvas.width) {
+      this.removeSelf();
+    }
+
+    if (this.y < 0 || this.y > canvas.height) {
+      this.removeSelf();
+    }
   };
 }
