@@ -122,7 +122,13 @@ function playMusic() {
   let loop = true;
 
   if (!song_playing && sounds[level.song] !== undefined) {
-    current_song = playSound(sounds[level.song], playbackRate, pan, volume, loop);
+    current_song = playSound(
+      sounds[level.song],
+      playbackRate,
+      pan,
+      volume,
+      loop
+    );
     song_playing = true;
   }
 }
@@ -168,17 +174,30 @@ function setupUI() {
   ui = new UIClass(x, y, width, height, player);
 }
 
-function initGameObjects(level) {
-  level.forEach((tile, index) => {
-
-    var object_type = Object.keys(OBJECT_MAP).find((key) => {
-      return OBJECT_MAP[key] === tile;
-    });
-
-    if (object_type) {
-      spawnGameObject({ orientation: HORIZONTAL, direction: 180 }, object_type);
-    }
+function initGameObjects(map) {
+  level.enemies.forEach(function (enemy) {
+    spawnGameObject({ ...enemy }, enemy.type);
   });
+  level.walls.forEach(function (wall) {
+    spawnGameObject({ ...wall }, wall.type);
+  });
+  level.hazards.forEach(function (hazard) {
+    spawnGameObject({ ...hazard }, hazard.type);
+  });
+  level.shots.forEach(function (shots) {
+    spawnGameObject({ ...shots }, shots.type);
+  });
+
+  // map.forEach((tile, index) => {
+
+  //   var object_type = Object.keys(OBJECT_MAP).find((key) => {
+  //     return OBJECT_MAP[key] === tile;
+  //   });
+
+  //   if (object_type) {
+  //     spawnGameObject({ orientation: HORIZONTAL, direction: 180 }, object_type);
+  //   }
+  // });
 }
 
 function loadLevel(whichLevel) {
