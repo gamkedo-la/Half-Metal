@@ -7,6 +7,12 @@ function LeaperClass() {
   this.image = leaperSheet;
   this.currentAnimation = "walk-right";
   this.animations = FRAME_DATA[LEAPER];
+  this.speed = 0.5;
+
+  this.whileAlerted = function () {
+    this.alert_timer.update();
+    this.speed = 1;
+  };
 
   this.onCollisionWhileAlert = function (other) {
     if (other) {
