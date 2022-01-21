@@ -122,7 +122,7 @@ function playerClass() {
     for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
       for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
         var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-        if (world_grid[arrayIndex] == TILE_PLAYERSTART) {
+        if (level.level_map[arrayIndex] == TILE_PLAYERSTART) {
           world_grid[arrayIndex] = TILE_GROUND;
           this.x = eachCol * WORLD_W + WORLD_W / 2;
           this.y = eachRow * WORLD_H + WORLD_H / 2;
@@ -216,6 +216,11 @@ function playerClass() {
         this.ammo++; // one more bullet
         world_grid[walkIntoTileIndex] = TILE_GROUND;
         playSound(sounds.get_ammo);
+        break;
+      case TILE_GOAL:
+        currentLevel++;
+        level = { ...levels[currentLevel] };
+        loadLevel(level.level_map);
         break;
       default:
         break;

@@ -24,7 +24,7 @@ editor.resetUI();
 editor.initTileset();
 buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
 
-var currentMode = EDIT_MODE;
+var currentMode = PLAY_MODE;
 
 var current_song = {};
 

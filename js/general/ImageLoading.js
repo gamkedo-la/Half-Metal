@@ -38,6 +38,7 @@ var cell_tileset = document.createElement("img");
 var armory_tileset = document.createElement("img");
 var transceiver = document.createElement("img");
 var invisible_wall = document.createElement("img");
+var goal_img = document.createElement("img");
 
 var worldPics = [];
 
@@ -238,7 +239,7 @@ var image_list = [
 
   // ETC
   { var_name: ground_img, tile: TILE_GROUND, file: "world_ground.png" },
-  { tile: TILE_GOAL, file: "world_goal.png", transparent_bg: true },
+  { var_name: goal_img, tile: TILE_GOAL, file: "world_goal.png", transparent_bg: true },
   { var_name: fontPic, file: "font.png" },
   { var_name: transceiver, file: "transceiver_2.png" },
 
