@@ -43,7 +43,19 @@ function playerClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
-  this.render_hitbox = false;
+  this.render_hitbox = true;
+  this.hitboxes = [
+    {
+      name: "main",
+      x: this.x,
+      y: this.y,
+      w: this.hitbox_width,
+      h: this.hitbox_height,
+      offset_x: 0,
+      offset_y: 0,
+      color: "blue",
+    },
+  ];
 
   this.nextX = this.x;
   this.nextY = this.y;
@@ -138,6 +150,12 @@ function playerClass() {
     this.hitbox_y = this.y - 2;
     this.hitbox_width = 12;
     this.hitbox_height = 6;
+
+    // New hitbox array
+    this.hitboxes[0].x = this.x - this.width / 4;
+    this.hitboxes[0].y = this.y - 2;
+    this.hitboxes[0].w = 12;
+    this.hitboxes[0].h = 6;
   };
 
   this.move = function () {
@@ -227,18 +245,24 @@ function playerClass() {
     }
   };
 
+  this.onCollideWithEnemy = function (enemy) {
+    loadLevel(levels[currentLevel].level_map);
+    playSound(sounds.lose);
+  };
+
   this.checkForCollisionWithEnemy = function (player) {
-    enemies.forEach(function (enemy) {
-      if (
-        enemy.x < player.x + player.width &&
-        enemy.x + enemy.width > player.x &&
-        enemy.y < player.y + player.height &&
-        enemy.y + enemy.height > player.y
-      ) {
-        loadLevel(levels[currentLevel].level_map);
-        playSound(sounds.lose);
-      }
-    });
+    checkForCollision(player, enemies, this.onCollideWithEnemy);
+    // enemies.forEach(function (enemy) {
+    //   if (
+    //     enemy.x < player.hitbox_x + player.hitbox_width &&
+    //     enemy.x + enemy.width > player.hitbox_x &&
+    //     enemy.y < player.hitbox_y + player.hitbox_height &&
+    //     enemy.y + enemy.height > player.hitbox_y
+    //   ) {
+    //     loadLevel(levels[currentLevel].level_map);
+    //     playSound(sounds.lose);
+    //   }
+    // });
   };
 
   this.checkForCollisionWithWall = function (player) {

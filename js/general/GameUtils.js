@@ -93,7 +93,7 @@ function copyInstance(original) {
 
   Returns a string (up, right, down, or left) 
   corresponding with the given object's current direction
-  
+
 */
 function getDirectionConstantOfObject(object) {
   return DIRECTION_MAP[object.direction];
@@ -128,4 +128,43 @@ function turnObject(object, degrees) {
     default:
       break;
   }
+}
+
+// Check for collision against game object collection object
+function checkForCollision(self, collection, on_collision) {
+  // Get main hitbox for collisions
+  const hitbox = self.hitboxes.find((box) => box.name === "main");
+
+  // Check across game objects for collisions
+  collection.forEach((object) => {
+    // Enemy won't collide with itself
+    if (object === self) {
+      return;
+    }
+
+    // Get hitboxes of potentially colliding objects
+    let object_hitbox = object?.hitboxes?.find((box) => box.name === "main");
+    if (!object_hitbox) {
+      object_hitbox = {
+        x: object.hitbox_x,
+        y: object.hitbox_y,
+        w: object.hitbox_width,
+        h: object.hitbox_height,
+      };
+    }
+
+    //   If collided with an object (based on main hitbox),
+    //   perform collision event
+    if (
+      object.solid &&
+      collisionDetected(object_hitbox, {
+        x: hitbox.x,
+        y: hitbox.y,
+        w: hitbox.w,
+        h: hitbox.h,
+      })
+    ) {
+      on_collision(object);
+    }
+  });
 }
