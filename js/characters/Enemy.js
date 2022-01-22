@@ -35,8 +35,8 @@ function EnemyClass() {
       name: "main",
       x: 0,
       y: 0,
-      w: 16,
-      h: 16,
+      w: 13,
+      h: 13,
       offset_x: 0,
       offset_y: 0,
       color: "red",
@@ -54,7 +54,7 @@ function EnemyClass() {
   this.currentAnimation = "walk-down";
   this.animations = FRAME_DATA[LEAPER];
   this.animator = new SpriteSheetAnimatorClass(this);
-  this.render_hitbox = false;
+  this.render_hitbox = true;
 
   // -State-
   this.state = NORMAL;
@@ -106,6 +106,11 @@ function EnemyClass() {
     canvasContext.strokeStyle = "red";
     canvasContext.beginPath();
     canvasContext.moveTo(this.x, this.y);
+
+    //
+    this.rays.forEach(function (ray) {
+      ray.draw();
+    });
 
     // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
     const last_ray = this.rays[0];

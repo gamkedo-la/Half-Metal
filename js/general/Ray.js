@@ -1,8 +1,8 @@
 function RayClass(x, y, direction) {
   this.x = x;
   this.y = y;
-  this.height = 6;
-  this.width = 6;
+  this.height = 3;
+  this.width = 3;
   this.direction = direction;
   this.speed = 10;
   this.destroyed = false;
