@@ -256,7 +256,7 @@ var image_list = [
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
   { var_name: armory_tileset, file: "armory_tileset.png" },
-  { var_name: processing_tileset, file: "processing_tileset.png" },
+  { var_name: processing_tileset, file: "processing_center_tileset.png" },
 ];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()

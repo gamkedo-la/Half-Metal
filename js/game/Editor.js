@@ -116,7 +116,8 @@ menuList["tiles"] = [
     editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "PROCESS", ...[, ,], () => {
-    console.log("clicked processing center");
+    editor.current_tileset = processing_tileset;
+    editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "YARD", ...[, ,], () => {
     console.log("clicked courtyard");
