@@ -20,6 +20,11 @@ const menuList = {
       // go to tile set menu
       editor.goToMenu("tiles");
     }),
+    new ButtonClass(...[, , , ,], "GOAL", ...[, ,], () => {
+      // go to tile set menu
+      // editor.goToMenu("tiles");
+      editor.selected_tile_type = TILE_GOAL;
+    }),
   ],
 };
 
@@ -316,7 +321,7 @@ function EditorClass() {
           // Get object and animation data with the current config direction
           const object_frame_data = FRAME_DATA[this.current_config.type];
 
-          // Only use frame data when an object has multiple frames to 
+          // Only use frame data when an object has multiple frames to
           const frames = object_frame_data
             ? object_frame_data[
                 `walk-${DIRECTION_MAP[this.current_config.direction]}`
