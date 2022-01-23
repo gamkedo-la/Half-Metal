@@ -36,6 +36,7 @@ var flyer_sheet = document.createElement("img");
 var shadow = document.createElement("img");
 var cell_tileset = document.createElement("img");
 var armory_tileset = document.createElement("img");
+var processing_tileset = document.createElement("img");
 var transceiver = document.createElement("img");
 var invisible_wall = document.createElement("img");
 var goal_img = document.createElement("img");
@@ -213,7 +214,11 @@ var image_list = [
     tile: TILE_BOUNCE_WALL,
     transparent_bg: false,
   },
-  { var_name: invisible_wall, tile: TILE_INVISIBLE, file: "invisible_wall.png" },
+  {
+    var_name: invisible_wall,
+    tile: TILE_INVISIBLE,
+    file: "invisible_wall.png",
+  },
 
   // Effects
   {
@@ -239,13 +244,19 @@ var image_list = [
 
   // ETC
   { var_name: ground_img, tile: TILE_GROUND, file: "world_ground.png" },
-  { var_name: goal_img, tile: TILE_GOAL, file: "world_goal.png", transparent_bg: true },
+  {
+    var_name: goal_img,
+    tile: TILE_GOAL,
+    file: "world_goal.png",
+    transparent_bg: true,
+  },
   { var_name: fontPic, file: "font.png" },
   { var_name: transceiver, file: "transceiver_2.png" },
 
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
   { var_name: armory_tileset, file: "armory_tileset.png" },
+  { var_name: processing_tileset, file: "processing_tileset.png" },
 ];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
