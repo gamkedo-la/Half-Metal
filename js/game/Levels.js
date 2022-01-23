@@ -626,7 +626,7 @@ const baseLevel = {
 
 const levels = [...CELL_LEVELS];
 
-currentLevel = 16;
+currentLevel = 0;
 
 function generateRandomLevel(w = 16, h = 13) {
   console.log("Generating a random " + w + "x" + h + " level...");
