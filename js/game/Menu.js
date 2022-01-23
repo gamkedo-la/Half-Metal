@@ -5,8 +5,8 @@ function MenuClass(config) {
   this.name = config.name || "Menu";
 
   // -Rendering-
-  this.width = config.width || 512;
-  this.height = config.height || 480;
+  this.width = config.width || 256;
+  this.height = config.height || 240;
   this.image = config.image || {};
   this.button_start = {
     x: config.button_start_x || 0,
@@ -20,6 +20,11 @@ function MenuClass(config) {
     // BG
     canvasContext.fillStyle = "black";
     canvasContext.fillRect(0, 0, this.width, this.height);
+
+    // IMAGE PLACEHOLDER
+    renderFont("IMAGE PLACEHOLDER", 64, 16);
+    canvasContext.fillStyle = "white";
+    canvasContext.fillRect(64, 32, 128, 64);
 
     // BUTTONS
     this.buttons.forEach((button) => {
