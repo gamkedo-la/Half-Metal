@@ -162,7 +162,7 @@ function ButtonClass(
 // Select object type - DONE
 // Render object as cursor image
 // Select tile to place object - DONE
-// Press 'R' to rotate object
+// Press 'R' to rotate object - DONE
 // Replace tile in level map with new selected_tile_type - DONE
 // Add the object to the appropriate configurations array - DONE
 // Configs:
@@ -174,7 +174,7 @@ function ButtonClass(
 // Select tileset from menu - DONE
 // Place tiles in editor - DONE
 // Update all tiles to match current set - DONE
-// Set some tiles as solid/passable/etc
+// Set some tiles as solid/passable/etc - DONE
 
 // Main renderer and contoller of the Editor UI
 function EditorClass() {

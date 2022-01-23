@@ -18,13 +18,28 @@ var cutscene = new CutsceneClass();
 cutscene.dialogue = ["TEST LINE A", "TEST LINE B", "TEST LINE C"];
 var ui;
 
+// Menus
+var title_screen = new TitleMenu();
+var level_select_screen = new MenuClass({ name: "Select Level" });
+var options_screen = new MenuClass({ name: "Options" });
+var credits_screen = new MenuClass({ name: "Credits" });
+var controls_screen = new MenuClass({ name: "Controls" });
+
+// Data structure for navigating menus
+var menu_stack = [title_screen];
+
+//
 var level = new BaseLevelClass();
 
 editor.resetUI();
 editor.initTileset();
-buttons = [...editor.toolBarOptions, ...menuList[editor.currentMenu]];
+buttons = [
+  ...editor.toolBarOptions,
+  ...menuList[editor.currentMenu],
+  ...title_screen.buttons,
+];
 
-var currentMode = PLAY_MODE;
+var currentMode = MENU_MODE;
 
 var current_song = {};
 
@@ -185,7 +200,9 @@ function initGameObjects(map) {
       return OBJECT_MAP[key] === tile;
     });
 
-    var object_config = configurations.find(config => config?.array_index === index);
+    var object_config = configurations.find(
+      (config) => config?.array_index === index
+    );
 
     if (object_type) {
       spawnGameObject(object_config, object_type);
@@ -215,6 +232,10 @@ function loadLevel(whichLevel) {
 }
 
 function updateAll(dt) {
+  if (currentMode !== MENU_MODE) {
+    menu_stack.forEach((menu) => menu.deactivateMenuButtons());
+  }
+
   switch (currentMode) {
     case PLAY_MODE:
       gamepad.update(dt);
@@ -238,6 +259,9 @@ function updateAll(dt) {
 
     case CUTSCENE_MODE:
       cutscene.update(dt);
+
+    case MENU_MODE:
+      menu_stack[menu_stack.length - 1].update();
 
     default:
       break;
@@ -287,6 +311,9 @@ function drawAll() {
 
     case CUTSCENE_MODE:
       cutscene.draw();
+
+    case MENU_MODE:
+      menu_stack[menu_stack.length - 1].draw();
 
     default:
       break;
