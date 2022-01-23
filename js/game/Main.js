@@ -24,6 +24,7 @@ var level_select_screen = new MenuClass({ name: "Select Level" });
 var options_screen = new MenuClass({ name: "Options" });
 var credits_screen = new MenuClass({ name: "Credits" });
 var controls_screen = new MenuClass({ name: "Controls" });
+var pause_screen = new PauseMenu({ name: "Pause" });
 
 // Data structure for navigating menus
 var menu_stack = [title_screen];
@@ -37,6 +38,7 @@ buttons = [
   ...editor.toolBarOptions,
   ...menuList[editor.currentMenu],
   ...title_screen.buttons,
+  ...pause_screen.buttons,
 ];
 
 var currentMode = MENU_MODE;

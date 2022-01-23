@@ -20,6 +20,8 @@ const KEY_L = 76;
 
 const KEY_T = 84;
 
+const KEY_ESC = 27;
+
 // undo and redo
 const KEY_U = 85;
 const KEY_R = 82;
@@ -31,6 +33,8 @@ var Key_U_Held = false;
 var Key_R_Held = false;
 var key_T_Held = false;
 var key_X_held = false;
+
+var key_esc_held = true;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -271,6 +275,10 @@ function keySet(keyEvent, setTo) {
     key_T_Held = setTo;
   }
 
+  if (currentMode === PLAY_MODE && keyEvent.keyCode === KEY_ESC) {
+    key_esc_held = setTo;
+  }
+
   if (key_T_Held) {
     editor.current_config.direction += 90;
 
@@ -279,6 +287,12 @@ function keySet(keyEvent, setTo) {
     }
 
     key_T_Held = false;
+  }
+
+  if (key_esc_held) {
+    currentMode = MENU_MODE;
+    menu_stack.push(pause_screen);
+    key_esc_held = false;
   }
 
   if (
@@ -378,6 +392,7 @@ function keySet(keyEvent, setTo) {
 
 function keyPressed(evt) {
   console.log("Key pressed: " + evt.keyCode);
+
   keySet(evt, true);
 
   evt.preventDefault();

@@ -22,6 +22,7 @@ function MenuClass(config) {
     canvasContext.fillRect(0, 0, this.width, this.height);
 
     // IMAGE PLACEHOLDER
+    renderFont(this.name, 64, 4);
     renderFont("IMAGE PLACEHOLDER", 64, 16);
     canvasContext.fillStyle = "white";
     canvasContext.fillRect(64, 32, 128, 64);
