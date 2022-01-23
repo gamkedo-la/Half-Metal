@@ -148,3 +148,122 @@ function drawTileset(level) {
     draw_tile_x = 0;
   }
 }
+
+function drawTilesetUpperLayer(level) {
+  var array_index = 0;
+  var draw_tile_x = 0;
+  var draw_tile_y = 0;
+
+  for (var each_row = 0; each_row < WORLD_ROWS; each_row++) {
+    for (var each_col = 0; each_col < WORLD_COLS; each_col++) {
+      // get index of current tile
+      var array_index = rowColToArrayIndex(each_col, each_row);
+
+      // get tile type at that index
+      var tile_type = level.tile_map[array_index];
+
+      // Search for row and col number within the tile map
+      var row_num = 0;
+      var col_num = 0;
+
+      for (var i = 0; i <= tile_type; i++) {
+        if (i > 0) {
+          col_num++;
+        }
+
+        if (col_num >= TILE_COLS) {
+          row_num++;
+        }
+
+        if (col_num >= TILE_COLS) {
+          col_num = 0;
+        }
+      }
+
+      if (UPPER_LAYER.includes(tile_type)) {
+        // Draw the current tile
+        canvasContext.drawImage(
+          // Tileset image
+          level.tileset,
+
+          // Tile cut
+          col_num * TILE_WIDTH, // x
+          row_num * TILE_HEIGHT, // y
+          TILE_WIDTH, // w
+          TILE_HEIGHT, // h
+
+          // Canvas
+          // Include buffer space between grid elements
+          draw_tile_x, // x
+          draw_tile_y, // y
+          TILE_WIDTH, // w
+          TILE_HEIGHT // h
+        );
+      }
+
+      draw_tile_x += WORLD_W;
+      array_index++;
+    }
+    draw_tile_y += WORLD_H;
+    draw_tile_x = 0;
+  }
+}
+function drawTilesetLowerLayer(level) {
+  var array_index = 0;
+  var draw_tile_x = 0;
+  var draw_tile_y = 0;
+
+  for (var each_row = 0; each_row < WORLD_ROWS; each_row++) {
+    for (var each_col = 0; each_col < WORLD_COLS; each_col++) {
+      // get index of current tile
+      var array_index = rowColToArrayIndex(each_col, each_row);
+
+      // get tile type at that index
+      var tile_type = level.tile_map[array_index];
+
+      // Search for row and col number within the tile map
+      var row_num = 0;
+      var col_num = 0;
+
+      for (var i = 0; i <= tile_type; i++) {
+        if (i > 0) {
+          col_num++;
+        }
+
+        if (col_num >= TILE_COLS) {
+          row_num++;
+        }
+
+        if (col_num >= TILE_COLS) {
+          col_num = 0;
+        }
+      }
+
+      // Draw the current tile
+      if (!UPPER_LAYER.includes(tile_type)) {
+        canvasContext.drawImage(
+          // Tileset image
+          level.tileset,
+
+          // Tile cut
+          col_num * TILE_WIDTH, // x
+          row_num * TILE_HEIGHT, // y
+          TILE_WIDTH, // w
+          TILE_HEIGHT, // h
+
+          // Canvas
+          // Include buffer space between grid elements
+          draw_tile_x, // x
+          draw_tile_y, // y
+          TILE_WIDTH, // w
+          TILE_HEIGHT // h
+        );
+      }
+
+      draw_tile_x += WORLD_W;
+      array_index++;
+    }
+    draw_tile_y += WORLD_H;
+    draw_tile_x = 0;
+  }
+}

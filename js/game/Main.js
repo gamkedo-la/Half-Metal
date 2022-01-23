@@ -279,7 +279,8 @@ function moveAll() {
 function drawAll() {
   switch (currentMode) {
     case PLAY_MODE:
-      drawTileset(level);
+      // Lower layer
+      drawTilesetLowerLayer(level);
       drawWorld();
 
       game_objects
@@ -290,11 +291,14 @@ function drawAll() {
           object.draw();
         });
 
+      // Upper layer
+      drawTilesetUpperLayer(level);
       ui.draw();
       break;
 
     case EDIT_MODE:
-      drawTileset(level);
+      // Lower layer
+      drawTilesetLowerLayer(level);
       drawWorld();
 
       game_objects
@@ -304,6 +308,9 @@ function drawAll() {
         .forEach(function (object) {
           object.draw();
         });
+
+      // Upper layer
+      drawTilesetUpperLayer(level);
 
       ui.draw();
       editor.draw();
