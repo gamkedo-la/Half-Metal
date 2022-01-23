@@ -115,6 +115,7 @@ function editorMapClick(mX, mY) {
     const config_obj = { ...editor.current_config };
     config_obj.type = type;
     config_obj.position = { x: mX, y: mY };
+    config_obj.array_index = tileIndex;
 
     // Place a fresh config object into the appropriate config array
     if (ENEMIES.includes(type)) {
@@ -158,6 +159,8 @@ function getObjectAtMouseCoord(mX, mY) {
 function deleteEditorTile() {
   // Get tile at mouse coordinates
   var tileIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
+  console.log("tileIndex");
+  console.log(tileIndex);
 
   if (editor.layer === "tile") {
     return;
@@ -167,13 +170,24 @@ function deleteEditorTile() {
     // Get the game object at that tile
     var object = getObjectAtMouseCoord(mouseX, mouseY);
 
+    // Remove configuration from the all collections
+    editor.level_config.enemies = editor.level_config.enemies.filter(
+      (config) => config?.array_index !== tileIndex
+    );
+    editor.level_config.hazards = editor.level_config.hazards.filter(
+      (config) => config?.array_index !== tileIndex
+    );
+    editor.level_config.walls = editor.level_config.walls.filter(
+      (config) => config?.array_index !== tileIndex
+    );
+    editor.level_config.shots = editor.level_config.shots.filter(
+      (config) => config?.array_index !== tileIndex
+    );
+
     // Remove the game object from the appropriate collection
     var index = game_objects.indexOf(object);
     game_objects.splice(index, 1);
     delete object;
-
-    // Remove object from the config array
-    // ---TODO:
 
     // Remove the tile from all maps
     editor.currentMap[tileIndex] = 0;

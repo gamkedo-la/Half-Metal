@@ -99,8 +99,6 @@ function spawnGameObject(config, type) {
     hazards.push(game_object);
   }
 
-  console.log(game_object);
-
   // Set instance to default state
   game_object?.reset();
 
@@ -214,9 +212,11 @@ function loadLevel(whichLevel) {
 
   initGameObjects(world_grid);
 
-  editor.currentMap =
-    editor.currentMap.length === 0 ? whichLevel.slice() : editor.currentMap;
-  editor.level_config = { ...level };
+  if (editor.currentMap.length === 0) {
+    editor.currentMap = whichLevel.slice();
+    editor.level_config = { ...level };
+    return;
+  }
 }
 
 function updateAll(dt) {
