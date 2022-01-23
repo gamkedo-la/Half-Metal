@@ -252,17 +252,6 @@ function playerClass() {
 
   this.checkForCollisionWithEnemy = function (player) {
     checkForCollision(player, enemies, this.onCollideWithEnemy);
-    // enemies.forEach(function (enemy) {
-    //   if (
-    //     enemy.x < player.hitbox_x + player.hitbox_width &&
-    //     enemy.x + enemy.width > player.hitbox_x &&
-    //     enemy.y < player.hitbox_y + player.hitbox_height &&
-    //     enemy.y + enemy.height > player.hitbox_y
-    //   ) {
-    //     loadLevel(levels[currentLevel].level_map);
-    //     playSound(sounds.lose);
-    //   }
-    // });
   };
 
   this.checkForCollisionWithWall = function (player) {

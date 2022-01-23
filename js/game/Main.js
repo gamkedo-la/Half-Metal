@@ -173,29 +173,24 @@ function setupUI() {
 }
 
 function initGameObjects(map) {
-  level.enemies.forEach(function (enemy) {
-    spawnGameObject({ ...enemy }, enemy.type);
-  });
-  level.walls.forEach(function (wall) {
-    spawnGameObject({ ...wall }, wall.type);
-  });
-  level.hazards.forEach(function (hazard) {
-    spawnGameObject({ ...hazard }, hazard.type);
-  });
-  level.shots.forEach(function (shots) {
-    spawnGameObject({ ...shots }, shots.type);
-  });
+  const configurations = [
+    ...level.walls,
+    ...level.enemies,
+    ...level.shots,
+    ...level.hazards,
+  ];
 
-  // map.forEach((tile, index) => {
+  map.forEach((tile, index) => {
+    var object_type = Object.keys(OBJECT_MAP).find((key) => {
+      return OBJECT_MAP[key] === tile;
+    });
 
-  //   var object_type = Object.keys(OBJECT_MAP).find((key) => {
-  //     return OBJECT_MAP[key] === tile;
-  //   });
+    var object_config = configurations.find(config => config?.array_index === index);
 
-  //   if (object_type) {
-  //     spawnGameObject({ orientation: HORIZONTAL, direction: 180 }, object_type);
-  //   }
-  // });
+    if (object_type) {
+      spawnGameObject(object_config, object_type);
+    }
+  });
 }
 
 function loadLevel(whichLevel) {
