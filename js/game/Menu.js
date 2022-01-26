@@ -7,12 +7,13 @@ function MenuClass(config) {
   // -Rendering-
   this.width = config.width || 256;
   this.height = config.height || 240;
-  this.image = config.image || {};
+  this.image = config.image || null;
   this.button_start = {
     x: config.button_start_x || 0,
     y: config.button_start_y || 0,
   };
   this.button_buffer = config.button_buffer || 5;
+  this.show_name = config.show_name || false;
 
   // METHODS
   // -Life cycle methods
@@ -21,11 +22,13 @@ function MenuClass(config) {
     canvasContext.fillStyle = "black";
     canvasContext.fillRect(0, 0, this.width, this.height);
 
-    // IMAGE PLACEHOLDER
-    renderFont(this.name, 64, 4);
-    renderFont("IMAGE PLACEHOLDER", 64, 16);
-    canvasContext.fillStyle = "white";
-    canvasContext.fillRect(64, 32, 128, 64);
+    // MENU NAME
+    renderFont(this.name, this.width / 2, 30);
+
+    // IMAGE
+    if (this.image) {
+      canvasContext.drawImage(this.image, 0, 0, this.width, this.height);
+    }
 
     // BUTTONS
     this.buttons.forEach((button) => {
