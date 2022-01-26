@@ -9,6 +9,7 @@ function PauseMenu() {
     name: "Pause",
     button_start_x: 87,
     button_start_y: 125,
+    show_name: true,
   };
 
   MenuClass.call(this, pause_config);

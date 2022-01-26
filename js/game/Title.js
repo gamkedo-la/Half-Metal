@@ -31,7 +31,8 @@ function TitleMenu() {
     name: "Title",
     buttons: [new_game, select_level, options, credits, controls],
     button_start_x: 87,
-    button_start_y: 125,
+    button_start_y: 160,
+    image: title_img,
   };
 
   // SUPER CONSTRUCTOR

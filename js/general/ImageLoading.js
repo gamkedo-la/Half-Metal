@@ -40,6 +40,7 @@ var processing_tileset = document.createElement("img");
 var transceiver = document.createElement("img");
 var invisible_wall = document.createElement("img");
 var goal_img = document.createElement("img");
+var title_img = document.createElement("img");
 
 var worldPics = [];
 
@@ -252,6 +253,7 @@ var image_list = [
   },
   { var_name: fontPic, file: "font.png" },
   { var_name: transceiver, file: "transceiver_2.png" },
+  { var_name: title_img, file: "title_screen_blue.png" },
 
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
