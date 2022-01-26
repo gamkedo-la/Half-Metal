@@ -109,18 +109,23 @@ subMenus.forEach((sub) => {
 menuList["tiles"] = [
   new ButtonClass(...[, , , ,], "CELLS", ...[, ,], () => {
     editor.current_tileset = cell_tileset;
+    level.tileset = cell_tileset;
     editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "ARMORY", ...[, ,], () => {
     editor.current_tileset = armory_tileset;
+    level.tileset = armory_tileset;
     editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "PROCESS", ...[, ,], () => {
     editor.current_tileset = processing_tileset;
+    level.tileset = processing_tileset;
     editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "YARD", ...[, ,], () => {
-    console.log("clicked courtyard");
+    editor.current_tileset = courtyard_tileset;
+    level.tileset = courtyard_tileset;
+    editor.updateTileset();
   }),
   new ButtonClass(...[, , , ,], "BACK", ...[, ,], () => {
     console.log("Clicked back");

@@ -37,6 +37,7 @@ var shadow = document.createElement("img");
 var cell_tileset = document.createElement("img");
 var armory_tileset = document.createElement("img");
 var processing_tileset = document.createElement("img");
+var courtyard_tileset = document.createElement("img");
 var transceiver = document.createElement("img");
 var invisible_wall = document.createElement("img");
 var goal_img = document.createElement("img");
@@ -259,6 +260,7 @@ var image_list = [
   { var_name: cell_tileset, file: "cell_tileset.png" },
   { var_name: armory_tileset, file: "armory_tileset.png" },
   { var_name: processing_tileset, file: "processing_center_tileset.png" },
+  { var_name: courtyard_tileset, file: "courtyard_tileset.png" },
 ];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
