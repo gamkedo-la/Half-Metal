@@ -254,7 +254,7 @@ var image_list = [
   },
   { var_name: fontPic, file: "font.png" },
   { var_name: transceiver, file: "transceiver_2.png" },
-  { var_name: title_img, file: "title_screen_blue.png" },
+  { var_name: title_img, file: "title_screen_red.png" },
 
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
