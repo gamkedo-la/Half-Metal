@@ -9,7 +9,7 @@ dialogue = [
     "That’s what’s getting you out.",
     "It’s ammo for your new cannon arm.",
     "We reprogrammed a robot on the inside to place it in your cell during the night.",
-    "The little thing got turned into scrap once the Metallics found out.",
+    "I’m sure that little thing will get turned into scrap once the Metallics find out.",
     "Make sure you don’t end up the same.",
     "Alright, no more wasting time.",
     "Just grab that ammo and load up your weapon.",
