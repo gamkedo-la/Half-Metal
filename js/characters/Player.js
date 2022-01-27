@@ -236,9 +236,7 @@ function playerClass() {
         playSound(sounds.get_ammo);
         break;
       case TILE_GOAL:
-        currentLevel++;
-        level = { ...levels[currentLevel] };
-        loadLevel(level.level_map);
+        finished_level = true;
         break;
       default:
         break;

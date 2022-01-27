@@ -15,6 +15,7 @@ var triggers = new Array();
 var game_objects = new Array();
 var editor = new EditorClass();
 var cutscene = new CutsceneClass();
+var finished_level = false;
 cutscene.dialogue = ["TEST LINE A", "TEST LINE B", "TEST LINE C"];
 var ui;
 
@@ -180,6 +181,29 @@ function spawnEffect(x, y, type = EXPLOSION) {
   effects.push(effect);
 }
 
+function spawnTransition(config) {
+  var new_transition = new FadeClass(config);
+  effects.push(new_transition);
+  return new_transition;
+}
+
+function fadeTransitionBetweenLevels() {
+  if (finished_level) {
+    level_fade_out = spawnTransition({ animation: "fade-out" });
+    level_fade_out.opacity = 0;
+
+    level_fade_out.onFadeComplete = function () {
+      level_fade_out.removeSelf();
+      spawnTransition({ animation: "fade-in" });
+      goToNextLevel();
+    };
+
+    level_fade_out.draw();
+
+    finished_level = false;
+  }
+}
+
 function setupUI() {
   var height = WORLD_H * 2;
   var width = canvas.width;
@@ -233,6 +257,13 @@ function loadLevel(whichLevel) {
   }
 }
 
+function goToNextLevel() {
+  currentLevel++;
+  level = { ...levels[currentLevel] };
+  loadLevel(level.level_map);
+  finished_level = false;
+}
+
 function updateAll(dt) {
   if (currentMode !== MENU_MODE) {
     menu_stack.forEach((menu) => menu.deactivateMenuButtons());
@@ -278,6 +309,8 @@ function moveAll() {
   });
 }
 
+var opacity = 1;
+
 function drawAll() {
   switch (currentMode) {
     case PLAY_MODE:
@@ -296,6 +329,9 @@ function drawAll() {
       // Upper layer
       drawTilesetUpperLayer(level);
       ui.draw();
+
+      // LEVEL TRANSITION
+      fadeTransitionBetweenLevels();
       break;
 
     case EDIT_MODE:
