@@ -289,7 +289,7 @@ function keySet(keyEvent, setTo) {
     key_T_Held = false;
   }
 
-  if (key_esc_held) {
+  if (key_esc_held && keyEvent.keyCode === KEY_ESC) {
     currentMode = MENU_MODE;
     menu_stack.push(pause_screen);
     key_esc_held = false;
