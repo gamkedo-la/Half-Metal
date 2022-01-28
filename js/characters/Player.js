@@ -62,6 +62,8 @@ function playerClass() {
   this.prevX = this.x;
   this.prevY = this.y;
 
+  this.touched_goal = false;
+
   this.directionUpdate = {
     [UP]: ["y", PLAYER_MOVE_SPEED * -1],
     [DOWN]: ["y", PLAYER_MOVE_SPEED],
@@ -236,7 +238,10 @@ function playerClass() {
         playSound(sounds.get_ammo);
         break;
       case TILE_GOAL:
-        finished_level = true;
+        if (!this.touched_goal) {
+          finished_level = true;
+          this.touched_goal = true;
+        }
         break;
       default:
         break;
