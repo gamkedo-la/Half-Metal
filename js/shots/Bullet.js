@@ -181,7 +181,6 @@ function ShotClass() {
     }
 
     if (object?.type === SWITCH) {
-      console.log("SWITCH");
       object.state = object.state === PRESSED ? UNPRESSED : PRESSED;
       this.removeSelf();
       return;
@@ -189,9 +188,17 @@ function ShotClass() {
 
     // REFLECT SHOT
     if (object?.type === BOUNCE) {
-      console.log("REFLECT SHOT");
+      // Bounce off of this material
       reverseDirection(this);
+
+      // Move back a safe distance from the bounce block to avoid infinite collision
+      this.x += this.width * Math.cos((this.direction * Math.PI) / 180);
+      this.y += this.width * Math.sin((this.direction * Math.PI) / 180);
+
+      // Ricochet sound
       playSound(sounds.bump);
+
+      // Early return to prevent other collision code
       return;
     }
 
@@ -201,7 +208,6 @@ function ShotClass() {
     }
 
     // DEFAULT
-    console.log("NO DAMAGE");
     this.removeSelf();
     playSound(sounds.bump);
     return;

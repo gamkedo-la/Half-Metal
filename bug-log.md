@@ -1,13 +1,11 @@
 <!-- PLAY MODE -->
 1. Flyer still hittable when in ASCENDED mode
-2. Enemy alert doesn't reset when player loses
-3. Shots keep spawning after enemy reset
-4. Bounce wall traps bullets
-6. Enemies won't collide with bounce wall
-7. Turret won't despawn on reset, leaves multiple instances
-8.  Blocker shield animation won't play
-9.  Level reset messes with shot type selection
-10. Player gets caught on some walls
+2. Shots keep spawning after enemy reset
+4. Enemies won't collide with bounce wall
+5. Turret won't despawn on reset, leaves multiple instances
+6.  Blocker shield animation won't play
+7.  Level reset messes with shot type selection
+8.  Player gets caught on some walls
 
 <!-- EDITOR -->
 
