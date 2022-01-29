@@ -7,6 +7,20 @@ function FlyerClass() {
   this.name = "Flyer";
   this.type = FLYER;
 
+  // -Collision-
+  this.hitboxes = [
+    {
+      name: "main",
+      x: 0,
+      y: 0,
+      w: 13,
+      h: 13,
+      offset_x: 0,
+      offset_y: 0,
+      color: "red",
+    },
+  ];
+
   // -Rendering-
   this.image = flyer_sheet;
   this.death_anim = FLYER_DIE;
@@ -103,6 +117,15 @@ function FlyerClass() {
     this.alert_timer.stop();
     this.state = MOVING;
     this.speed = 1;
+  };
+
+  // -Collision-
+  this.updateHitBoxes = function () {
+    this.hitboxes.forEach((hitbox) => {
+      hitbox.offset_y = -1 * this.flight_dist;
+      hitbox.x = this.x - hitbox.w / 2 + hitbox.offset_x;
+      hitbox.y = this.y - hitbox.h / 2 + hitbox.offset_y;
+    });
   };
 
   // -Combat-
