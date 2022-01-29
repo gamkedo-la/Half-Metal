@@ -292,6 +292,7 @@ function keySet(keyEvent, setTo) {
   if (key_esc_held && keyEvent.keyCode === KEY_ESC) {
     currentMode = MENU_MODE;
     menu_stack.push(pause_screen);
+    playSound(sounds.pause);
     key_esc_held = false;
   }
 
