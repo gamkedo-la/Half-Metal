@@ -172,7 +172,7 @@ function ShotClass() {
     if (
       object?.damageable &&
       this.can_damage &&
-      object?.flight_height !== ASCENDED
+      object?.flight_state !== ASCENDED
     ) {
       object.removeSelf();
       this.removeSelf();

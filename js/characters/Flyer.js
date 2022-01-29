@@ -90,6 +90,7 @@ function FlyerClass() {
 
     if (this.flight_dist + 14 <= 0) {
       this.shoot_timer -= 1;
+      this.flight_state = DESCENDED;
     }
 
     if (this.shoot_timer <= 0) {
@@ -129,6 +130,10 @@ function FlyerClass() {
       this.flight_amplitude
     );
     this.flight_time += this.flight_speed;
+
+    if (this.flight_dist >= 8) {
+      this.flight_state = ASCENDED;
+    }
   };
 
   // -Animation-
