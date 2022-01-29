@@ -55,6 +55,16 @@ function playerClass() {
       offset_y: 0,
       color: "blue",
     },
+    {
+      name: "detection",
+      x: this.x,
+      y: this.y,
+      w: this.hitbox_width,
+      h: this.hitbox_height,
+      offset_x: 0,
+      offset_y: 0,
+      color: "red",
+    },
   ];
 
   this.nextX = this.x;
@@ -154,10 +164,21 @@ function playerClass() {
     this.hitbox_height = 6;
 
     // New hitbox array
-    this.hitboxes[0].x = this.x - this.width / 4;
-    this.hitboxes[0].y = this.y - 2;
-    this.hitboxes[0].w = 12;
-    this.hitboxes[0].h = 6;
+    this.hitboxes.forEach((hitbox) => {
+      if (hitbox.name === "main") {
+        hitbox.x = this.x - this.width / 4;
+        hitbox.y = this.y - 2;
+        hitbox.w = 12;
+        hitbox.h = 6;
+      }
+
+      if (hitbox.name === "detection") {
+        hitbox.x = this.x - this.width / 2 + 2;
+        hitbox.y = this.y - this.height / 2 + 2;
+        hitbox.w = 12;
+        hitbox.h = 12;
+      }
+    });
   };
 
   this.move = function () {
@@ -438,6 +459,10 @@ function playerClass() {
     }
     this.animator.animate();
     if (this.render_hitbox) {
+      this.hitboxes.forEach((hitbox) => {
+        canvasContext.fillStyle = hitbox.color;
+        canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+      });
       canvasContext.fillStyle = "blue";
       canvasContext.fillRect(
         this.hitbox_x,

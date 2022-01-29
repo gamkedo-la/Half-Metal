@@ -57,11 +57,15 @@ function RayClass(x, y, direction) {
   };
 
   this.checkForCollisionWithPlayer = function () {
+    const hitbox = player.hitboxes.find(
+      (hitbox) => hitbox.name === "detection"
+    );
+
     if (
-      player.x < this.x + this.width &&
-      player.x + player.width > this.x &&
-      player.y < this.y + this.height &&
-      player.y + player.height > this.y
+      hitbox.x < this.x + this.width &&
+      hitbox.x + hitbox.w > this.x &&
+      hitbox.y < this.y + this.height &&
+      hitbox.y + hitbox.h > this.y
     ) {
       this.found_player = true;
     }
