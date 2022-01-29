@@ -16,7 +16,7 @@ Add a new entry to this array, containing your sound name and file name.
 ### Step 3: Test your sound in a Game Object
 Finally, play your sound in a Game Object (for example, the `EnemyClass` of the `PlayerClass`). 
 
-You can add the following code whereever appropriate:
+You can add the following code wherever appropriate:
 
     playSound(sounds.my_sound);
 

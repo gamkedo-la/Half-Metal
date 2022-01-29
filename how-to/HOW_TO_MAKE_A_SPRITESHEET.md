@@ -43,3 +43,36 @@ The actual numbers will vary but they will be important in telling the code wher
 Provided you have added in your sheet as an image (`how-to/HOW_TO_LOAD_IMAGES.md`), simply add your sheet to a Game Object's `image` property (e.g., `this.image = mySheet`).
 
 Finally, check out the guide in `how-to/HOW_TO_ANIMATE.md` to see more information on rendering the frames of your sheet with the `SpriteSheetAnimatorClass`.
+
+## Where to Put Your Frame Data
+
+We've recently added a file for holding the data of each frame in our spritesheets (`js/FrameData.js`). This file contains a global array called FRAME_DATA in which you'll place the object that represents your sprite animations.
+
+Each entry in the FRAME_DATA array is an object with an identifier for one of our Game Objects. The example below features the frame data for the LEAPER enemy:
+
+    FRAME_DATA = {
+        [LEAPER]: {
+            "walk-right": [
+                { x: 0, y: 0, w: 16, h: 16 },
+                { x: 16, y: 0, w: 16, h: 16 },
+            ],
+            "walk-left": [
+                { x: 16 * 2, y: 0, w: 16, h: 16 },
+                { x: 16 * 3, y: 0, w: 16, h: 16 },
+            ],
+            "walk-down": [
+                { x: 16 * 4, y: 0, w: 16, h: 16 },
+                { x: 16 * 5, y: 0, w: 16, h: 16 },
+            ],
+            "walk-up": [
+                { x: 16 * 6, y: 0, w: 16, h: 16 },
+                { x: 16 * 7, y: 0, w: 16, h: 16 },
+            ],
+            "leap-right": [{ x: 0, y: 32, w: 16, h: 16 }],
+            "leap-left": [{ x: 16, y: 32, w: 16, h: 16 }],
+            "leap-down": [{ x: 16 * 2, y: 32, w: 16, h: 16 }],
+            "leap-up": [{ x: 16 * 3, y: 32, w: 16, h: 16 }],
+        },
+    }
+
+You can find the list of identifiers to use in our `general/Constants.js` file.

@@ -16,11 +16,15 @@ Next, open `js/general/ImageLoading.js`. At the top of the file add a variable t
 
 In the same file, look for the `imageList` inside `loadImages()`. Add a new entry to this array, containing your `img` element and file name.
 
-    { varName:  myImagePic, theFile:  "my_image.png" },
+    { var_name:  myImagePic, file:  "my_image.png" },
 
-If your image is only used for a tile, use the worldType property instead:
+If your image is only used for a tile, use the tile property instead:
 
-    { worldType:  MY_TILE_TYPE, theFile:  "my_image.png" },
+    { tile:  MY_TILE_TYPE, file:  "my_image.png" },
+
+If your image has transparent sections, include the transparent_bg property:
+
+    { tile:  MY_TILE_TYPE, file: "my_transparent_image.png", transparent_bg: true },
 
 ### Step 4: Test your image in a Game Object
 
