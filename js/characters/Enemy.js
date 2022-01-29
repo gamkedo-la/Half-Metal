@@ -253,6 +253,14 @@ function EnemyClass() {
     this.alert_timer.start();
   };
 
+  this.removeRaycast = function (ray) {
+    this.rays.splice(this.rays.indexOf(ray), 1);
+  };
+
+  this.raycast = function () {
+    this.rays.push(new RayClass(this.x, this.y, this.direction));
+  };
+
   // -Combat-
   this.checkIfDestroyed = function () {
     if (this.health <= 0) {
@@ -264,6 +272,12 @@ function EnemyClass() {
 
   this.onDestroy = function () {
     this.removeSelf();
+  };
+
+  this.destroyObject = function (object) {
+    const index = game_objects.indexOf(object);
+    game_objects.splice(index, 1);
+    delete object;
   };
 
   this.shoot = function () {
