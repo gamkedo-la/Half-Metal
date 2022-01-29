@@ -4,7 +4,6 @@
 3. Turret won't despawn on reset, leaves multiple instances
 4. Blocker shield animation won't play
 5. Player gets caught on some walls
-6. Enemies miss player detection when moving horizontally
 
 <!-- EDITOR -->
 
