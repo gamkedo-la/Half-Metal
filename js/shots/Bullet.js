@@ -180,7 +180,16 @@ function ShotClass() {
       this.can_damage &&
       object?.flight_state !== ASCENDED
     ) {
-      object.removeSelf();
+      if (object?.type === PLAYER) {
+        loadLevel(levels[currentLevel].level_map);
+        playSound(sounds.lose);
+        return;
+      }
+
+      if (object?.removeSelf) {
+        object?.removeSelf();
+      }
+
       this.removeSelf();
       playSound(sounds.destroy);
       return;
