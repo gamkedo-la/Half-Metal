@@ -1,9 +1,10 @@
 <!-- PLAY MODE -->
 
-2. Shots keep spawning after enemy reset
-3. Turret won't despawn on reset, leaves multiple instances
-4. Blocker shield animation won't play
-5. Player gets caught on some walls
+1. Shots keep spawning after level reset
+2. Blocker shield animation won't play
+3. Player gets caught on some walls
+4. Turned enemies will go out of bounds
+5. Player gets stuck on turrets
 
 <!-- EDITOR -->
 
