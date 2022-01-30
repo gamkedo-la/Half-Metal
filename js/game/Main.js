@@ -312,6 +312,19 @@ function moveAll() {
   });
 }
 
+function sortLevelsByName() {
+  const sorted_levels = levels.sort((a, b) => {
+    var number_a = parseInt(a.name.split("-")[1], 10);
+    var number_b = parseInt(b.name.split("-")[1], 10);
+
+    console.log(number_a, number_b);
+
+    return number_a > number_b ? 1 : -1;
+  });
+
+  console.log(sorted_levels);
+}
+
 var opacity = 1;
 
 function drawAll() {

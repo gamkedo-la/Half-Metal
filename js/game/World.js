@@ -149,6 +149,7 @@ function drawTileset(level) {
   }
 }
 
+
 function drawTilesetUpperLayer(level) {
   var array_index = 0;
   var draw_tile_x = 0;
