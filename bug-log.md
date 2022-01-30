@@ -4,7 +4,6 @@
 2. Blocker shield animation won't play
 3. Player gets caught on some walls
 4. Turned enemies will go out of bounds
-5. Player gets stuck on turrets
 
 <!-- EDITOR -->
 

@@ -328,7 +328,31 @@ function playerClass() {
   };
 
   this.checkForCollisionWithHazard = function (player) {
-    checkForCollision(player, hazards, this.onCollideWithHazard);
+    hazards.forEach(function (hazard) {
+      const hitbox = hazard.hitboxes.find((box) => box.name === "main");
+      if (
+        collisionDetected(
+          {
+            x: hitbox.x,
+            y: hitbox.y,
+            w: hitbox.w,
+            h: hitbox.h,
+          },
+          {
+            x: player.hitbox_x,
+            y: player.hitbox_y,
+            w: player.hitbox_width,
+            h: player.hitbox_height,
+          }
+        )
+      ) {
+        if (hazard.solid) {
+          player.x = player.prevX;
+          player.y = player.prevY;
+          player.movingProgressRemaining = 0;
+        }
+      }
+    });
   };
 
   this.onCollideWithHazard = function (hazard) {
