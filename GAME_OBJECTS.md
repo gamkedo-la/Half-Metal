@@ -26,8 +26,13 @@ This decision was made so that we don't end up with an inheritance tree that is 
 ## Game Object Methods
 
 - **update():** handles the general game logic of updating the object's properties each frame.
+
 - **move():** handles the object's movement. Will normally check for which tiles are at the object's coordinates to determine collision.
+
 - **draw():** renders the object or other visual effects. Normall call this.animator.animate() to animate the object's sprite sheet.
+
 - **reset():** essentially "restarts" the object for when the room reloads. Sets the object back to its original position/state.
+
 - **checkIfOutOfBounds():** checks if the object's position is out of the level boundaries.
+
 - **removeSelf():** removes the object from the scene (normally stored in an array of objects of the same type). Deletes the object instance. Usually called in `this.checkIfOutOfBounds()`.

@@ -4,5 +4,6 @@ function SturdyWallClass() {
   this.invincible = false;
   this.damageable = true;
   this.pushable = true;
-  this.type = STURDY_WALL;
+  this.type = STURDY;
+  this.image = sturdy_wall_img;
 }
