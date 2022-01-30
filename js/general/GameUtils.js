@@ -115,6 +115,7 @@ function turnObject(object, degrees) {
     case HUNTER:
     case BLOCKER:
       object.direction += degrees;
+      object.direction = object.direction % 360;
       break;
 
     case NORMAL_WALL:

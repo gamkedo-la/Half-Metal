@@ -47,6 +47,7 @@ function EnemyClass() {
   this.turnable = true;
   this.damageable = true;
   this.solid = true;
+  this.collisions = [];
 
   // -Rendering-
   this.image = leaperSheet;
@@ -54,7 +55,7 @@ function EnemyClass() {
   this.currentAnimation = "walk-down";
   this.animations = FRAME_DATA[LEAPER];
   this.animator = new SpriteSheetAnimatorClass(this);
-  this.render_hitbox = true;
+  this.render_hitbox = false;
 
   // -State-
   this.state = NORMAL;
@@ -173,6 +174,7 @@ function EnemyClass() {
       //   If collided with an object (based on main hitbox),
       //   perform collision event
       if (
+        this.collisions.length < 1 &&
         object.solid &&
         collisionDetected(object_hitbox, {
           x: hitbox.x,
@@ -181,9 +183,12 @@ function EnemyClass() {
           h: hitbox.h,
         })
       ) {
+        this.collisions.push("hit");
         this.onCollision(object);
       }
     });
+
+    this.collisions.length = 0;
   };
 
   this.onCollision = function (other) {
@@ -203,7 +208,6 @@ function EnemyClass() {
   // -State methods-
   this.whileAlerted = function () {
     // Override in subclasses
-    console.log("Alerted");
     this.alert_timer.update();
   };
 
