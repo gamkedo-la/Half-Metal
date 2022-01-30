@@ -131,7 +131,7 @@ function turnObject(object, degrees) {
 }
 
 // Check for collision against game object collection object
-function checkForCollision(self, collection, on_collision) {
+function checkForCollision(self, collection, onCollision) {
   // Get main hitbox for collisions
   const hitbox = self.hitboxes.find((box) => box.name === "main");
 
@@ -164,7 +164,7 @@ function checkForCollision(self, collection, on_collision) {
         h: hitbox.h,
       })
     ) {
-      on_collision(object);
+      onCollision(object);
     }
   });
 }

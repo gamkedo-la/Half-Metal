@@ -14,6 +14,7 @@ function TurretClass() {
     "turn-left": [{ x: 0, y: 16, w: this.width, h: this.height }],
     "turn-down": [{ x: 16, y: 16, w: this.width, h: this.height }],
   };
+  this.solid = true;
   this.currentAnimation = "turn-right";
   this.animator = new SpriteSheetAnimatorClass(this);
   this.turn_timer = new TimerClass(
@@ -43,6 +44,19 @@ function TurretClass() {
     1,
     false
   );
+  this.render_hitbox = true;
+  this.hitboxes = [
+    {
+      name: "main",
+      x: 0,
+      y: 0,
+      w: 13,
+      h: 13,
+      offset_x: 0,
+      offset_y: 0,
+      color: "red",
+    },
+  ];
 
   this.reset = function () {
     resetGameObject(this);
@@ -63,6 +77,14 @@ function TurretClass() {
     canvasContext.stroke();
 
     this.animator.animate();
+
+    // Render hitbox for debugging
+    if (this.render_hitbox) {
+      this.hitboxes.forEach(function (hitbox) {
+        canvasContext.fillStyle = hitbox.color;
+        canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+      });
+    }
   };
 
   this.raycast = function () {
@@ -73,7 +95,16 @@ function TurretClass() {
     this.rays.splice(this.rays.indexOf(ray), 1);
   };
 
+  this.updateHitBoxes = function () {
+    this.hitboxes.forEach((hitbox) => {
+      hitbox.x = this.x - hitbox.w / 2 + hitbox.offset_x;
+      hitbox.y = this.y - hitbox.h / 2 + hitbox.offset_y;
+    });
+  };
+
   this.update = function () {
+    this.updateHitBoxes();
+
     for (var i = 0; i < this.rays.length; i++) {
       if (this.rays[i].destroyed) {
         this.removeRaycast(this.rays[i]);
@@ -101,7 +132,16 @@ function TurretClass() {
   };
 
   this.shoot = function () {
-    spawnBullet(this.x, this.y, this.direction, NORMAL);
+    var shot_buffer = 3;
+
+    var spawn_x =
+      (this.width + shot_buffer) * Math.cos((this.direction * Math.PI) / 180);
+    var spawn_y =
+      (this.height + shot_buffer) * Math.sin((this.direction * Math.PI) / 180);
+
+    spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, NORMAL);
+
+    playSound(sounds.shoot);
   };
 
   this.stopAlert = function () {

@@ -8,10 +8,12 @@ function playerClass() {
   this.height = 16;
   this.image = playerSheet;
   this.name = "Player";
+  this.type = PLAYER;
   this.ammo = 0;
   this.selected_ammo = NORMAL;
   this.ammo_types = [NORMAL, STUN, PUSH, TURN];
   this.currentAmmoIndex = 0;
+  this.damageable = true;
 
   this.MAX_DELAY = 15;
   this.shootDelay = this.MAX_DELAY;
@@ -303,7 +305,6 @@ function playerClass() {
         }
 
         if (wall.solid) {
-          console.log("CANT MOVE");
           player.x = player.prevX;
           player.y = player.prevY;
           player.movingProgressRemaining = 0;
@@ -327,16 +328,15 @@ function playerClass() {
   };
 
   this.checkForCollisionWithHazard = function (player) {
-    hazards.forEach(function (hazard) {
-      if (
-        collisionDetected(
-          { x: hazard.x, y: hazard.y, h: hazard.height, w: hazard.width },
-          { x: player.x, y: player.y, h: player.height, w: player.width }
-        )
-      ) {
-        player.checkHazardType(hazard);
-      }
-    });
+    checkForCollision(player, hazards, this.onCollideWithHazard);
+  };
+
+  this.onCollideWithHazard = function (hazard) {
+    if (hazard.solid) {
+      player.x = player.prevX;
+      player.y = player.prevY;
+      player.movingProgressRemaining = 0;
+    }
   };
 
   this.checkHazardType = function (hazard) {
