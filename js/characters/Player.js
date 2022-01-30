@@ -11,7 +11,7 @@ function playerClass() {
   this.type = PLAYER;
   this.ammo = 0;
   this.selected_ammo = NORMAL;
-  this.ammo_types = [NORMAL, STUN, PUSH, TURN];
+  this.ammo_types = [NORMAL, TURN, PUSH, STUN];
   this.currentAmmoIndex = 0;
   this.damageable = true;
 
@@ -45,7 +45,7 @@ function playerClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
-  this.render_hitbox = true;
+  this.render_hitbox = false;
   this.hitboxes = [
     {
       name: "main",

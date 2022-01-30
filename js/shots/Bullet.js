@@ -137,7 +137,6 @@ function ShotClass() {
 
     // PASS FLYING ENEMY
     if (object?.flight_state === ASCENDED) {
-      console.log("PASSED");
       return;
     }
 
@@ -219,7 +218,6 @@ function ShotClass() {
 
     // DEFAULT
     this.removeSelf();
-    console.log("REMOVED");
     playSound(sounds.bump);
     return;
   };
