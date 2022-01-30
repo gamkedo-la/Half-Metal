@@ -7,7 +7,6 @@ function TurretClass() {
   this.type = TURRET;
   this.direction = 270;
   this.state = IDLE;
-  this.rays = [];
   this.animations = {
     "turn-up": [{ x: 0, y: 0, w: this.width, h: this.height }],
     "turn-right": [{ x: 16, y: 0, w: this.width, h: this.height }],
@@ -17,6 +16,12 @@ function TurretClass() {
   this.solid = true;
   this.currentAnimation = "turn-right";
   this.animator = new SpriteSheetAnimatorClass(this);
+
+  // -Raycasting-
+  this.rays = [];
+  this.raycast_countdown = 5;
+
+  // -Timer-
   this.turn_timer = new TimerClass(
     () => {
       this.direction += 90;
@@ -44,7 +49,7 @@ function TurretClass() {
     1,
     false
   );
-  this.render_hitbox = true;
+  this.render_hitbox = false;
   this.hitboxes = [
     {
       name: "main",
@@ -63,7 +68,6 @@ function TurretClass() {
   };
 
   this.draw = function () {
-    this.raycast();
     canvasContext.lineWidth = 1;
     canvasContext.strokeStyle = "red";
     canvasContext.beginPath();
@@ -87,12 +91,52 @@ function TurretClass() {
     }
   };
 
-  this.raycast = function () {
-    this.rays.push(new RayClass(this.x, this.y, this.direction));
+  // -Raycasting-
+  this.checkForPlayer = function () {
+    // Send out rays at regular intervals
+    this.raycast_countdown--;
+    if (this.raycast_countdown <= 0) {
+      this.emitRaycast();
+      this.raycast_countdown = 5;
+    }
+
+    // Check for a collision with the player and any of these rays
+    this.rays.forEach((ray) => {
+      ray.move();
+
+      if (ray.found_player) {
+        // Remove ray that found the player
+        ray.destroyed = true;
+
+        // If the player is found, perform onDetect event
+        this.onDetectPlayer();
+      }
+    });
+
+    //   If ray collides with a wall or is outside of the boundaries, destroy it
+    this.rays.forEach((ray) => {
+      if (ray.destroyed) {
+        this.rays.splice(this.rays.indexOf(ray), 1);
+      }
+    });
+  };
+
+  this.emitRaycast = function () {
+    var ray = new RayClass(this.x - 3, this.y - 3, this.direction);
+    ray.parent = this;
+    this.rays.push(ray);
+  };
+
+  this.onDetectPlayer = function () {
+    this.state = ALERT;
   };
 
   this.removeRaycast = function (ray) {
     this.rays.splice(this.rays.indexOf(ray), 1);
+  };
+
+  this.raycast = function () {
+    this.rays.push(new RayClass(this.x, this.y, this.direction));
   };
 
   this.updateHitBoxes = function () {
@@ -105,14 +149,7 @@ function TurretClass() {
   this.update = function () {
     this.updateHitBoxes();
 
-    for (var i = 0; i < this.rays.length; i++) {
-      if (this.rays[i].destroyed) {
-        this.removeRaycast(this.rays[i]);
-      } else if (this.rays[i].found_player) {
-        this.state = ALERT;
-      }
-      this.rays[i].move();
-    }
+    this.checkForPlayer();
 
     this.currentAnimation = `turn-${DIRECTION_MAP[this.direction]}`;
 

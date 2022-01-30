@@ -9,6 +9,7 @@ function RayClass(x, y, direction) {
   this.found_player = false;
   this.color = "red";
   this.parent = undefined;
+  this.render_hitbox = false;
 
   this.move = function () {
     nextX = this.x + this.speed * Math.cos((this.direction * Math.PI) / 180);
@@ -42,8 +43,10 @@ function RayClass(x, y, direction) {
   };
 
   this.draw = function () {
-    canvasContext.fillStyle = this.color;
-    canvasContext.fillRect(this.x, this.y, this.width, this.height);
+    if (this.render_hitbox) {
+      canvasContext.fillStyle = this.color;
+      canvasContext.fillRect(this.x, this.y, this.width, this.height);
+    }
   };
 
   this.checkIfOutofBounds = function () {
