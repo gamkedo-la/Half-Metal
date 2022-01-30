@@ -253,8 +253,11 @@ function EnemyClass() {
   };
 
   this.onDetectPlayer = function () {
-    this.state = ALERT;
-    this.alert_timer.start();
+    if (this.state !== ALERT) {
+      this.state = ALERT;
+      this.alert_timer.start();
+      playSound(sounds.leap);
+    }
   };
 
   this.removeRaycast = function (ray) {
