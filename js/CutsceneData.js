@@ -1,7 +1,7 @@
 dialogue = [
   [
-    "Cyrus?",
-    "Can you hear me, Cyrus?",
+    "Cyrus? Come in, Cyrus?",
+    "Can you hear me?",
     "Wake up!",
     "Today’s the day you’re getting free, soldier.",
     "Got your attention now? Good.",
@@ -28,7 +28,21 @@ dialogue = [
     "Approach with caution.",
     "Over and out, Cyrus. Don’t do anything stupid.",
   ],
-  [],
+  // Processing sequence
+  [
+    "Cyrus?! Come in, Cyrus?!?!",
+    "You need to get out of there now!",
+    "We just got word from our technician’s ...",
+    "That little robot .. ",
+    "It resisted the reprogramming!",
+    "It lead us on - it was all a trap ...",
+    "You were just the bait to lure the extraction team.",
+    "All of them - everyone - was taken down by ... that thing...",
+    "We don’t know what it is.",
+    "Whatever you do: Don’t try to fight it. Just don’t. ",
+    "Run.",
+    "Over and out, Cyr - *bzzzzzt*",
+  ],
   [],
   [],
 ];
