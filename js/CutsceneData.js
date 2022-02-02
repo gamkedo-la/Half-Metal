@@ -1,4 +1,23 @@
 dialogue = [
+  // Intro sequence
+  [
+    "The year is 208X - the rise of the machines is upon us.",
+    "Determined to wipe out all organic life, machines known as The Metallics, rose up against humanity.",
+    "But humanity fought back. Hard.",
+    "And lost even harder.",
+    "Only a handful of resistance armies now stand against The Metallics.",
+    "Our numbers fall by the day.",
+    "The Metallics capture our soldiers, converting them into machines.",
+    "And I was next in line.",
+    "They implanted me with machine parts - a cybernetic body, a powerful cannon arm.",
+    "But, there was a malfunction... ",
+    "Even after conversion, I still sided with my comrades.",
+    "My body was metallic and cold. But my heart - it was all human.",
+    "The machines don’t know that I’m still against them.",
+    "And thanks to their little “gifts”, I finally stand a chance of breaking out.",
+  ],
+
+  // Cell sequence
   [
     "Cyrus? Come in, Cyrus?",
     "Can you hear me?",
@@ -16,6 +35,8 @@ dialogue = [
     "There’s more littered around the facility.",
     "Over and out, Cyrus. We’ll see you soon. ",
   ],
+
+  // Armory sequence
   [
     "Come in, Cyrus. Come in.",
     "Congrats on making it this far, soldier.",
@@ -28,6 +49,7 @@ dialogue = [
     "Approach with caution.",
     "Over and out, Cyrus. Don’t do anything stupid.",
   ],
+
   // Processing sequence
   [
     "Cyrus?! Come in, Cyrus?!?!",
@@ -43,6 +65,10 @@ dialogue = [
     "Run.",
     "Over and out, Cyr - *bzzzzzt*",
   ],
+
+  // Courtyard sequence
   [],
+
+  // Outro sequence
   [],
 ];
