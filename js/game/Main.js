@@ -18,6 +18,25 @@ var cutscene = new CutsceneClass();
 var finished_level = false;
 cutscene.dialogue = ["TEST LINE A", "TEST LINE B", "TEST LINE C"];
 var ui;
+var test_prompt = new TutorialPromptClass({
+  prompt: TUTORIAL_TEXT[1],
+});
+
+// TUTORIAL PROMPTS
+var walk_prompt = new TutorialPromptClass({
+  prompt: TUTORIAL_TEXT[0],
+  control: "move",
+});
+var shoot_prompt = new TutorialPromptClass({
+  prompt: TUTORIAL_TEXT[1],
+  control: "shoot",
+});
+var switch_prompt = new TutorialPromptClass({
+  prompt: TUTORIAL_TEXT[2],
+  control: "switch",
+  level_name: "2-1",
+});
+var prompts = [switch_prompt, shoot_prompt, walk_prompt];
 
 // Menus
 var title_screen = new TitleMenu();
@@ -209,10 +228,16 @@ function fadeTransitionBetweenLevels() {
 function setupUI() {
   var height = WORLD_H * 2;
   var width = canvas.width;
+  var prompt_buffer = 20;
   var x = 0,
     y = canvas.height - height;
 
   ui = new UIClass(x, y, width, height, player);
+
+  prompts.forEach(function (prompt) {
+    prompt.x = canvas.width / 2 - prompt.background_width / 2;
+    prompt.y = ui.y - prompt.background_height - prompt_buffer;
+  });
 }
 
 function initGameObjects(map) {
@@ -267,6 +292,41 @@ function goToNextLevel() {
   player.touched_goal = false;
 }
 
+function checkForTutorialProgress() {
+  if (prompts.length === 0) return;
+
+  var current_prompt = prompts[prompts.length - 1];
+
+  switch (level.name) {
+    case "1-1":
+      // PROMPT 1
+      if (
+        (player.keyHeld_East ||
+          player.keyHeld_North ||
+          player.keyHeld_West ||
+          player.keyHeld_South) &&
+        current_prompt.control === "move"
+      ) {
+        prompts.pop();
+      }
+
+      // PROMPT 2
+      if (player.keyHeld_Shoot && current_prompt.control === "shoot") {
+        prompts.pop();
+      }
+
+      break;
+    case "2-1":
+      // PROMPT 2
+      if (player.currentAmmoIndex > 0 && current_prompt.control === "switch") {
+        prompts.pop();
+      }
+      break;
+    default:
+      break;
+  }
+}
+
 function updateAll(dt) {
   if (currentMode !== MENU_MODE) {
     menu_stack.forEach((menu) => menu.deactivateMenuButtons());
@@ -281,6 +341,7 @@ function updateAll(dt) {
           object.update(dt);
         }
       });
+      checkForTutorialProgress();
 
       playMusic();
       break;
@@ -345,6 +406,11 @@ function drawAll() {
       // Upper layer
       drawTilesetUpperLayer(level);
       ui.draw();
+
+      // PROMPTS
+      if (prompts.length > 0) {
+        prompts[prompts.length - 1].draw();
+      }
 
       // LEVEL TRANSITION
       fadeTransitionBetweenLevels();
