@@ -26,6 +26,7 @@ async function loadSounds() {
     { sndName: "fly_down", theFile: "snd_fly_down.wav" },
     { sndName: "detected", theFile: "snd_detected.wav" },
     { sndName: "hum", theFile: "snd_elecwall_hum.wav" },
+    { sndName: "bounce", theFile: "snd_bounce.wav" },
     { sndName: "elec_open", theFile: "snd_elecwall_open.wav" },
     { sndName: "level_transition", theFile: "snd_level_transition.wav" },
     { sndName: "pause", theFile: "snd_pause.wav" },
