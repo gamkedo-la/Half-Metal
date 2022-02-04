@@ -206,6 +206,14 @@ function deleteEditorTile() {
 
 function mousePressed() {
   console.log("Clicked at " + mouseX + ", " + mouseY);
+  if (clickedYet == false) {
+      if (allImagesLoaded) {
+        clickedYet = true;
+        initSounds();
+        imageLoadingDoneSoStartGame();
+      }
+      return;
+  }
   var over_button = false;
 
   // Check if the user has clicked any of the UI buttons

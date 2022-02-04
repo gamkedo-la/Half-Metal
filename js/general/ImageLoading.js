@@ -264,11 +264,13 @@ var image_list = [
 ];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
-
+var allImagesLoaded = false;
 function countLoadedImagesAndLaunchIfReady() {
   picsToLoad--;
   if (picsToLoad == 0) {
-    imageLoadingDoneSoStartGame();
+    //imageLoadingDoneSoStartGame(); //wait for first click for audio, local testing, can switch on release
+    allImagesLoaded = true;
+    colorText("click to start images have loaded", canvas.width / 2, canvas.height / 2 + 30, "white");
   }
 }
 

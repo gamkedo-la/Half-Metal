@@ -73,12 +73,13 @@ window.onload = function () {
   canvasContext = canvas.getContext("2d");
   canvasContext.font = "8px Arial";
 
-  colorRect(0, 0, canvas.width, canvas.height, "white");
+  colorRect(0, 0, canvas.width, canvas.height, "black");
   colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, "white");
 
   setupUI();
   loadImages();
-  initSounds();
+  setupInput();
+  
 };
 
 function randomizelevel() {
@@ -99,11 +100,12 @@ function randomizelevel() {
 
   console.log("Random level generated successfully.");
 }
+var clickedYet = false;
 
 function imageLoadingDoneSoStartGame() {
   window.requestAnimationFrame(loop);
 
-  setupInput();
+  
 
   // Shallow copy of current level
   level = { ...levels[currentLevel] };
