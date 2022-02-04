@@ -4,8 +4,8 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
 const KEY_RESET = 81;
-const KEY_NEXT = 69;
-const KEY_PREV = 87;
+const KEY_PLUS = 107;//plus on numpad
+const KEY_MINUS = 109;//minus on numpad
 
 const KEY_W = 87;
 const KEY_A = 65;
@@ -330,7 +330,7 @@ function keySet(keyEvent, setTo) {
   if (keyEvent.keyCode == KEY_RESET) {
     loadLevel(levels[currentLevel].level_map);
   }
-  if (keyEvent.keyCode == KEY_NEXT) {
+  if (keyEvent.keyCode == KEY_PLUS) {
     currentLevel++;
     if (currentLevel <= levels.length - 1) {
       loadLevel(levels[currentLevel].level_map);
@@ -338,7 +338,7 @@ function keySet(keyEvent, setTo) {
       currentLevel--;
     }
   }
-  if (keyEvent.keyCode == KEY_PREV) {
+  if (keyEvent.keyCode == KEY_MINUS) {
     currentLevel--;
     if (currentLevel >= 0) {
       loadLevel(levels[currentLevel].level_map);
