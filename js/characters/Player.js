@@ -144,6 +144,8 @@ function playerClass() {
     this.name = name;
     this.image = whichImage;
     this.ammo = 0;
+    this.currentAmmoIndex = 0;
+    this.selected_ammo = NORMAL;
 
     for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
       for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
