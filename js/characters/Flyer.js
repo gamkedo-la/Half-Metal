@@ -6,6 +6,7 @@ function FlyerClass() {
   // -General-
   this.name = "Flyer";
   this.type = FLYER;
+  this.speed = 0.5;
 
   // -Collision-
   this.hitboxes = [
@@ -116,7 +117,7 @@ function FlyerClass() {
   this.stopAlert = function () {
     this.alert_timer.stop();
     this.state = MOVING;
-    this.speed = 1;
+    this.speed = 0.5;
   };
 
   // -Collision-
