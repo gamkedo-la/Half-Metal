@@ -27,7 +27,7 @@ function FlyerClass() {
   this.currentAnimation = "walk-down";
   this.animations = FRAME_DATA[FLYER];
   this.tile = TILE_FLYER;
-  this.render_hitbox = true;
+  this.render_hitbox = false;
 
   // -Combat
   this.shoot_timer = 30;
