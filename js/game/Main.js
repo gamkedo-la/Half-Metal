@@ -21,7 +21,6 @@ var ui;
 var test_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[1],
 });
-// Practice comment from cookieoverflow, will remove
 
 // TUTORIAL PROMPTS
 var walk_prompt = new TutorialPromptClass({
