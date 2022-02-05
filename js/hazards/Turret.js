@@ -37,7 +37,7 @@ function TurretClass() {
     () => {
       this.shoot();
     },
-    1000,
+    125,
     3,
     false
   );
@@ -45,7 +45,7 @@ function TurretClass() {
     () => {
       this.stopAlert();
     },
-    3000,
+    1000,
     1,
     false
   );
