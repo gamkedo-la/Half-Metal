@@ -38,7 +38,7 @@ function FlyerClass() {
   this.flight_state = ASCENDED;
   this.flight_dist = this.height;
   this.flight_time = 0;
-  this.flight_speed = 0.02;
+  this.flight_speed = 0.04;
   this.flight_delay = 11;
   this.flight_amplitude = 15;
   this.alert_timer = new TimerClass(
