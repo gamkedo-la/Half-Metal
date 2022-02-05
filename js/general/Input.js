@@ -4,8 +4,8 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
 const KEY_RESET = 81;
-const KEY_PLUS = 107;//plus on numpad
-const KEY_MINUS = 109;//minus on numpad
+const KEY_PLUS = 107; //plus on numpad
+const KEY_MINUS = 109; //minus on numpad
 
 const KEY_W = 87;
 const KEY_A = 65;
@@ -106,6 +106,17 @@ function editorMapClick(mX, mY) {
 
   // Update level map
   if (editor.layer !== "tile") {
+    // If changing player start point, remove previous point
+    if (editor.selected_tile_type === TILE_PLAYERSTART) {
+      var player_start_index = editor.currentMap.indexOf(TILE_PLAYERSTART);
+      editor.currentMap[player_start_index] = TILE_GROUND;
+      level.level_map[player_start_index] = TILE_GROUND;
+      level.level_map[tileIndex] = TILE_PLAYERSTART;
+      player.x = mX;
+      player.y = mY;
+    }
+
+    // Place new tile selection
     editor.currentMap[tileIndex] = editor.selected_tile_type;
     editor.level_config.level_map = editor.currentMap;
     world_grid = editor.currentMap.slice();
@@ -137,6 +148,7 @@ function editorMapClick(mX, mY) {
 
     // Respawn enemies
     initGameObjects(world_grid);
+    console.log(world_grid);
     player.reset(playerSheet, "Player");
   }
 
@@ -207,12 +219,12 @@ function deleteEditorTile() {
 function mousePressed() {
   console.log("Clicked at " + mouseX + ", " + mouseY);
   if (clickedYet == false) {
-      if (allImagesLoaded) {
-        clickedYet = true;
-        initSounds();
-        imageLoadingDoneSoStartGame();
-      }
-      return;
+    if (allImagesLoaded) {
+      clickedYet = true;
+      initSounds();
+      imageLoadingDoneSoStartGame();
+    }
+    return;
   }
   var over_button = false;
 

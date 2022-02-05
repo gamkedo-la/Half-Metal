@@ -151,9 +151,13 @@ function playerClass() {
       for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
         var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
         if (level.level_map[arrayIndex] == TILE_PLAYERSTART) {
+          console.log("NEW INDEX");
+          console.log(arrayIndex);
           world_grid[arrayIndex] = TILE_GROUND;
           this.x = eachCol * WORLD_W + WORLD_W / 2;
           this.y = eachRow * WORLD_H + WORLD_H / 2;
+          console.log("NEW POSITION");
+          console.log(this.x, this.y);
           return;
         } // end of player start if
       } // end of col for

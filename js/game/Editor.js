@@ -25,6 +25,10 @@ const menuList = {
       // editor.goToMenu("tiles");
       editor.selected_tile_type = TILE_GOAL;
     }),
+    new ButtonClass(...[, , , ,], "PLAYER", ...[, ,], () => {
+      // Set new player start position
+      editor.selected_tile_type = TILE_PLAYERSTART;
+    }),
   ],
 };
 
