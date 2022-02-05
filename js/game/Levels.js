@@ -624,7 +624,7 @@ const baseLevel = {
 // Level names will use an x-y scheme where x is the current section of the game (1 = cells, 2 = armory, 3 = processing, and 4 = courtyard)
 // and y is the current level within that section (e.g., the first level is 1-1)
 
-const levels = [...CELL_LEVELS];
+const levels = [...ARMORY_LEVELS];
 
 currentLevel = 0;
 
