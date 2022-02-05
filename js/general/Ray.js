@@ -9,7 +9,7 @@ function RayClass(x, y, direction) {
   this.found_player = false;
   this.color = "red";
   this.parent = undefined;
-  this.render_hitbox = false;
+  this.render_hitbox = true;
 
   this.move = function () {
     nextX = this.x + this.speed * Math.cos((this.direction * Math.PI) / 180);

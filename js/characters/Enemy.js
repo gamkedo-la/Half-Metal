@@ -1,11 +1,4 @@
 const RAY_CAST_COUNTDOWN_MAX = 10;
-// Movement - DONE
-// Alert state - DONE
-// Raycasting - DONE
-// Animating - DONE
-// Exploding - DONE
-// Alert timer - DONE
-// Subclasses -
 
 function EnemyClass() {
   // --- PROPERTIES ---

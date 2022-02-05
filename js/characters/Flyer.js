@@ -29,6 +29,7 @@ function FlyerClass() {
   this.animations = FRAME_DATA[FLYER];
   this.tile = TILE_FLYER;
   this.render_hitbox = false;
+  this.render_raycasts = true;
 
   // -Combat
   this.shoot_timer = 30;
@@ -72,7 +73,7 @@ function FlyerClass() {
       canvasContext.lineWidth = 1;
       canvasContext.strokeStyle = "red";
       canvasContext.beginPath();
-      canvasContext.moveTo(this.x, this.y);
+      canvasContext.moveTo(this.x, this.y - this.flight_dist);
 
       // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
       const last_ray = this.rays[0];
@@ -93,6 +94,9 @@ function FlyerClass() {
       this.hitboxes.forEach(function (hitbox) {
         canvasContext.fillStyle = hitbox.color;
         canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+      });
+      this.rays.forEach(function (ray) {
+        ray.draw();
       });
     }
   };
@@ -141,9 +145,18 @@ function FlyerClass() {
     var flyer_x = this.x;
     var flyer_y = this.y + this.flight_dist * -1;
 
-    spawnBullet(flyer_x + spawn_x, flyer_y + spawn_y, this.direction, STUN);
+    spawnBullet(flyer_x + spawn_x, flyer_y + spawn_y, this.direction, NORMAL);
 
     playSound(sounds.shoot);
+  };
+
+  // -Raycasting-
+  this.emitRaycast = function () {
+    var ray = new RayClass(this.x - 3, this.y - 3, this.direction);
+    ray.height = 30;
+    ray.width = 30;
+    ray.parent = this;
+    this.rays.push(ray);
   };
 
   // -Flight-
