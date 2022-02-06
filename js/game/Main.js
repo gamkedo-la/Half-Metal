@@ -79,7 +79,6 @@ window.onload = function () {
   setupUI();
   loadImages();
   setupInput();
-  
 };
 
 function randomizelevel() {
@@ -104,8 +103,6 @@ var clickedYet = false;
 
 function imageLoadingDoneSoStartGame() {
   window.requestAnimationFrame(loop);
-
-  
 
   // Shallow copy of current level
   level = { ...levels[currentLevel] };
