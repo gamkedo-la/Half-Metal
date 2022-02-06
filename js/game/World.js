@@ -77,11 +77,36 @@ function drawWorld() {
 
       // Draw image or ground tile underneath
       canvasContext.drawImage(ground_image?.var_name, draw_tile_x, draw_tile_y);
-      canvasContext.drawImage(
-        current_image?.var_name,
-        draw_tile_x,
-        draw_tile_y
-      );
+
+      if (tile_type === TILE_GOAL) {
+        var level_name = level.name;
+        var level_number = level_name.split("-")[0];
+
+        const STAIRCASE_MAP = {
+          1: { x: 0, y: 0 },
+          2: { x: 16, y: 0 },
+          3: { x: 0, y: 16 },
+          4: { x: 0, y: 0 },
+        };
+
+        canvasContext.drawImage(
+          current_image?.var_name,
+          STAIRCASE_MAP[level_number].x,
+          STAIRCASE_MAP[level_number].y,
+          16,
+          16,
+          draw_tile_x,
+          draw_tile_y,
+          16,
+          16
+        );
+      } else {
+        canvasContext.drawImage(
+          current_image?.var_name,
+          draw_tile_x,
+          draw_tile_y
+        );
+      }
 
       draw_tile_x += WORLD_W;
       array_index++;
@@ -148,7 +173,6 @@ function drawTileset(level) {
     draw_tile_x = 0;
   }
 }
-
 
 function drawTilesetUpperLayer(level) {
   var array_index = 0;
