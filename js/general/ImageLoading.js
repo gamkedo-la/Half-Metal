@@ -6,6 +6,10 @@ var playerSheet_Turn = document.createElement("img");
 var leaperSheet = document.createElement("img");
 var blockerSheet = document.createElement("img");
 var shot_img = document.createElement("img");
+var shot_pickup_img = document.createElement("img");
+var turn_shot_pickup_img = document.createElement("img");
+var push_shot_pickup_img = document.createElement("img");
+var stun_shot_pickup_img = document.createElement("img");
 var stun_shot_img = document.createElement("img");
 var pushShotPic = document.createElement("img");
 var enemyPic = document.createElement("img");
@@ -109,25 +113,47 @@ var image_list = [
   {
     var_name: shot_img,
     file: "world_ammo.png",
-    tile: TILE_AMMO,
     transparent_bg: true,
   },
   {
     var_name: stun_shot_img,
     file: "stun_shot.png",
-    tile: TILE_STUN_SHOT,
     transparent_bg: true,
   },
   {
     var_name: push_shot_pic,
     file: "push_shot.png",
-    tile: TILE_PUSH_SHOT,
     transparent_bg: true,
   },
   {
     var_name: turn_shot_pic,
     file: "turn_shot.png",
+    transparent_bg: true,
+  },
+
+  // Pickups
+  {
+    var_name: shot_pickup_img,
+    file: "world_ammo_pickup.png",
+    tile: TILE_AMMO,
+    transparent_bg: true,
+  },
+  {
+    var_name: turn_shot_pickup_img,
+    file: "turn_shot_pickup.png",
     tile: TILE_TURN_SHOT,
+    transparent_bg: true,
+  },
+  {
+    var_name: push_shot_pickup_img,
+    file: "push_shot_pickup.png",
+    tile: TILE_PUSH_SHOT,
+    transparent_bg: true,
+  },
+  {
+    var_name: stun_shot_pickup_img,
+    file: "stun_shot_pickup.png",
+    tile: TILE_STUN_SHOT,
     transparent_bg: true,
   },
 
