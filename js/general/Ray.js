@@ -25,6 +25,9 @@ function RayClass(x, y, direction) {
       case TILE_GROUND:
       case TILE_GOAL:
       case TILE_AMMO:
+      case TILE_STUN_SHOT:
+      case TILE_PUSH_SHOT:
+      case TILE_TURN_SHOT:
         this.x += this.speed * Math.cos((this.direction * Math.PI) / 180);
         this.y += this.speed * Math.sin((this.direction * Math.PI) / 180);
         break;
