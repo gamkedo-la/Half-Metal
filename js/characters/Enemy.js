@@ -153,6 +153,13 @@ function EnemyClass() {
         return;
       }
 
+      if (
+        self.state !== ALERT &&
+        (object.type === LEAPER || object.type === FLYER)
+      ) {
+        return;
+      }
+
       // Get hitboxes of potentially colliding objects
       let object_hitbox = object?.hitboxes?.find((box) => box.name === "main");
       if (!object_hitbox) {
