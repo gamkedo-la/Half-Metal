@@ -153,8 +153,8 @@ function FlyerClass() {
   // -Raycasting-
   this.emitRaycast = function () {
     var ray = new RayClass(this.x - 3, this.y - 3, this.direction);
-    ray.height = 30;
-    ray.width = 30;
+    ray.height = 15;
+    ray.width = 15;
     ray.parent = this;
     this.rays.push(ray);
   };
