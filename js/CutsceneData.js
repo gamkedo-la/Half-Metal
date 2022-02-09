@@ -67,7 +67,21 @@ dialogue = [
   ],
 
   // Courtyard sequence
-  [],
+  [
+    "Cyrus... Come in, Cyrus...",
+    "You see it now, don’t you?",
+    "You see what they’ve done.",
+    "Everything. Turned to cold metal.",
+    "They destroy all life they can find — the grass, the trees, the flowers —  all of it.",
+    "They’re not machines. They’re monsters.",
+    "They hate us. They want to ruin us. And it’s our duty to destroy every last one of them.",
+    "And I know we can do it with your help, soldier.",
+    "Get out of there. Fast as you can.",
+    "Regroup with what’s left of us.",
+    "When you get back, we’re going to study the enhancements The Metallics put in you.",
+    "If we can harness your tech, we stand a chance of taking them all down. For good.",
+    "Over and out, Cyrus. You’re almost home.",
+  ],
 
   // Outro sequence
   [],
