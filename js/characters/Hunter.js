@@ -25,79 +25,164 @@ function HunterClass() {
   this.currentAnimation = "walk-up";
   this.animator = new SpriteSheetAnimatorClass(this, 5);
 
-  this.createPath = function () {
-    // Make pathmap the same length as the level array
-    this.pathMap = [...this.currentLevel];
-
-    // Set all elements in path to 0
-    for (var i = 0; i < this.pathMap.length; i++) {
-      if (this.currentLevel[i] === 1) {
-        this.pathMap[i] = 100;
-        continue;
-      }
-      this.pathMap[i] = 0;
-    }
-
-    // get indices
-    var goal = getTileIndexAtPixelCoord(player.x, player.y);
-    var start = getTileIndexAtPixelCoord(this.x, this.y);
-
-    // build path
-    // -- get row and column position
-    // -- get current positon value (starting at 0)
-    // -- check if adjacent indices exist or if space is available,
-    // --   assign (value + 1) to (row[i] and col[i + 1]) and (row[i + 1] and col[i]), etc...
-    // -- perform same evaluation to tiles adjacent to those tiles
+  // Pathfinding
+  this.open_list = [];
+  this.closed_list = [];
+  this.grid = [];
+  this.player_location = { x: 0, y: 0 };
+  this.node = {
+    pos: { x: 0, y: 0 },
+    f: 0,
+    h: 0,
+    g: 0,
+    is_wall: false,
+    is_player: false,
   };
-  /*
-  this.move = function () {
-    this.x += this.speedX;
-    this.y += this.speedY;
+  this.path = [];
 
-    this.x += this.speedX;
-    var hunterPosition;
-    hunterPosition = new HunterClass();
-    hunterPosition.x = player.x;
-    hunterPosition.y = player.y;
+  // Create a grid of nodes for pathfinding traversal
+  this.createGrid = function (rows, cols) {
+    this.grid.length = 0;
 
-    if (this.x < 0 && this.speedX < 0.0) {
-      this.speedX *= -1;
+    for (var i = 0; i < rows; i++) {
+      this.grid.push([]);
+      for (var j = 0; j < cols; j++) {
+        var new_node = JSON.parse(JSON.stringify(this.node));
+        new_node.pos.x = j;
+        new_node.pos.y = i;
+
+        if (this.isWall(new_node)) {
+          new_node.is_wall = true;
+        }
+
+        if (this.isPlayer(new_node)) {
+          new_node.is_player = true;
+        }
+
+        this.grid.push(new_node);
+      }
     }
+  };
 
-    if (this.x > canvas.width * 1.2 && this.speedX > 0.0) {
-      this.speedX *= -1;
+  this.followPath = function () {};
+
+  this.findPathToPlayer = function (start, end) {
+    var open_list = [];
+    var closed_list = [];
+    open_list.push(start);
+
+    while (open_list.length > 0) {
+      var low_index = 0;
+      // Grab node with lowest f(x) to process the next node
+      for (var i = 0; i < open_list.length; i++) {
+        if (open_list[i].f < open_list[low_index].f) {
+          low_index = i;
+        }
+      }
+      var current_node = open_list[low_index];
+
+      // Early exit
+      if ((current_node.pos = end.pos)) {
+        var curr = currentNode;
+        var ret = [];
+
+        while (curr.parent) {
+          ret.push(curr);
+          curr = curr.parent;
+        }
+
+        return ret.reverse();
+      }
+
+      // Examine neighbors of current node
+      var current_index = open_list.indexOf(current_node);
+      open_list.splice(current_index, 1);
+      closed_list.push(current_node);
+      var neighbors = this.getNeighbors(current_node);
+      for (var i = 0; i < neighbors.length; i++) {
+        var neighbor = neighbors[i];
+
+        if (closed_list.includes(neighbor) || neighbor.is_wall) {
+          // invalid node, move to next neighbor
+          continue;
+        }
+
+        var g_score = current_node.g + 1;
+        var best_gscore = false;
+
+        if (!open_list.includes(neighbor)) {
+          best_gscore = true;
+          neighbor.h = this.distanceToTarget(
+            neighbor.pos,
+            this.player_location
+          );
+          open_list.push(neighbor);
+        } else if (g_score < neighbor.g) {
+          best_gscore = true;
+        }
+
+        if (best_gscore) {
+          neighbor.parent = current_node;
+          neighbor.g = g_score;
+          neighbor.f = neighbors.g + neighbor.h;
+        }
+
+        // Return empty array if no path is found
+        return [];
+      }
     }
+  };
 
-    // if (this.x < 20 && this.speedX > 0.0){
-    //    this.speedX *= 1;
-    // }
+  this.distanceToTarget = function (pos0, pos1) {
+    // Manhattan distance
+    var d1 = Math.abs(pos1.x - pos0.x);
+    var d2 = Math.abs(pos1.y - pos0.y);
+    return d1 + d2;
+  };
 
-    if (this.y > canvas.height && this.speedY > 0.0) {
-      this.speedY *= -1;
-      //  hunterPosition.x += player.x;
+  this.getNeighbors = function (node) {
+    var ret = [];
+    var x = node.pos.x;
+    var y = node.pos.y;
+
+    if (this.grid[x - 1] && this.grid[x - 1][y]) {
+      ret.push(this.grid[x - 1][y]);
     }
-
-    if (this.y > canvas.height * 1.2 && this.speedY > 0.0) {
-      this.speedY *= 1;
+    if (this.grid[x + 1] && this.grid[x + 1][y]) {
+      ret.push(this.grid[x + 1][y]);
     }
-
-    if (this.y < canvas.height && this.speedY > 0.0) {
-      this.speedY *= -1;
+    if (this.grid[x][y - 1] && this.grid[x][y - 1]) {
+      ret.push(this.grid[x][y - 1]);
     }
+    if (this.grid[x][y + 1] && this.grid[x][y + 1]) {
+      ret.push(this.grid[x][y + 1]);
+    }
+    return ret;
+  };
 
-    // hunterPosition.speedX = 6 - Math.random() * 10;
-    // hunterPosition.speedY = 10 - Math.random() * 10;
-  }; */
+  this.isWall = function (node) {
+    const { x, y } = node.pos;
+    const coordinates = getPixelCoordAtTileIndex(x, y);
+    const found_wall = walls.find(
+      (w) => w.x === coordinates.x && w.y === coordinates.y
+    );
 
-  this.draw = function () {
-    /*drawBitmapCenteredWithRotation(
-       this.image,
-       this.x,
-       this.y,
-       this.angleMovement
-     );
-   };*/
+    return found_wall;
+  };
 
-    this.animator.animate();
+  this.isPlayer = function (node) {
+    // Row and col where node is located
+    const { x: col, y: row } = node.pos;
+
+    // Actual x/y coordinates of node
+    const coords = getPixelCoordAtTileIndex(col, row);
+
+    // Check if coords are near player
+    return (
+      coords.x < player.x + player.w &&
+      coords.x > player.x &&
+      coords.y < player.y + player.h &&
+      coords.y > player.y
+    );
   };
 }
