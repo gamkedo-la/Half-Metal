@@ -41,7 +41,7 @@ var prompts = [switch_prompt, shoot_prompt, walk_prompt];
 // Menus
 var title_screen = new TitleMenu();
 var level_select_screen = new MenuClass({ name: "Select Level" });
-var options_screen = new MenuClass({ name: "Options" });
+var options_screen = new Options();
 var credits_screen = new MenuClass({ name: "Credits" });
 var controls_screen = new MenuClass({ name: "Controls" });
 var pause_screen = new PauseMenu({ name: "Pause" });
@@ -59,6 +59,7 @@ buttons = [
   ...menuList[editor.currentMenu],
   ...title_screen.buttons,
   ...pause_screen.buttons,
+  ...options_screen.buttons,
 ];
 
 var currentMode = MENU_MODE;
