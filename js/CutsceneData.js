@@ -54,7 +54,7 @@ dialogue = [
   [
     "Cyrus?! Come in, Cyrus?!?!",
     "You need to get out of there now!",
-    "We just got word from our technician’s ...",
+    "We just got word from our technicians ...",
     "That little robot .. ",
     "It resisted the reprogramming!",
     "It lead us on - it was all a trap ...",
@@ -84,5 +84,18 @@ dialogue = [
   ],
 
   // Outro sequence
-  [],
+  [
+    "Finally, I escaped the Metallic’s prison.",
+    "But ... only thanks to that robot.",
+    "I recognized it, too. The one we couldn’t reprogram.",
+    "So ... if we couldn’t change it, then why did it help me?",
+    "It can’t think. It can’t feel.",
+    "It’s just like what Commander Viper said: more monster than machine.",
+    "But still ... if it was never reprogrammed, then it chose to help me. It saw me in danger and sacrificed itself for my own sake.",
+    "Why? How could a machine ... choose?",
+    "And if they can choose, then why do they choose to fight us?",
+    "I don’t know what happened and I don’t know why. ",
+    "All I know is I have some serious questions for Commander Viper when I get back to base.",
+    "This is Cyrus. Over and out.",
+  ],
 ];
