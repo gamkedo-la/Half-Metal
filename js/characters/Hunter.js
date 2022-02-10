@@ -17,6 +17,7 @@ function HunterClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
+  this.searching = true;
 
   this.animations = FRAME_DATA[HUNTER];
   this.currentAnimation = "walk-up";
@@ -34,7 +35,9 @@ function HunterClass() {
     is_wall: false,
     is_player: false,
   };
+  this.current_path_node = 0;
   this.path = [];
+  this.move_timer = 0;
 
   // Create a grid of nodes for pathfinding traversal
   this.createGrid = function (rows, cols) {
@@ -62,7 +65,7 @@ function HunterClass() {
 
   this.getNodeCoordinates = function (node) {
     const { y: row, x: col } = node.pos;
-    return getPixelCoordAtTileIndex(row, col);
+    return getPixelCoordAtTileIndex(col, row);
   };
 
   this.getGridRowAndCol = function (x, y) {
@@ -74,22 +77,31 @@ function HunterClass() {
   this.followPath = function () {
     const lerp = (start, end, percent) => start * (1 - percent) + end * percent;
 
-    // Move toward the first node in the path to the player
-    if (this.path.length > 0 && this.path[0].pos) {
-      const route_coords = this.getNodeCoordinates(this.path[0]);
-      this.x = lerp(this.x, route_coords.x, 0.1);
-      this.y = lerp(this.y, route_coords.y, 0.1);
+    if (this.path.length > 0 && this.path[this.current_path_node]) {
+      // Move from either the original starting position or the most recently traveled node
+      const start_node = this.getNodeCoordinates(
+        this.current_path_node === 0
+          ? this.getStartNode()
+          : this.path[this.current_path_node - 1]
+      );
+
+      // Get the next node to traverse
+      const next_node = this.getNodeCoordinates(
+        this.path[this.current_path_node]
+      );
+
+      // Interpolate between starting position and next node positon
+      this.x = lerp(start_node.x, next_node.x, this.move_timer);
+      this.y = lerp(start_node.y, next_node.y, this.move_timer);
+
+      // Lerping stops when move_timer = 1
+      this.move_timer += 0.01;
     }
 
-    // If the first node in the path is reached, remove it
-    const grid_coords = this.getGridRowAndCol(this.x, this.y);
-    if (
-      this.path.length > 0 &&
-      grid_coords.row === this.path[0].pos.y &&
-      grid_coords.col === this.path[0].pos.x
-    ) {
-      console.log("remove path node");
-      this.path.shift();
+    // When the hunter reaches the target node, reset the move timer and get the next node
+    if (this.move_timer > 1) {
+      this.move_timer = 0;
+      this.current_path_node++;
     }
   };
 
@@ -127,6 +139,7 @@ function HunterClass() {
       open_list.splice(current_index, 1);
       closed_list.push(current_node);
       var neighbors = this.getNeighbors(current_node);
+
       for (var i = 0; i < neighbors.length; i++) {
         var neighbor = neighbors[i];
 
@@ -238,20 +251,23 @@ function HunterClass() {
   };
 
   this.move = function () {
-    // Organize game world into a grid of nodes
-    this.createGrid(WORLD_ROWS, WORLD_COLS);
+    if (this.searching) {
+      // Organize game world into a grid of nodes
+      this.createGrid(WORLD_ROWS, WORLD_COLS);
+      // Determine start and end nodes within the grid
+      const start_node = this.getStartNode();
+      const goal_node = this.getPlayerNode();
 
-    // Determine start and end nodes within the grid
-    const start_node = this.getStartNode();
-    const goal_node = this.getPlayerNode();
+      if (start_node && goal_node) {
+        // Construct the path of nodes to traverse toward the player
+        this.path = this.findPathToPlayer(start_node, goal_node);
+      }
 
-    if (start_node && goal_node) {
-      // Construct the path of nodes to traverse toward the player
-      this.path = this.findPathToPlayer(start_node, goal_node);
-
-      // Follow the constructed path
-      this.followPath();
+      this.searching = false;
     }
+
+    // Follow the constructed path
+    this.followPath();
 
     // Keep hitboxes in line with character movement
     this.updateHitBoxes();
@@ -267,7 +283,7 @@ function HunterClass() {
       const coords = getPixelCoordAtTileIndex(col, row);
 
       // Image for path representation
-      canvasContext.drawImage(shot_img, coords.x, coords.y, 8, 8);
+      canvasContext.drawImage(shot_img, coords.x + 4, coords.y + 4, 8, 8);
     });
 
     //   Set animation frame to render
