@@ -235,8 +235,6 @@ function playerClass() {
           this.directionUpdate[DIRECTION_MAP[this.direction]];
 
         this[prop] += change;
-        this.x = this.nextX;
-        this.y = this.nextY;
 
         this.movingProgressRemaining--;
       }
