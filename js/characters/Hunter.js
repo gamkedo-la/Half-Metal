@@ -98,6 +98,20 @@ function HunterClass() {
       this.move_timer += 0.01;
     }
 
+    const grid_pos = this.getGridRowAndCol();
+    const target_node = this.path[this.current_path_node];
+
+    if (
+      grid_pos &&
+      target_node &&
+      grid_pos.x === target_node.x &&
+      grid_pos.y === target_node.y
+    ) {
+      console.log("Reached node");
+      this.current_path_node = 0;
+      this.searching = true;
+    }
+
     // When the hunter reaches the target node, reset the move timer and get the next node
     if (this.move_timer > 1) {
       this.move_timer = 0;
@@ -131,7 +145,20 @@ function HunterClass() {
           curr = curr.parent;
         }
 
-        return ret.reverse();
+        ret.sort(function (a, b) {
+          return a.f > b.f ? 1 : -1;
+        });
+
+        // Remove excess nodes with high f scores
+        var player_node = ret.find((node) => node.is_player);
+        var player_node_index = ret.indexOf(player_node);
+
+        if (player_node_index !== -1) {
+          ret = ret.slice(0, player_node_index);
+        }
+
+        // Return path to player
+        return ret;
       }
 
       // Examine neighbors of current node
@@ -183,17 +210,17 @@ function HunterClass() {
     var x = node.pos.x;
     var y = node.pos.y;
 
-    if (this.grid[x - 1] && this.grid[x - 1][y]) {
-      ret.push(this.grid[x - 1][y]);
+    if (this.grid[y - 1] && this.grid[y - 1][x]) {
+      ret.push(this.grid[y - 1][x]);
     }
-    if (this.grid[x + 1] && this.grid[x + 1][y]) {
-      ret.push(this.grid[x + 1][y]);
+    if (this.grid[y + 1] && this.grid[y + 1][x]) {
+      ret.push(this.grid[y + 1][x]);
     }
-    if (this.grid[x] && this.grid[x][y - 1]) {
-      ret.push(this.grid[x][y - 1]);
+    if (this.grid[y] && this.grid[y][x - 1]) {
+      ret.push(this.grid[y][x - 1]);
     }
-    if (this.grid[x] && this.grid[x][y + 1]) {
-      ret.push(this.grid[x][y + 1]);
+    if (this.grid[y] && this.grid[y][x + 1]) {
+      ret.push(this.grid[y][x + 1]);
     }
     return ret;
   };
@@ -254,6 +281,7 @@ function HunterClass() {
     if (this.searching) {
       // Organize game world into a grid of nodes
       this.createGrid(WORLD_ROWS, WORLD_COLS);
+
       // Determine start and end nodes within the grid
       const start_node = this.getStartNode();
       const goal_node = this.getPlayerNode();
