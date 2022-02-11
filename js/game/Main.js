@@ -67,7 +67,7 @@ buttons = [
   ...level_select_screen.buttons,
 ];
 
-var currentMode = CUTSCENE_MODE;
+var currentMode = MENU_MODE;
 
 var current_song = {};
 

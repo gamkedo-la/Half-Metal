@@ -1,4 +1,4 @@
-dialogue = [
+const DIALOGUE = [
   // Intro sequence
   [
     "The year is 208X - the rise of the machines is upon us.",
