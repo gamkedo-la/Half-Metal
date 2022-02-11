@@ -1,4 +1,4 @@
-const TEXT_SPEED = 12;
+const TEXT_SPEED = 8;
 
 function CutsceneClass(dialogue = [""]) {
   this.dialogue = dialogue;
@@ -53,6 +53,7 @@ function CutsceneClass(dialogue = [""]) {
       }
       this.key_next_held = false;
       this.line_complete = true;
+      playSound(sounds.text);
       return;
     }
 
@@ -110,6 +111,7 @@ function CutsceneClass(dialogue = [""]) {
       this.revealed_chars.push("\n");
       this.revealed_line.length = 0;
     }
+    playSound(sounds.text);
   };
 
   this.update = function () {

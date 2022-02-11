@@ -30,6 +30,7 @@ async function loadSounds() {
     { sndName: "elec_open", theFile: "snd_elecwall_open.wav" },
     { sndName: "level_transition", theFile: "snd_level_transition.wav" },
     { sndName: "pause", theFile: "snd_pause.wav" },
+    { sndName: "text", theFile: "snd_text.wav" },
 
     // MUSIC
     { sndName: "prison_music", theFile: "bg_prisonloop.wav" },
