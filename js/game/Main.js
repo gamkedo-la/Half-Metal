@@ -16,7 +16,11 @@ var game_objects = new Array();
 var editor = new EditorClass();
 var cutscene = new CutsceneClass();
 var finished_level = false;
-cutscene.dialogue = ["TEST LINE A", "TEST LINE B", "TEST LINE C"];
+cutscene.dialogue = [
+  "TEST LINE TEST LINE TEST LINE TEST LINE TEST LINE TEST LINE",
+  "TEST LINE B",
+  "TEST LINE C",
+];
 var ui;
 var test_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[1],
@@ -63,7 +67,7 @@ buttons = [
   ...level_select_screen.buttons,
 ];
 
-var currentMode = MENU_MODE;
+var currentMode = CUTSCENE_MODE;
 
 var current_song = {};
 
@@ -357,9 +361,11 @@ function updateAll(dt) {
 
     case CUTSCENE_MODE:
       cutscene.update(dt);
+      break;
 
     case MENU_MODE:
       menu_stack[menu_stack.length - 1].update();
+      break;
 
     default:
       break;
@@ -439,9 +445,11 @@ function drawAll() {
 
     case CUTSCENE_MODE:
       cutscene.draw();
+      break;
 
     case MENU_MODE:
       menu_stack[menu_stack.length - 1].draw();
+      break;
 
     default:
       break;

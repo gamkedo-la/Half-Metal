@@ -77,10 +77,18 @@ function colorText(showWords, textX, textY, fillColor) {
 
 function renderFont(text, textX, textY) {
   var currentX = textX;
+  var currentY = textY;
   var currentChar = "";
 
   for (var i = 0; i < text.length; i++) {
     currentChar = text[i];
+
+    if (currentChar === "\n") {
+      currentY += 16;
+      currentX = textX;
+      continue;
+    }
+
     fontCharPosition = CHARACTER_MAP[currentChar.toUpperCase()];
     if (!fontCharPosition) {
       fontCharPosition = 0;
@@ -92,7 +100,7 @@ function renderFont(text, textX, textY) {
       8,
       8,
       currentX,
-      textY,
+      currentY,
       8,
       8
     );

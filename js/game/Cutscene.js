@@ -5,11 +5,14 @@ function CutsceneClass(dialogue = [""]) {
   this.current_line = 0;
   this.current_char = 0;
   this.revealed_chars = [];
+  this.revealed_line = [];
   this.x = 0;
   this.y = 0;
   this.text_timer = TEXT_SPEED;
   this.key_next_held = false;
   this.line_complete = false;
+  this.max_line_width = 180;
+  this.char_width = 8;
 
   this.draw = function () {
     //   BG
@@ -18,7 +21,7 @@ function CutsceneClass(dialogue = [""]) {
     // TEXT + BORDER
     colorRect(this.x + 14, this.y + 159, 228, 52, "white");
     colorRect(this.x + 15, this.y + 160, 226, 50, "black");
-    renderFont(this.revealed_chars, this.x + 20, this.y + 168);
+    renderFont(this.revealed_chars, this.x + 20, this.y + 165);
 
     // IMAGE
     canvasContext.drawImage(transceiver, 0, 0);
@@ -37,8 +40,16 @@ function CutsceneClass(dialogue = [""]) {
       !this.line_complete
     ) {
       this.revealed_chars.length = 0;
+      this.revealed_line.length = 0;
       for (var i = 0; i < this.dialogue[this.current_line].length; i++) {
-        this.revealed_chars[i] = this.dialogue[this.current_line][i];
+        this.revealed_chars.push(this.dialogue[this.current_line][i]);
+        this.revealed_line.push(this.dialogue[this.current_line][i]); // used to track text line length
+
+        // wrap text when the line exceeds the max width
+        if (this.revealed_line.length * this.char_width > this.max_line_width) {
+          this.revealed_line.length = 0;
+          this.revealed_chars.push("\n");
+        }
       }
       this.key_next_held = false;
       this.line_complete = true;
@@ -48,6 +59,7 @@ function CutsceneClass(dialogue = [""]) {
     //   Reset line properties
     this.current_line++;
     this.revealed_chars.length = 0;
+    this.revealed_line.length = 0;
     this.current_char = 0;
     this.key_next_held = false;
     this.line_complete = false;
@@ -56,6 +68,7 @@ function CutsceneClass(dialogue = [""]) {
     if (this.current_line > this.dialogue.length - 1) {
       this.current_line--;
       this.revealed_chars.length = 0;
+      this.revealed_line.length = 0;
       this.current_char = 0;
 
       //   Exit cutscene
@@ -84,11 +97,19 @@ function CutsceneClass(dialogue = [""]) {
     //   Skips the wait time for spaces in dialogue. Keeps the text from feeling slow/choppy
     if (next_char === " ") {
       this.revealed_chars.push(next_char);
+      this.revealed_line.push(next_char);
       this.current_char++;
       next_char = this.dialogue[this.current_line][this.current_char];
     }
 
     this.revealed_chars.push(next_char);
+    this.revealed_line.push(next_char);
+
+    // If the line has grown too long, add a line break
+    if (this.revealed_line.length * this.char_width > this.max_line_width) {
+      this.revealed_chars.push("\n");
+      this.revealed_line.length = 0;
+    }
   };
 
   this.update = function () {
