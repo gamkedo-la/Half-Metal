@@ -364,6 +364,8 @@ function updateAll(dt) {
       break;
 
     case MENU_MODE:
+      editor.deactivateButtons();
+      menu_stack.forEach((menu) => menu.deactivateMenuButtons());
       menu_stack[menu_stack.length - 1].update();
       break;
 

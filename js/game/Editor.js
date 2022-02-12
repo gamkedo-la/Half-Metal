@@ -171,26 +171,6 @@ function ButtonClass(
   };
 }
 
-// BEHAVIOR:
-// Open editor - DONE
-// Select submenu - DONE
-// Select object type - DONE
-// Render object as cursor image
-// Select tile to place object - DONE
-// Press 'R' to rotate object - DONE
-// Replace tile in level map with new selected_tile_type - DONE
-// Add the object to the appropriate configurations array - DONE
-// Configs:
-// --- Enemies: [{direction, position, type}...],
-// --- Walls: [{orientation, position, type}...],
-// --- Hazards: [{orientation, position, type, triggers}...],
-// --- Shots: [{position}...],
-// Reset the level with new configurations
-// Select tileset from menu - DONE
-// Place tiles in editor - DONE
-// Update all tiles to match current set - DONE
-// Set some tiles as solid/passable/etc - DONE
-
 // Main renderer and contoller of the Editor UI
 function EditorClass() {
   this.currentLevel = 0;
@@ -227,6 +207,15 @@ function EditorClass() {
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
+  };
+
+  this.deactivateToolbar = function () {
+    this.toolBarOptions.forEach((option) => (option.active = false));
+  };
+
+  this.deactivateButtons = function () {
+    this.deactivateMenuButtons();
+    this.deactivateToolbar();
   };
 
   this.toggleButtonVisibility = function () {
@@ -317,7 +306,12 @@ function EditorClass() {
     console.log(levels[currentLevel]);
   };
 
-  this.update = function () {};
+  this.update = function () {
+    menuList[this.currentMenu].forEach((button) => (button.active = true));
+    this.toolBarOptions.forEach((option) => {
+      option.active = true;
+    });
+  };
 
   this.draw = function () {
     if (this.selected_tile_type > -1) {
