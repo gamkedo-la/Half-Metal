@@ -45,6 +45,7 @@ var prompts = [switch_prompt, shoot_prompt, walk_prompt];
 // Menus
 var title_screen = new TitleMenu();
 var level_select_screen = new LevelSelectClass({ name: "Select Level" });
+var level_select_sub_screen = new LevelSelectSubMenuClass({ name: "Levels" });
 var options_screen = new Options();
 var credits_screen = new MenuClass({ name: "Credits" });
 var controls_screen = new MenuClass({ name: "Controls" });
@@ -65,6 +66,7 @@ buttons = [
   ...pause_screen.buttons,
   ...options_screen.buttons,
   ...level_select_screen.buttons,
+  ...level_select_sub_screen.buttons,
 ];
 
 var currentMode = MENU_MODE;
@@ -292,6 +294,13 @@ function loadLevel(whichLevel) {
 function goToNextLevel() {
   currentLevel++;
   level = { ...levels[currentLevel] };
+  loadLevel(level.level_map);
+  finished_level = false;
+  player.touched_goal = false;
+}
+
+function goToLevel(level_index) {
+  level = { ...levels[level_index] };
   loadLevel(level.level_map);
   finished_level = false;
   player.touched_goal = false;
