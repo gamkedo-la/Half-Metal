@@ -148,7 +148,8 @@ function ButtonClass(
   textColor = "white",
   handler,
   paddingX = 2,
-  paddingY = 2
+  paddingY = 2,
+  value = null
 ) {
   this.label = label;
   this.height = height;
@@ -162,11 +163,15 @@ function ButtonClass(
   this.textColor = textColor;
   this.active = false;
   this.visible = true;
+  this.value = value;
 
   this.draw = function () {
     if (this.visible) {
       colorRect(this.x, this.y, this.width, this.height, this.color);
       renderFont(this.label, this.x + this.paddingX, this.y + this.paddingY);
+      if (this.value) {
+        renderFont(this.value, this.x + this.width, this.y + this.paddingY);
+      }
     }
   };
 }

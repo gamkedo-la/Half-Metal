@@ -2,8 +2,14 @@ var canvas, canvasContext;
 
 const GAME_SPEED = 60;
 
+// OPTIONS
+var speedrun_mode = false;
+var play_time = 0;
+var fullscreen_mode = false;
+var master_volume = 1;
+
+// GAME OBJECTS
 var player = new playerClass();
-var gamepad = new GamepadSupport();
 var bullets = new Array();
 var enemies = new Array();
 var entities = new Array();
@@ -13,7 +19,15 @@ var hazards = new Array();
 var walls = new Array();
 var triggers = new Array();
 var game_objects = new Array();
+
+// INPUTS
+var gamepad = new GamepadSupport();
+
+// TOOLS
 var editor = new EditorClass();
+var ui;
+
+// CUTSCENES
 var cutscene = new CutsceneClass();
 var finished_level = false;
 cutscene.dialogue = [
@@ -21,7 +35,6 @@ cutscene.dialogue = [
   "TEST LINE B",
   "TEST LINE C",
 ];
-var ui;
 var test_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[1],
 });
@@ -42,7 +55,7 @@ var switch_prompt = new TutorialPromptClass({
 });
 var prompts = [switch_prompt, shoot_prompt, walk_prompt];
 
-// Menus
+// MENUS
 var title_screen = new TitleMenu();
 var level_select_screen = new LevelSelectClass({ name: "Select Level" });
 var options_screen = new Options();
@@ -353,6 +366,7 @@ function updateAll(dt) {
           object.update(dt);
         }
       });
+      ui.update();
       checkForTutorialProgress();
 
       playMusic();
@@ -466,6 +480,10 @@ function drawAll() {
 }
 
 function loop(dt) {
+  if (speedrun_mode) {
+    play_time += dt;
+  }
+
   game_objects = [
     player,
     ...enemies,
@@ -476,7 +494,9 @@ function loop(dt) {
     ...bullets,
     ...effects,
   ];
+
   updateAll(dt);
   drawAll(dt);
+
   window.requestAnimationFrame(loop);
 }
