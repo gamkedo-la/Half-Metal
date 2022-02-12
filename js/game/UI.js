@@ -11,8 +11,19 @@ function UIClass(x, y, width, height) {
     [TURN]: "turn",
     [PUSH]: "push",
   };
+  this.speedrun_timer = new SpeedRunClockClass();
+
+  this.update = function () {
+    if (speedrun_mode) {
+      this.speedrun_timer.update();
+    }
+  };
 
   this.draw = function () {
+    if (speedrun_mode) {
+      this.speedrun_timer.draw();
+    }
+
     colorRect(0, this.y, this.backgroundWidth, this.backgroundHeight, "black");
 
     if (currentMode === PLAY_MODE) {

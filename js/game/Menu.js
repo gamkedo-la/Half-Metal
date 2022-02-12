@@ -51,7 +51,8 @@ function MenuClass(config) {
     canvasContext.fillRect(0, 0, this.width, this.height);
 
     // MENU NAME
-    renderFont(this.name, this.width / 2, 30);
+    var name_width = this.name.length * 8;
+    renderFont(this.name, this.width / 2 - name_width / 2, 30);
 
     // IMAGE
     if (this.image) {
