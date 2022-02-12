@@ -20,7 +20,7 @@ const KEY_L = 76;
 
 const KEY_T = 84;
 
-const KEY_ESC = 27;
+const KEY_ENTER = 13;
 
 // undo and redo
 const KEY_U = 85;
@@ -34,7 +34,7 @@ var Key_R_Held = false;
 var key_T_Held = false;
 var key_X_held = false;
 
-var key_esc_held = true;
+var key_enter_held = true;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -62,9 +62,33 @@ function setupInput() {
   );
 }
 
+function map(v, n1, n2, m1, m2) {
+  return ((v - n1) / (n2 - n1)) * (m2 - m1) + m1;
+}
+
 function updateMousePos(evt) {
   var rect = canvas.getBoundingClientRect();
   var root = document.documentElement;
+
+  if (fullscreen_mode) {
+    var x, y;
+    var element = evt.target;
+    let br = element.getBoundingClientRect();
+    let ratio = window.innerHeight / canvas.height;
+    let offset = (window.innerWidth - canvas.width * ratio) / 2;
+    x = map(
+      evt.clientX - br.left - offset,
+      0,
+      canvas.width * ratio,
+      0,
+      element.width
+    );
+    y = map(evt.clientY - br.top, 0, canvas.height * ratio, 0, element.height);
+
+    mouseX = x;
+    mouseY = y;
+    return;
+  }
 
   unscaledMouseX = evt.clientX - rect.left - root.scrollLeft;
   unscaledMouseY = evt.clientY - rect.top - root.scrollTop;
@@ -295,8 +319,8 @@ function keySet(keyEvent, setTo) {
     key_T_Held = setTo;
   }
 
-  if (currentMode === PLAY_MODE && keyEvent.keyCode === KEY_ESC) {
-    key_esc_held = setTo;
+  if (keyEvent.keyCode === KEY_ENTER) {
+    key_enter_held = setTo;
   }
 
   if (key_T_Held) {
@@ -309,11 +333,22 @@ function keySet(keyEvent, setTo) {
     key_T_Held = false;
   }
 
-  if (key_esc_held && keyEvent.keyCode === KEY_ESC) {
-    currentMode = MENU_MODE;
-    menu_stack.push(pause_screen);
-    playSound(sounds.pause);
-    key_esc_held = false;
+  if (key_enter_held && keyEvent.keyCode === KEY_ENTER) {
+    if (!paused && currentMode === PLAY_MODE) {
+      console.log("PAUSED");
+      currentMode = MENU_MODE;
+      menu_stack.push(pause_screen);
+      playSound(sounds.pause);
+      key_enter_held = false;
+      paused = true;
+    } else if (paused && currentMode === MENU_MODE) {
+      console.log("UNPAUSED");
+      currentMode = PLAY_MODE;
+      menu_stack.pop();
+      playSound(sounds.pause);
+      key_enter_held = false;
+      paused = false;
+    }
   }
 
   if (

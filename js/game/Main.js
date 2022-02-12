@@ -7,6 +7,7 @@ var speedrun_mode = false;
 var play_time = 0;
 var fullscreen_mode = false;
 var master_volume = 1;
+var paused = false;
 
 // GAME OBJECTS
 var player = new playerClass();
@@ -91,6 +92,7 @@ window.onload = function () {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
   canvasContext.font = "8px Arial";
+  
 
   colorRect(0, 0, canvas.width, canvas.height, "black");
   colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, "white");
