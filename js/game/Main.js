@@ -63,9 +63,7 @@ var options_screen = new Options();
 var credits_screen = new MenuClass({ name: "Credits" });
 var controls_screen = new MenuClass({ name: "Controls" });
 var pause_screen = new PauseMenu({ name: "Pause" });
-
-// Data structure for navigating menus
-var menu_stack = [title_screen];
+var menu_stack = [title_screen]; // Data structure for navigating menus
 
 //
 var level = new BaseLevelClass();
@@ -92,7 +90,6 @@ window.onload = function () {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
   canvasContext.font = "8px Arial";
-  
 
   colorRect(0, 0, canvas.width, canvas.height, "black");
   colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, "white");
@@ -170,6 +167,22 @@ function spawnGameObject(config, type) {
   return game_object;
 }
 
+// PAUSE/UNPAUSE
+function pauseGame() {
+  currentMode = MENU_MODE;
+  menu_stack.push(pause_screen);
+  playSound(sounds.pause);
+  paused = true;
+}
+
+function unpauseGame() {
+  currentMode = PLAY_MODE;
+  menu_stack.pop();
+  playSound(sounds.pause);
+  paused = false;
+}
+
+// SOUND CONTROLS
 function playMusic() {
   let playbackRate = 1;
   let pan = 0;
@@ -193,6 +206,7 @@ function stopMusic() {
   song_playing = false;
 }
 
+// SPAWNING
 function spawnEffect(x, y, type = EXPLOSION) {
   switch (type) {
     case EXPLOSION:
@@ -220,6 +234,30 @@ function spawnEffect(x, y, type = EXPLOSION) {
   effects.push(effect);
 }
 
+function initGameObjects(map) {
+  const configurations = [
+    ...level.walls,
+    ...level.enemies,
+    ...level.shots,
+    ...level.hazards,
+  ];
+
+  map.forEach((tile, index) => {
+    var object_type = Object.keys(OBJECT_MAP).find((key) => {
+      return OBJECT_MAP[key] === tile;
+    });
+
+    var object_config = configurations.find(
+      (config) => config?.array_index === index
+    );
+
+    if (object_type) {
+      spawnGameObject(object_config, object_type);
+    }
+  });
+}
+
+// TRANSITIONS/EFFECTS
 function spawnTransition(config) {
   var new_transition = new FadeClass(config);
   effects.push(new_transition);
@@ -245,6 +283,7 @@ function fadeTransitionBetweenLevels() {
   }
 }
 
+// UI
 function setupUI() {
   var height = WORLD_H * 2;
   var width = canvas.width;
@@ -260,29 +299,7 @@ function setupUI() {
   });
 }
 
-function initGameObjects(map) {
-  const configurations = [
-    ...level.walls,
-    ...level.enemies,
-    ...level.shots,
-    ...level.hazards,
-  ];
-
-  map.forEach((tile, index) => {
-    var object_type = Object.keys(OBJECT_MAP).find((key) => {
-      return OBJECT_MAP[key] === tile;
-    });
-
-    var object_config = configurations.find(
-      (config) => config?.array_index === index
-    );
-
-    if (object_type) {
-      spawnGameObject(object_config, object_type);
-    }
-  });
-}
-
+// LOADING
 function loadLevel(whichLevel) {
   world_grid = whichLevel.slice();
   player.reset(playerSheet, "Player");
@@ -319,6 +336,7 @@ function goToLevel(level_index) {
   player.touched_goal = false;
 }
 
+// TUTORIALS
 function checkForTutorialProgress() {
   if (prompts.length === 0) return;
 
@@ -354,6 +372,7 @@ function checkForTutorialProgress() {
   }
 }
 
+// GROUP LOOP FUNCTIONS
 function updateAll(dt) {
   if (currentMode !== MENU_MODE) {
     menu_stack.forEach((menu) => menu.deactivateMenuButtons());
@@ -481,6 +500,7 @@ function drawAll() {
   }
 }
 
+// CORE GAME LOOP
 function loop(dt) {
   if (speedrun_mode) {
     play_time += dt;

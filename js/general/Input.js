@@ -335,19 +335,11 @@ function keySet(keyEvent, setTo) {
 
   if (key_enter_held && keyEvent.keyCode === KEY_ENTER) {
     if (!paused && currentMode === PLAY_MODE) {
-      console.log("PAUSED");
-      currentMode = MENU_MODE;
-      menu_stack.push(pause_screen);
-      playSound(sounds.pause);
+      pauseGame();
       key_enter_held = false;
-      paused = true;
     } else if (paused && currentMode === MENU_MODE) {
-      console.log("UNPAUSED");
-      currentMode = PLAY_MODE;
-      menu_stack.pop();
-      playSound(sounds.pause);
+      unpauseGame();
       key_enter_held = false;
-      paused = false;
     }
   }
 

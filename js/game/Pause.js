@@ -3,7 +3,8 @@ function PauseMenu() {
     buttons: [
       new ButtonClass(...[, , , ,], "RESUME", ...[, ,], () => {
         currentMode = PLAY_MODE;
-        menu_stack.pop();
+        this.deactivateMenuButtons();
+        unpauseGame();
       }),
     ],
     name: "Pause",

@@ -24,6 +24,11 @@ function Options() {
         ...[, ,],
         () => {
           fullscreen_mode = !fullscreen_mode;
+          if (fullscreen_mode) {
+            canvas.requestFullscreen();
+          } else {
+            document.exitFullscreen();
+          }
         },
         ...[, ,],
         "OFF"
@@ -40,6 +45,7 @@ function Options() {
       ),
       new ButtonClass(...[, , , ,], "BACK", ...[, ,], () => {
         menu_stack.pop();
+        this.deactivateMenuButtons();
       }),
     ],
     name: "Options",
