@@ -68,6 +68,7 @@ function LevelSelectSubMenuClass() {
     var back_button = new ButtonClass(...[, , , ,], "BACK", ...[, ,], () => {
       menu_stack.pop();
       this.deactivateMenuButtons();
+      console.log("BACK");
     });
 
     this.buttons.push(back_button);

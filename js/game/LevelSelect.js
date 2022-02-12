@@ -16,9 +16,11 @@ function LevelSelectClass() {
   this.quadrants.forEach((quadrant, i) => {
     var width = level_names[i].length * 8;
     var button = new ButtonClass(...[, , , ,], level_names[i], ...[, ,], () => {
-      menu_stack.push(level_select_sub_screen);
-      level_select_sub_screen.game_section = `${i + 1}`;
-      level_select_sub_screen.defineLevelButtons();
+      var sub_menu = new LevelSelectSubMenuClass({ name: "Levels" });
+      sub_menu.game_section = `${i + 1}`;
+      sub_menu.defineLevelButtons();
+      buttons.push(...sub_menu.buttons);
+      menu_stack.push(sub_menu);
     });
     button.x = quadrant.x + quadrant.width / 2 - width / 2;
     button.y = quadrant.y + quadrant.height / 2;
