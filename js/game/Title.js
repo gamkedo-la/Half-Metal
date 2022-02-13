@@ -24,7 +24,7 @@ function TitleMenu() {
     const credits = new ButtonClass(...[, , , , ], "credits", ...[, , ], () => {
         console.log("Clicked credits");
         currentMode = MENU_MODE;
-        menu_stack.push(credits_screen);
+        // menu_stack.push(credits_screen);
     });
 
     const controls = new ButtonClass(...[, , , , ], "controls", ...[, , ], () => {

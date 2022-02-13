@@ -61,7 +61,8 @@ var prompts = [switch_prompt, shoot_prompt, walk_prompt];
 var title_screen = new TitleMenu();
 var level_select_screen = new LevelSelectClass({ name: "Select Level" });
 var options_screen = new Options();
-var credits_screen = new Credits();
+//var credits_screen = new Credits();
+var credits_screen = new MenuClass({ name: "Credits" });
 var controls_screen = new MenuClass({ name: "Controls" });
 var pause_screen = new PauseMenu({ name: "Pause" });
 var menu_stack = [title_screen]; // Data structure for navigating menus
@@ -72,13 +73,12 @@ var level = new BaseLevelClass();
 editor.resetUI();
 editor.initTileset();
 buttons = [
-    ...editor.toolBarOptions,
-    ...menuList[editor.currentMenu],
-    ...title_screen.buttons,
-    ...pause_screen.buttons,
-    ...options_screen.buttons,
-    ...credits_screen.buttons,
-    ...level_select_screen.buttons,
+  ...editor.toolBarOptions,
+  ...menuList[editor.currentMenu],
+  ...title_screen.buttons,
+  ...pause_screen.buttons,
+  ...options_screen.buttons,
+  ...level_select_screen.buttons,
 ];
 
 var currentMode = MENU_MODE;
@@ -131,42 +131,42 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function spawnGameObject(config, type) {
-    var game_object;
+  var game_object;
 
-    // Get a corresponding object from the collection in ObjectData.js
-    var current_object = OBJECT_COLLECTION.find((obj) => obj.type === type);
+  // Get a corresponding object from the collection in ObjectData.js
+  var current_object = OBJECT_COLLECTION.find((obj) => obj.type === type);
 
-    // Instantiate the Game Object based on the associated class in the OBJECT_COLLECTION
-    if (current_object) {
-        game_object = new current_object.class();
-    }
+  // Instantiate the Game Object based on the associated class in the OBJECT_COLLECTION
+  if (current_object) {
+    game_object = new current_object.class();
+  }
 
-    // If no game_object is found, end the function early
-    if (!game_object) return;
+  // If no game_object is found, end the function early
+  if (!game_object) return;
 
-    // Assign instance of spawned class to the correct collection
-    if (ENEMIES.includes(type)) {
-        enemies.push(game_object);
-    }
-    if (WALLS.includes(type)) {
-        walls.push(game_object);
-    }
-    if (HAZARDS.includes(type)) {
-        hazards.push(game_object);
-    }
+  // Assign instance of spawned class to the correct collection
+  if (ENEMIES.includes(type)) {
+    enemies.push(game_object);
+  }
+  if (WALLS.includes(type)) {
+    walls.push(game_object);
+  }
+  if (HAZARDS.includes(type)) {
+    hazards.push(game_object);
+  }
 
-    // Set instance to default state
-    game_object ? .reset();
+  // Set instance to default state
+  game_object?.reset();
 
-    // Apply configurations to instance
-    game_object.direction = config ? .direction;
-    game_object.orientation = config ? .orientation;
-    if (config ? .x && config ? .y) {
-        game_object.x = config ? .x;
-        game_object.y = config ? .y;
-    }
+  // Apply configurations to instance
+  game_object.direction = config?.direction;
+  game_object.orientation = config?.orientation;
+  if (config?.x && config?.y) {
+    game_object.x = config?.x;
+    game_object.y = config?.y;
+  }
 
-    return game_object;
+  return game_object;
 }
 
 // PAUSE/UNPAUSE
@@ -250,7 +250,7 @@ function initGameObjects(map) {
         });
 
         var object_config = configurations.find(
-            (config) => config ? .array_index === index
+          (config) => config?.array_index === index
         );
 
         if (object_type) {
@@ -387,7 +387,7 @@ function updateAll(dt) {
             gamepad.update(dt);
             moveAll(dt);
             game_objects.forEach((object) => {
-                if (object ? .update) {
+                if (object?.update) {
                     object.update(dt);
                 }
             });
@@ -424,7 +424,7 @@ function updateAll(dt) {
 
 function moveAll() {
     game_objects.forEach(function(object) {
-        if (object ? .move) {
+        if (object?.move) {
             object.move();
         }
     });
