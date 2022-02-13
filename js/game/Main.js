@@ -20,6 +20,7 @@ var hazards = new Array();
 var walls = new Array();
 var triggers = new Array();
 var game_objects = new Array();
+var all_objects_spawned = false;
 
 // INPUTS
 var gamepad = new GamepadSupport();
@@ -255,6 +256,8 @@ function initGameObjects(map) {
       spawnGameObject(object_config, object_type);
     }
   });
+
+  all_objects_spawned = true;
 }
 
 // TRANSITIONS/EFFECTS

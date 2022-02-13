@@ -330,6 +330,9 @@ function keySet(keyEvent, setTo) {
       editor.current_config.direction = 0;
     }
 
+    editor.current_config.orientation =
+      editor.current_config.orientation === HORIZONTAL ? VERTICAL : HORIZONTAL;
+
     key_T_Held = false;
   }
 
