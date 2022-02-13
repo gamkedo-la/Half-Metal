@@ -357,6 +357,10 @@ function playerClass() {
           player.y = player.prevY;
           player.movingProgressRemaining = 0;
         }
+
+        if (hazard.type === LASER) {
+          hazard.alertEnemies();
+        }
       }
     });
   };
