@@ -29,6 +29,8 @@ function TitleMenu() {
 
     const controls = new ButtonClass(...[, , , , ], "controls", ...[, , ], () => {
         console.log("Clicked controls");
+        currentMode = MENU_MODE;
+        menu_stack.push(controls_screen);
     });
 
     // CONFIGURATION

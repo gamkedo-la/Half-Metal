@@ -63,7 +63,8 @@ var level_select_screen = new LevelSelectClass({ name: "Select Level" });
 var options_screen = new Options();
 var credits_screen = new Credits();
 //var credits_screen = new MenuClass({ name: "Credits" });
-var controls_screen = new MenuClass({ name: "Controls" });
+//var controls_screen = new MenuClass({ name: "Controls" });
+var controls_screen = new Controls();
 var pause_screen = new PauseMenu({ name: "Pause" });
 var menu_stack = [title_screen]; // Data structure for navigating menus
 
@@ -79,6 +80,7 @@ buttons = [
   ...pause_screen.buttons,
   ...options_screen.buttons,
   ...credits_screen.buttons,
+  ...controls_screen.buttons,
   ...level_select_screen.buttons,
 ];
 

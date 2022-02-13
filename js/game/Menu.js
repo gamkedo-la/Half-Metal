@@ -3,6 +3,8 @@ function MenuClass(config) {
   // -General-
   this.buttons = config.buttons || [];
   this.name = config.name || "Menu";
+ 
+  
 
   // -Rendering-
   this.width = config.width || 256;
