@@ -57,8 +57,8 @@ function playSound(
 
   source.playbackRate.value = playbackRate;
   source.loop = loop;
-  gainNode.gain.value = volume;
+  gainNode.gain.value = volume * master_volume;
   panNode.pan.value = pan;
   source.start();
-  return { volume: gainNode, sound: source };
+  return { volume: gainNode * master_volume, sound: source };
 }

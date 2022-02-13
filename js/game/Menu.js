@@ -44,6 +44,10 @@ function MenuClass(config) {
     return [top_left, top_right, bottom_left, bottom_right];
   };
 
+  this.renderExtraText = function () {
+    // Override in subclasses
+  };
+
   // -Life cycle methods
   this.draw = function () {
     // BG
@@ -63,6 +67,9 @@ function MenuClass(config) {
     this.buttons.forEach((button) => {
       button.draw();
     });
+
+    // EXTRA TEXT
+    this.renderExtraText();
   };
 
   this.update = function () {

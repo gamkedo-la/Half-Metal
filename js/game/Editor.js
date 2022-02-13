@@ -149,7 +149,8 @@ function ButtonClass(
   handler,
   paddingX = 2,
   paddingY = 2,
-  value = null
+  value = null,
+  id = ""
 ) {
   this.label = label;
   this.height = height;
@@ -164,6 +165,7 @@ function ButtonClass(
   this.active = false;
   this.visible = true;
   this.value = value;
+  this.id = id;
 
   this.draw = function () {
     if (this.visible) {
