@@ -10,10 +10,12 @@ function GamepadSupport() {
   var SIMULATED_KEY_DOWN = 40; //down //83;//s
   var SIMULATED_KEY_LEFT = 37; //left // 65;//a
   var SIMULATED_KEY_RIGHT = 39; //right //68;//d
-  var SIMULATED_KEY_B_BUTTON = 69; //e
+  var SIMULATED_KEY_B_BUTTON = 32; //space
   var SIMULATED_KEY_A_BUTTON = 88; //x
   var SIMULATED_KEY_X_BUTTON = 32; //space
   var SIMULATED_KEY_Y_BUTTON = 81; //q
+  var SIMULATED_KEY_START_BUTTON = 13; //enter
+  var SIMULATED_KEY_SELECT_BUTTON = 81; //q
 
   if (!navigator.getGamepads) {
     console.log(
@@ -35,6 +37,8 @@ function GamepadSupport() {
   var gamepad_a = false;
   var gamepad_x = false;
   var gamepad_y = false;
+  var gamepad_start = false;
+  var gamepad_select = false;
   var prev_gamepad_left = false;
   var prev_gamepad_right = false;
   var prev_gamepad_up = false;
@@ -43,6 +47,8 @@ function GamepadSupport() {
   var prev_gamepad_jump = false;
   var prev_gamepad_x = false;
   var prev_gamepad_y = false;
+  var prev_gamepad_start = false;
+  var prev_gamepad_select = false;
 
   window.addEventListener("gamepadconnected", function (e) {
     // Gamepad connected
@@ -77,6 +83,15 @@ function GamepadSupport() {
     // poll every frame
     gamepad = navigator.getGamepads()[0];
     if (gamepad) {
+      // Log the pressed button
+      gamepad.buttons.forEach((button, i) => {
+        pressed = this.applyDeadzone(button.value, DEADZONE);
+        if (pressed) {
+          console.log("BUTTON AT " + i + " pressed");
+          console.log(button);
+        }
+      });
+
       //console.log("Gamepad detected: " + gamepad.axes[0] + "," + gamepad.axes[1]);
       var joystickX = this.applyDeadzone(gamepad.axes[0], DEADZONE);
       gamepad_right = joystickX > 0;
@@ -104,6 +119,31 @@ function GamepadSupport() {
       gamepad_left = butt > 0;
       butt = this.applyDeadzone(gamepad.buttons[15].value, DEADZONE);
       gamepad_right = butt > 0;
+
+      // Start and Select buttons
+      butt = this.applyDeadzone(gamepad.buttons[9].value, DEADZONE);
+      gamepad_start = butt > 0;
+      butt = this.applyDeadzone(gamepad.buttons[8].value, DEADZONE);
+      gamepad_select = butt > 0;
+
+      // NES
+      if (gamepad.id.includes("NES")) {
+        // NES directions are mapped in a circle (up, right, down, and then left)
+        butt = this.applyDeadzone(gamepad.buttons[12].value, DEADZONE);
+        gamepad_up = butt > 0;
+        butt = this.applyDeadzone(gamepad.buttons[13].value, DEADZONE);
+        gamepad_right = butt > 0;
+        butt = this.applyDeadzone(gamepad.buttons[14].value, DEADZONE);
+        gamepad_down = butt > 0;
+        butt = this.applyDeadzone(gamepad.buttons[15].value, DEADZONE);
+        gamepad_left = butt > 0;
+
+        // Start + select
+        butt = this.applyDeadzone(gamepad.buttons[7].value, DEADZONE);
+        gamepad_start = butt > 0;
+        butt = this.applyDeadzone(gamepad.buttons[6].value, DEADZONE);
+        gamepad_select = butt > 0;
+      }
 
       // console.log("Gamepad buttons: A:" + gamepad.buttons[0].value + " B:" + + gamepad.buttons[1].value + " X:" + + gamepad.buttons[2].value + " Y:" + + gamepad.buttons[3].value);
     } else {
@@ -135,6 +175,10 @@ function GamepadSupport() {
       this.simulateKeyDown(SIMULATED_KEY_X_BUTTON);
     if (!prev_gamepad_y && gamepad_y)
       this.simulateKeyDown(SIMULATED_KEY_Y_BUTTON);
+    if (!prev_gamepad_start && gamepad_start)
+      this.simulateKeyDown(SIMULATED_KEY_START_BUTTON);
+    if (!prev_gamepad_select && gamepad_select)
+      this.simulateKeyDown(SIMULATED_KEY_SELECT_BUTTON);
     // only sends events if state has changed
     if (prev_gamepad_left && !gamepad_left)
       this.simulateKeyUp(SIMULATED_KEY_LEFT);
@@ -151,6 +195,10 @@ function GamepadSupport() {
       this.simulateKeyUp(SIMULATED_KEY_X_BUTTON);
     if (prev_gamepad_y && !gamepad_y)
       this.simulateKeyUp(SIMULATED_KEY_Y_BUTTON);
+    if (prev_gamepad_start && !gamepad_start)
+      this.simulateKeyUp(SIMULATED_KEY_START_BUTTON);
+    if (prev_gamepad_select && !gamepad_select)
+      this.simulateKeyUp(SIMULATED_KEY_SELECT_BUTTON);
     // now remember current state
     prev_gamepad_left = gamepad_left;
     prev_gamepad_right = gamepad_right;
@@ -160,6 +208,8 @@ function GamepadSupport() {
     prev_gamepad_jump = gamepad_a;
     prev_gamepad_x = gamepad_x;
     prev_gamepad_y = gamepad_y;
+    prev_gamepad_start = gamepad_start;
+    prev_gamepad_select = gamepad_select;
   };
 
   this.simulateKeyDown = function (thisKey) {

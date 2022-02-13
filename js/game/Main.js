@@ -402,10 +402,12 @@ function updateAll(dt) {
       break;
 
     case CUTSCENE_MODE:
+      gamepad.update(dt);
       cutscene.update(dt);
       break;
 
     case MENU_MODE:
+      gamepad.update(dt);
       editor.deactivateButtons();
       menu_stack.forEach((menu) => menu.deactivateMenuButtons());
       menu_stack[menu_stack.length - 1].update();
