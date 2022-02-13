@@ -14,6 +14,10 @@ function LeaperClass() {
     this.speed = 1;
   };
 
+  this.whileNormal = function () {
+    this.speed = 0.5;
+  };
+
   this.onCollisionWhileAlert = function (other) {
     if (other.type === INVISIBLE || other.type === STURDY) {
       reverseDirection(this);

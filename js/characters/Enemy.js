@@ -1,4 +1,5 @@
 const RAY_CAST_COUNTDOWN_MAX = 10;
+const STUN_COUNTDOWN_MAX = 240;
 
 function EnemyClass() {
   // --- PROPERTIES ---
@@ -60,6 +61,7 @@ function EnemyClass() {
     1,
     true
   );
+  this.stun_timer = STUN_COUNTDOWN_MAX;
 
   // -Raycasting-
   this.rays = [];
@@ -78,7 +80,13 @@ function EnemyClass() {
       return;
     }
 
-    this.checkForPlayer();
+    if (this.state !== STUNNED) {
+      this.checkForPlayer();
+    }
+
+    if (this.state === NORMAL) {
+      this.whileNormal();
+    }
 
     if (this.state === ALERT) {
       this.whileAlerted();
@@ -129,6 +137,18 @@ function EnemyClass() {
   };
 
   this.move = function () {
+    if (this.stun_timer <= 0) {
+      this.stun_timer = STUN_COUNTDOWN_MAX;
+      this.state = NORMAL;
+    }
+
+    if (this.state === STUNNED) {
+      this.rays.length = 0;
+      this.stun_timer -= 1;
+      this.x += Math.cos(this.stun_timer);
+      return;
+    }
+
     moveInOwnDirection(this);
     this.updateHitBoxes();
   };
@@ -209,6 +229,14 @@ function EnemyClass() {
   this.whileAlerted = function () {
     // Override in subclasses
     this.alert_timer.update();
+  };
+
+  this.whileNormal = function () {
+    // Override in subclasses
+  };
+
+  this.whileStunned = function () {
+    // Override in subclasses
   };
 
   this.stopAlert = function () {
