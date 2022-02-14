@@ -1,24 +1,25 @@
-const HUNTER_BOT_MOVEMENT_SPEED = 1.0;
+const HUNTER_BOT_MOVEMENT_SPEED = 0.3;
 
 function HunterClass() {
   EnemyClass.call(this);
+
+  // General
   this.myTileKind = TILE_HUNTER;
   this.type = HUNTER;
   this.x = 75;
   this.y = 75;
-  this.speedX = HUNTER_BOT_MOVEMENT_SPEED;
-  this.speedY = HUNTER_BOT_MOVEMENT_SPEED;
   this.width = 14;
   this.height = 26;
-  this.image = hunterSheet;
-  this.angleMovement = 0;
-  this.currentLevel = [];
+  this.speed = HUNTER_BOT_MOVEMENT_SPEED;
+
+  // Collision
   this.hitbox_x = this.x;
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
-  this.searching = true;
 
+  // Animation
+  this.image = hunterSheet;
   this.animations = FRAME_DATA[HUNTER];
   this.currentAnimation = "walk-up";
   this.animator = new SpriteSheetAnimatorClass(this, 5);
@@ -37,7 +38,6 @@ function HunterClass() {
   };
   this.current_path_node = 0;
   this.path = [];
-  this.move_timer = 0;
 
   // Create a grid of nodes for pathfinding traversal
   this.createGrid = function (rows, cols) {
@@ -75,49 +75,47 @@ function HunterClass() {
   };
 
   this.followPath = function () {
-    const lerp = (start, end, percent) => start * (1 - percent) + end * percent;
+    var target = null;
+    var position = null;
 
-    if (this.path.length > 0 && this.path[this.current_path_node]) {
-      // Move from either the original starting position or the most recently traveled node
-      const start_node = this.getNodeCoordinates(
-        this.current_path_node === 0
-          ? this.getStartNode()
-          : this.path[this.current_path_node - 1]
-      );
+    if (this.path.length > 0) {
+      target = this.path[this.current_path_node];
+      position = this.getGridRowAndCol(this.x, this.y);
+      position.x = position.col;
+      position.y = position.row;
 
-      // Get the next node to traverse
-      const next_node = this.getNodeCoordinates(
-        this.path[this.current_path_node]
-      );
-
-      // Interpolate between starting position and next node positon
-      this.x = lerp(start_node.x, next_node.x, this.move_timer);
-      this.y = lerp(start_node.y, next_node.y, this.move_timer);
-
-      // Lerping stops when move_timer = 1
-      this.move_timer += 0.01;
+      if (target && this.distanceToTarget(position, target.pos) < 1) {
+        this.current_path_node += 1;
+        if (this.current_path_node > this.path.length - 1) {
+          this.current_path_node = this.path.length - 1;
+        }
+      }
     }
 
-    const grid_pos = this.getGridRowAndCol();
-    const target_node = this.path[this.current_path_node];
-
-    if (
-      grid_pos &&
-      target_node &&
-      grid_pos.x === target_node.x &&
-      grid_pos.y === target_node.y
-    ) {
-      console.log("Reached node");
-      this.current_path_node = 0;
-      this.searching = true;
-    }
-
-    // When the hunter reaches the target node, reset the move timer and get the next node
-    if (this.move_timer > 1) {
-      this.move_timer = 0;
-      this.current_path_node++;
+    if (target) {
+      this.moveFrom(position, target.pos);
     }
   };
+
+  this.moveFrom = function (position, target) {
+    if (target.x > position.x && target.y === position.y) {
+      // Move right
+      this.direction = 0;
+    } else if (target.x < position.x && target.y === position.y) {
+      // Move left
+      this.direction = 180;
+    }
+
+    if (target.y > position.y && target.x === position.x) {
+      // Move down
+      this.direction = 90;
+    } else if (target.y < position.y && target.x === position.x) {
+      // Move up
+      this.direction = 270;
+    }
+  };
+
+  this.onCollision = function () {};
 
   this.findPathToPlayer = function (start, end) {
     var open_list = [];
@@ -150,12 +148,12 @@ function HunterClass() {
         });
 
         // Remove excess nodes with high f scores
-        var player_node = ret.find((node) => node.is_player);
-        var player_node_index = ret.indexOf(player_node);
+        // var player_node = ret.find((node) => node.is_player);
+        // var player_node_index = ret.indexOf(player_node);
 
-        if (player_node_index !== -1) {
-          ret = ret.slice(0, player_node_index);
-        }
+        // if (player_node_index !== -1) {
+        //   ret = ret.slice(0, player_node_index);
+        // }
 
         // Return path to player
         return ret;
@@ -278,24 +276,21 @@ function HunterClass() {
   };
 
   this.move = function () {
-    if (this.searching) {
-      // Organize game world into a grid of nodes
-      this.createGrid(WORLD_ROWS, WORLD_COLS);
+    // Organize game world into a grid of nodes
+    this.createGrid(WORLD_ROWS, WORLD_COLS);
 
-      // Determine start and end nodes within the grid
-      const start_node = this.getStartNode();
-      const goal_node = this.getPlayerNode();
+    // Determine start and end nodes within the grid
+    const start_node = this.getStartNode();
+    const goal_node = this.getPlayerNode();
 
-      if (start_node && goal_node) {
-        // Construct the path of nodes to traverse toward the player
-        this.path = this.findPathToPlayer(start_node, goal_node);
-      }
-
-      this.searching = false;
+    if (start_node && goal_node) {
+      // Construct the path of nodes to traverse toward the player
+      this.path = this.findPathToPlayer(start_node, goal_node);
     }
 
     // Follow the constructed path
     this.followPath();
+    moveInOwnDirection(this);
 
     // Keep hitboxes in line with character movement
     this.updateHitBoxes();
