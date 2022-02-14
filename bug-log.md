@@ -4,6 +4,8 @@
 2. Blocker shield animation won't play
 3. Player gets caught on some walls
 4. Turned enemies will go out of bounds
+5. Type Push freezes the whole game
+6. Player getting stuck in box once the character gets detected from the top area on the floor 13 by the flyer. 
 
 <!-- EDITOR -->
 
