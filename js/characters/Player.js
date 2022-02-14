@@ -305,9 +305,8 @@ function playerClass() {
         )
       ) {
         if (wall.type === ELECTRIC && wall.state === CLOSED) {
-          loadLevel(levels[currentLevel].level_map);
-          playSound(sounds.destroy);
-          playSound(sounds.lose);
+          player.onCollideWithEnemy();
+          return;
         }
 
         if (wall.solid) {
@@ -370,28 +369,6 @@ function playerClass() {
       player.x = player.prevX;
       player.y = player.prevY;
       player.movingProgressRemaining = 0;
-    }
-  };
-
-  this.checkHazardType = function (hazard) {
-    switch (hazard.type) {
-      case LASER:
-        if (hazard.state === ON) {
-          hazard.alertEnemies();
-        }
-        break;
-
-      case CAMERA:
-        break;
-
-      case WINDOW:
-        break;
-
-      case TURRET:
-        break;
-
-      default:
-        break;
     }
   };
 

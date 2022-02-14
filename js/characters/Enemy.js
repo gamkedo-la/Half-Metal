@@ -212,6 +212,11 @@ function EnemyClass() {
   };
 
   this.onCollision = function (other) {
+    if (other.type === ELECTRIC && other.state === CLOSED) {
+      this.destroyed = true;
+      return;
+    }
+
     if (this.state === ALERT) {
       this.onCollisionWhileAlert(other);
       return;
@@ -298,7 +303,7 @@ function EnemyClass() {
 
   // -Combat-
   this.checkIfDestroyed = function () {
-    if (this.health <= 0) {
+    if (this.health <= 0 || this.destroyed) {
       this.onDestroy();
       return true;
     }

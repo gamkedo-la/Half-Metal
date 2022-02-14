@@ -150,7 +150,7 @@ function ShotClass() {
 
     // OPEN ELECTRIC WALL
     if (object.type === ELECTRIC && this.can_stun) {
-      object.state = OPEN;
+      object.state = object.state === OPEN ? CLOSED : OPEN;
       this.removeSelf();
       playSound(sounds.stun);
       return;
