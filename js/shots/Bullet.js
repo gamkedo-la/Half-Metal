@@ -135,6 +135,10 @@ function ShotClass() {
       return;
     }
 
+    if (object.type === LASER) {
+      return;
+    }
+
     // PASS FLYING ENEMY
     if (object?.flight_state === ASCENDED) {
       return;
