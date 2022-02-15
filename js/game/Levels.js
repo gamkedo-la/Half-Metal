@@ -4,7 +4,7 @@ function BaseLevelClass() {
   this.starting_ammo = 0;
   this.default_object_config = {
     direction: 0,
-    orientation: VERTICAL,
+    orientation: HORIZONTAL,
     type: "",
     state: MOVING,
     position: { x: 0, y: 0 },
@@ -19,11 +19,10 @@ function BaseLevelClass() {
   this.tileset = cell_tileset;
 }
 
-
 // Level names will use an x-y scheme where x is the current section of the game (1 = cells, 2 = armory, 3 = processing, and 4 = courtyard)
 // and y is the current level within that section (e.g., the first level is 1-1)
 
-const levels = [...CELL_LEVELS, ...ARMORY_LEVELS];
+const levels = [...PROCESSING_LEVELS];
 
 currentLevel = 0;
 
