@@ -313,6 +313,10 @@ function playerClass() {
           return;
         }
 
+        if (wall.type === ELECTRIC && wall.state === OPEN) {
+          return;
+        }
+
         if (wall.solid) {
           player.x = player.prevX;
           player.y = player.prevY;
