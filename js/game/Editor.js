@@ -211,6 +211,7 @@ function EditorClass() {
   this.layer = "world";
   this.tileset_start_x = 2;
   this.tileset_start_y = 208;
+  this.visible = true;
 
   this.deactivateMenuButtons = function () {
     menuList[this.currentMenu].forEach((button) => (button.active = false));
@@ -226,6 +227,7 @@ function EditorClass() {
   };
 
   this.toggleButtonVisibility = function () {
+    this.visible = !this.visible;
     buttons.forEach((button) => {
       button.active = !button.active;
       button.visible = !button.visible;
@@ -314,10 +316,12 @@ function EditorClass() {
   };
 
   this.update = function () {
-    menuList[this.currentMenu].forEach((button) => (button.active = true));
-    this.toolBarOptions.forEach((option) => {
-      option.active = true;
-    });
+    if (this.visible) {
+      menuList[this.currentMenu].forEach((button) => (button.active = true));
+      this.toolBarOptions.forEach((option) => {
+        option.active = true;
+      });
+    }
   };
 
   this.draw = function () {
