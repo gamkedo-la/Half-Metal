@@ -73,6 +73,8 @@ function playerClass() {
   this.nextY = this.y;
   this.prevX = this.x;
   this.prevY = this.y;
+  this.start_x = 0;
+  this.start_y = 0;
 
   this.touched_goal = false;
 
@@ -158,6 +160,8 @@ function playerClass() {
           this.y = eachRow * WORLD_H + WORLD_H / 2;
           console.log("NEW POSITION");
           console.log(this.x, this.y);
+          this.start_x = this.x;
+          this.start_y = this.y;
           return;
         } // end of player start if
       } // end of col for
