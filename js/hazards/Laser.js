@@ -110,10 +110,16 @@ function LaserClass(orientation = HORIZONTAL) {
   };
 
   this.alertEnemies = function () {
-    console.log("ALERTING ENEMIES");
-    enemies.forEach(function (enemy) {
-      enemy.state = ALERT;
-    });
+    var hunter = enemies.find((enemy) => enemy.type === HUNTER);
+    if (!hunter) {
+      console.log("CALLING HUNTER");
+      // Summon hunter at player start position
+      var start_x = 0;
+      var start_y = 0;
+      const hunter_config = { x: player.start_x, y: player.start_y };
+      console.log(levels[currentLevel]);
+      spawnGameObject(hunter_config, HUNTER);
+    }
   };
 
   this.removeSelf = function () {
