@@ -24,6 +24,10 @@ function LeaperClass() {
       return;
     }
 
+    if (other.type === HUNTER) {
+      return;
+    }
+
     if (other) {
       other.destroyed = true;
       other.health -= 1;
