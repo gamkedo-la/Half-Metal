@@ -203,6 +203,10 @@ function EnemyClass() {
           h: hitbox.h,
         })
       ) {
+        if (object.type === ELECTRIC && object.state === OPEN) {
+          return;
+        }
+
         this.collisions.push("hit");
         this.onCollision(object);
       }
