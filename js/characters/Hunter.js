@@ -1,5 +1,5 @@
 const HUNTER_BOT_MOVEMENT_SPEED = 0.3;
-
+const SHOOT_TIMER_MAX = 40;
 function HunterClass() {
   EnemyClass.call(this);
 
@@ -17,6 +17,10 @@ function HunterClass() {
   this.hitbox_y = this.y;
   this.hitbox_width = this.width;
   this.hitbox_height = this.height;
+  this.pushable = false;
+  this.stunnable = true;
+  this.turnable = false;
+  this.damageable = false;
 
   // Animation
   this.image = hunterSheet;
@@ -38,6 +42,18 @@ function HunterClass() {
   };
   this.current_path_node = 0;
   this.path = [];
+  this.render_path = false;
+
+  // Timers
+  this.alert_timer = new TimerClass(
+    () => {
+      this.stopAlert();
+    },
+    1500,
+    1,
+    true
+  );
+  this.shoot_timer = SHOOT_TIMER_MAX;
 
   // Create a grid of nodes for pathfinding traversal
   this.createGrid = function (rows, cols) {
@@ -276,6 +292,23 @@ function HunterClass() {
   };
 
   this.move = function () {
+    if (this.state === ALERT) {
+      return;
+    } else {
+      this.shoot_timer = SHOOT_TIMER_MAX;
+    }
+
+    if (this.stun_timer <= 0) {
+      this.stun_timer = STUN_COUNTDOWN_MAX;
+      this.state = NORMAL;
+    }
+
+    if (this.state === STUNNED) {
+      this.rays.length = 0;
+      this.stun_timer -= 1;
+      this.x += Math.cos(this.stun_timer);
+      return;
+    }
     // Organize game world into a grid of nodes
     this.createGrid(WORLD_ROWS, WORLD_COLS);
 
@@ -298,16 +331,18 @@ function HunterClass() {
 
   this.draw = function () {
     // Render path
-    this.path.forEach((node) => {
-      // Row and col where node is located
-      const { x: col, y: row } = node.pos;
+    if (this.render_path) {
+      this.path.forEach((node) => {
+        // Row and col where node is located
+        const { x: col, y: row } = node.pos;
 
-      // Actual x/y coordinates of node
-      const coords = getPixelCoordAtTileIndex(col, row);
+        // Actual x/y coordinates of node
+        const coords = getPixelCoordAtTileIndex(col, row);
 
-      // Image for path representation
-      canvasContext.drawImage(shot_img, coords.x + 4, coords.y + 4, 8, 8);
-    });
+        // Image for path representation
+        canvasContext.drawImage(shot_img, coords.x + 4, coords.y + 4, 8, 8);
+      });
+    }
 
     //   Set animation frame to render
     this.animationHandler();
@@ -342,6 +377,27 @@ function HunterClass() {
         canvasContext.fillStyle = hitbox.color;
         canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
       });
+    }
+  };
+
+  this.shoot = function () {
+    var shot_buffer = 3;
+
+    var spawn_x =
+      (this.width + shot_buffer) * Math.cos((this.direction * Math.PI) / 180);
+    var spawn_y =
+      (this.height + shot_buffer) * Math.sin((this.direction * Math.PI) / 180);
+
+    spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, NORMAL);
+
+    playSound(sounds.shoot);
+  };
+
+  this.whileAlerted = function () {
+    this.shoot_timer -= 1;
+    if (this.shoot_timer <= 0) {
+      this.shoot();
+      this.shoot_timer = SHOOT_TIMER_MAX;
     }
   };
 }
