@@ -170,17 +170,18 @@ function playerClass() {
   };
 
   this.updateHitbox = function () {
+    // Old hitbox code, still expected by some other game objects
     this.hitbox_x = this.x - this.width / 4;
     this.hitbox_y = this.y - 2;
     this.hitbox_width = 12;
     this.hitbox_height = 6;
 
-    // New hitbox array
+    // New hitbox code - for multiple hitboxes in an array
     this.hitboxes.forEach((hitbox) => {
       if (hitbox.name === "main") {
-        hitbox.x = this.x - this.width / 4;
+        hitbox.x = this.x - this.width / 4 + 1;
         hitbox.y = this.y - 2;
-        hitbox.w = 12;
+        hitbox.w = 6;
         hitbox.h = 6;
       }
 
@@ -200,7 +201,7 @@ function playerClass() {
     this.nextX = this.x;
     this.nextY = this.y;
 
-    // Get direction of movement
+    // Get direction of movement and future position
     if (this.keyHeld_North) {
       this.nextY -= PLAYER_MOVE_SPEED;
       this.direction = 270;
@@ -223,6 +224,11 @@ function playerClass() {
     }
 
     // Get expected X and Y of hitbox
+    const player_collider = this.hitboxes.find(
+      (hitbox) => hitbox.name === "main"
+    );
+    player_collider.x = this.nextX - this.width / 4 + 1;
+    player_collider.y = this.nextY - 2;
     this.hitbox_x = this.nextX - this.width / 4;
     this.hitbox_y = this.nextY - 2;
 
@@ -291,6 +297,9 @@ function playerClass() {
   };
 
   this.checkForCollisionWithWall = function (player) {
+    const player_collider = this.hitboxes.find(
+      (hitbox) => hitbox.name === "main"
+    );
     walls.forEach(function (wall) {
       if (
         collisionDetected(
@@ -301,10 +310,10 @@ function playerClass() {
             h: wall.hitbox_height,
           },
           {
-            x: player.hitbox_x,
-            y: player.hitbox_y,
-            w: player.hitbox_width,
-            h: player.hitbox_height,
+            x: player_collider.x,
+            y: player_collider.y,
+            w: player_collider.w,
+            h: player_collider.h,
           }
         )
       ) {
@@ -318,6 +327,11 @@ function playerClass() {
         }
 
         if (wall.solid) {
+          // Incorrect but it does make a cool warp effect, save for later
+          //   player.x =
+          //   player.prevX + dist * Math.cos((player.direction * Math.PI) / 180);
+          // player.y =
+          //   player.prevY + dist * Math.sin((player.direction * Math.PI) / 180);
           player.x = player.prevX;
           player.y = player.prevY;
           player.movingProgressRemaining = 0;
@@ -465,6 +479,7 @@ function playerClass() {
   };
 
   this.draw = function () {
+    // Animations
     switch (this.state) {
       case MOVING:
         this.currentAnimation = `walk-${DIRECTION_MAP[this.direction]}`;
@@ -477,18 +492,15 @@ function playerClass() {
         break;
     }
     this.animator.animate();
+
+    // Hitboxes
     if (this.render_hitbox) {
       this.hitboxes.forEach((hitbox) => {
-        canvasContext.fillStyle = hitbox.color;
-        canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+        if (hitbox.name === "main") {
+          canvasContext.fillStyle = hitbox.color;
+          canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+        }
       });
-      canvasContext.fillStyle = "blue";
-      canvasContext.fillRect(
-        this.hitbox_x,
-        this.hitbox_y,
-        this.hitbox_width,
-        this.hitbox_height
-      );
     }
   };
 }
