@@ -37,7 +37,7 @@ async function loadSounds() {
     { sndName: "armory_music", theFile: "bg_armory.wav" },
     { sndName: "processing_music", theFile: "bg_processingloop.wav" },
     { sndName: "alert_music", theFile: "bg_alertloop.mp3" },
-    { sndName: "intro_music", theFile: "snd_intro_2.wav" },
+    { sndName: "intro_music", theFile: "bg_half_metal_intro.wav" },
     { sndName: "title_music", theFile: "bg_title.wav" },
   ];
 
