@@ -34,8 +34,6 @@ function WallClass() {
   this.direction = 0;
   this.state = IDLE;
 
-  // TODO: Set collision rules for when wall is pushed
-
   this.draw = function () {
     this.animator.animate();
     if (this.render_hitbox) {

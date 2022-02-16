@@ -16,10 +16,10 @@ function ElectricWallClass(orientation = HORIZONTAL) {
       { x: this.width, y: 0, h: this.height, w: this.width },
     ],
     closed_v: [
-      { x: 0, y: 0, h: this.height, w: this.width },
-      { x: 0, y: this.height, h: this.height, w: this.width },
-      { x: 0, y: this.height * 2, h: this.height, w: this.width },
-      { x: 0, y: this.height, h: this.height, w: this.width },
+      { x: 0, y: 0, h: 32, w: this.width },
+      { x: 0, y: 32, h: 32, w: this.width },
+      { x: 0, y: 64, h: 32, w: this.width },
+      { x: 0, y: 32, h: 32, w: this.width },
     ],
     open_h: [{ x: 0, y: 0, h: this.height, w: this.width }],
     open_v: [{ x: 0, y: 0, h: this.height, w: this.width }],
@@ -45,8 +45,15 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   };
 
   this.update = function () {
+    // Fixing error regarding state on object spawn
+    if (this.state === MOVING) {
+      this.state = CLOSED;
+    }
+
     this.checkForStateChange();
+
     this.updateHitBoxes();
+
     switch (this.state) {
       case OPEN:
         this.image =
