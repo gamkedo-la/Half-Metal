@@ -131,7 +131,11 @@ function HunterClass() {
     }
   };
 
-  this.onCollision = function () {};
+  this.onCollision = function (other) {
+    if (other.type === ELECTRIC && other.state === CLOSED) {
+      this.onDestroy();
+    }
+  };
 
   this.findPathToPlayer = function (start, end) {
     var open_list = [];
