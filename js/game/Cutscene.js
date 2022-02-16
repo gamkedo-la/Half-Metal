@@ -13,6 +13,8 @@ function CutsceneClass(dialogue = [""]) {
   this.line_complete = false;
   this.max_line_width = 180;
   this.char_width = 8;
+  this.cutscene_started = false;
+  this.song = "intro_music";
 
   this.draw = function () {
     //   BG
@@ -24,7 +26,7 @@ function CutsceneClass(dialogue = [""]) {
     renderFont(this.revealed_chars, this.x + 20, this.y + 165);
 
     // IMAGE
-    canvasContext.drawImage(transceiver, 0, 0);
+    // canvasContext.drawImage(transceiver, 0, 0);
   };
 
   this.checkForInput = function () {
@@ -115,6 +117,11 @@ function CutsceneClass(dialogue = [""]) {
   };
 
   this.update = function () {
+    // if (!this.cutscene_started) {
+    //   this.cutscene_started = true;
+    //   playSound(sounds.intro_music);
+    // }
+
     //   Check if the user wants to go to next line or skip to the end of the current line
     this.checkForInput();
 
