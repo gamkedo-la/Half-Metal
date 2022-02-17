@@ -168,6 +168,26 @@ function FlyerClass() {
     );
     this.flight_time += this.flight_speed;
 
+    // If we land on a wall when descending, destroy crates and bounce off regular colliders
+    const hitbox = this.hitboxes.find((hitbox) => (hitbox.name = "main"));
+    walls.forEach((wall) => {
+      if (
+        collisionDetected(hitbox, {
+          x: wall.hitbox_x,
+          y: wall.hitbox_y,
+          w: wall.hitbox_width,
+          h: wall.hitbox_height,
+        })
+      ) {
+        if (wall.type !== INVISIBLE && wall.type !== ELECTRIC) {
+          wall.removeSelf();
+        } else {
+          this.stopAlert();
+          this.flight_dist += 16;
+        }
+      }
+    });
+
     if (this.flight_dist >= 8) {
       this.flight_state = ASCENDED;
     }
