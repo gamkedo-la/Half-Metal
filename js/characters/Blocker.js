@@ -16,6 +16,7 @@ function BlockerClass() {
   this.animations = FRAME_DATA[BLOCKER];
   this.currentAnimation = "idle-right";
   this.shoot_timer = SHOOT_COUNTDOWN_MAX;
+  this.render_hitbox = true;
 
   this.whileAlerted = function () {
     // Override in subclasses
@@ -25,6 +26,21 @@ function BlockerClass() {
       this.shoot();
       this.shoot_timer = SHOOT_COUNTDOWN_MAX;
     }
+  };
+
+  this.onCollision = function (other) {
+    if (other.type === ELECTRIC && other.state === CLOSED) {
+      this.destroyed = true;
+      return;
+    }
+
+    if (this.state === ALERT) {
+      this.onCollisionWhileAlert(other);
+      return;
+    }
+
+    // reverseDirection(this);
+    this.speed = this.speed * -1;
   };
 
   this.move = function () {
