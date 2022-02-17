@@ -60,6 +60,7 @@ function ShotClass() {
       case TILE_GROUND:
       case TILE_AMMO:
       case TILE_STUN_SHOT:
+      case TILE_TURN_SHOT:
       case TILE_GOAL:
         moveInOwnDirection(this);
         break;
