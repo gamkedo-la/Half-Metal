@@ -31,6 +31,19 @@ function BlockerClass() {
     if (this.state === ALERT) {
       return;
     }
+
+    if (this.stun_timer <= 0) {
+      this.stun_timer = STUN_COUNTDOWN_MAX;
+      this.state = NORMAL;
+    }
+
+    if (this.state === STUNNED) {
+      this.rays.length = 0;
+      this.stun_timer -= 1;
+      this.x += Math.cos(this.stun_timer);
+      return;
+    }
+
     strafe(this);
     this.updateHitBoxes();
   };

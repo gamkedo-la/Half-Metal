@@ -99,37 +99,7 @@ function ShotClass() {
   this.onCollideWithObject = function (object) {
     // COLLIDE WITH BLOCKER
     if (object?.type === BLOCKER && this.can_damage) {
-      // Check for collision with back hitbox
-      if (
-        collisionDetected(
-          {
-            x: this.x,
-            y: this.y,
-            w: this.width,
-            h: this.height,
-          },
-          {
-            x: object.back_hitbox_x,
-            y: object.back_hitbox_y,
-            w: object.back_hitbox_width,
-            h: object.back_hitbox_height,
-          }
-        )
-      ) {
-        object.health -= 3;
-        this.removeSelf();
-        playSound(sounds.destroy);
-        return;
-      }
-
-      // Check for collision with shield
-      if (object?.shield_up) {
-        reverseDirection(this);
-        playSound(sounds.bump);
-        return;
-      }
-
-      // Otherwise, deal normal damage
+      // Only do incremental damage to Blocker
       object.health -= 1;
       this.removeSelf();
       playSound(sounds.destroy);
