@@ -288,6 +288,10 @@ function playerClass() {
   };
 
   this.onCollideWithEnemy = function (enemy) {
+    if (enemy.type === FLYER && enemy.flight_state === ASCENDED) {
+      return;
+    }
+
     loadLevel(levels[currentLevel].level_map);
     playSound(sounds.lose);
   };
