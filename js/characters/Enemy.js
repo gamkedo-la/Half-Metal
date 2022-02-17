@@ -203,7 +203,17 @@ function EnemyClass() {
           h: hitbox.h,
         })
       ) {
+        // Let objects pass through open electric gates
         if (object.type === ELECTRIC && object.state === OPEN) {
+          return;
+        }
+
+        // Prevent flyer from colliding with anything when in air
+        if (
+          self.type === FLYER &&
+          self.flight_state === ASCENDED &&
+          object.type !== INVISIBLE
+        ) {
           return;
         }
 
