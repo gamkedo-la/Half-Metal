@@ -175,7 +175,9 @@ function EnemyClass() {
 
       if (
         self.state !== ALERT &&
-        (object.type === LEAPER || object.type === FLYER)
+        (object.type === LEAPER ||
+          object.type === FLYER ||
+          object.type === BLOCKER)
       ) {
         return;
       }
