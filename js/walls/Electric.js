@@ -30,6 +30,7 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   this.turnable = true;
   this.has_opened = false;
   this.prev_state = this.state;
+  this.render_hitbox = true;
 
   this.reset = function () {
     this.start_hum = true;
@@ -48,6 +49,11 @@ function ElectricWallClass(orientation = HORIZONTAL) {
     // Fixing error regarding state on object spawn
     if (this.state === MOVING) {
       this.state = CLOSED;
+    }
+
+    if (this.orientation === VERTICAL) {
+      this.height = 32;
+      this.width = 16;
     }
 
     this.checkForStateChange();
