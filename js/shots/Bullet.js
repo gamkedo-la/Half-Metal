@@ -47,6 +47,12 @@ function ShotClass() {
         };
       }
 
+      if (object.type === INVISIBLE) {
+        object_hitbox = object?.hitboxes?.find(
+          (box) => box.name === "shot_detection"
+        );
+      }
+
       // Compare positions of hitboxes with AABB collision detection
       if (collisionDetected(object_hitbox, bullet_hitbox)) {
         bullet.onCollideWithObject(object);
