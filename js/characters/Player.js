@@ -149,6 +149,15 @@ function playerClass() {
     this.currentAmmoIndex = 0;
     this.selected_ammo = NORMAL;
 
+    // For clearing out any remaining intervals at the time of a restart
+    const interval_id = window.setInterval(function () {},
+    Number.MAX_SAFE_INTEGER);
+
+    // Clear any timeout/interval up to that id
+    for (let i = 1; i < interval_id; i++) {
+      window.clearInterval(i);
+    }
+
     for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
       for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
         var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
