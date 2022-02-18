@@ -16,6 +16,23 @@
    5. Leapers can't destroy sturdy barriers
    6. Ammo is not carried between levels
 
+Level Changes:
+1-4: Remove the outer layer of blocks to offer players more room to bait enemies
+1-13: Remove this level in favor of a level teaching earlier concepts
+1-14: Not enough space to bait enemies, consider redesigning the layout
+1-16: swap places with 1-15
+2-1: Just start with one flyer enemy to introduce them in a smaller space
+2-8: Too easy to cheese. Add obstacles near the center to keep the player reacting
+2-9: Move leaper farther up to mitigate its attack on the player
+2-11: Too easy to skip over. Adding more flyer rows could prevent this.
+2-16: Need a barrier to prevent flyer from hitting player too soon. Level could be cheesed easily.
+3-6: Would be more interesting if there was a reason to get the ammo in the top-left
+3-11: Too easy to win without the stun shot
+3-15 + 3-16: Change orientation of elec walls
+3-18: Add exit tile to level
+4-2: Too easy to move slip blocker?
+4-3: Too easy to slip past.
+4-8: Needs a win condition.
 ## Design Problems
 
 1. Lack of ammo carry over discourages players from trying to save/acquire more shots
