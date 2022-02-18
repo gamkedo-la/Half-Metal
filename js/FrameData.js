@@ -41,10 +41,18 @@ FRAME_DATA = {
   },
   [HUNTER]: {
     "idle-right": [{ x: 0, y: 30, h: 26, w: 14 }], //location of frame
-    "walk-left": [{ x: 0, y: 0, h: 26, w: 14 }],
+    "walk-left": [
+      { x: 0, y: 0, h: 26, w: 14 },
+      { x: 46, y: 82, h: 26, w: 14 },
+    ],
     "walk-up": [{ x: 0, y: 30, h: 26, w: 14 }],
     "walk-right": [{ x: 0, y: 30, h: 26, w: 14 }],
-    "walk-down": [{ x: 0, y: 30, h: 26, w: 14 }],
+    "walk-down": [
+      { x: 14, y: 54, h: 26, w: 14 },
+      { x: 1, y: 110, h: 26, w: 14 },
+      { x: 31, y: 54, h: 26, w: 14 },
+      { x: 1, y: 110, h: 26, w: 14 },
+    ],
   },
   [BLOCKER]: {
     // Idle

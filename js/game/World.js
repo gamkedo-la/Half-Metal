@@ -86,7 +86,7 @@ function drawWorld() {
           1: { x: 0, y: 0 },
           2: { x: 16, y: 0 },
           3: { x: 0, y: 16 },
-          4: { x: 0, y: 0 },
+          4: { x: 16, y: 16 },
         };
 
         canvasContext.drawImage(

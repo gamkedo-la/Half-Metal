@@ -32,11 +32,7 @@ var ui;
 // CUTSCENES
 var cutscene = new CutsceneClass();
 var finished_level = false;
-cutscene.dialogue = [
-  "TEST LINE TEST LINE TEST LINE TEST LINE TEST LINE TEST LINE",
-  "TEST LINE B",
-  "TEST LINE C",
-];
+cutscene.dialogue = DIALOGUE[0];
 var test_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[1],
 });
@@ -197,6 +193,34 @@ function playMusic() {
   let volume = 0.5;
   let loop = true;
 
+  if (!song_playing && currentMode === MENU_MODE) {
+    if (sounds["title_music"]) {
+      current_song = playSound(
+        sounds["title_music"],
+        playbackRate,
+        pan,
+        volume,
+        loop
+      );
+      song_playing = true;
+    }
+    return;
+  }
+
+  if (!song_playing && currentMode === CUTSCENE_MODE) {
+    if (sounds[cutscene.song]) {
+      current_song = playSound(
+        sounds[cutscene.song],
+        playbackRate,
+        pan,
+        volume,
+        loop
+      );
+      song_playing = true;
+    }
+    return;
+  }
+
   if (!song_playing && sounds[level.song] !== undefined) {
     current_song = playSound(
       sounds[level.song],
@@ -331,19 +355,98 @@ function loadLevel(whichLevel) {
   }
 }
 
+// LEVEL DEBUG TOOLS
 function goToNextLevel() {
   currentLevel++;
   level = { ...levels[currentLevel] };
+  editor.currentMap.length = 0;
   loadLevel(level.level_map);
   finished_level = false;
   player.touched_goal = false;
 }
 
+function goToPrevLevel() {
+  currentLevel--;
+  level = { ...levels[currentLevel] };
+  editor.currentMap.length = 0;
+  loadLevel(level.level_map);
+  finished_level = false;
+  player.touched_goal = false;
+}
+
+function getLevelName() {
+  console.log(levels[currentLevel].name);
+}
+
+function getLevel(name) {
+  const found_level = levels.find((lev) => lev.name === name);
+  if (found_level) {
+    return found_level;
+  }
+  console.log("Level not found");
+}
+
+function setLevelName(new_name) {
+  levels[currentLevel].name = new_name;
+}
+
 function goToLevel(level_index) {
+  editor.currentMap.length = 0;
   level = { ...levels[level_index] };
   loadLevel(level.level_map);
   finished_level = false;
   player.touched_goal = false;
+}
+
+function sortLevelsByName() {
+  const sorted_levels = levels.sort((a, b) => {
+    var number_a = parseInt(a.name.split("-")[1], 10);
+    var number_b = parseInt(b.name.split("-")[1], 10);
+
+    console.log(number_a, number_b);
+
+    return number_a > number_b ? 1 : -1;
+  });
+
+  console.log(sorted_levels);
+}
+
+function goToLevelByName(name) {
+  const found_level = levels.find((lev) => lev.name === name);
+  const found_idx = levels.indexOf(found_level);
+  if (found_level && found_idx) {
+    currentLevel = found_idx;
+    goToLevel(found_idx);
+  } else {
+    console.log("Level not found");
+  }
+}
+
+function getSectionLevels(section) {
+  return levels.filter((lev) => lev.name.split("-")[0] === section);
+}
+
+function renameLevelSection(section) {
+  const section_levels = getSectionLevels(section);
+  const renamed_levels = section_levels.map((lev, i) => {
+    lev.name = `${section}-${i + 1}`;
+    return lev;
+  });
+  console.log(renamed_levels);
+}
+
+function swapLevels(lev_a, lev_b) {
+  // Get levels A and B
+  const level_a = getLevel(lev_a);
+  const level_b = getLevel(lev_b);
+  const index_a = levels.indexOf(level_a);
+  const index_b = levels.indexOf(level_b);
+  let temp = undefined;
+
+  // Simple temp swap
+  temp = {...level_a};
+  levels[index_a] = level_b;
+  levels[index_b] = temp;
 }
 
 // TUTORIALS
@@ -399,8 +502,6 @@ function updateAll(dt) {
       });
       ui.update();
       checkForTutorialProgress();
-
-      playMusic();
       break;
 
     case EDIT_MODE:
@@ -414,13 +515,18 @@ function updateAll(dt) {
     case CUTSCENE_MODE:
       gamepad.update(dt);
       cutscene.update(dt);
+      playMusic();
       break;
 
     case MENU_MODE:
+      var active_menu = menu_stack[menu_stack.length - 1];
       gamepad.update(dt);
       editor.deactivateButtons();
       menu_stack.forEach((menu) => menu.deactivateMenuButtons());
       menu_stack[menu_stack.length - 1].update();
+      if (active_menu.name === "Title") {
+        playMusic();
+      }
       break;
 
     default:
@@ -434,19 +540,6 @@ function moveAll() {
       object.move();
     }
   });
-}
-
-function sortLevelsByName() {
-  const sorted_levels = levels.sort((a, b) => {
-    var number_a = parseInt(a.name.split("-")[1], 10);
-    var number_b = parseInt(b.name.split("-")[1], 10);
-
-    console.log(number_a, number_b);
-
-    return number_a > number_b ? 1 : -1;
-  });
-
-  console.log(sorted_levels);
 }
 
 var opacity = 1;
