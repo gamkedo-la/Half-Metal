@@ -7277,9 +7277,9 @@ const ARMORY_LEVELS = [
       21, 21, 21, 0, 19, 19, 19, 19, 0, 21, 21, 21, 21, 21, 21, 0, 0, 0, 21, 0,
       0, 0, 0, 0, 0, 21, 0, 0, 0, 21, 21, 0, 0, 0, 21, 5, 0, 5, 5, 0, 5, 21, 0,
       0, 0, 21, 21, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 21, 21, 21, 21,
-      21, 21, 0, 5, 5, 5, 5, 0, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0,
+      21, 21, 0, 5, 0, 0, 5, 0, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21,
-      21, 0, 0, 2, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
+      21, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
     ],
     tile_map: [
@@ -7324,32 +7324,10 @@ const ARMORY_LEVELS = [
         type: "leaper",
         state: "moving",
         position: {
-          x: 120,
-          y: 135,
-        },
-        array_index: 135,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "leaper",
-        state: "moving",
-        position: {
           x: 146,
           y: 136,
         },
         array_index: 137,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "leaper",
-        state: "moving",
-        position: {
-          x: 136,
-          y: 139,
-        },
-        array_index: 136,
       },
       {
         direction: 180,
@@ -8246,30 +8224,7 @@ const ARMORY_LEVELS = [
         array_index: 116,
       },
     ],
-    shots: [
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "normal_shot",
-        state: "moving",
-        position: {
-          x: 133,
-          y: 176,
-        },
-        array_index: 184,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "normal_shot",
-        state: "moving",
-        position: {
-          x: 111,
-          y: 184,
-        },
-        array_index: 182,
-      },
-    ],
+    shots: [],
     name: "2-7",
     tileset: armory_tileset,
     song: "armory_music",
