@@ -532,6 +532,9 @@ function updateAll(dt) {
           object.update(dt);
         }
       });
+      menu_stack.forEach((menu) => menu.deactivateMenuButtons());
+      editor.deactivateButtons();
+
       ui.update();
       playSong(levels[currentLevel].song, true)
       checkForTutorialProgress();

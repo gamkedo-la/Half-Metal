@@ -228,7 +228,11 @@ function EditorClass() {
 
   this.toggleButtonVisibility = function () {
     this.visible = !this.visible;
-    buttons.forEach((button) => {
+    this.toolBarOptions.forEach((button) => {
+      button.active = !button.active;
+      button.visible = !button.visible;
+    });
+    menuList[this.currentMenu].forEach((button) => {
       button.active = !button.active;
       button.visible = !button.visible;
     });
