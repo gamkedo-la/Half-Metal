@@ -444,9 +444,31 @@ function swapLevels(lev_a, lev_b) {
   let temp = undefined;
 
   // Simple temp swap
-  temp = {...level_a};
+  temp = { ...level_a };
   levels[index_a] = level_b;
   levels[index_b] = temp;
+}
+
+function updateLevels() {
+  // Get current editor level
+  editor.level_config.level_map = [...editor.currentMap];
+  editor.level_config.tile_map = [...levels[currentLevel].tile_map];
+  editor.level_config.tileset = editor.current_tileset;
+
+  // Get level list
+  const target_level_name = editor.level_config.name;
+  const section = target_level_name.split("-")[0];
+  const section_levels = getSectionLevels(section);
+
+  // Replace previous level entry with new level config
+  const target_level = section_levels.find(
+    (level) => level.name === target_level_name
+  );
+  const target_level_index = section_levels.indexOf(target_level);
+  section_levels[target_level_index] = editor.level_config;
+
+  // Output revised level list
+  console.log(section_levels);
 }
 
 // TUTORIALS
