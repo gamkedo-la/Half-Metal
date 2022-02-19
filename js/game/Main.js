@@ -80,7 +80,7 @@ buttons = [
   ...level_select_screen.buttons,
 ];
 
-var currentMode = CUTSCENE_MODE;
+var currentMode = PLAY_MODE;
 
 var current_song = {};
 
@@ -533,7 +533,7 @@ function updateAll(dt) {
         }
       });
       ui.update();
-      playSong(levels[currentLevel].song)
+      playSong(levels[currentLevel].song, true)
       checkForTutorialProgress();
       break;
 
@@ -605,6 +605,7 @@ function drawAll() {
       if (currentLevel === levels.length - 1 && enemies.length === 1) {
         // FADE TRANSITION INTO FINAL SCENE
         currentMode = CUTSCENE_MODE;
+        stopMusic();
       }
 
       // LEVEL TRANSITION
