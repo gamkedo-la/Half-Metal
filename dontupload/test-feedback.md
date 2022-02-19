@@ -18,7 +18,6 @@
 
 Level Changes:
 1-13: Remove this level in favor of a level teaching earlier concepts
-1-14: Not enough space to bait enemies, consider redesigning the layout
 1-16: swap places with 1-15
 2-1: Just start with one flyer enemy to introduce them in a smaller space
 2-8: Too easy to cheese. Add obstacles near the center to keep the player reacting
