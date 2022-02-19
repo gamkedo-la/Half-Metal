@@ -1,4 +1,4 @@
-const BLOCKER_BOT_MOVEMENT_SPEED = 0.3;
+const BLOCKER_BOT_MOVEMENT_SPEED = 0.5;
 const SHOOT_COUNTDOWN_MAX = 40;
 
 function BlockerClass() {
