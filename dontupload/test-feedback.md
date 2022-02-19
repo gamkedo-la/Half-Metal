@@ -17,8 +17,6 @@
    6. Ammo is not carried between levels
 
 Level Changes:
-3-11: Too easy to win without the stun shot
-3-15 + 3-16: Change orientation of elec walls
 3-18: Add exit tile to level
 4-2: Too easy to move slip blocker?
 4-3: Too easy to slip past.

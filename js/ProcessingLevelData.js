@@ -18068,7 +18068,7 @@ const PROCESSING_LEVELS = [
       },
       {
         direction: 0,
-        orientation: "vertical",
+        orientation: "horizontal",
         type: "electric",
         state: "moving",
         position: {
@@ -18079,7 +18079,7 @@ const PROCESSING_LEVELS = [
       },
       {
         direction: 0,
-        orientation: "vertical",
+        orientation: "horizontal",
         type: "electric",
         state: "moving",
         position: {
@@ -18090,7 +18090,7 @@ const PROCESSING_LEVELS = [
       },
       {
         direction: 0,
-        orientation: "vertical",
+        orientation: "horizontal",
         type: "electric",
         state: "moving",
         position: {
@@ -18101,7 +18101,7 @@ const PROCESSING_LEVELS = [
       },
       {
         direction: 0,
-        orientation: "vertical",
+        orientation: "horizontal",
         type: "electric",
         state: "moving",
         position: {
@@ -18112,7 +18112,7 @@ const PROCESSING_LEVELS = [
       },
       {
         direction: 0,
-        orientation: "vertical",
+        orientation: "horizontal",
         type: "electric",
         state: "moving",
         position: {
@@ -18123,7 +18123,7 @@ const PROCESSING_LEVELS = [
       },
       {
         direction: 0,
-        orientation: "vertical",
+        orientation: "horizontal",
         type: "electric",
         state: "moving",
         position: {
@@ -18219,15 +18219,15 @@ const PROCESSING_LEVELS = [
   {
     level_map: [
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0,
-      2, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6,
-      0, 0, 0, 0, 21, 21, 6, 6, 6, 6, 6, 6, 6, 18, 6, 6, 0, 6, 0, 0, 21, 21, 0,
-      3, 6, 0, 0, 0, 0, 0, 6, 6, 0, 6, 0, 0, 21, 21, 13, 0, 6, 0, 0, 0, 0, 6, 6,
-      6, 0, 6, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 6, 0, 0, 21, 21,
-      0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 6, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 6, 0, 0, 21, 21, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 21,
-      21, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 10, 10, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21,
+      2, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0,
+      6, 6, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 18, 6, 6, 0, 6, 0,
+      0, 21, 21, 21, 3, 13, 0, 21, 21, 21, 0, 6, 6, 0, 6, 0, 0, 21, 21, 0, 13,
+      0, 0, 0, 0, 0, 0, 6, 6, 0, 6, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6,
+      0, 6, 0, 0, 21, 21, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 6, 0, 0, 21, 21, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 21, 21, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+      6, 6, 0, 0, 0, 21, 21, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21,
+      10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
     ],
     tile_map: [
       10, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 8, 27, 4, 2,
@@ -19263,28 +19263,6 @@ const PROCESSING_LEVELS = [
         type: "sturdy",
         state: "moving",
         position: {
-          x: 143,
-          y: 87,
-        },
-        array_index: 88,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "sturdy",
-        state: "moving",
-        position: {
-          x: 134,
-          y: 98,
-        },
-        array_index: 104,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "sturdy",
-        state: "moving",
-        position: {
           x: 149,
           y: 84,
         },
@@ -19516,28 +19494,6 @@ const PROCESSING_LEVELS = [
         type: "sturdy",
         state: "moving",
         position: {
-          x: 57,
-          y: 84,
-        },
-        array_index: 83,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "sturdy",
-        state: "moving",
-        position: {
-          x: 60,
-          y: 72,
-        },
-        array_index: 67,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "sturdy",
-        state: "moving",
-        position: {
           x: 154,
           y: 23,
         },
@@ -19578,14 +19534,234 @@ const PROCESSING_LEVELS = [
       },
       {
         direction: 0,
+        orientation: "horizontal",
+        type: "electric",
+        state: "moving",
+        position: {
+          x: 32,
+          y: 86,
+        },
+        array_index: 82,
+      },
+      {
+        direction: 90,
         orientation: "vertical",
         type: "electric",
-        state: "open",
+        state: "moving",
         position: {
-          x: 31,
-          y: 88,
+          x: 56,
+          y: 71,
         },
-        array_index: 81,
+        array_index: 67,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "sturdy",
+        state: "moving",
+        position: {
+          x: 23,
+          y: 72,
+        },
+        array_index: 65,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 23,
+          y: 55,
+        },
+        array_index: 49,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 41,
+          y: 56,
+        },
+        array_index: 50,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 56,
+          y: 54,
+        },
+        array_index: 51,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 71,
+          y: 54,
+        },
+        array_index: 52,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 87,
+          y: 54,
+        },
+        array_index: 53,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 100,
+          y: 56,
+        },
+        array_index: 54,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 116,
+          y: 57,
+        },
+        array_index: 55,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 23,
+          y: 69,
+        },
+        array_index: 65,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 23,
+          y: 41,
+        },
+        array_index: 33,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 45,
+          y: 40,
+        },
+        array_index: 34,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 58,
+          y: 38,
+        },
+        array_index: 35,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 74,
+          y: 38,
+        },
+        array_index: 36,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 116,
+          y: 39,
+        },
+        array_index: 39,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 102,
+          y: 41,
+        },
+        array_index: 38,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 89,
+          y: 41,
+        },
+        array_index: 37,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 81,
+          y: 70,
+        },
+        array_index: 69,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 104,
+          y: 71,
+        },
+        array_index: 70,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "collider",
+        state: "moving",
+        position: {
+          x: 120,
+          y: 73,
+        },
+        array_index: 71,
       },
     ],
     shots: [
