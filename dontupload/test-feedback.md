@@ -17,10 +17,6 @@
    6. Ammo is not carried between levels
 
 Level Changes:
-2-1: Just start with one flyer enemy to introduce them in a smaller space
-2-8: Too easy to cheese. Add obstacles near the center to keep the player reacting
-2-9: Move leaper farther up to mitigate its attack on the player
-2-11: Too easy to skip over. Adding more flyer rows could prevent this.
 2-16: Need a barrier to prevent flyer from hitting player too soon. Level could be cheesed easily.
 3-6: Would be more interesting if there was a reason to get the ammo in the top-left
 3-11: Too easy to win without the stun shot
@@ -40,3 +36,4 @@ Level Changes:
 1. Add an ammo limit to the player, so that they can carry over some shots but only within a reasonable limit that won't break the puzzles of following levels
 2. Redesign intro levels to focus on prepping the player to learn the necessary skills of the game, then create follow-up levels to re-iterate those skills (make them stick)
 3. Add more "easy wins" to the intro levels to get the player invested before they hit the more challenging parts
+4. Create "ammo drain" levels that focus on destroying lots of enemies, to keep the player's ammo levels evened out
