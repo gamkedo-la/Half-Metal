@@ -3,6 +3,7 @@ function TitleMenu() {
     const new_game = new ButtonClass(...[, , , , ], "NEW GAME", ...[, , ], () => {
         console.log("Clicked new game");
         currentMode = "PLAY_MODE";
+        stopMusic();
     });
 
     const select_level = new ButtonClass(

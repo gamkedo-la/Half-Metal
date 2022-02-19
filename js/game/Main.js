@@ -80,7 +80,7 @@ buttons = [
   ...level_select_screen.buttons,
 ];
 
-var currentMode = MENU_MODE;
+var currentMode = CUTSCENE_MODE;
 
 var current_song = {};
 
@@ -229,6 +229,17 @@ function playMusic() {
       volume,
       loop
     );
+    song_playing = true;
+  }
+}
+
+function playSong(song, loop) {
+  let playbackRate = 1;
+  let pan = 0;
+  let volume = 0.5;
+
+  if (!song_playing && sounds[song]) {
+    current_song = playSound(sounds[song], playbackRate, pan, volume, loop);
     song_playing = true;
   }
 }
@@ -522,6 +533,7 @@ function updateAll(dt) {
         }
       });
       ui.update();
+      playSong(levels[currentLevel].song)
       checkForTutorialProgress();
       break;
 
@@ -534,9 +546,9 @@ function updateAll(dt) {
       break;
 
     case CUTSCENE_MODE:
+      playSong(cutscene.song, true);
       gamepad.update(dt);
       cutscene.update(dt);
-      playMusic();
       break;
 
     case MENU_MODE:
@@ -545,8 +557,9 @@ function updateAll(dt) {
       editor.deactivateButtons();
       menu_stack.forEach((menu) => menu.deactivateMenuButtons());
       menu_stack[menu_stack.length - 1].update();
+      
       if (active_menu.name === "Title") {
-        playMusic();
+        playSong("title_music", true);
       }
       break;
 

@@ -15,6 +15,8 @@ function CutsceneClass(dialogue = [""]) {
   this.char_width = 8;
   this.cutscene_started = false;
   this.song = "intro_music";
+  this.is_intro = true;
+  this.is_outro = false;
 
   this.draw = function () {
     //   BG
@@ -76,6 +78,18 @@ function CutsceneClass(dialogue = [""]) {
 
       //   Exit cutscene
       currentMode = PLAY_MODE;
+
+      if (this.is_intro) {
+        currentMode = MENU_MODE;
+        this.is_intro = false;
+      }
+
+      if (this.is_outro) {
+        // Go to credits after final scene
+        currentMode = CREDITS;
+      }
+
+      stopMusic();
     }
   };
 
