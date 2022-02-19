@@ -334,7 +334,7 @@ function playerClass() {
         )
       ) {
         if (wall.type === ELECTRIC && wall.state === CLOSED) {
-          player.onCollideWithEnemy();
+          player.onCollideWithEnemy(wall);
           return;
         }
 
