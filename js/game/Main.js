@@ -337,7 +337,6 @@ function setupUI() {
 function loadLevel(whichLevel) {
   world_grid = whichLevel.slice();
   player.reset(playerSheet, "Player");
-  player.ammo = levels[currentLevel].starting_ammo;
   enemies.length = 0;
   hazards.length = 0;
   bullets.length = 0;

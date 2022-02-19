@@ -10,6 +10,7 @@ function playerClass() {
   this.name = "Player";
   this.type = PLAYER;
   this.ammo = 0;
+  this.max_ammo = 4;
   this.selected_ammo = NORMAL;
   this.ammo_types = [NORMAL, TURN, PUSH, STUN];
   this.currentAmmoIndex = 0;
@@ -145,7 +146,6 @@ function playerClass() {
   this.reset = function (whichImage, name) {
     this.name = name;
     this.image = whichImage;
-    this.ammo = 0;
     this.currentAmmoIndex = 0;
     this.selected_ammo = NORMAL;
 
@@ -281,9 +281,11 @@ function playerClass() {
       case TILE_STUN_SHOT:
       case TILE_PUSH_SHOT:
       case TILE_TURN_SHOT:
-        this.ammo++; // one more bullet
-        world_grid[walkIntoTileIndex] = TILE_GROUND;
-        playSound(sounds.get_ammo);
+        if (this.ammo < this.max_ammo) {
+          this.ammo++;
+          world_grid[walkIntoTileIndex] = TILE_GROUND;
+          playSound(sounds.get_ammo);
+        }
         break;
       case TILE_GOAL:
         if (!this.touched_goal) {
