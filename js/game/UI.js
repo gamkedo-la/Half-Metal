@@ -30,11 +30,24 @@ function UIClass(x, y, width, height) {
     if (currentMode === PLAY_MODE) {
       // AMMO COUNTER
       renderFont("AMMO ", this.x_buffer, this.text_height);
-      renderFont(
-        player.ammo.toString(10),
-        this.x_buffer + 40,
-        this.text_height
-      );
+      for (var i = 0; i < player.ammo; i++) {
+        canvasContext.drawImage(
+          ammo_counter,
+          0,
+          0 + 7 * player.currentAmmoIndex,
+          4,
+          7,
+          this.x_buffer + 40 + i * 4,
+          this.text_height,
+          3,
+          7
+        );
+      }
+      // renderFont(
+      //   player.ammo.toString(10),
+      //   this.x_buffer + 40,
+      //   this.text_height
+      // );
 
       // AMMO SELECTION
       renderFont("TYPE ", this.x_buffer + 60, this.text_height);

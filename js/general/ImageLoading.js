@@ -46,6 +46,7 @@ var transceiver = document.createElement("img");
 var invisible_wall = document.createElement("img");
 var goal_img = document.createElement("img");
 var title_img = document.createElement("img");
+var ammo_counter = document.createElement("img");
 
 var worldPics = [];
 
@@ -281,6 +282,8 @@ var image_list = [
   { var_name: fontPic, file: "font.png" },
   { var_name: transceiver, file: "transceiver_2.png" },
   { var_name: title_img, file: "title_screen_red.png" },
+  { var_name: ammo_counter, file: "ammo_counter.png" },
+
 
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
