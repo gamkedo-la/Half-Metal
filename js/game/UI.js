@@ -3,13 +3,13 @@ function UIClass(x, y, width, height) {
   this.backgroundHeight = height;
   this.x = x;
   this.y = y;
-  this.x_buffer = this.x + 10;
+  this.x_buffer = this.x;
   this.text_height = this.y + this.backgroundHeight / 2 - 5;
   this.ammo_type_map = {
-    [NORMAL]: "normal",
-    [STUN]: "stun",
-    [TURN]: "turn",
-    [PUSH]: "push",
+    [NORMAL]: "power shot",
+    [STUN]: "stun shot",
+    [TURN]: "turn shot",
+    [PUSH]: "push shot",
   };
   this.speedrun_timer = new SpeedRunClockClass();
   this.floor_levels = [...CELL_LEVELS, ...ARMORY_LEVELS, ...PROCESSING_LEVELS];
@@ -28,32 +28,34 @@ function UIClass(x, y, width, height) {
     colorRect(0, this.y, this.backgroundWidth, this.backgroundHeight, "black");
 
     if (currentMode === PLAY_MODE) {
-      // AMMO COUNTER
-      renderFont("AMMO ", this.x_buffer, this.text_height);
+      // AMMO BORDER
+      canvasContext.drawImage(
+        ammo_border,
+        this.x_buffer + 20,
+        this.text_height-1,
+        20,
+        10
+        );
+        
+        // AMMO COUNTER
       for (var i = 0; i < player.ammo; i++) {
         canvasContext.drawImage(
           ammo_counter,
           0,
-          0 + 7 * player.currentAmmoIndex,
+          0 + 8 * player.currentAmmoIndex,
           4,
           7,
-          this.x_buffer + 40 + i * 4,
+          this.x_buffer + 22 + i * 4,
           this.text_height,
           3,
           7
         );
       }
-      // renderFont(
-      //   player.ammo.toString(10),
-      //   this.x_buffer + 40,
-      //   this.text_height
-      // );
 
       // AMMO SELECTION
-      renderFont("TYPE ", this.x_buffer + 60, this.text_height);
       renderFont(
         this.ammo_type_map[player.selected_ammo],
-        this.x_buffer + 100,
+        this.x_buffer + 45,
         this.text_height
       );
 

@@ -12,7 +12,7 @@ function playerClass() {
   this.ammo = 0;
   this.max_ammo = 4;
   this.selected_ammo = NORMAL;
-  this.ammo_types = [NORMAL, TURN, PUSH, STUN];
+  this.ammo_types = [NORMAL, TURN, STUN];
   this.currentAmmoIndex = 0;
   this.damageable = true;
 
