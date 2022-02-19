@@ -589,6 +589,11 @@ function drawAll() {
         prompts[prompts.length - 1].draw();
       }
 
+      if (currentLevel === levels.length - 1 && enemies.length === 1) {
+        // FADE TRANSITION INTO FINAL SCENE
+        currentMode = CUTSCENE_MODE;
+      }
+
       // LEVEL TRANSITION
       fadeTransitionBetweenLevels();
       break;

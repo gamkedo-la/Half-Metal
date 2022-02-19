@@ -15,9 +15,6 @@
    4. Leapers are only alert for a certain amount of time
    5. Leapers can't destroy sturdy barriers
    6. Ammo is not carried between levels
-
-Level Changes:
-4-8: Needs a win condition.
 ## Design Problems
 
 1. Lack of ammo carry over discourages players from trying to save/acquire more shots
