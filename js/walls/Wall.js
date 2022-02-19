@@ -72,6 +72,7 @@ function WallClass() {
 
   this.removeSelf = function () {
     walls.splice(walls.indexOf(this), 1);
+    playSound(sounds.destroy);
     delete this;
   };
 
