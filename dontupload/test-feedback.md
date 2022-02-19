@@ -17,7 +17,6 @@
    6. Ammo is not carried between levels
 
 Level Changes:
-3-6: Would be more interesting if there was a reason to get the ammo in the top-left
 3-11: Too easy to win without the stun shot
 3-15 + 3-16: Change orientation of elec walls
 3-18: Add exit tile to level
