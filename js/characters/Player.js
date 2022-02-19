@@ -303,6 +303,7 @@ function playerClass() {
       return;
     }
 
+    player.ammo = 0;
     loadLevel(levels[currentLevel].level_map);
     playSound(sounds.lose);
   };
