@@ -17,7 +17,6 @@
    6. Ammo is not carried between levels
 
 Level Changes:
-1-4: Remove the outer layer of blocks to offer players more room to bait enemies
 1-13: Remove this level in favor of a level teaching earlier concepts
 1-14: Not enough space to bait enemies, consider redesigning the layout
 1-16: swap places with 1-15
