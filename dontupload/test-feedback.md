@@ -17,7 +17,6 @@
    6. Ammo is not carried between levels
 
 Level Changes:
-3-18: Add exit tile to level
 4-2: Too easy to move slip blocker?
 4-3: Too easy to slip past.
 4-8: Needs a win condition.
