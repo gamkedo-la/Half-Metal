@@ -49,7 +49,7 @@ var shoot_prompt = new TutorialPromptClass({
 var switch_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[2],
   control: "switch",
-  level_name: "2-1",
+  level_name: "2-9",
 });
 var prompts = [switch_prompt, shoot_prompt, walk_prompt];
 
