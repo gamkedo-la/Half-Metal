@@ -37,6 +37,21 @@ var test_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[1],
 });
 
+function checkForCutscene() {
+  if (currentMode === PLAY_MODE && levels[currentLevel]?.scene) {
+      const current_scene = SCENES.find(
+        (scene) => scene.id === levels[currentLevel].scene
+      );
+      cutscene.dialogue = current_scene.lines;
+      cutscene.song = current_scene.song;
+      cutscene.beats = current_scene.beats;
+      cutscene.current_line = 0;
+      cutscene.current_char = 0;
+      levels[currentLevel].scene = null;
+      currentMode = CUTSCENE_MODE;
+  }
+}
+
 // TUTORIAL PROMPTS
 var walk_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[0],
@@ -536,8 +551,9 @@ function updateAll(dt) {
       editor.deactivateButtons();
 
       ui.update();
-      playSong(levels[currentLevel].song, true)
+      playSong(levels[currentLevel].song, true);
       checkForTutorialProgress();
+      checkForCutscene();
       break;
 
     case EDIT_MODE:
@@ -560,7 +576,7 @@ function updateAll(dt) {
       editor.deactivateButtons();
       menu_stack.forEach((menu) => menu.deactivateMenuButtons());
       menu_stack[menu_stack.length - 1].update();
-      
+
       if (active_menu.name === "Title") {
         playSong("title_music", true);
       }

@@ -15,8 +15,10 @@ function CutsceneClass(dialogue = [""]) {
   this.char_width = 8;
   this.cutscene_started = false;
   this.song = "intro_music";
-  this.is_intro = true;
+  this.is_intro = false;
   this.is_outro = false;
+  this.beats = [];
+  this.current_image = transceiver;
 
   this.draw = function () {
     //   BG
@@ -28,7 +30,7 @@ function CutsceneClass(dialogue = [""]) {
     renderFont(this.revealed_chars, this.x + 20, this.y + 165);
 
     // IMAGE
-    // canvasContext.drawImage(transceiver, 0, 0);
+    canvasContext.drawImage(this.current_image, 0, 0);
   };
 
   this.checkForInput = function () {
@@ -36,6 +38,14 @@ function CutsceneClass(dialogue = [""]) {
       this.goToNextLine();
     }
   };
+
+  this.checkForNewImage = function () {
+    this.beats.forEach(beat => {
+      if (beat.index === this.current_line) {
+        this.current_image = beat.image;
+      }
+    });
+  }
 
   this.goToNextLine = function () {
     //   If we're in the middle of a line, skip to the end of it
@@ -131,13 +141,11 @@ function CutsceneClass(dialogue = [""]) {
   };
 
   this.update = function () {
-    // if (!this.cutscene_started) {
-    //   this.cutscene_started = true;
-    //   playSound(sounds.intro_music);
-    // }
-
     //   Check if the user wants to go to next line or skip to the end of the current line
     this.checkForInput();
+
+    // Check if we need to display a new image at this point in the cutscene
+    this.checkForNewImage();
 
     //   Gradually reveal text
     this.text_timer -= 1;

@@ -99,3 +99,125 @@ const DIALOGUE = [
     "This is Cyrus. Over and out.",
   ],
 ];
+
+const SCENES = [
+  // INTRO SCENE
+  {
+    id: "intro",
+    music: "",
+    lines: [],
+    beats: [
+      {
+        image: "",
+        timer: 1000,
+        index: 0,
+      },
+    ],
+  },
+
+  // CELL SCENE
+  {
+    id: "cell",
+    song: "prison_music",
+    lines: [
+      "Cyrus? Come in, Cyrus?",
+      "Can you hear me?",
+      "Wake up!",
+      "Today’s the day you’re getting free, soldier.",
+      "Got your attention now? Good.",
+      "Look inside your cell. You see that red orb? ",
+      "That’s what’s getting you out.",
+      "It’s ammo for your new cannon arm.",
+      "We reprogrammed a robot on the inside to place it in your cell during the night.",
+      "I’m sure that little thing will get turned into scrap once the Metallics find out.",
+      "Make sure you don’t end up the same.",
+      "Alright, no more wasting time.",
+      "Just grab that ammo and load up your weapon.",
+      "There’s more littered around the facility.",
+      "Over and out, Cyrus. We’ll see you soon. ",
+    ],
+    beats: [
+      {
+        index: 0,
+        image: transceiver,
+        timer: 0,
+      },
+    ],
+  },
+
+  // BAITING TUTORIAL
+  {
+    id: "baiting_tutorial",
+    song: "prison_music",
+    lines: [
+      "Cyrus!",
+      "Don't be discouraged when you're out of ammo.",
+      "Use your wits to survive.",
+      "Those machines you saw are called Leapers.",
+      "They're low-grade machines dumb enough to leap straight at you.",
+      "When they rush, they'll break anything in their way - including you.",
+      "If you don't have any ammunition left to break barriers, get them to do the dirty work for you.",
+      "You'll figure it out soldier.",
+      "Trust me. You're much smarter than them.",
+    ],
+    beats: [
+      {
+        index: 0,
+        image: transceiver,
+        timer: 0,
+      },
+    ],
+  },
+
+  // ARMORY SCENE
+  {
+    id: "intro",
+    music: "",
+    beats: [
+      {
+        line: "",
+        image: "",
+        timer: 1000,
+      },
+    ],
+  },
+
+  // PROCESSING SCENE
+  {
+    id: "intro",
+    music: "",
+    beats: [
+      {
+        line: "",
+        image: "",
+        timer: 1000,
+      },
+    ],
+  },
+
+  // COURTYARD SCENE
+  {
+    id: "intro",
+    music: "",
+    beats: [
+      {
+        line: "",
+        image: "",
+        timer: 1000,
+      },
+    ],
+  },
+
+  // OUTRO SCENE
+  {
+    id: "intro",
+    music: "",
+    beats: [
+      {
+        line: "",
+        image: "",
+        timer: 1000,
+      },
+    ],
+  },
+];
