@@ -11,6 +11,7 @@ function SpeedRunClockClass() {
   this.start_time = Date.now();
   this.elapsed_time = this.start_time;
   this.started_clock = false;
+  this.interval = 0;
 
   this.draw = function () {
     var time_string = `${this.prependZero(this.minutes, 2)}.${this.prependZero(
@@ -54,7 +55,7 @@ function SpeedRunClockClass() {
     if (!this.started) {
       this.start_time = new Date();
       this.started = true;
-      setInterval(() => this.updateTime(), 25);
+      this.interval = setInterval(() => this.updateTime(), 25);
     }
   };
 }

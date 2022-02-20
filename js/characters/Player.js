@@ -163,7 +163,9 @@ function playerClass() {
 
     // Clear any timeout/interval up to that id
     for (let i = 1; i < interval_id; i++) {
-      window.clearInterval(i);
+      if (i !== ui.speedrun_timer.interval) {
+        window.clearInterval(i);
+      }
     }
 
     for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
@@ -267,15 +269,15 @@ function playerClass() {
       }
     }
 
-    if (
-      this.x <= 0 ||
-      this.x >= canvas.width - 4 ||
-      this.y <= 0 ||
-      this.y >= canvas.height - 4
-    ) {
-      loadLevel(levels[currentLevel].level_map);
-      playSound(sounds.lose);
-    }
+    // if (
+    //   this.x <= 0 ||
+    //   this.x >= canvas.width - 4 ||
+    //   this.y <= 0 ||
+    //   this.y >= canvas.height - 4
+    // ) {
+    //   loadLevel(levels[currentLevel].level_map);
+    //   playSound(sounds.lose);
+    // }
 
     var walkIntoTileIndex = getTileIndexAtPixelCoord(this.nextX, this.nextY);
     var walkIntoTileType = TILE_WALL;
