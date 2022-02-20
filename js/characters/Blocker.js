@@ -4,10 +4,18 @@ const SHOOT_COUNTDOWN_MAX = 40;
 function BlockerClass() {
   EnemyClass.call(this);
   this.type = BLOCKER;
-  this.back_hitbox_width = 0;
-  this.back_hitbox_height = 0;
-  this.back_hitbox_x = 0;
-  this.back_hitbox_y = 0;
+  this.hitboxes = [
+    {
+      name: "main",
+      x: 0,
+      y: 0,
+      w: 26,
+      h: 26,
+      offset_x: 0,
+      offset_y: 0,
+      color: "red",
+    },
+  ];
   this.width = 34;
   this.height = 34;
   this.image = blockerSheet;
@@ -67,8 +75,8 @@ function BlockerClass() {
   // Class Specialties
   this.shoot = function () {
     // this.currentAnimation = `idle-${getDirectionConstantOfObject(this)}`;
-    var spawn_x = this.width * Math.cos((this.direction * Math.PI) / 180);
-    var spawn_y = this.height * Math.sin((this.direction * Math.PI) / 180);
+    var spawn_x = 18 * Math.cos((this.direction * Math.PI) / 180);
+    var spawn_y = 18 * Math.sin((this.direction * Math.PI) / 180);
 
     spawnBullet(this.x + spawn_x, this.y + spawn_y, this.direction, NORMAL);
     playSound(sounds.shoot);
