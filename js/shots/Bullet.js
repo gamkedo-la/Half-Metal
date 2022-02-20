@@ -161,7 +161,7 @@ function ShotClass() {
       object?.flight_state !== ASCENDED
     ) {
       if (object?.type === PLAYER) {
-        object.ammo = 0;
+        object.resetAmmoCounts();
         loadLevel(levels[currentLevel].level_map);
         playSound(sounds.lose);
         return;

@@ -10,9 +10,11 @@ function playerClass() {
   this.name = "Player";
   this.type = PLAYER;
   this.ammo = 0;
+  this.stun_ammo = 0;
+  this.turn_ammo = 0;
   this.max_ammo = 4;
   this.selected_ammo = NORMAL;
-  this.ammo_types = [NORMAL, TURN, STUN];
+  this.ammo_types = [NORMAL];
   this.currentAmmoIndex = 0;
   this.damageable = true;
 
@@ -141,6 +143,12 @@ function playerClass() {
     this.controlKeyRight2 = rightKey2;
     this.controlKeyDown2 = downKey2;
     this.controlKeyLeft2 = leftKey2;
+  };
+
+  this.resetAmmoCounts = function () {
+    this.ammo = 0;
+    this.stun_ammo = 0;
+    this.turn_ammo = 0;
   };
 
   this.reset = function (whichImage, name) {
@@ -278,11 +286,37 @@ function playerClass() {
 
     switch (walkIntoTileType) {
       case TILE_AMMO:
-      case TILE_STUN_SHOT:
-      case TILE_PUSH_SHOT:
-      case TILE_TURN_SHOT:
         if (this.ammo < this.max_ammo) {
           this.ammo++;
+          world_grid[walkIntoTileIndex] = TILE_GROUND;
+          playSound(sounds.get_ammo);
+        }
+        break;
+      case TILE_STUN_SHOT:
+        if (!this.ammo_types.includes(STUN)) {
+          this.ammo_types.push(STUN);
+        }
+
+        if (this.stun_ammo < this.max_ammo) {
+          this.stun_ammo++;
+          world_grid[walkIntoTileIndex] = TILE_GROUND;
+          playSound(sounds.get_ammo);
+        }
+        break;
+      case TILE_PUSH_SHOT:
+        if (this.ammo < this.max_ammo) {
+          this.ammo++;
+          world_grid[walkIntoTileIndex] = TILE_GROUND;
+          playSound(sounds.get_ammo);
+        }
+        break;
+      case TILE_TURN_SHOT:
+        if (!this.ammo_types.includes(TURN)) {
+          this.ammo_types.push(TURN);
+        }
+
+        if (this.turn_ammo < this.max_ammo) {
+          this.turn_ammo++;
           world_grid[walkIntoTileIndex] = TILE_GROUND;
           playSound(sounds.get_ammo);
         }
@@ -303,7 +337,7 @@ function playerClass() {
       return;
     }
 
-    player.ammo = 0;
+    player.resetAmmoCounts();
     loadLevel(levels[currentLevel].level_map);
     playSound(sounds.lose);
   };
@@ -411,7 +445,17 @@ function playerClass() {
   };
 
   this.shoot = function () {
-    if (this.keyHeld_Shoot && !this.didShoot && this.ammo > 0) {
+    const ammo_map = {
+      [NORMAL]: this.ammo,
+      [STUN]: this.stun_ammo,
+      [TURN]: this.turn_ammo,
+    };
+
+    if (
+      this.keyHeld_Shoot &&
+      !this.didShoot &&
+      ammo_map[this.selected_ammo] > 0
+    ) {
       var shot_buffer = 1;
 
       var spawn_x =
@@ -430,7 +474,18 @@ function playerClass() {
       playSound(sounds.shoot);
 
       this.didShoot = true;
-      this.ammo -= 1;
+
+      switch (this.selected_ammo) {
+        case NORMAL:
+          this.ammo -= 1;
+          break;
+        case STUN:
+          this.stun_ammo -= 1;
+          break;
+        case TURN:
+          this.turn_ammo -= 1;
+          break;
+      }
     }
 
     if (this.ammo === 0 && this.keyPressed_Shoot) {

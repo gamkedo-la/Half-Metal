@@ -28,6 +28,14 @@ function UIClass(x, y, width, height) {
     colorRect(0, this.y, this.backgroundWidth, this.backgroundHeight, "black");
 
     if (currentMode === PLAY_MODE) {
+      const ammo_map = {
+        [NORMAL]: player.ammo,
+        [STUN]: player.stun_ammo,
+        [TURN]: player.turn_ammo,
+      };
+
+      const ammo = ammo_map[player.selected_ammo];
+
       // AMMO BORDER
       canvasContext.drawImage(
         ammo_border,
@@ -38,7 +46,7 @@ function UIClass(x, y, width, height) {
         );
         
         // AMMO COUNTER
-      for (var i = 0; i < player.ammo; i++) {
+      for (var i = 0; i < ammo; i++) {
         canvasContext.drawImage(
           ammo_counter,
           0,
