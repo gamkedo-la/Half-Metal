@@ -109,8 +109,15 @@ window.onload = function () {
   canvasContext = canvas.getContext("2d");
   canvasContext.font = "8px Arial";
 
+  var message = "LOADING IMAGES";
+  var message_width = canvasContext.measureText(message).width;
   colorRect(0, 0, canvas.width, canvas.height, "black");
-  colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, "white");
+  colorText(
+    "LOADING IMAGES",
+    canvas.width / 2 - message_width / 2,
+    canvas.height / 2,
+    "white"
+  );
 
   setupUI();
   loadImages();

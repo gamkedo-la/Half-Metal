@@ -294,7 +294,6 @@ var image_list = [
   { var_name: metallics_scene, file: "metallics.png" },
   { var_name: player_intro, file: "player_intro.png" },
 
-
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
   { var_name: armory_tileset, file: "armory_tileset.png" },
@@ -309,9 +308,11 @@ function countLoadedImagesAndLaunchIfReady() {
   if (picsToLoad == 0) {
     //imageLoadingDoneSoStartGame(); //wait for first click for audio, local testing, can switch on release
     allImagesLoaded = true;
+    var message = "Click to start, images have loaded";
+    var message_width = canvasContext.measureText(message).width;
     colorText(
-      "click to start images have loaded",
-      canvas.width / 2,
+      "Click to start, images have loaded",
+      canvas.width / 2 - message_width / 2,
       canvas.height / 2 + 30,
       "white"
     );
