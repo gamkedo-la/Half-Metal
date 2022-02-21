@@ -39,16 +39,16 @@ var test_prompt = new TutorialPromptClass({
 
 function checkForCutscene() {
   if (currentMode === PLAY_MODE && levels[currentLevel]?.scene) {
-      const current_scene = SCENES.find(
-        (scene) => scene.id === levels[currentLevel].scene
-      );
-      cutscene.dialogue = current_scene.lines;
-      cutscene.song = current_scene.song;
-      cutscene.beats = current_scene.beats;
-      cutscene.current_line = 0;
-      cutscene.current_char = 0;
-      levels[currentLevel].scene = null;
-      currentMode = CUTSCENE_MODE;
+    const current_scene = SCENES.find(
+      (scene) => scene.id === levels[currentLevel].scene
+    );
+    cutscene.dialogue = current_scene.lines;
+    cutscene.song = current_scene.song;
+    cutscene.beats = current_scene.beats;
+    cutscene.current_line = 0;
+    cutscene.current_char = 0;
+    levels[currentLevel].scene = null;
+    currentMode = CUTSCENE_MODE;
   }
 }
 
@@ -553,7 +553,7 @@ function updateAll(dt) {
       ui.update();
       playSong(levels[currentLevel].song, true);
       checkForTutorialProgress();
-      checkForCutscene();
+      // checkForCutscene();
       break;
 
     case EDIT_MODE:
@@ -623,8 +623,15 @@ function drawAll() {
 
       if (currentLevel === levels.length - 1 && enemies.length === 1) {
         // FADE TRANSITION INTO FINAL SCENE
-        currentMode = CUTSCENE_MODE;
         stopMusic();
+        const current_scene = SCENES.find((scene) => scene.id === "outro");
+        cutscene.dialogue = current_scene.lines;
+        cutscene.song = current_scene.song;
+        cutscene.beats = current_scene.beats;
+        cutscene.current_line = 0;
+        cutscene.current_char = 0;
+        levels[currentLevel].scene = null;
+        currentMode = CUTSCENE_MODE;
       }
 
       // LEVEL TRANSITION
