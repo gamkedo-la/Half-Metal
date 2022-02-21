@@ -365,10 +365,10 @@ const SCENES = [
     id: "stun_tutorial",
     song: "prison_music",
     lines: [
-      "Cyrus, there's a new ammo type in this next room.",
-      "A stun shot - use it to electrify the machines",
-      "And suspend their movement.",
-      "Take that time to move while they can't chase you.",
+      "Cyrus, there's a new\nammo type in this\nnext room.",
+      "A stun shot -\nuse it to electrify\nthe machines.",
+      "It will suspend their\nmovement.",
+      "Take that time to move\nwhile they can't\nchase you.",
     ],
     beats: [
       {
