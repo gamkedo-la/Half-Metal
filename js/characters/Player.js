@@ -154,9 +154,20 @@ function playerClass() {
   this.reset = function (whichImage, name) {
     this.name = name;
     this.image = whichImage;
-    this.currentAmmoIndex = 0;
-    this.selected_ammo = NORMAL;
-
+    switch (this.selected_ammo) {
+      case NORMAL:
+        this.image = playerSheet;
+        break;
+      case STUN:
+        this.image = playerSheet_Stun;
+        break;
+      case PUSH:
+        this.image = playerSheet_Push;
+        break;
+      case TURN:
+        this.image = playerSheet_Turn;
+        break;
+    }
     // For clearing out any remaining intervals at the time of a restart
     const interval_id = window.setInterval(function () {},
     Number.MAX_SAFE_INTEGER);
