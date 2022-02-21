@@ -646,6 +646,11 @@ function drawAll() {
 
       // LEVEL TRANSITION
       fadeTransitionBetweenLevels();
+
+      // Effects layer
+      effects.forEach((effect) => {
+        effect.draw();
+      });
       break;
 
     case EDIT_MODE:

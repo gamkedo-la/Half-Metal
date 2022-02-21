@@ -49,7 +49,5 @@ function FadeClass(config) {
   this.draw = function () {
     canvasContext.fillStyle = `rgba(${this.color}, ${this.opacity})`;
     canvasContext.fillRect(0, 0, this.width, this.height);
-    console.log("drawing opacity...");
-    console.log(this.opacity);
   };
 }
