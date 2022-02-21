@@ -120,6 +120,10 @@ function CutsceneClass(dialogue = [""]) {
   };
 
   this.progressText = function () {
+    if (!this.dialogue[this.current_line]) {
+      return;
+    }
+
     //   If we're at the beginning of a dialogue sequence, don't increment the char value
     if (this.revealed_chars.length !== 0) {
       this.current_char++;
@@ -127,8 +131,9 @@ function CutsceneClass(dialogue = [""]) {
 
     //   If we've exhausted all the characters in this line, let the user move to the next line
     if (
-      this.current_char > this.dialogue[this.current_line].length - 1 ||
-      this.line_complete
+      this.dialogue[this.current_line] &&
+      (this.current_char > this.dialogue[this.current_line].length - 1 ||
+        this.line_complete)
     ) {
       this.checkForInput();
       return;

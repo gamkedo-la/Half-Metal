@@ -262,7 +262,7 @@ function playSong(song, loop) {
 }
 
 function stopMusic() {
-  current_song.sound.stop();
+  current_song.sound?.stop();
   song_playing = false;
 }
 

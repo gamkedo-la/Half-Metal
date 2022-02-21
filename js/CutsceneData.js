@@ -355,8 +355,8 @@ const SCENES = [
     lines: [
       "Cyrus, there's a new ammo type in this next room.",
       "A stun shot - use it to electrify the machines",
-      "To suspend their movement.",
-      "Use that time to move while they can't chase you.",
+      "And suspend their movement.",
+      "Take that time to move while they can't chase you.",
     ],
     beats: [
       {
