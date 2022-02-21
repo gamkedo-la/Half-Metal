@@ -326,11 +326,11 @@ const SCENES = [
     id: "flyer_tutorial",
     song: "prison_music",
     lines: [
-      "Up ahead are some Flyer robots.",
-      "You can't hit them while they're airborne,",
-      "But you can get in a quick shot when they land.",
+      "Up ahead are some\nFlyer robots.",
+      "You can't hit them\nwhile they're airborne,",
+      "But you can get in a\nquick shot when they\nland.",
       "If you're careful enough, ",
-      "you can slip right underneath them with no trouble.",
+      "you can slip right\nunderneath them\nwith no trouble.",
     ],
     beats: [
       {
