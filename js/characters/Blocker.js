@@ -24,7 +24,7 @@ function BlockerClass() {
   this.animations = FRAME_DATA[BLOCKER];
   this.currentAnimation = "idle-right";
   this.shoot_timer = SHOOT_COUNTDOWN_MAX;
-  this.render_hitbox = true;
+  this.render_hitbox = false;
 
   this.whileAlerted = function () {
     // Override in subclasses

@@ -291,6 +291,11 @@ function keySet(keyEvent, setTo) {
     if (keyEvent.keyCode === KEY_X) {
       cutscene.key_next_held = setTo;
     }
+
+    if (keyEvent.keyCode === KEY_ENTER) {
+      cutscene.key_skip_held = true;
+    }
+    
     return;
   }
 
@@ -344,6 +349,7 @@ function keySet(keyEvent, setTo) {
       unpauseGame();
       key_enter_held = false;
     }
+
   }
 
   if (

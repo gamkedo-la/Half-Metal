@@ -19,6 +19,7 @@ function CutsceneClass(dialogue = [""]) {
   this.is_outro = false;
   this.beats = [];
   this.current_image = undefined;
+  this.key_skip_held = false;
 
   this.draw = function () {
     //   BG
@@ -33,11 +34,20 @@ function CutsceneClass(dialogue = [""]) {
     if (this.current_image) {
       canvasContext.drawImage(this.current_image, 0, 0);
     }
+
+    // PROMPTS
+    renderFont("SKIP: ENTER", this.x + 20, this.y + 224);
+    renderFont("PROGRESS: X", this.x + 140, this.y + 224);
   };
 
   this.checkForInput = function () {
     if (this.key_next_held) {
       this.goToNextLine();
+    }
+
+    if (this.key_skip_held) {
+      this.endCutscene();
+      this.key_skip_held = false;
     }
   };
 
@@ -83,27 +93,31 @@ function CutsceneClass(dialogue = [""]) {
 
     //   Check if we're at the last line of dialogue
     if (this.current_line > this.dialogue.length - 1) {
-      this.current_line--;
-      this.revealed_chars.length = 0;
-      this.revealed_line.length = 0;
-      this.current_char = 0;
-
-      //   Exit cutscene
-      currentMode = PLAY_MODE;
-
-      if (this.is_intro) {
-        currentMode = MENU_MODE;
-        this.is_intro = false;
-      }
-
-      if (this.is_outro) {
-        // Go to credits after final scene
-        currentMode = CREDITS;
-      }
-
-      stopMusic();
+      this.endCutscene();
     }
   };
+
+  this.endCutscene = function () {
+    this.current_line--;
+    this.revealed_chars.length = 0;
+    this.revealed_line.length = 0;
+    this.current_char = 0;
+
+    //   Exit cutscene
+    currentMode = PLAY_MODE;
+
+    if (this.is_intro) {
+      currentMode = MENU_MODE;
+      this.is_intro = false;
+    }
+
+    if (this.is_outro) {
+      // Go to credits after final scene
+      currentMode = CREDITS;
+    }
+
+    stopMusic();
+  }
 
   this.progressText = function () {
     //   If we're at the beginning of a dialogue sequence, don't increment the char value

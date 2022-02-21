@@ -95,7 +95,7 @@ buttons = [
   ...level_select_screen.buttons,
 ];
 
-var currentMode = PLAY_MODE;
+var currentMode = CUTSCENE_MODE;
 
 var current_song = {};
 
@@ -553,7 +553,7 @@ function updateAll(dt) {
       ui.update();
       playSong(levels[currentLevel].song, true);
       checkForTutorialProgress();
-      // checkForCutscene();
+      checkForCutscene();
       break;
 
     case EDIT_MODE:

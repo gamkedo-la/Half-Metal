@@ -30,7 +30,7 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   this.turnable = true;
   this.has_opened = false;
   this.prev_state = this.state;
-  this.render_hitbox = true;
+  this.render_hitbox = false;
   this.hitboxes = [
     {
       name: "barrier",
