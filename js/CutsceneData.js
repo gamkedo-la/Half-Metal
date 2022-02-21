@@ -179,30 +179,6 @@ const SCENES = [
     ],
   },
 
-  // BAITING TUTORIAL
-  {
-    id: "baiting_tutorial",
-    song: "prison_music",
-    lines: [
-      "Cyrus!",
-      "Don't be discouraged when you're out of ammo.",
-      "Use your wits to survive.",
-      "Those machines you saw are called Leapers.",
-      "They're low-grade machines dumb enough to leap straight at you.",
-      "When they rush, they'll break anything in their way - including you.",
-      "If you don't have any ammunition left to break barriers, get them to do the dirty work for you.",
-      "You'll figure it out soldier.",
-      "Trust me. You're much smarter than them.",
-    ],
-    beats: [
-      {
-        index: 0,
-        image: transceiver,
-        timer: 0,
-      },
-    ],
-  },
-
   // ARMORY SCENE
   {
     id: "armory",
@@ -300,6 +276,87 @@ const SCENES = [
       "I don't know what happened and I don't know why. ",
       "All I know is I have some serious questions for Commander Viper when I get back to base.",
       "This is Cyrus. Over and out.",
+    ],
+    beats: [
+      {
+        index: 0,
+        image: transceiver,
+        timer: 0,
+      },
+    ],
+  },
+
+  // TUTORIALS
+  {
+    id: "baiting_tutorial",
+    song: "prison_music",
+    lines: [
+      "Cyrus,",
+      "Don't be discouraged when you're out of ammo.",
+      "Use your wits to survive.",
+      "Those machines you saw are called Leapers.",
+      "They're low-grade machines dumb enough to leap straight at you.",
+      "When they rush, they'll break anything in their way - including you.",
+      "If you don't have any ammunition left to break barriers, get them to do the dirty work for you.",
+      "You'll figure it out soldier.",
+      "Trust me. You're much smarter than them.",
+    ],
+    beats: [
+      {
+        index: 0,
+        image: transceiver,
+        timer: 0,
+      },
+    ],
+  },
+
+  {
+    id: "flyer_tutorial",
+    song: "prison_music",
+    lines: [
+      "Up ahead are some Flyer robots.",
+      "You can't hit them while they're airborne,",
+      "But you can in a quick shot when they land.",
+      "If you're careful enough, ",
+      "you can slip right underneath them with no trouble.",
+    ],
+    beats: [
+      {
+        index: 0,
+        image: transceiver,
+        timer: 0,
+      },
+    ],
+  },
+
+  {
+    id: "turn_tutorial",
+    song: "prison_music",
+    lines: [
+      "Cyrus, do you see that green ammunition?",
+      "That's a special ammo type that can confuse the metallics.",
+      "If you hit them with it,",
+      "It will reprogram their patrol route.",
+      "You can turn them to face a different direction.",
+      "Think carefully about how you can use this to your advantage.",
+    ],
+    beats: [
+      {
+        index: 0,
+        image: transceiver,
+        timer: 0,
+      },
+    ],
+  },
+
+  {
+    id: "stun_tutorial",
+    song: "prison_music",
+    lines: [
+      "Cyrus, there's a new ammo type in this next room.",
+      "A stun shot - use it to electrify the machines",
+      "To suspend their movement.",
+      "Use that time to move while they can't chase you.",
     ],
     beats: [
       {
