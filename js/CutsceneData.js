@@ -104,7 +104,7 @@ const SCENES = [
   // INTRO SCENE
   {
     id: "intro",
-    music: "intro_music",
+    song: "intro_music",
     lines: [
       "The year was 208X\n- the world was in peace.",
       "Humanity had settled all\nconflicts.",
@@ -270,7 +270,7 @@ const SCENES = [
   // OUTRO SCENE
   {
     id: "outro",
-    song: "prison_music",
+    song: "",
     lines: [
       "Finally, I escaped\nthe Metallic's prison.",
       "But ... only thanks to\nthat robot.",
@@ -300,7 +300,7 @@ const SCENES = [
   // TUTORIALS
   {
     id: "baiting_tutorial",
-    song: "prison_music",
+    song: "tutorial_music",
     lines: [
       "Cyrus,",
       "Don't be discouraged\nwhen you're out of ammo.",
@@ -324,7 +324,7 @@ const SCENES = [
 
   {
     id: "flyer_tutorial",
-    song: "prison_music",
+    song: "tutorial_music",
     lines: [
       "Up ahead are some\nFlyer robots.",
       "You can't hit them\nwhile they're airborne,",
@@ -343,7 +343,7 @@ const SCENES = [
 
   {
     id: "turn_tutorial",
-    song: "prison_music",
+    song: "tutorial_music",
     lines: [
       "Cyrus, do you see that\ngreen ammunition?",
       "That's a special ammo \nthat can confuse\nthe metallics.",
@@ -363,7 +363,7 @@ const SCENES = [
 
   {
     id: "stun_tutorial",
-    song: "prison_music",
+    song: "tutorial_music",
     lines: [
       "Cyrus, there's a new\nammo type in this\nnext room.",
       "A stun shot -\nuse it to electrify\nthe machines.",

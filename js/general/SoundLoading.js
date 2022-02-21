@@ -36,9 +36,14 @@ async function loadSounds() {
     { sndName: "prison_music", theFile: "bg_prisonloop.wav" },
     { sndName: "armory_music", theFile: "bg_armory.wav" },
     { sndName: "processing_music", theFile: "bg_processingloop.wav" },
+    { sndName: "courtyard_music", theFile: "bg_courtyard.wav" },
     { sndName: "alert_music", theFile: "bg_alertloop.mp3" },
     { sndName: "intro_music", theFile: "bg_half_metal_intro.wav" },
     { sndName: "title_music", theFile: "bg_title.wav" },
+    { sndName: "outro_music", theFile: "bg_outro.wav" },
+    { sndName: "tutorial_music", theFile: "bg_tutorial.wav" },
+    { sndName: "enemy_credits_music", theFile: "bg_enemy_credits.wav" },
+    // { sndName: "cutscene_music", theFile: "bg_cutscene.wav" },
   ];
 
   soundsToLoad = soundList.length;

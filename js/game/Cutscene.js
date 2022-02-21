@@ -98,7 +98,7 @@ function CutsceneClass(dialogue = [""]) {
   };
 
   this.endCutscene = function () {
-    this.current_line--;
+    this.current_line = 0;
     this.revealed_chars.length = 0;
     this.revealed_line.length = 0;
     this.current_char = 0;
