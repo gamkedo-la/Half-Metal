@@ -345,12 +345,12 @@ const SCENES = [
     id: "turn_tutorial",
     song: "prison_music",
     lines: [
-      "Cyrus, do you see that green ammunition?",
-      "That's a special ammo type that can confuse the metallics.",
+      "Cyrus, do you see that\ngreen ammunition?",
+      "That's a special ammo \nthat can confuse\nthe metallics.",
       "If you hit them with it,",
-      "It will reprogram their patrol routes.",
-      "They will turn to face a different direction.",
-      "Think carefully about how you can use this to your advantage.",
+      "It will reprogram\ntheir patrol routes.",
+      "They will turn to\nface a different\ndirection.",
+      "Think carefully about\nhow you can use this\nto your advantage.",
     ],
     beats: [
       {
