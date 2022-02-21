@@ -34,7 +34,13 @@ var Key_R_Held = false;
 var key_T_Held = false;
 var key_X_held = false;
 
-var key_enter_held = true;
+var key_enter_held = false;
+var key_space_held = false;
+
+var key_up_held = false;
+var key_down_held = false;
+var key_left_held = false;
+var key_right_held = false;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -287,6 +293,28 @@ function mousePressed() {
 }
 
 function keySet(keyEvent, setTo) {
+  if (currentMode === MENU_MODE) {
+    if (keyEvent.keyCode === KEY_LEFT_ARROW) {
+      key_left_held = setTo;
+    }
+    if (keyEvent.keyCode === KEY_RIGHT_ARROW) {
+      key_right_held = setTo;
+    }
+    if (keyEvent.keyCode === KEY_UP_ARROW) {
+      key_up_held = setTo;
+    }
+    if (keyEvent.keyCode === KEY_DOWN_ARROW) {
+      key_down_held = setTo;
+    }
+
+    if (keyEvent.keyCode === KEY_X) {
+      key_X_held = setTo;
+    }
+    if (keyEvent.keyCode === KEY_SPACE) {
+      key_space_held = setTo;
+    }
+  }
+
   if (currentMode === CUTSCENE_MODE) {
     if (keyEvent.keyCode === KEY_X) {
       cutscene.key_next_held = setTo;
@@ -295,7 +323,7 @@ function keySet(keyEvent, setTo) {
     if (keyEvent.keyCode === KEY_ENTER) {
       cutscene.key_skip_held = true;
     }
-    
+
     return;
   }
 
@@ -349,7 +377,6 @@ function keySet(keyEvent, setTo) {
       unpauseGame();
       key_enter_held = false;
     }
-
   }
 
   if (

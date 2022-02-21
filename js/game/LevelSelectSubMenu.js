@@ -78,6 +78,7 @@ function LevelSelectSubMenuClass() {
 
   // OVERRIDES
   this.update = function () {
+    this.updateCursor();
     this.buttons.forEach((button) => {
       button.active = true;
     });

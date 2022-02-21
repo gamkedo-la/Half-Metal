@@ -30,7 +30,7 @@ function Credits() {
 
     MenuClass.call(this, credits_config);
     this.update = function () {
-        
+        this.updateCursor();
         var button_y_margin = 20;
         this.buttons.forEach((button, index) => {
           button.active = true;

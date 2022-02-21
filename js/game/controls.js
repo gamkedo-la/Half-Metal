@@ -39,7 +39,7 @@ function Controls() {
     MenuClass.call(this, controls_config);
     
     this.update = function () {
-        
+        this.updateCursor();
         var button_y_margin = 15;
         this.buttons.forEach((button, index) => {
           button.active = true;

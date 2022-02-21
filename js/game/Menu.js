@@ -3,8 +3,7 @@ function MenuClass(config) {
   // -General-
   this.buttons = config.buttons || [];
   this.name = config.name || "Menu";
- 
-  
+  this.cursor = 0;
 
   // -Rendering-
   this.width = config.width || 256;
@@ -66,7 +65,11 @@ function MenuClass(config) {
     }
 
     // BUTTONS
-    this.buttons.forEach((button) => {
+    this.buttons.forEach((button, i) => {
+      if (i === this.cursor) {
+        canvasContext.fillStyle = "#b21030";
+        canvasContext.fillRect(button.x - 12, button.y + 2, 8, 8);
+      }
       button.draw();
     });
 
@@ -74,7 +77,48 @@ function MenuClass(config) {
     this.renderExtraText();
   };
 
+  this.updateCursor = function () {
+    // For menu navigation with gamepad
+    if (key_up_held || key_left_held) {
+      this.cursor--;
+      if (this.cursor <= 0) {
+        this.cursor = 0;
+      }
+
+      key_up_held = false;
+      key_left_held = false;
+
+      console.log("CURSOR: ", this.cursor);
+    }
+
+    if (key_down_held || key_right_held) {
+      this.cursor++;
+      if (this.cursor >= this.buttons.length - 1) {
+        this.cursor = this.buttons.length - 1;
+      }
+
+      key_down_held = false;
+      key_left_held = false;
+
+      console.log("CURSOR: ", this.cursor);
+    }
+
+    // Activate button handler when pressing select button
+    if (key_X_held) {
+      const current_button = this.buttons[this.cursor];
+      current_button.handler();
+      key_X_held = false;
+    }
+
+    // Go back to previous menu
+    if (key_space_held) {
+      key_space_held = false;
+      menu_stack.pop();
+    }    
+  };
+
   this.update = function () {
+    this.updateCursor();
     this.buttons.forEach((button, index) => {
       button.x = this.button_start.x;
       button.y = this.button_start.y + button.height * index;

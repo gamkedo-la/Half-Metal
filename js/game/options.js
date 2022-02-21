@@ -118,6 +118,7 @@ function Options() {
   };
 
   this.update = function () {
+    this.updateCursor();
     this.updateButtonValues();
     var button_y_margin = 30;
     this.buttons.forEach((button, index) => {
