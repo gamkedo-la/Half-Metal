@@ -32,7 +32,9 @@ var ui;
 // CUTSCENES
 var cutscene = new CutsceneClass();
 var finished_level = false;
-cutscene.dialogue = DIALOGUE[0];
+cutscene.dialogue = SCENES[0].lines;
+cutscene.song = SCENES[0].song;
+cutscene.beats = SCENES[0].beats;
 var test_prompt = new TutorialPromptClass({
   prompt: TUTORIAL_TEXT[1],
 });

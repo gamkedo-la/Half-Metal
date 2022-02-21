@@ -48,6 +48,8 @@ var goal_img = document.createElement("img");
 var title_img = document.createElement("img");
 var ammo_counter = document.createElement("img");
 var ammo_border = document.createElement("img");
+var intro_scene = document.createElement("img");
+var outro_scene = document.createElement("img");
 
 var worldPics = [];
 
@@ -285,6 +287,8 @@ var image_list = [
   { var_name: title_img, file: "title_screen_red.png" },
   { var_name: ammo_counter, file: "ammo_counter.png" },
   { var_name: ammo_border, file: "ammo_border.png" },
+  { var_name: intro_scene, file: "intro.png" },
+  { var_name: outro_scene, file: "outro.png" },
 
 
   // TILESETS

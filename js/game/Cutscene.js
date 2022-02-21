@@ -18,7 +18,7 @@ function CutsceneClass(dialogue = [""]) {
   this.is_intro = true;
   this.is_outro = false;
   this.beats = [];
-  this.current_image = undefined;
+  this.current_image = null;
   this.key_skip_held = false;
 
   this.draw = function () {
@@ -52,12 +52,12 @@ function CutsceneClass(dialogue = [""]) {
   };
 
   this.checkForNewImage = function () {
-    this.beats.forEach(beat => {
+    this.beats.forEach((beat) => {
       if (beat.index === this.current_line) {
         this.current_image = beat.image;
       }
     });
-  }
+  };
 
   this.goToNextLine = function () {
     //   If we're in the middle of a line, skip to the end of it
@@ -117,7 +117,7 @@ function CutsceneClass(dialogue = [""]) {
     }
 
     stopMusic();
-  }
+  };
 
   this.progressText = function () {
     //   If we're at the beginning of a dialogue sequence, don't increment the char value
@@ -153,6 +153,7 @@ function CutsceneClass(dialogue = [""]) {
       this.revealed_chars.push("\n");
       this.revealed_line.length = 0;
     }
+
     playSound(sounds.text);
   };
 

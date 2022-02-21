@@ -104,11 +104,26 @@ const SCENES = [
   // INTRO SCENE
   {
     id: "intro",
-    music: "",
-    lines: [],
+    music: "intro_music",
+    lines: [
+      "The year is 208X - the rise of the machines is upon us.",
+      "Determined to wipe out all organic life, machines known as The Metallics, rose up against humanity.",
+      "But humanity fought back. Hard.",
+      "And lost even harder.",
+      "Only a handful of resistance armies now stand against The Metallics.",
+      "Our numbers fall by the day.",
+      "The Metallics capture our soldiers, converting them into machines.",
+      "And I was next in line.",
+      "They implanted me with machine parts - a cybernetic body, a powerful cannon arm.",
+      "But, there was a malfunction... ",
+      "Even after conversion, I still sided with my comrades.",
+      "My body was metallic and cold. But my heart - it was all human.",
+      "The machines don't know that I'm still against them.",
+      "And thanks to their little “gifts”, I finally stand a chance of breaking out.",
+    ],
     beats: [
       {
-        image: "",
+        image: intro_scene,
         timer: 1000,
         index: 0,
       },
@@ -120,7 +135,7 @@ const SCENES = [
     id: "cell",
     song: "prison_music",
     lines: [
-      "I'm Cyrus? Come in, Cyrus?",
+      "Cyrus? Come in, Cyrus?",
       "Can you hear me?",
       "Wake up!",
       "Today's the day you're getting free, soldier.",
@@ -193,7 +208,6 @@ const SCENES = [
       },
     ],
   },
-
 
   // PROCESSING SCENE
   {
