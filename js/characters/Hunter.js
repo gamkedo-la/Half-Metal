@@ -404,4 +404,14 @@ function HunterClass() {
       this.shoot_timer = SHOOT_TIMER_MAX;
     }
   };
+
+  this.onDestroy = function () {
+    // Get location tile
+    const tile_index = getTileIndexAtPixelCoord(this.x, this.y);
+
+    // Spawn ammo pickup in place
+    world_grid[tile_index] = TILE_AMMO;
+
+    this.removeSelf();
+  };
 }
