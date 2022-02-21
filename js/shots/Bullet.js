@@ -112,6 +112,10 @@ function ShotClass() {
       return;
     }
 
+    if (object.type === HUNTER) {
+      playSound(sounds.bounce);
+    }
+
     if (object.type === LASER) {
       return;
     }
