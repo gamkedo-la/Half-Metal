@@ -303,14 +303,15 @@ const SCENES = [
     song: "prison_music",
     lines: [
       "Cyrus,",
-      "Don't be discouraged when you're out of ammo.",
-      "Use your wits to survive.",
-      "Those machines you saw are called Leapers.",
-      "They're low-grade machines dumb enough to leap straight at you.",
-      "When they rush, they'll break anything in their way - including you.",
-      "If you don't have any ammunition left to break barriers, get them to do the dirty work for you.",
-      "You'll figure it out soldier.",
-      "Trust me. You're much smarter than them.",
+      "Don't be discouraged\nwhen you're out of ammo.",
+      "Use your wits\nto survive.",
+      "Those machines you saw\nare called Leapers.",
+      "They're low-grade bots\ndumb enough to leap\nstraight at you.",
+      "When they rush,they'll\nbreak anything in their\nway - including you.",
+      "If you don't have any\nammo left to break\nbarriers,",
+      "get them to do\nthe dirty work for you.",
+      "You'll figure it out\nsoldier.",
+      "Trust me.\nYou're much smarter\nthan them.",
     ],
     beats: [
       {
