@@ -171,52 +171,108 @@ const SCENES = [
 
   // ARMORY SCENE
   {
-    id: "intro",
-    music: "",
+    id: "armory",
+    song: "prison_music",
+    lines: [
+      "Come in, Cyrus. Come in.",
+      "Congrats on making it this far, soldier.",
+      "You've got a long way ahead, but help is on the way.",
+      "We've sent an extraction team to the prison.",
+      "If you can make it to the outside, we'll have the best chance of getting you back home.",
+      "As to how many pieces you'll come back as is up to you.",
+      "Stay careful out there. Word of your escape has spread and the Metallics are sure to send top security soon.",
+      "Intel says that the reprogrammed bot is still on the loose, but it's acting ... strange. Not what our programmers expected.",
+      "Approach with caution.",
+      "Over and out, Cyrus. Don't do anything stupid.",
+    ],
     beats: [
       {
-        line: "",
-        image: "",
-        timer: 1000,
+        index: 0,
+        image: transceiver,
+        timer: 0,
       },
     ],
   },
 
+
   // PROCESSING SCENE
   {
-    id: "intro",
-    music: "",
+    id: "processing",
+    song: "prison_music",
+    lines: [
+      "Cyrus?! Come in, Cyrus?!?!",
+      "You need to get out of there now!",
+      "We just got word from our technicians ...",
+      "That little robot .. ",
+      "It resisted the reprogramming!",
+      "It lead us on - it was all a trap ...",
+      "You were just the bait to lure the extraction team.",
+      "All of them - everyone - was taken down by ... that thing...",
+      "We don't know what it is.",
+      "Whatever you do: Don't try to fight it. Just don't. ",
+      "Run.",
+      "Over and out, Cyr - >bzzzzzt<",
+    ],
     beats: [
       {
-        line: "",
-        image: "",
-        timer: 1000,
+        index: 0,
+        image: transceiver,
+        timer: 0,
       },
     ],
   },
 
   // COURTYARD SCENE
   {
-    id: "intro",
-    music: "",
+    id: "courtyard",
+    song: "prison_music",
+    lines: [
+      "Cyrus... Come in, Cyrus...",
+      "You see it now, don't you?",
+      "You see what they've done.",
+      "Everything. Turned to cold metal.",
+      "They destroy all life they can find — the grass, the trees, the flowers —  all of it.",
+      "They're not machines. They're monsters.",
+      "They hate us. They want to ruin us. And it's our duty to destroy every last one of them.",
+      "And I know we can do it with your help, soldier.",
+      "Get out of there. Fast as you can.",
+      "Regroup with what's left of us.",
+      "When you get back, we're going to study the enhancements The Metallics put in you.",
+      "If we can harness your tech, we stand a chance of taking them all down. For good.",
+      "Over and out, Cyrus. You're almost home.",
+    ],
     beats: [
       {
-        line: "",
-        image: "",
-        timer: 1000,
+        index: 0,
+        image: transceiver,
+        timer: 0,
       },
     ],
   },
 
   // OUTRO SCENE
   {
-    id: "intro",
-    music: "",
+    id: "outro",
+    song: "prison_music",
+    lines: [
+      "Finally, I escaped the Metallic's prison.",
+      "But ... only thanks to that robot.",
+      "I recognized it, too. The one we couldn't reprogram.",
+      "So ... if we couldn't change it, then why did it help me?",
+      "It can't think. It can't feel.",
+      "It's just like what Commander Viper said: more monster than machine.",
+      "But still ... if it was never reprogrammed, then it chose to help me. It saw me in danger and sacrificed itself for my own sake.",
+      "Why? How could a machine ... choose?",
+      "And if they can choose, then why do they choose to fight us?",
+      "I don't know what happened and I don't know why. ",
+      "All I know is I have some serious questions for Commander Viper when I get back to base.",
+      "This is Cyrus. Over and out.",
+    ],
     beats: [
       {
-        line: "",
-        image: "",
-        timer: 1000,
+        index: 0,
+        image: transceiver,
+        timer: 0,
       },
     ],
   },

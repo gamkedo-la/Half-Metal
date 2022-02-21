@@ -605,6 +605,7 @@ const base_courtyard_level = {
 
 const COURTYARD_LEVELS = [
   {
+    scene: "courtyard",
     level_map: [
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0,
       0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

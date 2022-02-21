@@ -31,6 +31,16 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   this.has_opened = false;
   this.prev_state = this.state;
   this.render_hitbox = true;
+  this.hitboxes = [
+    {
+      name: "barrier",
+      x: 0,
+      y: 0,
+      w: 0,
+      h: 0,
+      color: "blue",
+    },
+  ];
 
   this.reset = function () {
     this.start_hum = true;
@@ -82,5 +92,32 @@ function ElectricWallClass(orientation = HORIZONTAL) {
   this.checkEnemyType = function (enemy) {
     enemy.removeSelf();
     playSound(sounds.destroy);
+  };
+
+  this.updateHitBoxes = function () {
+    var buffer = 4;
+    var displacement = 8;
+    this.hitbox_x = buffer / 2 + this.x - this.width / 2;
+    this.hitbox_y = buffer / 2 + this.y - this.height / 2;
+    this.hitbox_height = this.height - buffer;
+    this.hitbox_width = this.width - buffer;
+
+    const barrier = this.hitboxes[0];
+    barrier.x = buffer / 2 + this.x - this.width / 2;
+    
+    if (this.orientation === HORIZONTAL) {
+      barrier.x -= 11;
+    }
+
+ 
+    
+    barrier.y = buffer / 2 + this.y - this.height / 2;
+
+    if (this.orientation === VERTICAL) {
+      barrier.y -= 4;
+    }
+
+    barrier.w = this.orientation === HORIZONTAL ? 48 : 16;
+    barrier.h = this.orientation === VERTICAL ? 32 : 16;
   };
 }

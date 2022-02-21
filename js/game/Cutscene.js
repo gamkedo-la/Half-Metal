@@ -15,10 +15,10 @@ function CutsceneClass(dialogue = [""]) {
   this.char_width = 8;
   this.cutscene_started = false;
   this.song = "intro_music";
-  this.is_intro = false;
+  this.is_intro = true;
   this.is_outro = false;
   this.beats = [];
-  this.current_image = transceiver;
+  this.current_image = undefined;
 
   this.draw = function () {
     //   BG
@@ -30,7 +30,9 @@ function CutsceneClass(dialogue = [""]) {
     renderFont(this.revealed_chars, this.x + 20, this.y + 165);
 
     // IMAGE
-    canvasContext.drawImage(this.current_image, 0, 0);
+    if (this.current_image) {
+      canvasContext.drawImage(this.current_image, 0, 0);
+    }
   };
 
   this.checkForInput = function () {

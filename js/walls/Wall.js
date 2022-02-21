@@ -28,6 +28,7 @@ function WallClass() {
   this.hitbox_y = this.y;
   this.hitbox_height = this.height;
   this.hitbox_width = this.width;
+  this.hitboxes = [];
   this.render_hitbox = false;
 
   // General
@@ -44,6 +45,10 @@ function WallClass() {
         this.hitbox_width,
         this.hitbox_height
       );
+      this.hitboxes.forEach((hitbox) => {
+        canvasContext.fillStyle = hitbox.color;
+        canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+      });
     }
   };
 

@@ -353,6 +353,29 @@ function playerClass() {
       (hitbox) => hitbox.name === "main"
     );
     walls.forEach(function (wall) {
+      if (wall.type === ELECTRIC && wall.state === CLOSED) {
+        if (
+          collisionDetected(
+            {
+              x: wall.hitboxes[0].x,
+              y: wall.hitboxes[0].y,
+              w: wall.hitboxes[0].w,
+              h: wall.hitboxes[0].h,
+            },
+            {
+              x: player_collider.x,
+              y: player_collider.y,
+              w: player_collider.w,
+              h: player_collider.h,
+            }
+          )
+        ) {
+          player.x = player.prevX;
+          player.y = player.prevY;
+          player.movingProgressRemaining = 0;
+        }
+      }
+
       if (
         collisionDetected(
           {
