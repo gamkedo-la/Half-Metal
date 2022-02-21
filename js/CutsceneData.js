@@ -169,7 +169,7 @@ const SCENES = [
       "Alright,\nno more wasting time.",
       "Just grab that ammo\nand load up your weapon.",
       "There's more littered\naround the facility.",
-      "Over and out, Cyrus.\nWe'll see you soon. ",
+      "Over and out, Cyrus.\nWe'll see you soon.",
     ],
     beats: [
       {
@@ -186,15 +186,18 @@ const SCENES = [
     song: "prison_music",
     lines: [
       "Come in, Cyrus. Come in.",
-      "Congrats on making it this far, soldier.",
-      "You've got a long way ahead, but help is on the way.",
-      "We've sent an extraction team to the prison.",
-      "If you can make it to the outside, we'll have the best chance of getting you back home.",
-      "As to how many pieces you'll come back as is up to you.",
-      "Stay careful out there. Word of your escape has spread and the Metallics are sure to send top security soon.",
-      "Intel says that the reprogrammed bot is still on the loose, but it's acting ... strange. Not what our programmers expected.",
+      "Congrats on making\nit this far, soldier.",
+      "You've got a long road,\nbut help is on the way.",
+      "We've sent an extraction\nteam to the prison.",
+      "If you can make it\nto the outside,",
+      "we'll have the best\nchance of getting you\nback home.",
+      "As to how many pieces\nyou'll come back as\nis up to you.",
+      "Stay careful out there.\nWord of your escape has\nspread",
+      "the Metallics are sure\nto send top security.",
+      "Intel says that the\nreprogrammed bot is\nstill on the loose, ",
+      "but it's acting ...\nstrange.\nNot what as we expected.",
       "Approach with caution.",
-      "Over and out, Cyrus. Don't do anything stupid.",
+      "Over and out, Cyrus.\nDon't do anything stupid.",
     ],
     beats: [
       {
