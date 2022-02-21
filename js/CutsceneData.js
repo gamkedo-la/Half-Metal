@@ -316,7 +316,7 @@ const SCENES = [
     lines: [
       "Up ahead are some Flyer robots.",
       "You can't hit them while they're airborne,",
-      "But you can in a quick shot when they land.",
+      "But you can get in a quick shot when they land.",
       "If you're careful enough, ",
       "you can slip right underneath them with no trouble.",
     ],
@@ -336,8 +336,8 @@ const SCENES = [
       "Cyrus, do you see that green ammunition?",
       "That's a special ammo type that can confuse the metallics.",
       "If you hit them with it,",
-      "It will reprogram their patrol route.",
-      "You can turn them to face a different direction.",
+      "It will reprogram their patrol routes.",
+      "They will turn to face a different direction.",
       "Think carefully about how you can use this to your advantage.",
     ],
     beats: [

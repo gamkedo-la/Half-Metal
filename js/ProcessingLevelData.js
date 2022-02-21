@@ -11012,6 +11012,7 @@ const PROCESSING_LEVELS = [
       },
     ],
     name: "3-9",
+    scene: "stun_tutorial",
     tileset: processing_tileset,
     song: "processing_music",
   },
