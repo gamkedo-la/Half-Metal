@@ -50,6 +50,8 @@ var ammo_counter = document.createElement("img");
 var ammo_border = document.createElement("img");
 var intro_scene = document.createElement("img");
 var outro_scene = document.createElement("img");
+var metallics_scene = document.createElement("img");
+var player_intro = document.createElement("img");
 
 var worldPics = [];
 
@@ -289,6 +291,8 @@ var image_list = [
   { var_name: ammo_border, file: "ammo_border.png" },
   { var_name: intro_scene, file: "intro.png" },
   { var_name: outro_scene, file: "outro.png" },
+  { var_name: metallics_scene, file: "metallics.png" },
+  { var_name: player_intro, file: "player_intro.png" },
 
 
   // TILESETS
