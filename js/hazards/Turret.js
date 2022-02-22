@@ -68,8 +68,8 @@ function TurretClass() {
   };
 
   this.draw = function () {
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
+    canvasContext.lineWidth = 2;
+    canvasContext.strokeStyle = "#b21030";
     canvasContext.beginPath();
     canvasContext.moveTo(this.x, this.y);
 

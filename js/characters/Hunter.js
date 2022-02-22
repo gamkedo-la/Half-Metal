@@ -359,8 +359,8 @@ function HunterClass() {
     this.animationHandler();
 
     // Setup drawing for line of sight
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
+    canvasContext.lineWidth = 2;
+    canvasContext.strokeStyle = "#b21030";
     canvasContext.beginPath();
     canvasContext.moveTo(this.x, this.y);
 
