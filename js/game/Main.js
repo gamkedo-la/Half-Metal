@@ -645,6 +645,7 @@ function drawAll() {
         cutscene.beats = current_scene.beats;
         cutscene.current_line = 0;
         cutscene.current_char = 0;
+        cutscene.is_outro = true;
         levels[currentLevel].scene = null;
         currentMode = CUTSCENE_MODE;
       }
