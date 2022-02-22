@@ -4,12 +4,12 @@ function RayClass(x, y, direction) {
   this.height = 3;
   this.width = 3;
   this.direction = direction;
-  this.speed = 10;
+  this.speed = 5;
   this.destroyed = false;
   this.found_player = false;
-  this.color = "red";
+  this.color = "#b21030";
   this.parent = undefined;
-  this.render_hitbox = true;
+  this.render_hitbox = false;
 
   this.move = function () {
     nextX = this.x + this.speed * Math.cos((this.direction * Math.PI) / 180);
@@ -49,6 +49,7 @@ function RayClass(x, y, direction) {
     if (this.render_hitbox) {
       canvasContext.fillStyle = this.color;
       canvasContext.fillRect(this.x, this.y, this.width, this.height);
+      
     }
   };
 

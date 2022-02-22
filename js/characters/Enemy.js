@@ -1,4 +1,4 @@
-const RAY_CAST_COUNTDOWN_MAX = 10;
+const RAY_CAST_COUNTDOWN_MAX = 1;
 const STUN_COUNTDOWN_MAX = 240;
 
 function EnemyClass() {
@@ -107,8 +107,8 @@ function EnemyClass() {
     this.animationHandler();
 
     // Setup drawing for line of sight
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = "red";
+    canvasContext.lineWidth = 2;
+    canvasContext.strokeStyle = "#b21030";
     canvasContext.beginPath();
     canvasContext.moveTo(this.x, this.y);
 
@@ -124,6 +124,7 @@ function EnemyClass() {
         last_ray.x + last_ray.width / 2,
         last_ray.y + last_ray.height / 2
       );
+      // canvasContext.drawImage(ray, 0, 0, 12, 4, last_ray.x, last_ray.y, Math.abs(this.x - last_ray.x), 4);
     }
     canvasContext.stroke();
 
