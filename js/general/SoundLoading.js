@@ -31,6 +31,7 @@ async function loadSounds() {
     { sndName: "level_transition", theFile: "snd_level_transition.wav" },
     { sndName: "pause", theFile: "snd_pause.wav" },
     { sndName: "text", theFile: "snd_text.wav" },
+    { sndName: "hunter", theFile: "hunter.mp3" },
 
     // MUSIC
     { sndName: "prison_music", theFile: "bg_prisonloop.wav" },

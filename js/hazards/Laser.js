@@ -119,6 +119,7 @@ function LaserClass(orientation = HORIZONTAL) {
       const hunter_config = { x: player.start_x, y: player.start_y };
       console.log(levels[currentLevel]);
       spawnGameObject(hunter_config, HUNTER);
+      playSound(sounds.detected);
     }
   };
 

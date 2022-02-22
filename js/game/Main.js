@@ -373,6 +373,11 @@ function setupUI() {
 function loadLevel(whichLevel) {
   world_grid = whichLevel.slice();
   player.reset(playerSheet, "Player");
+  enemies.forEach((enemy) => {
+    if (enemy.type === HUNTER && enemy.noise) {
+      enemy?.noise?.sound?.stop();
+    }
+  });
   enemies.length = 0;
   hazards.length = 0;
   bullets.length = 0;

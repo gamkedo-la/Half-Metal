@@ -41,7 +41,7 @@ function playSound(
   volume = 0.5,
   loop = false
 ) {
-  console.log(buffer);
+  // console.log(buffer);
 
   if (!buffer || !audioCtx) return;
 

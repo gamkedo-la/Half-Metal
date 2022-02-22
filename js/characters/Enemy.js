@@ -6,6 +6,7 @@ function EnemyClass() {
   // -General-
   this.name = "Enemy";
   this.type = LEAPER;
+  this.awake = false;
 
   // -Stats-
   this.health = 1;
@@ -75,6 +76,8 @@ function EnemyClass() {
   };
 
   this.update = function () {
+    this.awake();
+    
     if (this.checkIfDestroyed()) {
       this.speed = 0;
       return;
@@ -152,6 +155,15 @@ function EnemyClass() {
     moveInOwnDirection(this);
     this.updateHitBoxes();
   };
+
+  this.awake = function () {
+    if (!this.awake) {
+      this.onAwake();
+      this.awake = true;
+    }
+  };
+
+  this.onAwake = function () {};
 
   // -Collision methods-
   this.updateHitBoxes = function () {

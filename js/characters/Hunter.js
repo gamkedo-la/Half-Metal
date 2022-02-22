@@ -11,6 +11,8 @@ function HunterClass() {
   this.width = 14;
   this.height = 26;
   this.speed = HUNTER_BOT_MOVEMENT_SPEED;
+  this.appeared = false;
+  this.noise = undefined;
 
   // Collision
   this.hitbox_x = this.x;
@@ -296,6 +298,11 @@ function HunterClass() {
   };
 
   this.move = function () {
+    if (!this.appeared) {
+      this.noise = playSound(sounds.hunter, 1, 0, 0.5, true);
+      this.appeared = true;
+    }
+
     if (this.state === ALERT) {
       return;
     } else {
@@ -411,7 +418,16 @@ function HunterClass() {
 
     // Spawn ammo pickup in place
     world_grid[tile_index] = TILE_AMMO;
+    
+    // Stop playing hunter noise
+    playSound(sounds.destroy);
+    this.noise?.sound?.stop();
 
     this.removeSelf();
+  };
+
+  this.onAwake = function () {
+    console.log("HUNTER AWAKE");
+    playSound(sounds.hunter, 1, 0, 0.5, true);
   };
 }
