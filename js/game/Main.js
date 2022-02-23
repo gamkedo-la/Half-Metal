@@ -300,6 +300,7 @@ function spawnEffect(x, y, type = EXPLOSION) {
 
   effect.animator.currentAnimationFrame = 0;
   effects.push(effect);
+  return effect;
 }
 
 function initGameObjects(map) {

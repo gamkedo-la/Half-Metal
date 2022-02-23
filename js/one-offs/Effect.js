@@ -33,7 +33,10 @@ function effectClass(x, y, img, effect_speed = 2) {
     // console.log("current animation is", this.animator.currentAnimationFrame);
     if (this.playedAnimation) {
       this.removeSelf();
-    } else if (this.animator.currentAnimationFrame === 7) {
+    } else if (
+      this.animator.currentAnimationFrame ===
+      this.animations[this.currentAnimation].length - 1
+    ) {
       this.playedAnimation = true;
     }
   };
