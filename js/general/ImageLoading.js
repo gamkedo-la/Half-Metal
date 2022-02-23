@@ -52,6 +52,14 @@ var intro_scene = document.createElement("img");
 var outro_scene = document.createElement("img");
 var metallics_scene = document.createElement("img");
 var player_intro = document.createElement("img");
+var climax_1 = document.createElement("img");
+var climax_2 = document.createElement("img");
+var climax_3 = document.createElement("img");
+var climax_4 = document.createElement("img");
+var outro_1 = document.createElement("img");
+var outro_2 = document.createElement("img");
+var outro_3 = document.createElement("img");
+var blank = document.createElement("img");
 
 var worldPics = [];
 
@@ -290,9 +298,16 @@ var image_list = [
   { var_name: ammo_counter, file: "ammo_counter.png" },
   { var_name: ammo_border, file: "ammo_border.png" },
   { var_name: intro_scene, file: "intro.png" },
-  { var_name: outro_scene, file: "outro.png" },
   { var_name: metallics_scene, file: "metallics.png" },
   { var_name: player_intro, file: "player_intro.png" },
+  { var_name: climax_1, file: "climax_1.png" },
+  { var_name: climax_2, file: "climax_2.png" },
+  { var_name: climax_3, file: "climax_3.png" },
+  { var_name: climax_4, file: "climax_4.png" },
+  { var_name: outro_1, file: "outro_1.png" },
+  { var_name: outro_2, file: "outro_2.png" },
+  { var_name: outro_3, file: "outro_3.png" },
+  { var_name: blank, file: "blank_cutscene.png" },
 
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
