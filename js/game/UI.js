@@ -35,7 +35,9 @@ function UIClass(x, y, width, height) {
       };
 
       const ammo = ammo_map[player.selected_ammo];
-
+      const ammo_types = Object.keys(this.ammo_type_map);
+      const selected_ammo_index = ammo_types.indexOf(player.selected_ammo);
+      
       // AMMO BORDER
       canvasContext.drawImage(
         ammo_border,
@@ -50,7 +52,7 @@ function UIClass(x, y, width, height) {
         canvasContext.drawImage(
           ammo_counter,
           0,
-          0 + 8 * player.currentAmmoIndex,
+          0 + 8 * selected_ammo_index,
           4,
           7,
           this.x_buffer + 22 + i * 4,
