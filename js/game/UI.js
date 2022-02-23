@@ -37,17 +37,17 @@ function UIClass(x, y, width, height) {
       const ammo = ammo_map[player.selected_ammo];
       const ammo_types = Object.keys(this.ammo_type_map);
       const selected_ammo_index = ammo_types.indexOf(player.selected_ammo);
-      
+
       // AMMO BORDER
       canvasContext.drawImage(
         ammo_border,
         this.x_buffer + 20,
-        this.text_height-1,
+        this.text_height - 1,
         20,
         10
-        );
-        
-        // AMMO COUNTER
+      );
+
+      // AMMO COUNTER
       for (var i = 0; i < ammo; i++) {
         canvasContext.drawImage(
           ammo_counter,
@@ -70,11 +70,13 @@ function UIClass(x, y, width, height) {
       );
 
       // FLOOR COUNT
-      renderFont(
-        `FLOOR ${this.floor_levels.length - currentLevel}`,
-        this.x_buffer + 170,
-        this.text_height
-      );
+      if (currentLevel <= this.floor_levels.length - 1) {
+        renderFont(
+          `FLOOR ${this.floor_levels.length - currentLevel}`,
+          this.x_buffer + 170,
+          this.text_height
+        );
+      }
     }
   };
 }
