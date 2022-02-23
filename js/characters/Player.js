@@ -17,6 +17,7 @@ function playerClass() {
   this.ammo_types = [NORMAL];
   this.currentAmmoIndex = 0;
   this.damageable = true;
+  this.full_ammo = false;
 
   this.MAX_DELAY = 15;
   this.shootDelay = this.MAX_DELAY;
@@ -303,6 +304,8 @@ function playerClass() {
           this.ammo++;
           world_grid[walkIntoTileIndex] = TILE_GROUND;
           playSound(sounds.get_ammo);
+        } else {
+          this.full_ammo = true;
         }
         break;
       case TILE_STUN_SHOT:
@@ -314,6 +317,8 @@ function playerClass() {
           this.stun_ammo++;
           world_grid[walkIntoTileIndex] = TILE_GROUND;
           playSound(sounds.get_ammo);
+        } else {
+          this.full_ammo = true;
         }
         break;
       case TILE_PUSH_SHOT:
@@ -321,6 +326,8 @@ function playerClass() {
           this.ammo++;
           world_grid[walkIntoTileIndex] = TILE_GROUND;
           playSound(sounds.get_ammo);
+        } else {
+          this.full_ammo = true;
         }
         break;
       case TILE_TURN_SHOT:
@@ -332,6 +339,8 @@ function playerClass() {
           this.turn_ammo++;
           world_grid[walkIntoTileIndex] = TILE_GROUND;
           playSound(sounds.get_ammo);
+        } else {
+          this.full_ammo = true;
         }
         break;
       case TILE_GOAL:
@@ -608,6 +617,12 @@ function playerClass() {
           canvasContext.fillRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
         }
       });
+    }
+
+    // Full Ammo indicator
+    if (this.full_ammo) {
+      canvasContext.drawImage(full_ammo, this.x - 18, this.y - 16);
+      this.full_ammo = false;
     }
   };
 }
