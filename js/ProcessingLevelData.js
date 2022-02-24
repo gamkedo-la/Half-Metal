@@ -605,7 +605,7 @@ const base_processing_level = {
 
 const PROCESSING_LEVELS = [
   {
-    scene: null,
+    scene: "processing",
     level_map: [
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0,
       0, 0, 21, 0, 0, 0, 0, 21, 0, 0, 0, 0, 21, 21, 0, 0, 3, 0, 21, 0, 0, 0, 0,
@@ -11035,7 +11035,7 @@ const PROCESSING_LEVELS = [
       },
     ],
     name: "3-9",
-    scene: null,
+    scene: "stun_tutorial",
     tileset: processing_tileset,
     song: "processing_music",
   },

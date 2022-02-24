@@ -9,7 +9,7 @@ function InvisibleWall() {
   this.type = INVISIBLE;
   this.tile_type = TILE_INVISIBLE;
   this.image = invisible_wall;
-  this.show_in_play_mode = true;
+  this.show_in_play_mode = false;
   this.render_hitbox = false;
   this.hitboxes = [
     {
