@@ -15,6 +15,7 @@ function MenuClass(config) {
   };
   this.button_buffer = config.button_buffer || 5;
   this.show_name = config.show_name || false;
+  this.forceLastButton = config.forceLastButton || false;
 
   // -Divisions-
   this.quadrants = [];
@@ -56,8 +57,10 @@ function MenuClass(config) {
     canvasContext.fillRect(0, 0, this.width, this.height);
 
     // MENU NAME
-    var name_width = this.name.length * 8;
-    renderFont(this.name, this.width / 2 - name_width / 2, 30);
+    if(this.show_name) {
+      var name_width = this.name.length * 8;
+      renderFont(this.name, this.width / 2 - name_width / 2, 30);
+    }
 
     // IMAGE
     if (this.image) {
@@ -101,6 +104,10 @@ function MenuClass(config) {
       key_left_held = false;
 
       console.log("CURSOR: ", this.cursor);
+    }
+
+    if(this.forceLastButton) {
+      this.cursor = this.buttons.length - 1;
     }
 
     // Activate button handler when pressing select button
