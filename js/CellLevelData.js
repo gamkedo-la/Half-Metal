@@ -10179,6 +10179,7 @@ const CELL_LEVELS = [
     name: "1-9",
     tileset: cell_tileset,
     song: "prison_music",
+    scene: "alt_leaper",
   },
   {
     level_map: [

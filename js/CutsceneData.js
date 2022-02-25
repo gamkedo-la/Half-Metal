@@ -180,6 +180,33 @@ const SCENES = [
     ],
   },
 
+  // LEAPER SCENE
+  {
+    id: "alt_leaper",
+    song: "prison_music",
+    lines: [
+      "A Leaper!",
+      "This one looks different.",
+      "Could that be the one\nwe reprogrammed?",
+      "It ran!",
+      "Odd...\nThey usuallly attack\nright away.",
+      "Maybe Commander Viper\nknows more about this.",
+    ],
+    beats: [
+      {
+        index: 0,
+        image: outro_2,
+        timer: 0,
+      },
+      {
+        index: 3,
+        image: blank,
+        timer: 0,
+      },
+    ],
+  },
+
+
   // ARMORY SCENE
   {
     id: "armory",
