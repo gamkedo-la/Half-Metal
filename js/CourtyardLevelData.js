@@ -600,7 +600,7 @@ const base_courtyard_level = {
   shots: [],
   name: "4-1",
   tileset: courtyard_tileset,
-  song: "prison_music",
+  song: "courtyard_music",
 };
 
 const COURTYARD_LEVELS = [
@@ -1217,7 +1217,7 @@ const COURTYARD_LEVELS = [
     shots: [],
     name: "4-1",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     scene: "courtyard",
@@ -2121,7 +2121,7 @@ const COURTYARD_LEVELS = [
     ],
     name: "4-2",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     level_map: [
@@ -2925,7 +2925,7 @@ const COURTYARD_LEVELS = [
     shots: [],
     name: "4-3",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     level_map: [
@@ -4040,7 +4040,7 @@ const COURTYARD_LEVELS = [
     ],
     name: "4-4",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     level_map: [
@@ -4967,7 +4967,7 @@ const COURTYARD_LEVELS = [
     ],
     name: "4-5",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     level_map: [
@@ -6137,7 +6137,7 @@ const COURTYARD_LEVELS = [
     ],
     name: "4-6",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     level_map: [
@@ -7361,7 +7361,7 @@ const COURTYARD_LEVELS = [
     ],
     name: "4-7",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     level_map: [
@@ -8322,7 +8322,7 @@ const COURTYARD_LEVELS = [
     shots: [],
     name: "4-8",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
   {
     level_map: [
@@ -9249,6 +9249,6 @@ const COURTYARD_LEVELS = [
     ],
     name: "4-9",
     tileset: courtyard_tileset,
-    song: "prison_music",
+    song: "courtyard_music",
   },
 ];
