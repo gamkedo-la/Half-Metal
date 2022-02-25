@@ -1,13 +1,13 @@
 function RayClass(x, y, direction) {
   this.x = x;
   this.y = y;
-  this.height = 3;
-  this.width = 3;
+  this.height = 4;
+  this.width = 4;
   this.direction = direction;
   this.speed = 5;
   this.destroyed = false;
   this.found_player = false;
-  this.color = "#b21030";
+  this.color = "#db4161";
   this.parent = undefined;
   this.render_hitbox = false;
 

@@ -70,20 +70,23 @@ function FlyerClass() {
 
     // Setup drawing for line of sight
     if (this.render_raycasts) {
-      canvasContext.lineWidth = 1;
-      canvasContext.strokeStyle = "red";
-      canvasContext.beginPath();
-      canvasContext.moveTo(this.x, this.y - this.flight_dist);
+      this.drawSightLine("black", this.x - 1, this.y - this.flight_dist - 1,  0, 0, 2);
+    this.drawSightLine("black", this.x + 1, this.y - this.flight_dist + 1, 2, 2, 2);
+    this.drawSightLine("#db4161", this.x, this.y - this.flight_dist, 1, 1, 2);
+      // canvasContext.lineWidth = 1;
+      // canvasContext.strokeStyle = "red";
+      // canvasContext.beginPath();
+      // canvasContext.moveTo(this.x, this.y - this.flight_dist);
 
-      // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
-      const last_ray = this.rays[0];
-      if (last_ray) {
-        canvasContext.lineTo(
-          last_ray.x + last_ray.width / 2,
-          last_ray.y + last_ray.height / 2
-        );
-      }
-      canvasContext.stroke();
+      // // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
+      // const last_ray = this.rays[0];
+      // if (last_ray) {
+      //   canvasContext.lineTo(
+      //     last_ray.x + last_ray.width / 2,
+      //     last_ray.y + last_ray.height / 2
+      //   );
+      // }
+      // canvasContext.stroke();
     }
 
     // Update sprite animation
@@ -152,9 +155,9 @@ function FlyerClass() {
 
   // -Raycasting-
   this.emitRaycast = function () {
-    var ray = new RayClass(this.x - 3, this.y - 3, this.direction);
-    ray.height = 15;
-    ray.width = 15;
+    var ray = new RayClass(this.x - 7, this.y + 16, this.direction);
+    ray.height = 14;
+    ray.width = 14;
     ray.parent = this;
     this.rays.push(ray);
   };

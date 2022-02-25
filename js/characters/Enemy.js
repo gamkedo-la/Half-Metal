@@ -77,7 +77,7 @@ function EnemyClass() {
 
   this.update = function () {
     this.awake();
-    
+
     if (this.checkIfDestroyed()) {
       this.speed = 0;
       return;
@@ -102,17 +102,20 @@ function EnemyClass() {
     this.checkIfOutofBounds();
   };
 
-  this.draw = function () {
-    //   Set animation frame to render
-    this.animationHandler();
-
+  this.drawSightLine = function (
+    color,
+    start_x,
+    start_y,
+    end_x_buffer,
+    end_y_buffer,
+    width = 1
+  ) {
     // Setup drawing for line of sight
-    canvasContext.lineWidth = 2;
-    canvasContext.strokeStyle = "#b21030";
+    canvasContext.lineWidth = width;
+    canvasContext.strokeStyle = color;
     canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
+    canvasContext.moveTo(start_x, start_y);
 
-    //
     this.rays.forEach(function (ray) {
       ray.draw();
     });
@@ -121,12 +124,20 @@ function EnemyClass() {
     const last_ray = this.rays[0];
     if (last_ray) {
       canvasContext.lineTo(
-        last_ray.x + last_ray.width / 2,
-        last_ray.y + last_ray.height / 2
+        last_ray.x + last_ray.width / 2 + end_x_buffer,
+        last_ray.y + last_ray.height / 2 + end_y_buffer
       );
-      // canvasContext.drawImage(ray, 0, 0, 12, 4, last_ray.x, last_ray.y, Math.abs(this.x - last_ray.x), 4);
     }
     canvasContext.stroke();
+  };
+
+  this.draw = function () {
+    //   Set animation frame to render
+    this.animationHandler();
+
+    this.drawSightLine("black", this.x - 1, this.y - 1, 0, 0, 2);
+    this.drawSightLine("black", this.x + 1, this.y + 1, 2, 2, 2);
+    this.drawSightLine("#db4161", this.x, this.y, 1, 1, 2);
 
     // Update sprite animation
     this.animator.animate();

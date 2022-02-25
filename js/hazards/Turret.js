@@ -67,18 +67,39 @@ function TurretClass() {
     resetGameObject(this);
   };
 
-  this.draw = function () {
-    canvasContext.lineWidth = 2;
-    canvasContext.strokeStyle = "#b21030";
+  this.drawSightLine = function (
+    color,
+    start_x,
+    start_y,
+    end_x_buffer,
+    end_y_buffer,
+    width = 1
+  ) {
+    // Setup drawing for line of sight
+    canvasContext.lineWidth = width;
+    canvasContext.strokeStyle = color;
     canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
+    canvasContext.moveTo(start_x, start_y);
 
     this.rays.forEach(function (ray) {
       ray.draw();
-      canvasContext.lineTo(ray.x, ray.y);
     });
 
+    // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
+    const last_ray = this.rays[0];
+    if (last_ray) {
+      canvasContext.lineTo(
+        last_ray.x + last_ray.width / 2 + end_x_buffer,
+        last_ray.y + last_ray.height / 2 + end_y_buffer
+      );
+    }
     canvasContext.stroke();
+  };
+
+  this.draw = function () {
+    this.drawSightLine("black", this.x - 1, this.y - 1, 0, 0, 2);
+    this.drawSightLine("black", this.x + 1, this.y + 1, 2, 2, 2);
+    this.drawSightLine("#db4161", this.x, this.y, 1, 1, 2);
 
     this.animator.animate();
 

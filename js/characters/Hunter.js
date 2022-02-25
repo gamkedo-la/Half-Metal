@@ -358,26 +358,9 @@ function HunterClass() {
     //   Set animation frame to render
     this.animationHandler();
 
-    // Setup drawing for line of sight
-    canvasContext.lineWidth = 2;
-    canvasContext.strokeStyle = "#b21030";
-    canvasContext.beginPath();
-    canvasContext.moveTo(this.x, this.y);
-
-    //
-    this.rays.forEach(function (ray) {
-      ray.draw();
-    });
-
-    // Draw line of sight to the farthest ray cast (i.e, the earliest in the list)
-    const last_ray = this.rays[0];
-    if (last_ray) {
-      canvasContext.lineTo(
-        last_ray.x + last_ray.width / 2,
-        last_ray.y + last_ray.height / 2
-      );
-    }
-    canvasContext.stroke();
+    this.drawSightLine("black", this.x - 1, this.y - 1, 0, 0, 2);
+    this.drawSightLine("black", this.x + 1, this.y + 1, 2, 2, 2);
+    this.drawSightLine("#db4161", this.x, this.y, 1, 1, 2);
 
     // Update sprite animation
     this.animator.animate();
