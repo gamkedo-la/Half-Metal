@@ -34,6 +34,7 @@ function Controls() {
         button_start_x: this.button_start_x,
         button_start_y: this.button_start_y,
         show_name: true,
+        forceLastButton: true,
         
     };
     MenuClass.call(this, controls_config);

@@ -25,7 +25,8 @@ function Credits() {
         name: "Credits",
         button_start_x: this.button_start_x,
         button_start_y: this.button_start_y,
-        show_name: true,
+        show_name: false,
+        forceLastButton: true,
     };
 
     MenuClass.call(this, credits_config);
@@ -36,7 +37,6 @@ function Credits() {
           button.active = true;
           button.x = this.button_start.x + 10;
           button.y = (this.button_start.y + 60) + button.height + button_y_margin * index;
-    
         });
       
     };
