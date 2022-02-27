@@ -62,6 +62,12 @@ var outro_3 = document.createElement("img");
 var blank = document.createElement("img");
 var full_ammo = document.createElement("img");
 var escape_text = document.createElement("img");
+var credits_1 = document.createElement("img");
+var credits_2 = document.createElement("img");
+var credits_3 = document.createElement("img");
+var credits_4 = document.createElement("img");
+var credits_5 = document.createElement("img");
+var credits_6 = document.createElement("img");
 
 var worldPics = [];
 
@@ -318,6 +324,12 @@ var image_list = [
   { var_name: outro_2, file: "outro_2.png" },
   { var_name: outro_3, file: "outro_3.png" },
   { var_name: blank, file: "blank_cutscene.png" },
+  { var_name: credits_1, file: "credits_1.png" },
+  { var_name: credits_2, file: "credits_2.png" },
+  { var_name: credits_3, file: "credits_3.png" },
+  { var_name: credits_4, file: "credits_4.png" },
+  { var_name: credits_5, file: "credits_5.png" },
+  { var_name: credits_6, file: "credits_6.png" },
 
   // TILESETS
   { var_name: cell_tileset, file: "cell_tileset.png" },
