@@ -152,7 +152,7 @@ function ShotClass() {
 
     // ON TURN
     if (object.turnable && this.can_turn) {
-      turnObject(object, 90);
+      turnObject(object, 90, this.direction);
       this.removeSelf();
       playSound(sounds.turn);
       return;

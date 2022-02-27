@@ -1,7 +1,5 @@
-<!-- REMAINING ISSUES -->
+<!-- REMAINING TASKS -->
 
-1. Character blurring
-2. Hitflash on blockers
-3. Animation on pickups
-4. Add escape text in courtyard scenes
-5.  Turn enemies away from player when hit with turn shot
+1. Fix character blurring
+2. Add Hitflash to blockers
+3. Give floating animation to pickups

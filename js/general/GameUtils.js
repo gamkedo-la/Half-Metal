@@ -108,7 +108,7 @@ function pushObject(object, vector) {
   object.state = PUSHED;
 }
 
-function turnObject(object, degrees) {
+function turnObject(object, degrees, shot_direction = 90) {
   switch (object.type) {
     case LEAPER:
     case FLYER:
@@ -116,6 +116,18 @@ function turnObject(object, degrees) {
     case BLOCKER:
       object.direction += degrees;
       object.direction = object.direction % 360;
+
+      // Turn enemy away from player
+      if (shot_direction === 270 && object.direction === 90) {
+        object.direction = shot_direction;
+      } else if (shot_direction === 90 && object.direction === 270) {
+        object.direction = shot_direction;
+      } else if (shot_direction === 180 && object.direction === 0) {
+        object.direction = shot_direction;
+      } else if (shot_direction === 0 && object.direction === 180) {
+        object.direction = shot_direction;
+      }
+
       break;
 
     case NORMAL_WALL:
