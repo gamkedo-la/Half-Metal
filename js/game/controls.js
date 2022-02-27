@@ -2,27 +2,25 @@ function Controls() {
 
     const controls_config = {
         buttons: [
-            new ButtonClass(...[, , , , ], "Arrow Key Up:Move up", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "Up Key: Move up", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Arrow Key Down:Move down", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "Down Key: Move down", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Arrow Key Right:Move right", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "Right Key: Move right", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Arrow Key Left:Move Left", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "Left Key: Move Left", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Arrow Key Up:Move up", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "Space Bar: Fire Shot", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Space Bar:Fire Shot", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "X Key: change ammo Type", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Key X:change amo Type", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "W Key: Move Up", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Key W: Move Up", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "D Key: Move Left", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Key D: Move Left", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "S Key: Move Down", ...[, , ], () => {      
             }),
-            new ButtonClass(...[, , , , ], "Key S: Move Down", ...[, , ], () => {      
-            }),
-            new ButtonClass(...[, , , , ], "Key A: Move Right", ...[, , ], () => {      
+            new ButtonClass(...[, , , , ], "A Key: Move Right", ...[, , ], () => {      
             }),
             new ButtonClass(...[, , , , ], "BACK", ...[, , ], () => {
                 menu_stack.pop();
