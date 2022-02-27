@@ -640,6 +640,12 @@ function drawAll() {
       if (currentLevel === levels.length - 1 && enemies.length === 1) {
         // FADE TRANSITION INTO FINAL SCENE
         stopMusic();
+
+        // STOP HUNTER NOISE
+        const hunter = enemies.find((enemy) => enemy.type === HUNTER);
+        hunter.noise?.sound?.stop();
+
+        // OUTRO SCENE
         const current_scene = SCENES.find((scene) => scene.id === "outro");
         cutscene.dialogue = current_scene.lines;
         cutscene.song = current_scene.song;
