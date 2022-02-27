@@ -1,7 +1,7 @@
 <!-- REMAINING ISSUES -->
 
-1. Opening characters are off sometimes
-2. Fux hunter animation
+1. Opening letters in cutscenes are off sometimes
+2. Fix hunter animation
 3. Remove hunter sound at end
 4. Too many cutcenes use prison music
 5. Fix one courtyard tile
