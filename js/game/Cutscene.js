@@ -96,6 +96,8 @@ function CutsceneClass(dialogue = [""]) {
     this.revealed_chars.length = 0;
     this.revealed_line.length = 0;
     this.current_char = 0;
+    this.text_timer = TEXT_SPEED;
+    this.line_complete = false;
 
     //   Exit cutscene
     currentMode = PLAY_MODE;
