@@ -69,7 +69,7 @@ var switch_prompt = new TutorialPromptClass({
   control: "switch",
   level_name: "2-9",
 });
-var prompts = [switch_prompt, shoot_prompt, walk_prompt];
+var prompts = [shoot_prompt, walk_prompt];
 
 // MENUS
 var title_screen = new TitleMenu();
@@ -549,12 +549,6 @@ function checkForTutorialProgress() {
         prompts.pop();
       }
 
-      break;
-    case "2-1":
-      // PROMPT 2
-      if (player.currentAmmoIndex > 0 && current_prompt.control === "switch") {
-        prompts.pop();
-      }
       break;
     default:
       break;

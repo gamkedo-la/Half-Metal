@@ -431,6 +431,7 @@ const SCENES = [
       "It will reprogram\ntheir patrol routes.",
       "They will turn to\nface a different\ndirection.",
       "Think carefully about\nhow you can use this\nto your advantage.",
+      "Press the X key to\nchange ammo types",
     ],
     beats: [
       {
