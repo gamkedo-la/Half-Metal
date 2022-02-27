@@ -135,6 +135,16 @@ function EnemyClass() {
     canvasContext.drawImage(shadow, this.x - this.width / 2, this.y - 2);
   };
 
+  this.drawFlash = function () {
+    if (this.hit_flash_frames) {
+      this.hit_flash_frames--;
+      canvasContext.globalCompositeOperation = "lighter"; // brighten stuff up
+      this.animator.animate();
+      this.animator.animate();
+      canvasContext.globalCompositeOperation = "source-over"; // restore to default
+    }
+  };
+
   this.draw = function () {
     // Draw shadow underneath main image
     this.drawShadow();
@@ -148,6 +158,9 @@ function EnemyClass() {
 
     // Update sprite animation
     this.animator.animate();
+
+    // Draw flash when damaged
+    this.drawFlash();
 
     // Render hitbox for debugging
     if (this.render_hitbox) {

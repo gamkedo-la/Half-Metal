@@ -107,6 +107,7 @@ function ShotClass() {
     if (object?.type === BLOCKER && this.can_damage) {
       // Only do incremental damage to Blocker
       object.health -= 1;
+      object.hit_flash_frames = 2;
       this.removeSelf();
       playSound(sounds.destroy);
       return;
