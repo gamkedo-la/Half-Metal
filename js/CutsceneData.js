@@ -210,7 +210,7 @@ const SCENES = [
   // ARMORY SCENE
   {
     id: "armory",
-    song: "prison_music",
+    song: "armory_music",
     lines: [
       "Come in, Cyrus. Come in.",
       "Congrats on making\nit this far, soldier.",
@@ -238,7 +238,7 @@ const SCENES = [
   // PROCESSING SCENE
   {
     id: "processing",
-    song: "prison_music",
+    song: "processing_music",
     lines: [
       "Cyrus?! Come in, Cyrus?!",
       "You need to get out of\nthere now!",
@@ -266,7 +266,7 @@ const SCENES = [
   // COURTYARD SCENE
   {
     id: "courtyard",
-    song: "prison_music",
+    song: "",
     lines: [
       "Cyrus...\nCome in, Cyrus...",
       "You see it now,\ndon't you?",
