@@ -13,6 +13,7 @@ function ShotClass() {
   this.hitbox_width = 8;
   this.hitbox_x = this.x;
   this.hitbox_y = this.y;
+  this.from_player = false;
 
   // Used for collision checking with other object attributes
   this.can_damage = true;
@@ -165,6 +166,10 @@ function ShotClass() {
       this.can_damage &&
       object?.flight_state !== ASCENDED
     ) {
+      if (object?.type === PLAYER && this.from_player) {
+        return;
+      }
+      
       if (object?.type === PLAYER) {
         object.resetAmmoCounts();
         loadLevel(levels[currentLevel].level_map);

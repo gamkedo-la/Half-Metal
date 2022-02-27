@@ -42,7 +42,7 @@ Spawn a bullet of a given type, used for
 enemies, hazards, player, etc.
 
 */
-function spawnBullet(x, y, direction, shot_type = NORMAL) {
+function spawnBullet(x, y, direction, shot_type = NORMAL, from_player = false) {
   var bullet;
 
   switch (shot_type) {
@@ -70,6 +70,7 @@ function spawnBullet(x, y, direction, shot_type = NORMAL) {
   bullet.x = x;
   bullet.y = y;
   bullet.direction = direction;
+  bullet.from_player = from_player;
   bullets.push(bullet);
 }
 

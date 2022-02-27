@@ -565,17 +565,15 @@ function playerClass() {
     ) {
       var shot_buffer = 1;
 
-      var spawn_x =
-        (this.width + shot_buffer) * Math.cos((this.direction * Math.PI) / 180);
-      var spawn_y =
-        (this.height + shot_buffer) *
-        Math.sin((this.direction * Math.PI) / 180);
+      var spawn_x = shot_buffer * Math.cos((this.direction * Math.PI) / 180);
+      var spawn_y = shot_buffer * Math.sin((this.direction * Math.PI) / 180);
 
       spawnBullet(
         this.x + spawn_x,
         this.y + spawn_y,
         this.direction,
-        this.selected_ammo
+        this.selected_ammo,
+        true
       );
 
       playSound(sounds.shoot);
