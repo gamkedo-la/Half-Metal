@@ -89,7 +89,7 @@ function renderFont(text, textX, textY) {
       continue;
     }
 
-    fontCharPosition = CHARACTER_MAP[currentChar.toUpperCase()];
+    fontCharPosition = CHARACTER_MAP[currentChar?.toUpperCase()];
     if (!fontCharPosition) {
       fontCharPosition = 0;
     }

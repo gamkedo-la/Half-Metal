@@ -70,12 +70,6 @@ function CutsceneClass(dialogue = [""]) {
       for (var i = 0; i < this.dialogue[this.current_line].length; i++) {
         this.revealed_chars.push(this.dialogue[this.current_line][i]);
         this.revealed_line.push(this.dialogue[this.current_line][i]); // used to track text line length
-
-        // wrap text when the line exceeds the max width
-        // if (this.revealed_line.length * this.char_width > this.max_line_width) {
-        //   this.revealed_line.length = 0;
-        //   this.revealed_chars.push("\n");
-        // }
       }
       this.key_next_held = false;
       this.line_complete = true;
@@ -152,12 +146,6 @@ function CutsceneClass(dialogue = [""]) {
 
     this.revealed_chars.push(next_char);
     this.revealed_line.push(next_char);
-
-    // If the line has grown too long, add a line break
-    // if (this.revealed_line.length * this.char_width > this.max_line_width) {
-    //   this.revealed_chars.push("\n");
-    //   this.revealed_line.length = 0;
-    // }
 
     playSound(sounds.text);
   };
