@@ -16,11 +16,29 @@ function LevelSelectClass() {
   this.quadrants.forEach((quadrant, i) => {
     var width = level_names[i].length * 8;
     var button = new ButtonClass(...[, , , ,], level_names[i], ...[, ,], () => {
-      var sub_menu = new LevelSelectSubMenuClass({ name: "Levels" });
-      sub_menu.game_section = `${i + 1}`;
-      sub_menu.defineLevelButtons();
-      buttons.push(...sub_menu.buttons);
-      menu_stack.push(sub_menu);
+      // var sub_menu = new LevelSelectSubMenuClass({ name: "Levels" });
+      // sub_menu.game_section = `${i + 1}`;
+      // sub_menu.defineLevelButtons();
+      // buttons.push(...sub_menu.buttons);
+      // menu_stack.push(sub_menu);
+      this.deactivateMenuButtons();
+      currentMode = PLAY_MODE;
+      switch (level_names[i]) {
+        case "CELLS":
+          goToLevelByName("1-1");
+          break;
+        case "ARMORY":
+          goToLevelByName("2-1");
+          break;
+        case "PROCESSING":
+          goToLevelByName("3-1");
+          break;
+        case "COURTYARD":
+          goToLevelByName("4-1");
+          break;
+        default:
+          break;
+      }
     });
     button.x = quadrant.x + quadrant.width / 2 - width / 2;
     button.y = quadrant.y + quadrant.height / 2;

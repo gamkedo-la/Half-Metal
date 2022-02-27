@@ -104,6 +104,9 @@ function ShotClass() {
   };
 
   this.onCollideWithObject = function (object) {
+    if (object?.type === PLAYER && this.from_player) {
+      return;
+    }
     // COLLIDE WITH BLOCKER
     if (object?.type === BLOCKER && this.can_damage) {
       // Only do incremental damage to Blocker
@@ -166,9 +169,6 @@ function ShotClass() {
       this.can_damage &&
       object?.flight_state !== ASCENDED
     ) {
-      if (object?.type === PLAYER && this.from_player) {
-        return;
-      }
       
       if (object?.type === PLAYER) {
         object.resetAmmoCounts();
@@ -234,7 +234,7 @@ function ShotClass() {
   };
 
   this.draw = function () {
-    canvasContext.fillStyle = "red";
+    canvasContext.fillStyle = "#b21030";
     canvasContext.fillRect(
       this.hitbox_x,
       this.hitbox_y,
