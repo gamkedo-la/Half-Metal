@@ -43,8 +43,7 @@ async function loadSounds() {
     { sndName: "title_music", theFile: "bg_title.wav" },
     { sndName: "outro_music", theFile: "bg_outro.wav" },
     { sndName: "tutorial_music", theFile: "bg_tutorial.wav" },
-    // { sndName: "enemy_credits_music", theFile: "bg_enemy_credits.wav" },
-    // { sndName: "cutscene_music", theFile: "bg_cutscene.wav" },
+    // { sndName: "enemy_credits_music", theFile: "bg_enemy_credits.mp3" },
   ];
 
   soundsToLoad = soundList.length;
