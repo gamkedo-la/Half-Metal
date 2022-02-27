@@ -340,7 +340,13 @@ function HunterClass() {
     this.updateHitBoxes();
   };
 
+  this.drawShadow = function () {
+    canvasContext.drawImage(shadow, this.x - this.width / 2 - 1, this.y + 2);
+  };
+
   this.draw = function () {
+    this.drawShadow();
+
     // Render path
     if (this.render_path) {
       this.path.forEach((node) => {
@@ -401,7 +407,7 @@ function HunterClass() {
 
     // Spawn ammo pickup in place
     world_grid[tile_index] = TILE_AMMO;
-    
+
     // Stop playing hunter noise
     playSound(sounds.destroy);
     this.noise?.sound?.stop();

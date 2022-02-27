@@ -594,7 +594,14 @@ function playerClass() {
     }
   };
 
+  this.drawShadow = function () {
+    canvasContext.drawImage(shadow, this.x - this.width / 2, this.y - 2);
+  };
+
   this.draw = function () {
+    // Shadow
+    this.drawShadow();
+
     // Animations
     switch (this.state) {
       case MOVING:

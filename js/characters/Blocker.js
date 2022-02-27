@@ -51,6 +51,10 @@ function BlockerClass() {
     this.speed = this.speed * -1;
   };
 
+  this.drawShadow = function () {
+    // NO DRAW
+  };
+
   this.move = function () {
     if (this.state === ALERT) {
       return;

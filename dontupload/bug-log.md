@@ -4,5 +4,4 @@
 2. Hitflash on blockers
 3. Animation on pickups
 4. Add escape text in courtyard scenes
-5. Add shadows to characters
-6.  Turn enemies away from player when hit with turn shot
+5.  Turn enemies away from player when hit with turn shot

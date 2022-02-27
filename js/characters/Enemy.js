@@ -131,7 +131,14 @@ function EnemyClass() {
     canvasContext.stroke();
   };
 
+  this.drawShadow = function () {
+    canvasContext.drawImage(shadow, this.x - this.width / 2, this.y - 2);
+  };
+
   this.draw = function () {
+    // Draw shadow underneath main image
+    this.drawShadow();
+
     //   Set animation frame to render
     this.animationHandler();
 
