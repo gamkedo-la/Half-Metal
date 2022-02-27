@@ -7,8 +7,10 @@ function PauseMenu() {
         unpauseGame();
       }),
       new ButtonClass(...[, , , ,], "CONTROLS", ...[, ,], () => {
-        console.log("Clicked controls");
         menu_stack.push(controls_screen);
+      }),
+      new ButtonClass(...[, , , ,], "AMMO: POWER SHOT", ...[, ,], () => {
+        player.switchToAmmo(NORMAL);
       }),
     ],
     name: "Pause",

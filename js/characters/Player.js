@@ -311,6 +311,15 @@ function playerClass() {
       case TILE_STUN_SHOT:
         if (!this.ammo_types.includes(STUN)) {
           this.ammo_types.push(STUN);
+          var stun_button = new ButtonClass(
+            ...[, , , ,],
+            "AMMO: STUN SHOT",
+            ...[, ,],
+            () => {
+              player.switchToAmmo(STUN);
+            }
+          );
+          pause_screen.buttons.push(stun_button);
         }
 
         if (this.stun_ammo < this.max_ammo) {
@@ -333,6 +342,15 @@ function playerClass() {
       case TILE_TURN_SHOT:
         if (!this.ammo_types.includes(TURN)) {
           this.ammo_types.push(TURN);
+          var turn_button = new ButtonClass(
+            ...[, , , ,],
+            "AMMO: TURN SHOT",
+            ...[, ,],
+            () => {
+              player.switchToAmmo(TURN);
+            }
+          );
+          pause_screen.buttons.push(turn_button);
         }
 
         if (this.turn_ammo < this.max_ammo) {
@@ -489,6 +507,50 @@ function playerClass() {
     }
   };
 
+  this.switchAmmo = function () {
+    this.currentAmmoIndex++;
+    if (this.currentAmmoIndex > this.ammo_types.length - 1) {
+      this.currentAmmoIndex = 0;
+    }
+    this.selected_ammo = this.ammo_types[this.currentAmmoIndex];
+
+    switch (this.selected_ammo) {
+      case NORMAL:
+        this.image = playerSheet;
+        break;
+      case STUN:
+        this.image = playerSheet_Stun;
+        break;
+      case PUSH:
+        this.image = playerSheet_Push;
+        break;
+      case TURN:
+        this.image = playerSheet_Turn;
+        break;
+    }
+  };
+
+  this.switchToAmmo = function (ammo) {
+    var ammo_index = this.ammo_types.indexOf(ammo);
+    this.selected_ammo = this.ammo_types[ammo_index];
+    this.currentAmmoIndex = ammo_index;
+
+    switch (this.selected_ammo) {
+      case NORMAL:
+        this.image = playerSheet;
+        break;
+      case STUN:
+        this.image = playerSheet_Stun;
+        break;
+      case PUSH:
+        this.image = playerSheet_Push;
+        break;
+      case TURN:
+        this.image = playerSheet_Turn;
+        break;
+    }
+  };
+
   this.shoot = function () {
     const ammo_map = {
       [NORMAL]: this.ammo,
@@ -553,26 +615,7 @@ function playerClass() {
     this.shoot();
 
     if (this.keyHeld_Switch_Ammo) {
-      this.currentAmmoIndex++;
-      if (this.currentAmmoIndex > this.ammo_types.length - 1) {
-        this.currentAmmoIndex = 0;
-      }
-      this.selected_ammo = this.ammo_types[this.currentAmmoIndex];
-
-      switch (this.selected_ammo) {
-        case NORMAL:
-          this.image = playerSheet;
-          break;
-        case STUN:
-          this.image = playerSheet_Stun;
-          break;
-        case PUSH:
-          this.image = playerSheet_Push;
-          break;
-        case TURN:
-          this.image = playerSheet_Turn;
-          break;
-      }
+      this.switchAmmo();
 
       this.keyHeld_Switch_Ammo = false;
     }
