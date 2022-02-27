@@ -8,8 +8,8 @@
 6. Tutorial music too loud
 7. Courtyard music too loud
 8. Character blurring
-9.  Recolor stun shot and elec wall
-10. Hitflash on blockers
-11. Animation on pickups
-12. Add escape text in courtyard scenes
-13. Add shadows to characters
+9.  Hitflash on blockers
+10. Animation on pickups
+11. Add escape text in courtyard scenes
+12. Add shadows to characters
+13. Turn enemies away from player when hit with turn shot
