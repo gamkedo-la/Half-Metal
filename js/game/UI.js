@@ -76,6 +76,12 @@ function UIClass(x, y, width, height) {
           this.x_buffer + 170,
           this.text_height
         );
+      } else {
+        canvasContext.drawImage(
+          escape_text,
+          this.x_buffer + 170,
+          this.text_height - 1
+        );
       }
     }
   };

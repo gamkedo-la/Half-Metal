@@ -61,6 +61,7 @@ var outro_2 = document.createElement("img");
 var outro_3 = document.createElement("img");
 var blank = document.createElement("img");
 var full_ammo = document.createElement("img");
+var escape_text = document.createElement("img");
 
 var worldPics = [];
 
@@ -287,6 +288,10 @@ var image_list = [
   {
     var_name: full_ammo,
     file: "full_ammo.png",
+  },
+  {
+    var_name: escape_text,
+    file: "escape_text.png",
   },
 
   // ETC
