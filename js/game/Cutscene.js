@@ -17,6 +17,7 @@ function CutsceneClass(dialogue = [""]) {
   this.song = "intro_music";
   this.is_intro = true;
   this.is_outro = false;
+  this.is_credits = false;
   this.beats = [];
   this.current_image = null;
   this.key_skip_held = false;
@@ -88,31 +89,54 @@ function CutsceneClass(dialogue = [""]) {
     //   Check if we're at the last line of dialogue
     if (this.current_line > this.dialogue.length - 1) {
       this.endCutscene();
+      if (this.is_credits) {
+        currentMode = MENU_MODE;
+        currentLevel = 0;
+        level = { ...levels[currentLevel] };
+        loadLevel(level.level_map);
+      }
     }
   };
 
   this.endCutscene = function () {
+    if (this.is_credits) {
+      return;
+    }
+
     this.current_line = 0;
     this.revealed_chars.length = 0;
     this.revealed_line.length = 0;
     this.current_char = 0;
     this.text_timer = TEXT_SPEED;
     this.line_complete = false;
-
-    //   Exit cutscene
-    currentMode = PLAY_MODE;
+    
 
     if (this.is_intro) {
       currentMode = MENU_MODE;
       this.is_intro = false;
+      stopMusic();
+      return;
     }
 
     if (this.is_outro) {
       // Go to credits after final scene
-      currentMode = CREDITS;
+      const current_scene = SCENES.find(
+        (scene) => scene.id === "credits_scene"
+      );
+      stopMusic();
+      this.dialogue = current_scene.lines;
+      this.song = current_scene.song;
+      this.beats = current_scene.beats;
+      this.current_line = 0;
+      this.current_char = 0;
+      currentMode = CUTSCENE_MODE;
+      this.is_credits = true;
+      enemies.length = 0;
+      return;
     }
 
     stopMusic();
+    currentMode = PLAY_MODE;
   };
 
   this.progressText = function () {

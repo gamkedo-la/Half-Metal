@@ -660,6 +660,7 @@ function drawAll() {
         cutscene.current_line = 0;
         cutscene.current_char = 0;
         cutscene.is_outro = true;
+        cutscene.is_intro = false;
         levels[currentLevel].scene = null;
         currentMode = CUTSCENE_MODE;
       }
