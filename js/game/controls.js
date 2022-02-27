@@ -29,6 +29,12 @@ function Controls() {
       ),
       new ButtonClass(
         ...[, , , ,],
+        "Enter Key: Pause",
+        ...[, ,],
+        () => {}
+      ),
+      new ButtonClass(
+        ...[, , , ,],
         "BACK",
         ...[, ,],
         () => {
