@@ -6,6 +6,10 @@ function PauseMenu() {
         this.deactivateMenuButtons();
         unpauseGame();
       }),
+      new ButtonClass(...[, , , ,], "CONTROLS", ...[, ,], () => {
+        console.log("Clicked controls");
+        menu_stack.push(controls_screen);
+      }),
     ],
     name: "Pause",
     button_start_x: 87,
