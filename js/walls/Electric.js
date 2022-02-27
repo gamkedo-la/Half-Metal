@@ -16,13 +16,13 @@ function ElectricWallClass(orientation = HORIZONTAL) {
       { x: this.width, y: 0, h: this.height, w: this.width },
     ],
     closed_v: [
-      { x: 0, y: 0, h: 32, w: this.width },
-      { x: 0, y: 32, h: 32, w: this.width },
-      { x: 0, y: 64, h: 32, w: this.width },
-      { x: 0, y: 32, h: 32, w: this.width },
+      { x: 0, y: 0, h: 32, w: 16 },
+      { x: 0, y: 32, h: 32, w: 16 },
+      { x: 0, y: 64, h: 32, w: 16 },
+      { x: 0, y: 32, h: 32, w: 16},
     ],
     open_h: [{ x: 0, y: 0, h: this.height, w: this.width }],
-    open_v: [{ x: 0, y: 0, h: this.height, w: this.width }],
+    open_v: [{ x: 0, y: 0, h: 32, w: 16 }],
   };
   this.currentAnimation =
     this.orientation === HORIZONTAL ? "closed_h" : "closed_v";
