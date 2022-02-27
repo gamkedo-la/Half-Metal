@@ -89,7 +89,11 @@ function WallClass() {
     };
     effect.animator = new SpriteSheetAnimatorClass(effect, 3);
     walls.splice(walls.indexOf(this), 1);
-    playSound(sounds.destroy);
+    let playbackRate = 1;
+    let pan = 0;
+    let volume = 0.3;
+    let loop = false;
+    playSound(sounds.destroy, playbackRate, pan, volume, loop);
     delete this;
   };
 

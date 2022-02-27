@@ -1,11 +1,10 @@
 <!-- REMAINING ISSUES -->
 
-1. Fix one courtyard tile
-2. Tutorial music too loud
-3. Courtyard music too loud
-4. Character blurring
-5. Hitflash on blockers
-6. Animation on pickups
-7. Add escape text in courtyard scenes
-8. Add shadows to characters
-9.  Turn enemies away from player when hit with turn shot
+1. Tutorial music too loud
+2. Courtyard music too loud
+3. Character blurring
+4. Hitflash on blockers
+5. Animation on pickups
+6. Add escape text in courtyard scenes
+7. Add shadows to characters
+8.  Turn enemies away from player when hit with turn shot

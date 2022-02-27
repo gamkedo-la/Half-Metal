@@ -6,7 +6,7 @@ const GAME_SPEED = 60;
 var speedrun_mode = false;
 var play_time = 0;
 var fullscreen_mode = false;
-var master_volume = 1;
+var master_volume = 0.1;
 var paused = false;
 
 // GAME OBJECTS
@@ -215,7 +215,7 @@ function unpauseGame() {
 function playMusic() {
   let playbackRate = 1;
   let pan = 0;
-  let volume = 0.5;
+  let volume = 0.3;
   let loop = true;
 
   if (!song_playing && currentMode === MENU_MODE) {
@@ -233,6 +233,11 @@ function playMusic() {
   }
 
   if (!song_playing && currentMode === CUTSCENE_MODE) {
+    console.log("PLAY MUSIC");
+    if (cutscene.song === "tutorial_music") {
+      volume = 0.2;
+    }
+
     if (sounds[cutscene.song]) {
       current_song = playSound(
         sounds[cutscene.song],
@@ -241,6 +246,7 @@ function playMusic() {
         volume,
         loop
       );
+
       song_playing = true;
     }
     return;
@@ -262,6 +268,13 @@ function playSong(song, loop) {
   let playbackRate = 1;
   let pan = 0;
   let volume = 0.5;
+
+  if (song === "tutorial_music") {
+    volume = 0.1;
+  }
+  if (song === "courtyard_music") {
+    volume = 0.2;
+  }
 
   if (!song_playing && sounds[song]) {
     current_song = playSound(sounds[song], playbackRate, pan, volume, loop);
