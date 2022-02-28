@@ -9,6 +9,9 @@ function PauseMenu() {
       new ButtonClass(...[, , , ,], "CONTROLS", ...[, ,], () => {
         menu_stack.push(controls_screen);
       }),
+      new ButtonClass(...[, , , ,], "OPTIONS", ...[, ,], () => {
+        menu_stack.push(options_screen);
+      }),
       new ButtonClass(...[, , , ,], "AMMO: POWER SHOT", ...[, ,], () => {
         player.switchToAmmo(NORMAL);
       }),
