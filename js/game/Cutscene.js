@@ -89,12 +89,6 @@ function CutsceneClass(dialogue = [""]) {
     //   Check if we're at the last line of dialogue
     if (this.current_line > this.dialogue.length - 1) {
       this.endCutscene();
-      if (this.is_credits) {
-        currentMode = MENU_MODE;
-        currentLevel = 0;
-        level = { ...levels[currentLevel] };
-        loadLevel(level.level_map);
-      }
     }
   };
 
