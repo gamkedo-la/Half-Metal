@@ -270,10 +270,10 @@ function playSong(song, loop) {
   let volume = 0.5;
 
   if (song === "tutorial_music") {
-    volume = 0.1;
+    volume = 0.3;
   }
   if (song === "courtyard_music") {
-    volume = 0.2;
+    volume = 0.3;
   }
 
   if (!song_playing && sounds[song]) {
