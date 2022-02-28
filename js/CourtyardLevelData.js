@@ -1217,7 +1217,7 @@ const COURTYARD_LEVELS = [
     shots: [],
     name: "4-1",
     tileset: courtyard_tileset,
-    song: "courtyard_music",
+    song: "",
   },
   {
     scene: "courtyard",
