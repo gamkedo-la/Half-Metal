@@ -29,6 +29,12 @@ function Controls() {
       ),
       new ButtonClass(
         ...[, , , ,],
+        "Q Key: reset level",
+        ...[, ,],
+        () => {}
+      ),
+      new ButtonClass(
+        ...[, , , ,],
         "Enter Key: Pause",
         ...[, ,],
         () => {}
