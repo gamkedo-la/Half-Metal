@@ -9,6 +9,20 @@ async function loadSounds() {
 
   startedLoading = true;
   const soundList = [
+    { sndName: "text", theFile: "snd_text.wav" },
+
+    // MUSIC
+    { sndName: "intro_music", theFile: "bg_half_metal_intro.mp3" },
+    { sndName: "title_music", theFile: "bg_title.mp3" },
+    { sndName: "prison_music", theFile: "bg_prisonloop.mp3" },
+    { sndName: "tutorial_music", theFile: "bg_tutorial.mp3" },
+    { sndName: "armory_music", theFile: "bg_armory.mp3" },
+    { sndName: "processing_music", theFile: "bg_processingloop.mp3" },
+    { sndName: "courtyard_music", theFile: "bg_courtyard.mp3" },
+    { sndName: "alert_music", theFile: "bg_alertloop.mp3" },
+    { sndName: "outro_music", theFile: "bg_outro.mp3" },
+    // { sndName: "enemy_credits_music", theFile: "bg_enemy_credits.mp3" },
+
     // SFX
     { sndName: "shoot", theFile: "snd_shoot.wav" },
     { sndName: "destroy", theFile: "snd_destroy.wav" },
@@ -30,20 +44,7 @@ async function loadSounds() {
     { sndName: "elec_open", theFile: "snd_elecwall_open.wav" },
     { sndName: "level_transition", theFile: "snd_level_transition.wav" },
     { sndName: "pause", theFile: "snd_pause.wav" },
-    { sndName: "text", theFile: "snd_text.wav" },
     { sndName: "hunter", theFile: "hunter.mp3" },
-
-    // MUSIC
-    { sndName: "prison_music", theFile: "bg_prisonloop.mp3" },
-    { sndName: "armory_music", theFile: "bg_armory.mp3" },
-    { sndName: "processing_music", theFile: "bg_processingloop.mp3" },
-    { sndName: "courtyard_music", theFile: "bg_courtyard.mp3" },
-    { sndName: "alert_music", theFile: "bg_alertloop.mp3" },
-    { sndName: "intro_music", theFile: "bg_half_metal_intro.mp3" },
-    { sndName: "title_music", theFile: "bg_title.mp3" },
-    { sndName: "outro_music", theFile: "bg_outro.mp3" },
-    { sndName: "tutorial_music", theFile: "bg_tutorial.mp3" },
-    // { sndName: "enemy_credits_music", theFile: "bg_enemy_credits.mp3" },
   ];
 
   soundsToLoad = soundList.length;
