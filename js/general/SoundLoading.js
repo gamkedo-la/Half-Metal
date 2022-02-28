@@ -34,15 +34,15 @@ async function loadSounds() {
     { sndName: "hunter", theFile: "hunter.mp3" },
 
     // MUSIC
-    { sndName: "prison_music", theFile: "bg_prisonloop.wav" },
-    { sndName: "armory_music", theFile: "bg_armory.wav" },
-    { sndName: "processing_music", theFile: "bg_processingloop.wav" },
-    { sndName: "courtyard_music", theFile: "bg_courtyard.wav" },
+    { sndName: "prison_music", theFile: "bg_prisonloop.mp3" },
+    { sndName: "armory_music", theFile: "bg_armory.mp3" },
+    { sndName: "processing_music", theFile: "bg_processingloop.mp3" },
+    { sndName: "courtyard_music", theFile: "bg_courtyard.mp3" },
     { sndName: "alert_music", theFile: "bg_alertloop.mp3" },
-    { sndName: "intro_music", theFile: "bg_half_metal_intro.wav" },
-    { sndName: "title_music", theFile: "bg_title.wav" },
-    { sndName: "outro_music", theFile: "bg_outro.wav" },
-    { sndName: "tutorial_music", theFile: "bg_tutorial.wav" },
+    { sndName: "intro_music", theFile: "bg_half_metal_intro.mp3" },
+    { sndName: "title_music", theFile: "bg_title.mp3" },
+    { sndName: "outro_music", theFile: "bg_outro.mp3" },
+    { sndName: "tutorial_music", theFile: "bg_tutorial.mp3" },
     // { sndName: "enemy_credits_music", theFile: "bg_enemy_credits.mp3" },
   ];
 
