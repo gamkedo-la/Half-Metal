@@ -103,7 +103,6 @@ function CutsceneClass(dialogue = [""]) {
     this.current_char = 0;
     this.text_timer = TEXT_SPEED;
     this.line_complete = false;
-    
 
     if (this.is_intro) {
       currentMode = MENU_MODE;
@@ -131,6 +130,10 @@ function CutsceneClass(dialogue = [""]) {
 
     stopMusic();
     currentMode = PLAY_MODE;
+    player.keyHeld_North = false;
+    player.keyHeld_South = false;
+    player.keyHeld_West = false;
+    player.keyHeld_East = false;
   };
 
   this.progressText = function () {
