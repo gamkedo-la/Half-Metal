@@ -474,7 +474,7 @@ const SCENES = [
       "Flyer",
       "Hunter",
       "Blocker",
-      "Created by - ",
+      "Created by -",
       "Michael Monty Tanner\n- Project Lead,\nart, music, code",
       "Rodrigo Bonzerr Lopez\n- Art, music, code",
       "Cooper Willis\n- Art, music, code",
