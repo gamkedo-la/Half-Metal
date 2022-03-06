@@ -31,6 +31,7 @@ function LeaperClass() {
     if (other) {
       other.destroyed = true;
       other.health -= 1;
+      playSound(sounds.destroy);
     }
   };
 }
