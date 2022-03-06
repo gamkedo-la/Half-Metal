@@ -5693,7 +5693,7 @@ const CELL_LEVELS = [
   {
     level_map: [
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 0,
-      0, 0, 4, 0, 4, 0, 4, 0, 4, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 21, 21, 21, 21, 21, 5, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21,
       21, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 21, 21, 0, 0, 21, 5, 0, 0,
       0, 0, 0, 0, 0, 21, 0, 0, 21, 21, 0, 0, 21, 5, 0, 0, 0, 0, 0, 0, 0, 21, 0,
@@ -10206,7 +10206,7 @@ const CELL_LEVELS = [
   {
     level_map: [
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0, 4,
-      4, 4, 4, 0, 21, 21, 0, 0, 0, 0, 0, 3, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 0,
+      4, 4, 0, 0, 21, 21, 0, 0, 0, 0, 0, 3, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 0,
       0, 0, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 5, 0, 0, 0, 21, 21,
       0, 0, 0, 0, 0, 0, 21, 21, 1, 1, 1, 1, 1, 1, 21, 21, 0, 0, 0, 0, 0, 0, 21,
       21, 1, 1, 1, 1, 1, 1, 21, 21, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -11331,28 +11331,6 @@ const CELL_LEVELS = [
         type: "normal_shot",
         state: "moving",
         position: {
-          x: 41,
-          y: 29,
-        },
-        array_index: 18,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "normal_shot",
-        state: "moving",
-        position: {
-          x: 95,
-          y: 24,
-        },
-        array_index: 21,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "normal_shot",
-        state: "moving",
-        position: {
           x: 64,
           y: 24,
         },
@@ -11369,6 +11347,17 @@ const CELL_LEVELS = [
         },
         array_index: 19,
       },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "normal_shot",
+        state: "moving",
+        position: {
+          x: 38,
+          y: 25,
+        },
+        array_index: 18,
+      },
     ],
     name: "1-10",
     tileset: cell_tileset,
@@ -11381,7 +11370,7 @@ const CELL_LEVELS = [
       0, 1, 1, 0, 21, 21, 1, 4, 5, 1, 0, 5, 0, 0, 0, 0, 1, 5, 4, 1, 21, 21, 1,
       4, 5, 1, 0, 0, 0, 0, 0, 0, 1, 5, 4, 1, 21, 21, 0, 1, 1, 0, 0, 0, 0, 0, 0,
       0, 0, 1, 1, 0, 21, 21, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 21, 21,
-      0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 21, 21, 0, 0, 0, 1, 1, 5, 4, 4,
+      0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 21, 21, 0, 0, 0, 1, 1, 5, 0, 0,
       5, 1, 1, 0, 0, 0, 21, 21, 0, 0, 0, 1, 1, 5, 0, 3, 5, 1, 1, 0, 0, 0, 21,
       21, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 21, 21, 0, 0, 2, 0, 0, 0, 1,
       1, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
@@ -12726,17 +12715,6 @@ const CELL_LEVELS = [
         type: "normal_shot",
         state: "moving",
         position: {
-          x: 39,
-          y: 71,
-        },
-        array_index: 66,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "normal_shot",
-        state: "moving",
-        position: {
           x: 218,
           y: 56,
         },
@@ -12748,32 +12726,21 @@ const CELL_LEVELS = [
         type: "normal_shot",
         state: "moving",
         position: {
+          x: 42,
+          y: 71,
+        },
+        array_index: 66,
+      },
+      {
+        direction: 0,
+        orientation: "vertical",
+        type: "normal_shot",
+        state: "moving",
+        position: {
           x: 216,
-          y: 70,
+          y: 74,
         },
         array_index: 77,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "normal_shot",
-        state: "moving",
-        position: {
-          x: 122,
-          y: 137,
-        },
-        array_index: 135,
-      },
-      {
-        direction: 0,
-        orientation: "vertical",
-        type: "normal_shot",
-        state: "moving",
-        position: {
-          x: 138,
-          y: 137,
-        },
-        array_index: 136,
       },
     ],
     name: "1-11",
