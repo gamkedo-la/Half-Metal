@@ -2,6 +2,8 @@ var canvas, canvasContext;
 
 const GAME_SPEED = 60;
 
+// Practice commit - will remove
+
 // OPTIONS
 var speedrun_mode = false;
 var play_time = 0;
